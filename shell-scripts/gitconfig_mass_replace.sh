@@ -1,0 +1,9 @@
+function gitconfig_mass_replace () {
+    for DIR in ./*; do
+        if [ -d "$DIR" ]; then
+            cd $DIR;
+            sed -i.bak 's/'$1'/'$2'/g' .git/config;
+            cd ..
+        fi
+    done
+}

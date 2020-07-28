@@ -1,0 +1,18 @@
+#!/bin/bash
+
+container_name=dev-containers-php
+
+container_path="$(dirname "$0")"
+source "$container_path/base.sh"
+
+docker run \
+    --name $container_name-${NOW} \
+    --network=host \
+    --rm \
+    -i \
+    -v /tmp/dev-containers/php/vendor:/home/workdir/vendor:delegated \
+    -v $container_path:/home/workdir:delegated \
+    $container_name \
+    sh -c "./entrypoint.sh ./vendor/bin/php-cs-fixer $@"
+
+exit $?

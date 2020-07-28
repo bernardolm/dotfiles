@@ -1,0 +1,1 @@
+- Install video card driver https://launchpad.net/~oibaf/+archive/ubuntu/graphics-drivers

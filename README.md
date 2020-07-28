@@ -1,1 +1,1 @@
-# first-step-ubuntu
+# first-steps-ubuntu
