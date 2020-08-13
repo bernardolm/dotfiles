@@ -6,5 +6,4 @@ function sanitize_vscode () {
     /bin/rm -rf ~/.config/Code/GPUCache
     /bin/rm -rf ~/.config/Code/logs
     /bin/rm -rf ~/.config/Code/webrtc_event_logs
-    /bin/rm -rf ~/.config/Code/User/workspaceStorage
 }
