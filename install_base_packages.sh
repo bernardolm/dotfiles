@@ -4,7 +4,7 @@ source msg.sh
 
 msg_init 'base packages'
 
-sudo apt update
+# sudo apt update
 
 sudo apt install --yes --no-install-recommends \
     alacarte \
@@ -26,7 +26,6 @@ sudo apt install --yes --no-install-recommends \
     figlet \
     flashplugin-installer \
     fontconfig \
-    fonts-powerline \
     fritzing \
     gawk \
     gconf-editor \
@@ -47,6 +46,7 @@ sudo apt install --yes --no-install-recommends \
     gthumb \
     htop \
     iotop \
+    kubectl \
     libkeybinder-3.0-0 \
     libmysqlclient-dev \
     libreoffice-calc \
@@ -54,7 +54,6 @@ sudo apt install --yes --no-install-recommends \
     libxml2-utils \
     make \
     mysql-client-5.7 \
-    mysql-workbench \
     net-tools \
     nmap \
     nodejs \
@@ -66,10 +65,8 @@ sudo apt install --yes --no-install-recommends \
     openvpn \
     pandoc \
     pm-utils \
-    poedit \
     powertop \
     python-gtk2 \
-    python-pip \
     python-pygments \
     python3 \
     python3-cairo \
@@ -85,7 +82,6 @@ sudo apt install --yes --no-install-recommends \
     software-properties-common \
     sudo \
     trash-cli \
-    ttf-ancient-fonts \
     tweak \
     ubuntu-restricted-extras \
     virtualenv \
