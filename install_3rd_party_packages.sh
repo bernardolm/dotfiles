@@ -8,6 +8,7 @@ msg_init '3rd party packages'
 # [x] balena etcher  https://github.com/balena-io/etcher#debian-and-ubuntu-based-package-repository-gnulinux-x86x64
 # [x] bleachbit      https://www.bleachbit.org/download/linux
 # [x] docker         https://docs.docker.com/engine/install/ubuntu/
+# [x] dropbox        https://www.dropbox.com/install-linux
 # [x] fzf            https://github.com/junegunn/fzf
 # [x] gcloud         https://cloud.google.com/sdk/docs/downloads-apt-get
 # [x] guake          https://github.com/Guake/guake
@@ -111,9 +112,15 @@ if [[ "$(command -v tixati)" == "" ]]; then
    curl https://download2.tixati.com/download/tixati_2.75-1_amd64.deb -o /tmp/tixati.deb && sudo dpkg -i /tmp/tixati.deb
 fi
 
-if [[ "$(command -v zinit)" == "" ]]; then
+if [[ "$(command -v zinit)" == "off" ]]; then
    echo "installing zinit..."
    sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
+fi
+
+if [[ "$(command -v dropbox)" == "" ]]; then
+   echo "installing dropbox..."
+   nautilus --quit
+   curl https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb -o /tmp/dropbox.deb && sudo dpkg -i /tmp/dropbox.deb
 fi
 
 msg_end '3rd party packages'
