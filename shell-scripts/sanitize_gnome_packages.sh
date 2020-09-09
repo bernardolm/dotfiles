@@ -1,6 +1,21 @@
 function sanitize_gnome_packages() {
-    sudo apt purge --yes aisleriot deja-dup gnome-mahjongg gnome-mines gnome-sudoku \
-        ^gnome-todo ^remmina ^rhythmbox ^thunderbird ^totem ^transmission \
-        libreoffice-draw libreoffice-impress libreoffice-writer gnome-2048 \
-        glade xserver-xorg-input-wacom
+    sudo apt purge --yes
+        ^gnome-todo \
+        ^remmina \
+        ^rhythmbox \
+        ^thunderbird \
+        ^totem \
+        ^transmission \
+        aisleriot \
+        deja-dup \
+        glade \
+        xserver-xorg-input-wacom \
+        gnome-2048 \
+        gnome-mahjongg \
+        gnome-mines \
+        gnome-sudoku \
+        libreoffice-draw \
+        libreoffice-impress \
+        libreoffice-writer \
+        $$ true
 }
