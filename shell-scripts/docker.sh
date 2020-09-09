@@ -118,7 +118,7 @@ function sanitize_docker_install () {
         done
     fi
 
-    sudo apt purge ^docker ^containerd --yes
+    sudo apt purge '^docker' '^containerd' --yes
     sudo apt autoremove --purge --yes
 
     sanitize_docker_config_files
@@ -135,6 +135,7 @@ function install_docker () {
     sudo chmod g+rwx $HOME/.docker -R
     sudo groupadd docker || true
     sudo usermod -aG docker $USER || true
+    newgrp docker
 
     sudo systemctl enable docker
 }

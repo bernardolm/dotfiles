@@ -23,7 +23,6 @@ msg_welcome
 # run apt install -f after all
 
 
-source install_getkeys.sh
 source install_base_packages.sh
 source install_snap_packages.sh
 source install_3rd_party_packages.sh
@@ -43,6 +42,6 @@ fc-cache -f -v
 ## Reload gconfs
 gconftool-2 --shutdown
 gconftool-2 --spawn
-
+pip3 install -U --user pygments
 
 echo -e '\n\nthats all folks\nbye'
