@@ -55,12 +55,6 @@ fc-cache -f -v > /dev/null
 gnome-extensions disable ubuntu-dock@ubuntu.com
 pip3 install -U --user pygments
 
-## VS Code
-msg_init 'running vs code post install commands'
-xdg-mime default code.desktop text/plain
-sudo update-alternatives --install /usr/bin/editor editor /snap/bin/code 0
-sudo update-alternatives --set editor /snap/bin/code
-
 ## Reload gconfs
 gconftool-2 --shutdown
 gconftool-2 --spawn
