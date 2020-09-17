@@ -63,9 +63,6 @@ sudo apt install --yes --no-install-recommends \
     nmap \
     nodejs \
     npm \
-    ntfs-3g \
-    ntfs-3g-dev \
-    numix-gtk-theme \
     openssh-server \
     openvpn \
     pandoc \
