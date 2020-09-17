@@ -1,47 +1,68 @@
 #!/bin/bash
 
+source msg.sh
+
 msg_welcome() {
-    echo '                                                                                                  '
-    echo '                                                                                                  '
-    echo ' __    ____  ____  _ ____     ___   __                                                            '
-    echo '(  )  (  __)(_  _)(// ___)   / __) /  \                                                           '
-    echo '/ (_/\ ) _)   )(    \___ \  ( (_ \(  O )                                                          '
-    echo '\____/(____) (__)   (____/   \___/ \__/                                                           '
-    echo ' ____  __  ____  ____  ____    ____  ____  ____  ____  ____    _  _  ____  _  _  __ _  ____  _  _ '
-    echo '(  __)(  )(  _ \/ ___)(_  _)  / ___)(_  _)(  __)(  _ \/ ___)  / )( \(  _ \/ )( \(  ( \(_  _)/ )( \'
-    echo ' ) _)  )(  )   /\___ \  )(    \___ \  )(   ) _)  ) __/\___ \  ) \/ ( ) _ () \/ (/    /  )(  ) \/ ('
-    echo '(__)  (__)(__\_)(____/ (__)   (____/ (__) (____)(__)  (____/  \____/(____/\____/\_)__) (__) \____/'
-    echo '                                                                                                  '
-    echo '                                                                                                  '
-    echo '                                                                                                  '
+    echo ''
+    echo ''
+    echo ' __    ____  ____  _ ____     ___   __  '
+    echo '(  )  (  __)(_  _)(// ___)   / __) /  \ '
+    echo '/ (_/\ ) _)   )(    \___ \  ( (_ \(  O )'
+    echo '\____/(____) (__)   (____/   \___/ \__/ '
+    echo ' ____  __  ____  ____  ____ '
+    echo '(  __)(  )(  _ \/ ___)(_  _)'
+    echo ' ) _)  )(  )   /\___ \  )(  '
+    echo '(__)  (__)(__\_)(____/ (__) '
+    echo ' ____  ____  ____  ____  ____ '
+    echo '/ ___)(_  _)(  __)(  _ \/ ___)'
+    echo '\___ \  )(   ) _)  ) __/\___ \'
+    echo '(____/ (__) (____)(__)  (____/'
+    echo ' _  _  ____  _  _  __ _  ____  _  _ '
+    echo '/ )( \(  _ \/ )( \(  ( \(_  _)/ )( \'
+    echo ') \/ ( ) _ () \/ (/    /  )(  ) \/ ('
+    echo '\____/(____/\____/\_)__) (__) \____/'
+    echo ''
+    echo ''
+    echo ''
 }
 
 msg_welcome
 
-# TODO:
-# install get-keys and run after update sources
-# run apt install -f after all
+# STEPS:
+# 1. ask to remove /etc/apt/sources.list.d and link with related back folder
+# 2. run get keys
+# 3. apt update and apt upgrade
+# 4. install base packages
+# 5. install snap packages
+# 6. install 3rd packages
+# 7. restore gnome
+# 8. restore guake
 
+## Upgrade ubuntu
+msg_init 'upgrading ubuntu'
+sudo apt upgrade --yes
 
-source install_base_packages.sh
-source install_snap_packages.sh
-source install_3rd_party_packages.sh
-source refresh-all-git.sh
+## Run install scripts
+./install_base_packages.sh
+./install_snap_packages.sh
+./install_3rd_party_packages.sh
 
 # post install
-
-sudo apt install -f
+msg_init 'running post install commands'
+[ ! -d "/var/log/dropbox_schedule/" ] && mkdir /var/log/dropbox_schedule/
+chsh -s $(which zsh)
+fc-cache -f -v > /dev/null
+gnome-extensions disable ubuntu-dock@ubuntu.com
+pip3 install -U --user pygments
 
 ## VS Code
+msg_init 'running vs code post install commands'
 xdg-mime default code.desktop text/plain
-sudo update-alternatives --set editor /usr/bin/code
-## Upgrade machine
-sudo apt upgrade --yes
-## Update fonts cahe
-fc-cache -f -v
+sudo update-alternatives --install /usr/bin/editor editor /snap/bin/code 0
+sudo update-alternatives --set editor /snap/bin/code
+
 ## Reload gconfs
 gconftool-2 --shutdown
 gconftool-2 --spawn
-pip3 install -U --user pygments
 
-echo -e '\n\nthats all folks\nbye'
+echo -e '\n\n🏁 thats all folks... bye!'
