@@ -1,4 +1,4 @@
-function get_keys() {
+get_keys () {
     # ha.pool.sks-keyservers.net
     # hkp://keys.gnupg.net
     # http://keyserver.ubuntu.com

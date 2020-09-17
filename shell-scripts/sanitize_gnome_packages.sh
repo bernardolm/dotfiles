@@ -1,4 +1,4 @@
-function sanitize_gnome_packages() {
+sanitize_gnome_packages () {
     sudo apt purge --yes
         ^gnome-todo \
         ^remmina \

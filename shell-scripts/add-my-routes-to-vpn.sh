@@ -1,4 +1,4 @@
-function add_my_routes_to_vpn() {
+add_my_routes_to_vpn () {
     ADDRS=$(<$SYNC_PATH/scripts/domains-to-route-to-vpn.txt)
 
     echo -e "Adding routes:\n${ADDRS[@]}\n\n"
