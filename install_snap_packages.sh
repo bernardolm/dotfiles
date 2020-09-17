@@ -2,20 +2,22 @@
 
 source msg.sh
 
-msg_init 'snap packages'
+msg_init 'snap packages install'
 
 sudo snap refresh
 
 sudo snap install \
     dbeaver-ce \
     glimpse-editor \
-    gtk-common-themes \
-    gtk2-common-themes \
     postman \
     redis-desktop-manager \
-    snap-store \
     spotify \
     sweethome3d-homedesign \
+    && true
+
+sudo snap install \
+    code \
+    --classic \
     && true
 
 msg_end 'snap packages'
