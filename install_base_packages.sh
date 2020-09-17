@@ -2,9 +2,13 @@
 
 source msg.sh
 
-msg_init 'base packages'
+msg_init 'base packages install'
 
 # sudo apt update
+
+# Baobab - Analisador de Uso de Disco
+# BleachBit - Clean Your System and Free Disk Space
+# Pandoc - a universal document converter
 
 sudo apt install --yes --no-install-recommends \
     alacarte \
@@ -21,7 +25,6 @@ sudo apt install --yes --no-install-recommends \
     curl \
     dconf-cli \
     dconf-editor \
-    diffuse \
     dkms \
     figlet \
     flashplugin-installer \
@@ -39,6 +42,7 @@ sudo apt install --yes --no-install-recommends \
     gnome-panel \
     gnome-shell-extensions \
     gnome-tweak-tool \
+    gnupg \
     gnupg-agent \
     gparted \
     graphviz \
@@ -53,6 +57,7 @@ sudo apt install --yes --no-install-recommends \
     libutempter0 \
     libxml2-utils \
     make \
+    meld \
     mysql-client-5.7 \
     net-tools \
     nmap \
@@ -90,8 +95,6 @@ sudo apt install --yes --no-install-recommends \
     zsh \
     && true
 
-sudo apt purge --yes \
-    fonts-noto-cjk \
-    && true
+sudo apt install -f
 
 msg_end 'base packages'
