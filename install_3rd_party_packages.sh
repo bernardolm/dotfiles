@@ -4,10 +4,11 @@ source msg.sh
 
 msg_init '3rd party packages install'
 
-# [ ] wine (stag)    To use Sketchup 2017
+# [x] winehq-staging https://wiki.winehq.org/Ubuntu - https://plus.diolinux.com.br/t/sketchup-no-linux/10347/6 - To use Sketchup 2017
 # [x] ag (ack)       https://github.com/ggreer/the_silver_searcher
 # [x] balena etcher  https://github.com/balena-io/etcher#debian-and-ubuntu-based-package-repository-gnulinux-x86x64
 # [x] bleachbit      https://www.bleachbit.org/download/linux
+# [x] chrome         https://github.com/zdharma/zinit
 # [x] docker         https://docs.docker.com/engine/install/ubuntu/
 # [x] dropbox        https://www.dropbox.com/install-linux
 # [x] fzf            https://github.com/junegunn/fzf
@@ -56,6 +57,15 @@ if [[ "$(command -v subl)" == "" ]]; then
    sudo apt install --yes sublime-text
 fi
 
+if [[ "$(command -v wine)" == "" ]]; then
+   echo -e "\n💾 installing wine..."
+   sudo dpkg --add-architecture i386
+   # wget -nc https://dl.winehq.org/wine-builds/winehq.key
+   # sudo apt-key add winehq.key
+   # sudo apt install --yes --install-recommends libvulkan1 libvulkan-dev vulkan-utils winehq-staging winetricks
+   sudo apt install --yes libvulkan1 libvulkan-dev vulkan-utils winehq-staging winetricks
+fi
+
 if [[ "$(command -v todo.sh)" == "" ]]; then
    echo -e "\n💾 installing todo.sh..."
    mkdir tmp
@@ -91,6 +101,11 @@ fi
 if [[ "$(command -v bleachbit)" == "" ]]; then
    echo -e "\n💾 installing bleachbit..."
    curl https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1904.deb -o /tmp/bleachbit.deb && sudo dpkg -i /tmp/bleachbit.deb
+fi
+
+if [[ "$(command -v google-chrome)" == "" ]]; then
+   echo -e "\n💾 installing google-chrome..."
+   sudo apt install --yes google-chrome-stable
 fi
 
 if [[ "$(command -v stremio)" == "" ]]; then
