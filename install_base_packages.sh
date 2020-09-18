@@ -33,6 +33,7 @@ sudo apt install --yes --no-install-recommends \
     gawk \
     gconf-editor \
     gdebi \
+    gnome-calendar \
     gettext \
     gir1.2-keybinder-3.0 \
     gir1.2-notify-0.7 \
