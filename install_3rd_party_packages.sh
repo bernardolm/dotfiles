@@ -4,7 +4,6 @@ source msg.sh
 
 msg_init '3rd party packages install'
 
-# [x] winehq-staging https://wiki.winehq.org/Ubuntu - https://plus.diolinux.com.br/t/sketchup-no-linux/10347/6 - To use Sketchup 2017
 # [x] ag (ack)       https://github.com/ggreer/the_silver_searcher
 # [x] balena etcher  https://github.com/balena-io/etcher#debian-and-ubuntu-based-package-repository-gnulinux-x86x64
 # [x] bleachbit      https://www.bleachbit.org/download/linux
@@ -13,12 +12,14 @@ msg_init '3rd party packages install'
 # [x] dropbox        https://www.dropbox.com/install-linux
 # [x] fzf            https://github.com/junegunn/fzf
 # [x] gcloud         https://cloud.google.com/sdk/docs/downloads-apt-get
+# [x] golang         https://golang.org/doc/install
 # [x] guake          https://github.com/Guake/guake
 # [x] stacer         https://github.com/oguzhaninan/Stacer
 # [x] stremio        https://www.stremio.com/downloads#linux
 # [x] sublime text   https://www.sublimetext.com/docs/3/linux_repositories.html
 # [x] tixati         https://www.tixati.com/download/linux.html
 # [x] todo.sh        https://github.com/todotxt/todo.txt-cli
+# [x] winehq-staging https://wiki.winehq.org/Ubuntu - https://plus.diolinux.com.br/t/sketchup-no-linux/10347/6 - To use Sketchup 2017
 # [x] zinit          https://github.com/zdharma/zinit
 
 
@@ -134,6 +135,13 @@ if [[ "$(command -v gcloud)" == "" ]]; then
    echo -e "\n💾 installing gcloud..."
    sudo apt install --yes google-cloud-sdk
    # gcloud init
+fi
+
+if [[ "$(command -v go)" == "" ]]; then
+   echo -e "\n💾 installing go..."
+   wget --quiet https://golang.org/dl/go1.15.2.linux-amd64.tar.gz -O /tmp/go.tar.gz
+   sudo /bin/rm -rf $USER/golang/pkg
+   sudo tar -C /usr/local -xzf /tmp/go.tar.gz
 fi
 
 sudo apt install -f
