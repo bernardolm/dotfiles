@@ -6,9 +6,10 @@ msg_init 'base packages install'
 
 # sudo apt update
 
-# Baobab - Analisador de Uso de Disco
-# BleachBit - Clean Your System and Free Disk Space
-# Pandoc - a universal document converter
+# baobab - Analisador de Uso de Disco - https://help.ubuntu.com/community/Baobab
+# bleachbit - Clean Your System and Free Disk Space - https://www.bleachbit.org
+# pandoc - a universal document converter - https://pandoc.org
+# silversearcher-ag - The Silver Searcher - https://github.com/ggreer/the_silver_searcher
 
 sudo apt install --yes --no-install-recommends \
     alacarte \
@@ -33,18 +34,19 @@ sudo apt install --yes --no-install-recommends \
     gawk \
     gconf-editor \
     gdebi \
-    gnome-calendar \
     gettext \
     gir1.2-keybinder-3.0 \
     gir1.2-notify-0.7 \
     gir1.2-vte-2.91 \
     gir1.2-wnck-3.0 \
     git \
+    gnome-calendar \
     gnome-panel \
     gnome-shell-extensions \
     gnome-tweak-tool \
     gnupg \
     gnupg-agent \
+    google-chrome-stable \
     gparted \
     graphviz \
     gsettings-desktop-schemas \
@@ -83,6 +85,7 @@ sudo apt install --yes --no-install-recommends \
     silversearcher-ag \
     smem \
     software-properties-common \
+    sublime-text \
     sudo \
     trash-cli \
     tweak \
