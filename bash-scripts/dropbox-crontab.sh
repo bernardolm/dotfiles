@@ -1,8 +1,8 @@
 #!/bin/bash
 
-function dropbox_schedule () {
+function dropbox_schedule() {
     echo -e "running dropbox..."
-    dropbox start
+    dropbox start >/dev/null
     echo -e "giving 5m to dropbox work..."
     sleep 5m
     echo -e "stopping dropbox..."

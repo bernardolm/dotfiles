@@ -57,6 +57,8 @@ if [[ "$(command -v dropbox)" == "" ]]; then
    echo -e "\n💾 installing dropbox..."
    nautilus --quit
    curl https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb -o /tmp/dropbox.deb && sudo dpkg -i /tmp/dropbox.deb
+   sudo mkdir -p /var/log/dropbox_schedule
+   sudo chown -R $USER:$USER /var/log/dropbox_schedule
 fi
 
 if [[ "$(command -v fzf)" == "" ]]; then
