@@ -55,6 +55,7 @@ sudo apt install --yes --no-install-recommends \
     iotop \
     kubectl \
     libkeybinder-3.0-0 \
+    libmemcached-tools \
     libmysqlclient-dev \
     libreoffice-calc \
     libutempter0 \
@@ -93,8 +94,7 @@ sudo apt install --yes --no-install-recommends \
     virtualenv \
     wget \
     xclip \
-    zsh \
-    && true
+    zsh
 
 sudo apt install -f
 

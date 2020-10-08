@@ -1,4 +1,4 @@
-function install_go_tools () {
+function install_go_tools() {
     echo "installing tool golang packages..."
 
     # General helper packages
@@ -38,6 +38,7 @@ function install_go_tools () {
     GO111MODULE=on GOPATH=~/gopath-tools go get -v golang.org/x/tools/cmd/guru
     GO111MODULE=on GOPATH=~/gopath-tools go get -v golang.org/x/tools/gopls
     GO111MODULE=on GOPATH=~/gopath-tools go get -v honnef.co/go/tools/...
+    GO111MODULE=on GOPATH=~/gopath-tools go get -v mvdan.cc/sh/v3/cmd/shfmt
     GO111MODULE=on GOPATH=~/gopath-tools go get -v winterdrache.de/goformat/goformat
 
     echo "installing OK"
