@@ -5,15 +5,15 @@ DOCKER_CONTAINERS="$DOCKER ps -aq"
 DOCKER_IMAGES_DANGLING="$DOCKER images -q -f 'dangling=true'"
 DOCKER_IMAGES="$DOCKER images -aq"
 
-function check_docker_install () {
+function check_docker_install() {
     command -v docker >/dev/null 2>&1
 }
 
-function check_docker_running () {
+function check_docker_running() {
     systemctl is-active --quiet docker && echo 1
 }
 
-function stop_docker_containers () {
+function stop_docker_containers() {
     echo 'stopping docker containers'
     check_docker_install || return true
     for id in $(eval $DOCKER_CONTAINERS); do
@@ -22,7 +22,7 @@ function stop_docker_containers () {
     done
 }
 
-function sanitize_docker_containers () {
+function sanitize_docker_containers() {
     echo 'removing docker containers'
     check_docker_install || return true
     for id in $(eval $DOCKER_CONTAINERS); do
@@ -31,7 +31,7 @@ function sanitize_docker_containers () {
     done
 }
 
-function sanitize_docker_images () {
+function sanitize_docker_images() {
     echo 'removing docker images'
     check_docker_install || return true
     for id in $(eval $DOCKER_IMAGES); do
@@ -40,7 +40,7 @@ function sanitize_docker_images () {
     done
 }
 
-function sanitize_docker_untagged () {
+function sanitize_docker_untagged() {
     echo 'removing untagged docker images'
     check_docker_install || return true
     for id in $(eval $DOCKER_IMAGES_DANGLING); do
@@ -49,26 +49,26 @@ function sanitize_docker_untagged () {
     done
 }
 
-function sanitize_docker () {
+function sanitize_docker() {
     stop_docker_containers
     sanitize_docker_containers
     sanitize_docker_untagged
     sanitize_docker_images
 }
 
-function sanitize_docker_logs () {
+function sanitize_docker_logs() {
     echo 'removing docker logs'
     check_docker_install || return true
     for container_id in $(eval $DOCKER_CONTAINERS); do
         echo 'catching '$container_id' log path'
-        file=$($DOCKER inspect --format='{{.LogPath}}' $container_id);
+        file=$($DOCKER inspect --format='{{.LogPath}}' $container_id)
         echo 'container '$container_id' log file in '$file', truncating'
         sudo sh -c "truncate -s 0 $file"
         echo 'done to container '$container_id
     done
 }
 
-function give_me_back_my_docker () {
+function give_me_back_my_docker() {
     echo 'recovering docker app control'
     check_docker_install || return true
     for id in $(eval $DOCKER_CONTAINERS); do
@@ -77,7 +77,7 @@ function give_me_back_my_docker () {
     done
 }
 
-function sanitize_docker_config_files () {
+function sanitize_docker_config_files() {
     echo "removing docker install files"
     /bin/rm -rf ~/.docker
     sudo /bin/rm -rf /etc/apparmor.d/docker
@@ -91,7 +91,7 @@ function sanitize_docker_config_files () {
     sudo /bin/rm -rf /var/run/docker.sock
 }
 
-function sanitize_docker_network () {
+function sanitize_docker_network() {
     echo "reseting docker network config"
     if [[ "$DOCKER0_IP" != "" ]]; then
         sudo ip addr del dev docker0 $DOCKER0_IP/16
@@ -99,7 +99,7 @@ function sanitize_docker_network () {
     fi
 }
 
-function sanitize_docker_install () {
+function sanitize_docker_install() {
     echo "removing docker installation"
 
     if [[ $(check_docker_running) -eq 1 ]]; then
@@ -125,7 +125,7 @@ function sanitize_docker_install () {
     sanitize_docker_network
 }
 
-function install_docker () {
+function install_docker() {
     echo "installing docker"
     check_docker_install && return true
 
@@ -140,13 +140,17 @@ function install_docker () {
     sudo systemctl enable docker
 }
 
-function install_ns0 () {
+function install_ns0() {
     echo "installing ns0"
     check_docker_install || return true
+    git -C $WORKSPACE_USER/docker-dns checkout .
+    git -C $WORKSPACE_USER/docker-dns checkout master
+    git -C $WORKSPACE_USER/docker-dns fetch --prune
+    git -C $WORKSPACE_USER/docker-dns pull
     make -C $WORKSPACE_USER/docker-dns install tag=hu/ns0 name=ns0 tld=hud
 }
 
-function reset_docker () {
+function reset_docker() {
     echo "reseting docker"
     sanitize_docker_install
     install_docker
