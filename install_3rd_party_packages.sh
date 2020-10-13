@@ -115,10 +115,10 @@ fi
 if [[ "$(command -v todo.sh)" == "" ]]; then
    echo -e "\n💾 installing todo.sh..."
    mkdir tmp
-   curl -s -L https://github.com/todotxt/todo.txt-cli/releases/download/v2.11.0/todo.txt_cli-2.11.0.zip -o tmp/todo.zip
+   curl -s -L https://github.com/todotxt/todo.txt-cli/releases/download/v2.12.0/todo.txt_cli-2.12.0.zip -o tmp/todo.zip
    unzip tmp/todo.zip -d tmp/todo
-   mv tmp/todo/todo.txt_cli-2.11.0/todo.sh $SYNC_PATH/bin
-   mv tmp/todo/todo.txt_cli-2.11.0/todo_completion $SYNC_PATH/todo_txt
+   yes | mv tmp/todo/todo.txt_cli-2.12.0.dirty/todo.sh $SYNC_PATH/bin
+   yes | mv tmp/todo/todo.txt_cli-2.12.0.dirty/todo_completion $SYNC_PATH/todo_txt
    /bin/rm -rf tmp/todo tmp/todo.zip
 fi
 

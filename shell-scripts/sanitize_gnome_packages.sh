@@ -1,11 +1,11 @@
-sanitize_gnome_packages () {
-    sudo apt purge --yes
-        ^gnome-todo \
-        ^remmina \
-        ^rhythmbox \
-        ^thunderbird \
-        ^totem \
-        ^transmission \
+function sanitize_gnome_packages() {
+    sudo apt purge --yes \
+        '^gnome-todo' \
+        '^remmina' \
+        '^rhythmbox' \
+        '^thunderbird' \
+        '^totem' \
+        '^transmission' \
         aisleriot \
         deja-dup \
         glade \
@@ -16,6 +16,5 @@ sanitize_gnome_packages () {
         gnome-sudoku \
         libreoffice-draw \
         libreoffice-impress \
-        libreoffice-writer \
-        $$ true
+        libreoffice-writer
 }
