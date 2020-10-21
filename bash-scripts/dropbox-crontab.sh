@@ -9,7 +9,7 @@ function dropbox_schedule() {
     dropbox stop
 }
 
-dropbox_schedule_log_dir="$HOME/var/log/dropbox_schedule"
+dropbox_schedule_log_dir="$HOME/tmp/var/log/dropbox_schedule"
 
 if [ ! -d "$dropbox_schedule_log_dir" ]; then
     echo -e "creating dropbox log folder '$dropbox_schedule_log_dir'..."
