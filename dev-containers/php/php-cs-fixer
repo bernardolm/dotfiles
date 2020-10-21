@@ -10,7 +10,7 @@ docker run \
     --network=host \
     --rm \
     -i \
-    -v /tmp/dev-containers/php/vendor:/home/workdir/vendor:delegated \
+    -v $USER_TMP/dev-containers/php/vendor:/home/workdir/vendor:delegated \
     -v $container_path:/home/workdir:delegated \
     $container_name \
     sh -c "./entrypoint.sh ./vendor/bin/php-cs-fixer $@"

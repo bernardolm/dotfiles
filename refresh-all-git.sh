@@ -2,8 +2,8 @@
 
 TIMENOW=$(date +"%Y%m%d%H%M%S")
 
-mkdir -p /tmp/git-update-${TIMENOW}
-TEMP_PATH=/tmp/git-update-${TIMENOW}
+mkdir -p $USER_TMP/git-update/${TIMENOW}
+TEMP_PATH=$USER_TMP/git-update/${TIMENOW}
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
@@ -33,48 +33,46 @@ NC="\033[0m" # No Color
 
 WAIT_FOR=0
 
-do_bkp()
-{
+do_bkp() {
     FROM="$1"
     TO="../_$2-bkp-${TIMENOW}"
     mv ${FROM} ${TO}
 }
 
-update_repo()
-{
+update_repo() {
     REPO_NAME=$(basename $1)
     THIS_LOG=${TEMP_PATH}/${REPO_NAME}.log
     touch ${THIS_LOG}
 
     cd $1
 
-    RANDOM_NUMBER=$(((RANDOM%14)+1))
+    RANDOM_NUMBER=$(((RANDOM % 14) + 1))
 
-    echo -e ${COLORIZE[$RANDOM_NUMBER]} >> ${THIS_LOG} 2>&1
+    echo -e ${COLORIZE[$RANDOM_NUMBER]} >>${THIS_LOG} 2>&1
 
     if [[ ${REPO_NAME} =~ ^_+.*$ ]]; then
-        echo -e "skipping ${REPO_NAME}" >> ${THIS_LOG} 2>&1
+        echo -e "skipping ${REPO_NAME}" >>${THIS_LOG} 2>&1
     elif [ -d ".git" ]; then
-        echo -e "starting ${REPO_NAME} after "$2"s" >> ${THIS_LOG} 2>&1
+        echo -e "starting ${REPO_NAME} after "$2"s" >>${THIS_LOG} 2>&1
         sleep $WAIT_FOR
 
-        echo -e "fetching ${REPO_NAME}" >> ${THIS_LOG} 2>&1
-        git stash >> ${THIS_LOG} 2>&1
-        git fetch --all --prune >> ${THIS_LOG} 2>&1
-        git checkout master >> ${THIS_LOG} 2>&1
-        git pull origin master >> ${THIS_LOG} 2>&1
-        echo -e "\n\n" >> ${THIS_LOG} 2>&1
+        echo -e "fetching ${REPO_NAME}" >>${THIS_LOG} 2>&1
+        git stash >>${THIS_LOG} 2>&1
+        git fetch --all --prune >>${THIS_LOG} 2>&1
+        git checkout master >>${THIS_LOG} 2>&1
+        git pull origin master >>${THIS_LOG} 2>&1
+        echo -e "\n\n" >>${THIS_LOG} 2>&1
 
         if [[ $(cat ${THIS_LOG} | grep -c "Repository not found") > 0 ]]; then
-            echo -e "backuping ${REPO_NAME}, repository not found" >> ${THIS_LOG} 2>&1
+            echo -e "backuping ${REPO_NAME}, repository not found" >>${THIS_LOG} 2>&1
             do_bkp $1 ${REPO_NAME}
         fi
     else
-        echo -e "backuping ${REPO_NAME}, is a obsolete repository" >> ${THIS_LOG} 2>&1
+        echo -e "backuping ${REPO_NAME}, is a obsolete repository" >>${THIS_LOG} 2>&1
         do_bkp $1 ${REPO_NAME}
     fi
 
-    echo -e ${NC} >> ${THIS_LOG} 2>&1
+    echo -e ${NC} >>${THIS_LOG} 2>&1
 
     cat $THIS_LOG
 
@@ -82,12 +80,12 @@ update_repo()
 }
 
 iter_paths() {
-    `echo $1` | while read f; do
+    $(echo $1) | while read f; do
         if [[ $f == *"first-steps-ubuntu"* ]]; then
             continue
         fi
 
-        WAIT_FOR=$((WAIT_FOR+1))
+        WAIT_FOR=$((WAIT_FOR + 1))
         update_repo $f $WAIT_FOR &
     done
 }
@@ -98,4 +96,4 @@ iter_paths "find $WORKSPACE_USER -mindepth 1 -maxdepth 1 -type d"
 iter_paths "find $GOPATH/src/github.com/$GITHUB_ORG -mindepth 1 -maxdepth 1 -type d"
 iter_paths "find $GOPATH/src/github.com/$GITHUB_USER -mindepth 1 -maxdepth 1 -type d"
 
-sleep $((WAIT_FOR+(15*60))) && /bin/rm -rf $TEMP_PATH
+sleep $((WAIT_FOR + (15 * 60))) && /bin/rm -rf $TEMP_PATH

@@ -5,9 +5,9 @@ container_name=dev-containers-php-dev
 container_path="$(dirname "$0")"
 source "$container_path/base.sh"
 
-if [[ ! "$(docker ps -q -f "name=$container_name" 2> /dev/null)" == "" ]]; then
+if [[ ! "$(docker ps -q -f "name=$container_name" 2>/dev/null)" == "" ]]; then
     echo -n "stopping $container_name"
-    docker stop $container_name 2> /dev/null
+    docker stop $container_name 2>/dev/null
 fi
 
 docker run \
@@ -15,7 +15,7 @@ docker run \
     --rm \
     -d \
     -i \
-    -v /tmp/dev-containers/php/vendor:/home/workdir/vendor:delegated \
+    -v $USER_TMP/dev-containers/php/vendor:/home/workdir/vendor:delegated \
     -v $container_path:/home/workdir:delegated \
     $container_name
 
