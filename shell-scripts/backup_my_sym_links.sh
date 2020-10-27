@@ -1,12 +1,11 @@
 function backup_my_sym_links() {
-    find / -type l -ls | awk -F" " '{print "/bin/rm $11 && ln -sf " $13,$11}\' | grep '/home/'$USER |
+    find / -type l -ls 2>/dev/null | awk -F" " '{print "/bin/rm "$11" && ln -sf " $13,$11}\' | grep '/home/'$USER |
         grep -iv '.mozilla' |
         grep -iv '.oh-my-zsh/' |
         grep -iv '.wine' |
         grep -iv '/.themes/' |
         grep -iv '/.zinit/' |
         grep -iv '/app/' |
-        grep -iv '/Dropbox' |
         grep -iv '/proc' |
         grep -iv '/tmp/' |
         grep -iv '/workspaces/' |
