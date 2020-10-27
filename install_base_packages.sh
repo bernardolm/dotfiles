@@ -45,7 +45,6 @@ sudo apt install --yes --no-install-recommends \
     gnome-panel \
     gnome-shell-extensions \
     gnome-tweak-tool \
-    gnome-weather \
     gnupg \
     gnupg-agent \
     google-chrome-stable \
