@@ -41,15 +41,18 @@ sudo apt install --yes --no-install-recommends \
     gir1.2-wnck-3.0 \
     git \
     gnome-calendar \
+    gnome-clocks \
     gnome-panel \
     gnome-shell-extensions \
     gnome-tweak-tool \
+    gnome-weather \
     gnupg \
     gnupg-agent \
     google-chrome-stable \
     gparted \
     graphviz \
     gsettings-desktop-schemas \
+    gsmartcontrol \
     gthumb \
     htop \
     iotop \
@@ -84,6 +87,7 @@ sudo apt install --yes --no-install-recommends \
     samba \
     screen \
     silversearcher-ag \
+    smartmontools \
     smem \
     software-properties-common \
     sublime-text \
@@ -92,6 +96,7 @@ sudo apt install --yes --no-install-recommends \
     tweak \
     ubuntu-restricted-extras \
     virtualenv \
+    vlc \
     wget \
     xclip \
     zsh
