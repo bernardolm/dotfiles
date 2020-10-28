@@ -140,19 +140,9 @@ function install_docker() {
     sudo systemctl enable docker
 }
 
-function install_ns0() {
-    echo "installing ns0"
-    check_docker_install || return true
-    git -C $WORKSPACE_USER/docker-dns checkout .
-    git -C $WORKSPACE_USER/docker-dns checkout version/1.x
-    git -C $WORKSPACE_USER/docker-dns fetch --prune
-    git -C $WORKSPACE_USER/docker-dns pull
-    make -C $WORKSPACE_USER/docker-dns install tag=hu/ns0 name=ns0 tld=hud
-}
-
 function reset_docker() {
     echo "reseting docker"
     sanitize_docker_install
     install_docker
-    install_ns0
+    install_dockerdns
 }
