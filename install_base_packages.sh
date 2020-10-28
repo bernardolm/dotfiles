@@ -30,6 +30,7 @@ sudo apt install --yes --no-install-recommends \
     figlet \
     flashplugin-installer \
     fontconfig \
+    fonts-symbola \
     fritzing \
     gawk \
     gconf-editor \
@@ -92,6 +93,7 @@ sudo apt install --yes --no-install-recommends \
     sublime-text \
     sudo \
     trash-cli \
+    ttf-ancient-fonts-symbola \
     tweak \
     ubuntu-restricted-extras \
     virtualenv \
