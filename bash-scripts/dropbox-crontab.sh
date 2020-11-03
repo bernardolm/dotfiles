@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/zsh
 
 function dropbox_schedule() {
     wait_for=5m
@@ -6,7 +6,7 @@ function dropbox_schedule() {
     echo -e "running dropbox crontab..."
     notify-send "dropbox crontab" "running..."
 
-    dropbox start 1>/dev/null
+    dropbox start
 
     echo -e "giving $wait_for to dropbox work..."
     sleep $wait_for
@@ -24,4 +24,4 @@ if [ ! -d "$log_path" ]; then
     mkdir -p "$log_path"
 fi
 
-dropbox_schedule | tee $log_path/$(date +"%Y-%m-%d-%H-%M").log
+dropbox_schedule > $log_path/$(date +"%Y-%m-%d-%H-%M").log 2>&1

@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/zsh
 
 source msg.sh
 
@@ -21,12 +21,7 @@ msg_init '3rd party packages install'
 
 # Checkers
 
-if [[ "$(which zsh)" == "" ]]; then
-   echo -e "\n🚨 this script needs to run with zsh installed, exiting..."
-   exit 1
-fi
-
-source ~/.zshrc
+source $HOME/.zshrc
 
 if [[ "$SYNC_PATH" == "" ]]; then
    echo -e "\n🚨 this script needs to run over $USER zsh profile, exiting..."
