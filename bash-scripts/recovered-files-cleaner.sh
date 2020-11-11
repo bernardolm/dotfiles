@@ -1,6 +1,6 @@
 #!/bin/bash
 
-search() {
+function search() {
 	sudo find $HOME/Downloads/recovery \
 		-name "*.java" \
 		-o -name "*.a" \
