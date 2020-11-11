@@ -3,8 +3,8 @@ function sanitize_zsh_history () {
         echo -n "🔹 $filename "
         tee -a $HISTFILE < $filename >/dev/null
         echo -n "increase history file to "`get_file_size $HISTFILE`"\n"
-        trash "$filename"
-        zsh-history-clear --file $HISTFILE
+        /bin/rm "$filename"
+        [ `stat -c '%s' $HISTFILE` -ge 50000000 ] && zsh-history-clear --file $HISTFILE
     done
     zsh-history-clear --file $HISTFILE
     echo "🏁 finish with "`get_file_size $HISTFILE`
