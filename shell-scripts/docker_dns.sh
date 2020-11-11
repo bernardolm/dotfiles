@@ -1,6 +1,6 @@
 function sanitize_dockerdns_vestiges() {
     grep -v 'docker-dns' /etc/resolv.conf | sudo tee /etc/resolv.conf.tmp
-    sudo mv /etc/resolv.conf.tmp /etc/resolv.conf
+    /bin/cat /etc/resolv.conf.tmp | sudo tee /etc/resolv.conf
 }
 
 function install_dockerdns() {
