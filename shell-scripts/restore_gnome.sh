@@ -1,4 +1,4 @@
-restore_gnome() {
+function restore_gnome() {
     dconf reset -f /org/gnome/
     if [[ "$HOST" == *"534" ]]; then
         dconf load /org/gnome/ <"$SYNC_PATH/backup_of_my_gnome_settings"

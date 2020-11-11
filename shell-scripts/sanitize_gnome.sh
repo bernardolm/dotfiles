@@ -1,4 +1,4 @@
-sanitize_gnome () {
+function sanitize_gnome() {
     NOW=$(date +"%Y-%m-%d-%H-%M-%S")
     mkdir -p ~/.old-gnome-config/${NOW}
     sudo mv ~/.gnome* ~/.old-gnome-config/${NOW}

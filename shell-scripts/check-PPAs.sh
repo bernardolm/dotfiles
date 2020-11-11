@@ -1,4 +1,4 @@
-check_PPAs () {
+function check_PPAs() {
     for f in /etc/apt/sources.list.d/*.list; do
         grep -Po "(?<=^deb\s).*?(?=#|$)" "$f" | while read -r ENTRY; do
             echo "ENTRY: $ENTRY"

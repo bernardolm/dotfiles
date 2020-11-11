@@ -1,4 +1,4 @@
-function busybox_ash_shell () {
+function busybox_ash_shell() {
     IMAGE=`pwd`
     IMAGE=`basename $IMAGE`
     if [ -n "$1" ]; then

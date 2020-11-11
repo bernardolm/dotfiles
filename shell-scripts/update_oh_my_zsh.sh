@@ -1,7 +1,7 @@
-function update_oh_my_zsh () {
+function update_oh_my_zsh() {
     actual_pwd=$(pwd)
 
-    function update_master_to_latest () {
+    function update_master_to_latest() {
         echo -e "Updating "$1"...\n"
         cd $1
         git checkout .

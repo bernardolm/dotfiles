@@ -1,4 +1,4 @@
-function sanitize_go_packages () {
+function sanitize_go_packages() {
     echo "cleaning old golang packages..."
 
     ls $GOPATH/bin | xargs -n1 -I % trash "$GOPATH/bin/%"

@@ -1,6 +1,6 @@
 PORTS_TO_ALLOW_IN_UFW=$(<$SYNC_PATH/scripts/ports-to-open-in-ufw.txt)
 
-function reset_iptables () {
+function reset_iptables() {
     CMDS=(ip6tables iptables)
     echo -e 'running for '${CMDS[@]}'\n'
 
@@ -49,12 +49,12 @@ function reset_iptables () {
     echo -e "\nlisting verbose updated rules\n"
 }
 
-function setup_tunnel () {
+function setup_tunnel() {
     sleep 15s
     $WORKSPACE_USER/first-steps-ubuntu/bash-scripts/add-my-routes-to-vpn.sh
 }
 
-function vpn_hu () {
+function vpn_hu() {
     figlet "VPN" -f /usr/share/figlet/slant.flf
     # setup_tunnel &
     start_vpn

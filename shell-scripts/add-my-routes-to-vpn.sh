@@ -1,4 +1,4 @@
-add_my_routes_to_vpn () {
+function add_my_routes_to_vpn() {
     echo -e "adding my routes do active VPN 🛡️"
 
     TUNNEL_ADDR=$(ip -o -4 addr list tun0 | awk '{print $4}')

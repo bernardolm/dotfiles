@@ -1,4 +1,4 @@
-function gitconfig_mass_replace () {
+function gitconfig_mass_replace() {
     for DIR in ./*; do
         if [ -d "$DIR" ]; then
             cd $DIR;

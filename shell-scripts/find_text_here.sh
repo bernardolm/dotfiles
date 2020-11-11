@@ -1,3 +1,3 @@
-function find_text_here () {
+function find_text_here() {
     grep -irnwEe $1 .
 }

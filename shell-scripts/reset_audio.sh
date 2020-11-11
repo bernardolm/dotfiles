@@ -1,4 +1,4 @@
-function reset_audio () {
+function reset_audio() {
     sudo killall pulseaudio
     /bin/rm -rf ~/.config/pulse/*
     /bin/rm -rf ~/.pulse*

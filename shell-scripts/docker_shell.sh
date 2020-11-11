@@ -1,4 +1,4 @@
-function docker_shell () {
+function docker_shell() {
     IMAGE=`pwd`
     IMAGE=`basename $IMAGE`
     if [ -n "$1" ]; then
