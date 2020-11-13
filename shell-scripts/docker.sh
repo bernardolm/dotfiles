@@ -50,6 +50,8 @@ function sanitize_docker_untagged() {
 }
 
 function sanitize_docker() {
+    echo 'removing docker vestiges'
+    check_docker_install || return true
     stop_docker_containers
     sanitize_docker_containers
     sanitize_docker_untagged
@@ -91,7 +93,7 @@ function sanitize_docker_config_files() {
     sudo /bin/rm -rf /var/run/docker.sock
 }
 
-function sanitize_docker_network() {
+function sanitize_docker_local_ip() {
     echo "reseting docker network config"
     if [[ "$DOCKER0_IP" != "" ]]; then
         sudo ip addr del dev docker0 $DOCKER0_IP/16
@@ -107,8 +109,7 @@ function sanitize_docker_install() {
 
         sanitize_docker
 
-        docker network prune --force
-        docker system prune --force
+        yes | docker system prune --all --volumes --force
 
         sudo service docker stop
 
@@ -122,7 +123,7 @@ function sanitize_docker_install() {
     sudo apt autoremove --purge --yes
 
     sanitize_docker_config_files
-    sanitize_docker_network
+    sanitize_docker_local_ip
 }
 
 function install_docker() {

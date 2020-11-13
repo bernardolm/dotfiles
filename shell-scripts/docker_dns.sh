@@ -1,11 +1,15 @@
-function sanitize_dockerdns_vestiges() {
-    grep -v 'docker-dns' /etc/resolv.conf | sudo tee /etc/resolv.conf.tmp
-    /bin/cat /etc/resolv.conf.tmp | sudo tee /etc/resolv.conf
-}
+function sanitize_dockerdns_vestiges() (
+    echo "sanitizing docker-dns vestiges"
+
+    grep -v 'docker-dns' /etc/resolv.conf | sudo tee /etc/resolv.conf.tmp > /dev/null
+    /bin/cat /etc/resolv.conf.tmp | sudo tee /etc/resolv.conf > /dev/null
+
+    grep -v 'docker-dns' /etc/resolvconf/resolv.conf.d/head | sudo tee /etc/resolvconf/resolv.conf.d/head.tmp > /dev/null
+    /bin/cat /etc/resolvconf/resolv.conf.d/head.tmp | sudo tee /etc/resolvconf/resolv.conf.d/head > /dev/null
+)
 
 function install_dockerdns() {
-    echo "installing dockerdns"
-    check_docker_install || return true
+    echo "installing docker-dns"
     sanitize_dockerdns_vestiges
     git -C $WORKSPACE_USER/docker-dns checkout .
     git -C $WORKSPACE_USER/docker-dns checkout version/1.x
