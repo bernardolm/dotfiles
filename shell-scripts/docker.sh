@@ -49,8 +49,8 @@ function sanitize_docker_untagged() {
     done
 }
 
-function sanitize_docker() {
-    echo 'removing docker vestiges'
+function sanitize_docker_content() {
+    echo 'removing docker content'
     check_docker_install || return true
     stop_docker_containers
     sanitize_docker_containers
@@ -94,7 +94,7 @@ function sanitize_docker_config_files() {
 }
 
 function sanitize_docker_local_ip() {
-    echo "reseting docker network config"
+    echo -n "reseting docker network config"
     [[ "$DOCKER0_IP" != "" ]] && echo -n "... docker0 network found in IP $DOCKER0_IP"
     if [[ "$DOCKER0_IP" != "" ]]; then
         sudo ip addr del dev docker0 $DOCKER0_IP/16
@@ -108,7 +108,7 @@ function sanitize_docker_install() {
     if [[ $(check_docker_running) -eq 1 ]]; then
         echo "docker is running..."
 
-        sanitize_docker
+        sanitize_docker_content
 
         yes | docker system prune --all --volumes --force
 
