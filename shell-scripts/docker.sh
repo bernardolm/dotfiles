@@ -1,5 +1,5 @@
 DOCKER=$(which docker)
-DOCKER0_IP=$(ip r | grep docker0 | awk '{print $$9}')
+DOCKER0_IP=$(ip r | grep docker0 | awk '{print $9}')
 
 DOCKER_CONTAINERS="$DOCKER ps -aq"
 DOCKER_IMAGES_DANGLING="$DOCKER images -q -f 'dangling=true'"
@@ -95,6 +95,7 @@ function sanitize_docker_config_files() {
 
 function sanitize_docker_local_ip() {
     echo "reseting docker network config"
+    [[ "$DOCKER0_IP" != "" ]] && echo -n "... docker0 network found in IP $DOCKER0_IP"
     if [[ "$DOCKER0_IP" != "" ]]; then
         sudo ip addr del dev docker0 $DOCKER0_IP/16
         sudo ip link delete docker0
@@ -119,8 +120,11 @@ function sanitize_docker_install() {
         done
     fi
 
-    sudo apt purge '^docker' '^containerd' --yes
-    sudo apt autoremove --purge --yes
+    if [[ `apt list --installed '*docker*' 2>/dev/null | wc -l | bc` -gt 1 ]]; then
+        echo "purging system docker installation"
+        sudo apt-get purge '^docker' '^containerd' --yes > /dev/null
+        sudo apt-get autoremove --purge --yes > /dev/null
+    fi
 
     sanitize_docker_config_files
     sanitize_docker_local_ip
