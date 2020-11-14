@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env zsh
 
 function dropbox_schedule() {
     wait_for=5m
@@ -17,7 +17,7 @@ function dropbox_schedule() {
     notify-send "dropbox crontab" "finish"
 }
 
-log_path="$HOME/tmp/var/log/dropbox_schedule"
+log_path="$USER_TMP/var/log/dropbox_schedule"
 
 if [ ! -d "$log_path" ]; then
     echo -e "creating dropbox log folder '$log_path'..."
