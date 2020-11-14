@@ -121,7 +121,7 @@ function sanitize_docker_install() {
     fi
 
     if [[ `apt list --installed '*docker*' 2>/dev/null | wc -l | bc` -gt 1 ]]; then
-        echo "purging system docker installation"
+        echo "purging docker ubuntu package"
         sudo apt-get purge '^docker' '^containerd' --yes > /dev/null
         sudo apt-get autoremove --purge --yes > /dev/null
     fi
@@ -132,12 +132,17 @@ function sanitize_docker_install() {
 
 function install_docker() {
     echo "installing docker"
-    check_docker_install && return true
 
-    sudo apt install docker-ce docker-compose --yes
+    if [[ `apt list --installed '*docker*' 2>/dev/null | wc -l | bc` -le 1 ]]; then
+        echo "installing docker ubuntu package"
+        sudo apt install docker-ce docker-compose --yes
+    fi
 
-    sudo chown $USER:$USER /home/$USER/.docker -R
-    sudo chmod g+rwx $HOME/.docker -R
+    if [[ -d $HOME/.docker ]]; then
+        sudo chown $USER:$USER $HOME/.docker -R
+        sudo chmod g+rwx $HOME/.docker -R
+    fi
+
     sudo groupadd docker || true
     sudo usermod -aG docker $USER || true
     newgrp docker
