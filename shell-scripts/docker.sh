@@ -1,5 +1,4 @@
 DOCKER=$(which docker)
-DOCKER0_IP=$(ip r | grep docker0 | awk '{print $9}')
 
 DOCKER_CONTAINERS="$DOCKER ps -aq"
 DOCKER_IMAGES_DANGLING="$DOCKER images -q -f 'dangling=true'"
@@ -93,11 +92,16 @@ function sanitize_docker_config_files() {
     sudo /bin/rm -rf /var/run/docker.sock
 }
 
+function docker0_ip() {
+    ip -j address | jq '.[] | .addr_info | .[] | select(.family == "inet") | select(.label ==  "docker0") | .local' | sed 's/"//g'
+}
+
 function sanitize_docker_local_ip() {
     echo -n "reseting docker network config"
-    [[ "$DOCKER0_IP" != "" ]] && echo -n "... docker0 network found in IP $DOCKER0_IP"
-    if [[ "$DOCKER0_IP" != "" ]]; then
-        sudo ip addr del dev docker0 $DOCKER0_IP/16
+    current_docker0_ip=`docker0_ip`
+    if [[ "$current_docker0_ip" != "" ]]; then
+        echo -n "... docker0 network found in IP $current_docker0_ip..."
+        sudo ip addr del dev docker0 $current_docker0_ip/16
         sudo ip link delete docker0
     fi
 }
