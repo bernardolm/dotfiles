@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env /usr/bin/zsh
 
 function dropbox_schedule() {
     wait_for=5m
