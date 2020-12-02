@@ -2,3 +2,4 @@
 *.deb
 *.bin
 *.zip
+bash-scripts/keep_mic_muted.pid
