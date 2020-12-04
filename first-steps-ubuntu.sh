@@ -49,7 +49,6 @@ sudo apt upgrade --yes
 
 # post install
 msg_init 'running post install commands'
-[ ! -d "/var/log/dropbox_cron/" ] && mkdir /var/log/dropbox_cron/
 chsh -s $(which zsh)
 fc-cache -f -v > /dev/null
 gnome-extensions disable ubuntu-dock@ubuntu.com

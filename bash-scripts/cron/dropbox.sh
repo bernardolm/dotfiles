@@ -1,6 +1,7 @@
-#!/usr/bin/env /usr/bin/zsh
+#!/usr/bin/zsh
+source ~/.zshrc
 
-function dropbox_cron() {
+function cron/dropbox() {
     wait_for=5m
 
     echo -e "running dropbox crontab..."
@@ -17,12 +18,12 @@ function dropbox_cron() {
     notify-send "dropbox crontab" "finish"
 }
 
-# log_path="$USER_TMP/var/log/dropbox_cron"
-log_path="$HOME/tmp/var/log/dropbox_cron"
+log_path="$USER_TMP/var/log/cron/dropbox"
+# log_path="$HOME/tmp/var/log/cron/dropbox"
 
 if [ ! -d "$log_path" ]; then
     echo -e "creating dropbox log folder '$log_path'..."
     mkdir -p "$log_path"
 fi
 
-dropbox_cron > $log_path/$(date +"%Y-%m-%d-%H-%M").log 2>&1
+cron/dropbox > $log_path/$(date +"%Y-%m-%d-%H-%M").log 2>&1

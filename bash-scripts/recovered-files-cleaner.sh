@@ -1,4 +1,5 @@
-#!/usr/bin/env zsh
+#!/usr/bin/zsh
+source ~/.zshrc
 
 function search() {
 	sudo find $HOME/Downloads/recovery \
