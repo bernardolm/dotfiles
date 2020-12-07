@@ -51,6 +51,7 @@ sudo apt install --yes --no-install-recommends \
     gthumb \
     htop \
     iotop \
+    jq \
     libfdk-aac1 \
     libkeybinder-3.0-0 \
     libmemcached-tools \
@@ -83,6 +84,7 @@ sudo apt install --yes --no-install-recommends \
     qml-module-qtquick-dialogs \
     qml-module-qtwebchannel \
     qml-module-qtwebengine \
+    resolvconf \
     samba \
     screen \
     silversearcher-ag \
