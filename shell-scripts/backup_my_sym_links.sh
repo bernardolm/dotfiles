@@ -1,5 +1,5 @@
 function backup_my_sym_links() {
-    find / -type l -ls 2>/dev/null | awk -F" " '{print "/bin/rm "$11" && ln -sf " $13,$11}\' | grep '/home/'$USER |
+    find / -type l -ls 2>/dev/null | awk -F" " '{print $13";"$11}\' | grep '/home/'$USER |
         grep -iv '.mozilla' |
         grep -iv '.oh-my-zsh/' |
         grep -iv '.wine' |
@@ -24,5 +24,5 @@ function backup_my_sym_links() {
         grep -iv 'venv/' |
         grep -iv 'webkitgtk' |
         grep -iv $GITHUB_ORG \
-            >>$SYNC_PATH/scripts/bash-scripts/restore-my-sym-links.sh
+            >>$SYNC_PATH/scripts/my-sym-links.txt
 }
