@@ -5,6 +5,11 @@ function get_keys() {
     # keyserver.linuxmint.com
     # subkeys.pgp.net
 
+    if [[ "$(command -v curl)" == "" ]]; then
+        echo -e "\n💾 installing curl..."
+        sudo apt install curl
+    fi
+
     sudo apt-get update 2>&1 1>/dev/null | sed -ne 's/.*NO_PUBKEY //p' |
     while read key; do
         echo 'Processing key:' "$key"
