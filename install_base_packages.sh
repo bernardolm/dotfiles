@@ -48,10 +48,14 @@ sudo apt install --yes --no-install-recommends \
     graphviz \
     gsettings-desktop-schemas \
     gsmartcontrol \
+    gstreamer1.0-plugins-bad \
+    gstreamer1.0-plugins-ugly \
     gthumb \
     htop \
     iotop \
     jq \
+    libdvd-pkg \
+    libdvdnav4 \
     libfdk-aac1 \
     libkeybinder-3.0-0 \
     libmemcached-tools \
