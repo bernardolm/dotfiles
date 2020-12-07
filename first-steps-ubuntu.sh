@@ -29,14 +29,12 @@ msg_welcome() {
 msg_welcome
 
 # STEPS:
-# 1. ask to remove /etc/apt/sources.list.d and link with related back folder
-# 2. run get keys
+# 1. ask to remove /etc/apt/sources.list.d (backup before) and link with related back folder
+# 2. run get keys (needs curl)
 # 3. apt update and apt upgrade
-# 4. install base packages
-# 5. install snap packages
-# 6. install 3rd packages
-# 7. restore gnome
-# 8. restore guake
+# 4. install packages and apps
+# 5. restore gnome
+# 6. restore guake
 
 ## Upgrade ubuntu
 msg_init 'upgrading ubuntu'
@@ -44,15 +42,16 @@ sudo apt upgrade --yes
 
 ## Run install scripts
 ./install_base_packages.sh
-./install_snap_packages.sh
 ./install_3rd_party_packages.sh
+./install_3rd_party_apps.sh
+./install_snap_packages.sh
 
 # post install
 msg_init 'running post install commands'
 chsh -s $(which zsh)
 fc-cache -f -v > /dev/null
 gnome-extensions disable ubuntu-dock@ubuntu.com
-pip3 install -U --user pygments
+# pip3 install -U --user pygments
 echo -e "vm.swappiness=0" | sudo tee -a /etc/sysctl.conf
 echo -e "#\x21/bin/sh\\nfstrim -v /" | sudo tee /etc/cron.daily/trim
 sudo chmod +x /etc/cron.daily/trim

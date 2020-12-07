@@ -4,12 +4,7 @@ source msg.sh
 
 msg_init 'base packages install'
 
-# sudo apt update
-
-# baobab - Analisador de Uso de Disco - https://help.ubuntu.com/community/Baobab
-# bleachbit - Clean Your System and Free Disk Space - https://www.bleachbit.org
-# pandoc - a universal document converter - https://pandoc.org
-# silversearcher-ag - The Silver Searcher - https://github.com/ggreer/the_silver_searcher
+sudo dpkg --add-architecture i386
 
 sudo apt install --yes --no-install-recommends \
     alacarte \
@@ -46,9 +41,9 @@ sudo apt install --yes --no-install-recommends \
     gnome-panel \
     gnome-shell-extensions \
     gnome-tweak-tool \
+    gnome-tweaks \
     gnupg \
     gnupg-agent \
-    google-chrome-stable \
     gparted \
     graphviz \
     gsettings-desktop-schemas \
@@ -56,18 +51,18 @@ sudo apt install --yes --no-install-recommends \
     gthumb \
     htop \
     iotop \
-    kubectl \
+    libfdk-aac1 \
     libkeybinder-3.0-0 \
     libmemcached-tools \
     libmysqlclient-dev \
-    libreoffice-calc \
     libutempter0 \
+    libvulkan-dev \
+    libvulkan1 \
     libxml2-utils \
     make \
     meld \
     mysql-client-5.7 \
     net-tools \
-    nmap \
     nodejs \
     npm \
     openssh-server \
@@ -75,7 +70,6 @@ sudo apt install --yes --no-install-recommends \
     pandoc \
     pm-utils \
     powertop \
-    python-gtk2 \
     python-pygments \
     python3 \
     python3-cairo \
@@ -84,13 +78,17 @@ sudo apt install --yes --no-install-recommends \
     python3-gpg \
     python3-pbr \
     python3-pip \
+    qml-module-qt-labs-platform \
+    qml-module-qtquick-controls \
+    qml-module-qtquick-dialogs \
+    qml-module-qtwebchannel \
+    qml-module-qtwebengine \
     samba \
     screen \
     silversearcher-ag \
     smartmontools \
     smem \
     software-properties-common \
-    sublime-text \
     sudo \
     trash-cli \
     ttf-ancient-fonts-symbola \
@@ -98,7 +96,9 @@ sudo apt install --yes --no-install-recommends \
     ubuntu-restricted-extras \
     virtualenv \
     vlc \
+    vulkan-utils \
     wget \
+    winetricks \
     xclip \
     zsh
 
