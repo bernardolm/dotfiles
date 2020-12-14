@@ -5,6 +5,7 @@ source msg.sh
 msg_init '3rd party packages install'
 
 sudo apt install --yes --no-install-recommends \
+    gh \
     google-chrome-stable \
     google-cloud-sdk \
     kubectl \
