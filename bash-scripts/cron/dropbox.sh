@@ -18,8 +18,7 @@ function cron/dropbox() {
     notify-send "dropbox crontab" "finish"
 }
 
-log_path="$USER_TMP/cron/dropbox"
-# log_path="$HOME/tmp/cron/dropbox"
+log_path="~/tmp/cron/dropbox"
 
 if [ ! -d "$log_path" ]; then
     echo -e "creating dropbox log folder '$log_path'..."

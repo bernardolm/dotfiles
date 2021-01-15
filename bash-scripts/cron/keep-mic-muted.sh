@@ -21,8 +21,7 @@ function keep_mic_muted() {
     keep_mic_muted $1 $times
 }
 
-log_path="$USER_TMP/cron/keep-mic-muted"
-# log_path="$HOME/tmp/cron/keep-mic-muted"
+log_path="~/tmp/cron/keep-mic-muted"
 
 if [ ! -d "$log_path" ]; then
     echo -e "creating keep-mic-muted log folder '$log_path'..."

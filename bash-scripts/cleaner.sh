@@ -1,8 +1,7 @@
-#!/usr/bin/zsh
-source ~/.zshrc
+#!/bin/bash
 
 setopt +o nomatch &&
-    /bin/rm -rf $USER_TMP/git-clone/* &&
-    /bin/rm -rf $USER_TMP/git-update/* &&
-    /bin/rm -rf $USER_TMP/cron/dropbox/* &&
-    /bin/rm -rf $USER_TMP/cron/keep-mic-muted/*
+    /bin/rm -rf ~/tmp/git-clone/* &&
+    /bin/rm -rf ~/tmp/git-update/* &&
+    /bin/rm -rf ~/tmp/cron/dropbox/* &&
+    /bin/rm -rf ~/tmp/cron/keep-mic-muted/*

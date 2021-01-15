@@ -15,7 +15,7 @@ docker run \
     --rm \
     -d \
     -i \
-    -v $USER_TMP/dev-containers/php/vendor:/home/workdir/vendor:delegated \
+    -v ~/tmp/dev-containers/php/vendor:/home/workdir/vendor:delegated \
     -v $container_path:/home/workdir:delegated \
     $container_name
 

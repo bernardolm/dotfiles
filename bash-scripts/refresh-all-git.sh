@@ -3,8 +3,8 @@ source  ~/.zshrc
 
 TIMENOW=$(date +"%Y%m%d%H%M%S")
 
-mkdir -p $USER_TMP/git-update/${TIMENOW}
-TEMP_PATH=$USER_TMP/git-update/${TIMENOW}
+mkdir -p ~/tmp/git-update/${TIMENOW}
+TEMP_PATH=~/tmp/git-update/${TIMENOW}
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
