@@ -14,7 +14,6 @@ sudo apt install --yes --no-install-recommends \
     python-gtk2 \
     stacer \
     sublime-text \
-    ungoogled-chromium \
     wine-staging \
     wine-staging-amd64 \
     winehq-staging
