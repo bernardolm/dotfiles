@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source msg.sh
+source $BASE_PATH/msg.sh
 
 msg_init '3rd party packages install'
 
