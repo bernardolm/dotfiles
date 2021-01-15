@@ -53,11 +53,9 @@ fi
 
 if [[ "$(command -v guake)" == "" ]]; then
    echo -e "\n💾 installing guake..."
-   if [ ! -d "$WORKSPACE_USER/guake" ]; then
-      echo "cloning guake..."
-      git clone --depth 1 https://github.com/Guake/guake.git $WORKSPACE_USER/guake
-   fi
-   cd $WORKSPACE_USER/guake
+   curl -L -o ~/tmp/guake.zip https://github.com/Guake/guake/archive/master.zip
+   unzip -oq ~/tmp/guake.zip -d ~/tmp/guake
+   cd ~/tmp/guake
    ./scripts/bootstrap-dev-debian.sh run make
    make
    sudo make install
