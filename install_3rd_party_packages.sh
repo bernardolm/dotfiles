@@ -4,6 +4,8 @@ source $BASE_PATH/msg.sh
 
 msg_init '3rd party packages'
 
+sudo apt update
+
 sudo apt install --yes --no-install-recommends \
     gh \
     google-chrome-stable \

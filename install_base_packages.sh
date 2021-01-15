@@ -6,6 +6,8 @@ msg_init 'base packages'
 
 sudo dpkg --add-architecture i386
 
+sudo apt update
+
 sudo apt install --yes --no-install-recommends \
     alacarte \
     apt-transport-https \
