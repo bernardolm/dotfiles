@@ -41,8 +41,13 @@ msg_welcome
 ## Upgrade ubuntu
 msg_init 'upgrading ubuntu'
 sudo apt upgrade --yes
+msg_end 'upgrading ubuntu'
+
+# Creating temp folder
+[ ! -f ~/tmp ] && mkdir -p ~/tmp
 
 ## Run install scripts
+$BASE_PATH/install_remote_folder.sh
 $BASE_PATH/install_base_packages.sh
 $BASE_PATH/install_3rd_party_packages.sh
 $BASE_PATH/install_3rd_party_apps.sh
