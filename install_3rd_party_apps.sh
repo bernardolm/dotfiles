@@ -25,7 +25,7 @@ fi
 
 if [[ "$(command -v bleachbit)" == "" ]]; then
    echo -e "\n💾 installing bleachbit..."
-   curl https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1904.deb -o $USER/tmp/bleachbit.deb && sudo dpkg -i $USER/tmp/bleachbit.deb
+   curl https://download.bleachbit.org/bleachbit_4.0.0_all_ubuntu1904.deb -o ~/tmp/bleachbit.deb && sudo dpkg -i ~/tmp/bleachbit.deb
 fi
 
 if [[ "$(command -v docker)" == "" ]]; then
@@ -39,7 +39,7 @@ fi
 if [[ "$(command -v dropbox)" == "" ]]; then
    echo -e "\n💾 installing dropbox..."
    nautilus --quit
-   curl https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb -o $USER/tmp/dropbox.deb && sudo dpkg -i $USER/tmp/dropbox.deb
+   curl https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb -o ~/tmp/dropbox.deb && sudo dpkg -i ~/tmp/dropbox.deb
 fi
 
 if [[ "$(command -v fzf)" == "" ]]; then
@@ -53,9 +53,9 @@ fi
 
 if [[ "$(command -v go)" == "" ]]; then
    echo -e "\n💾 installing go..."
-   wget --quiet https://golang.org/dl/go1.15.2.linux-amd64.tar.gz -O $USER/tmp/go.tar.gz
+   wget --quiet https://golang.org/dl/go1.15.2.linux-amd64.tar.gz -O ~/tmp/go.tar.gz
    sudo /bin/rm -rf $GOPATH/pkg
-   sudo tar -C /usr/local -xzf $USER/tmp/go.tar.gz
+   sudo tar -C /usr/local -xzf ~/tmp/go.tar.gz
 fi
 
 if [[ "$(command -v guake)" == "" ]]; then
@@ -73,21 +73,21 @@ fi
 
 if [[ "$(command -v stremio)" == "" ]]; then
    echo -e "\n💾 installing stremio..."
-   curl https://dl.strem.io/shell-linux/v4.4.116/stremio_4.4.116-1_amd64.deb -o $USER/tmp/stremio.deb && sudo dpkg -i $USER/tmp/stremio.deb
+   curl https://dl.strem.io/shell-linux/v4.4.116/stremio_4.4.116-1_amd64.deb -o ~/tmp/stremio.deb && sudo dpkg -i ~/tmp/stremio.deb
 fi
 
 if [[ "$(command -v tixati)" == "" ]]; then
    echo -e "\n💾 installing tixati..."
-   curl https://download2.tixati.com/download/tixati_2.75-1_amd64.deb -o $USER/tmp/tixati.deb && sudo dpkg -i $USER/tmp/tixati.deb
+   curl https://download2.tixati.com/download/tixati_2.75-1_amd64.deb -o ~/tmp/tixati.deb && sudo dpkg -i ~/tmp/tixati.deb
 fi
 
 if [[ "$(command -v todo.sh)" == "" ]]; then
    echo -e "\n💾 installing todo.sh..."
    version="2.12.0"
-   curl -s -L https://github.com/todotxt/todo.txt-cli/releases/download/v$version/todo.txt_cli-$version.zip -o $USER/tmp/todo.zip
-   unzip $USER/tmp/todo.zip -d $USER/tmp/todo
-   yes | mv $USER/tmp/todo/todo.txt_cli-$version.dirty/todo.sh $SYNC_PATH/bin
-   yes | mv $USER/tmp/todo/todo.txt_cli-$version.dirty/todo_completion $SYNC_PATH/todo_txt
+   curl -s -L https://github.com/todotxt/todo.txt-cli/releases/download/v$version/todo.txt_cli-$version.zip -o ~/tmp/todo.zip
+   unzip ~/tmp/todo.zip -d ~/tmp/todo
+   yes | mv ~/tmp/todo/todo.txt_cli-$version.dirty/todo.sh $SYNC_PATH/bin
+   yes | mv ~/tmp/todo/todo.txt_cli-$version.dirty/todo_completion $SYNC_PATH/todo_txt
 fi
 
 if [[ "$(command -v zinit)" == "off" ]]; then
