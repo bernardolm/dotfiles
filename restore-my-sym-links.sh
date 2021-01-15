@@ -29,6 +29,6 @@ while read line; do
     else
         echo "$to already is a sym link"
     fi
-done <$SYNC_PATH/scripts/my-sym-links.txt
+done <~/Sync/config-backup/scripts/my-sym-links.txt
 
 msg_end 'restore symbolic links'

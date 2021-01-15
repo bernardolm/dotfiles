@@ -28,7 +28,6 @@ function install_dropbox() {
     done
 
     [ ! -h ~/Sync ] && ln -s ~/Dropbox ~/Sync
-    export SYNC_PATH="~/Sync/config-backup"
 }
 
 install_dropbox
