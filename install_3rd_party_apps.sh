@@ -7,7 +7,6 @@ msg_init '3rd party apps'
 # [x] balena etcher  https://github.com/balena-io/etcher#debian-and-ubuntu-based-package-repository-gnulinux-x86x64
 # [x] bleachbit      https://www.bleachbit.org/download/linux
 # [x] docker         https://docs.docker.com/engine/install/ubuntu/
-# [x] dropbox        https://www.dropbox.com/install-linux
 # [x] fzf            https://github.com/junegunn/fzf
 # [x] golang         https://golang.org/doc/install
 # [x] guake          https://github.com/Guake/guake
@@ -34,12 +33,6 @@ if [[ "$(command -v docker)" == "" ]]; then
    [ `cat /etc/group | grep docker | wc -l | bc` -eq 0 ] && sudo groupadd docker
    sudo usermod -aG docker $USER
    ## newgrp docker # FIXME: exiting from current shell
-fi
-
-if [[ "$(command -v dropbox)" == "" ]]; then
-   echo -e "\n💾 installing dropbox..."
-   nautilus --quit
-   curl https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb -o ~/tmp/dropbox.deb && sudo dpkg -i ~/tmp/dropbox.deb
 fi
 
 if [[ "$(command -v fzf)" == "" ]]; then

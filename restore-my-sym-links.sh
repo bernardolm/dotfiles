@@ -1,5 +1,9 @@
 #!/bin/bash
 
+source $BASE_PATH/msg.sh
+
+msg_init 'restore symbolic links'
+
 timestamp=$(date +"%Y-%m-%d-%H-%M")
 
 while read line; do
@@ -26,3 +30,5 @@ while read line; do
         echo "$to already is a sym link"
     fi
 done <$SYNC_PATH/scripts/my-sym-links.txt
+
+msg_end 'restore symbolic links'
