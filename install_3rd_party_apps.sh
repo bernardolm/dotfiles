@@ -55,7 +55,7 @@ if [[ "$(command -v guake)" == "" ]]; then
    echo -e "\n💾 installing guake..."
    curl -L -o ~/tmp/guake.zip https://github.com/Guake/guake/archive/master.zip
    unzip -oq ~/tmp/guake.zip -d ~/tmp/guake
-   cd ~/tmp/guake
+   cd ~/tmp/guake/guake-master
    ./scripts/bootstrap-dev-debian.sh run make
    make
    sudo make install
