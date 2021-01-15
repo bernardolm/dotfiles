@@ -30,6 +30,6 @@ while : ; do
 done
 
 [ ! -h ~/Sync ] && ln -s ~/Dropbox ~/Sync
-export SYNC_PATH=~/Sync/config-backup
+export SYNC_PATH="~/Sync/config-backup"
 
 msg_end 'remote folder'
