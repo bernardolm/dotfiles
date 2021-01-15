@@ -18,7 +18,7 @@ while read line; do
 
     echo "from $from to $to"
 
-    if [ ! -L $to ] ; then
+    if [ ! -n $to ] ; then
         mv $to "$to-bkp-$timestamp"
 
         if [[ "$to" == "/home"* ]]; then
