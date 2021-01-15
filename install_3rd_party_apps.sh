@@ -2,7 +2,7 @@
 
 source $BASE_PATH/msg.sh
 
-msg_init '3rd party packages install'
+msg_init '3rd party apps'
 
 # [x] balena etcher  https://github.com/balena-io/etcher#debian-and-ubuntu-based-package-repository-gnulinux-x86x64
 # [x] bleachbit      https://www.bleachbit.org/download/linux
@@ -97,4 +97,4 @@ fi
 
 sudo apt install -f
 
-msg_end '3rd party packages'
+msg_end '3rd party apps'

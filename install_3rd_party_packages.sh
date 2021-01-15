@@ -2,7 +2,7 @@
 
 source $BASE_PATH/msg.sh
 
-msg_init '3rd party packages install'
+msg_init '3rd party packages'
 
 sudo apt install --yes --no-install-recommends \
     gh \
@@ -21,4 +21,4 @@ sudo apt install --yes --no-install-recommends \
 
 sudo apt install -f
 
-msg_end 'base packages'
+msg_end '3rd party packages'

@@ -2,7 +2,7 @@
 
 source $BASE_PATH/msg.sh
 
-msg_init 'snap packages install'
+msg_init 'snap packages'
 
 sudo snap refresh
 

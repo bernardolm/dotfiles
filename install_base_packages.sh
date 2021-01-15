@@ -2,7 +2,7 @@
 
 source $BASE_PATH/msg.sh
 
-msg_init 'base packages install'
+msg_init 'base packages'
 
 sudo dpkg --add-architecture i386
 
