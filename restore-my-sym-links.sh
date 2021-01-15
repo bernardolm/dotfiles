@@ -19,12 +19,12 @@ while read line; do
     echo "from $from to $to"
 
     if [ ! -n $to ] ; then
-        mv $to "$to-bkp-$timestamp"
-
         if [[ "$to" == "/home"* ]]; then
-            ln -s $from $to
+            mv $to "$to-bkp-$timestamp"
+            ln -sf $from $to
         else
-            sudo ln -s $from $to
+            sudo mv $to "$to-bkp-$timestamp"
+            sudo ln -sf $from $to
         fi
     else
         echo "$to already is a sym link"
