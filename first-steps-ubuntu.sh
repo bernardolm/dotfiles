@@ -1,6 +1,8 @@
 #!/bin/bash
 
-source msg.sh
+BASE_PATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
+
+source $BASE_PATH/msg.sh
 
 msg_welcome() {
     echo ''
@@ -41,10 +43,10 @@ msg_init 'upgrading ubuntu'
 sudo apt upgrade --yes
 
 ## Run install scripts
-./install_base_packages.sh
-./install_3rd_party_packages.sh
-./install_3rd_party_apps.sh
-./install_snap_packages.sh
+$BASE_PATH/install_base_packages.sh
+$BASE_PATH/install_3rd_party_packages.sh
+$BASE_PATH/install_3rd_party_apps.sh
+$BASE_PATH/install_snap_packages.sh
 
 # post install
 msg_init 'running post install commands'
