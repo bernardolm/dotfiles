@@ -57,6 +57,7 @@ $BASE_PATH/install_snap_packages.sh
 
 # post install
 msg_init 'running post install commands'
+sudo apt --purge autoremove
 chsh -s $(which zsh)
 fc-cache -f -v > /dev/null
 gnome-extensions disable ubuntu-dock@ubuntu.com
