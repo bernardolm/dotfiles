@@ -7,6 +7,7 @@ msg_init 'remote folder'
 function install_dropbox() {
     if [[ "$(command -v dropbox)" == "" ]]; then
         echo -e "\n💾 installing dropbox..."
+        sudo apt install python3-gpg
         nautilus --quit
         curl https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb -o ~/tmp/dropbox.deb && sudo dpkg -i ~/tmp/dropbox.deb
     fi
