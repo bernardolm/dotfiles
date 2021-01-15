@@ -16,6 +16,8 @@ sudo apt install --yes --no-install-recommends \
     build-essential \
     ca-certificates \
     chrome-gnome-shell \
+    clamav \
+    clamtk \
     colortest \
     conky \
     curl \
@@ -54,6 +56,7 @@ sudo apt install --yes --no-install-recommends \
     htop \
     iotop \
     jq \
+    libclamunrar7 \
     libdvd-pkg \
     libdvdnav4 \
     libfdk-aac1 \
