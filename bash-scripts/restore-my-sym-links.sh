@@ -1,12 +1,18 @@
-#!/usr/bin/zsh
-source ~/.zshrc
+#!/bin/bash
 
 timestamp=$(date +"%Y-%m-%d-%H-%M")
 
 while read line; do
-    paths=("${(@s/;/)line}")
-    from=${paths[1]}
-    to=${paths[2]}
+    # only to ZSH
+    # paths=("${(@s/;/)line}")
+    # from=${paths[1]}
+    # to=${paths[2]}
+
+    IFS=';' read -r -a paths <<< "$line"
+    from=${paths[0]}
+    to=${paths[1]}
+
+    echo "from $from to $to"
 
     if [ ! -L $to ] ; then
         mv $to "$to-bkp-$timestamp"

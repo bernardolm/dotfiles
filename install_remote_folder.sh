@@ -29,4 +29,7 @@ while : ; do
     sleep 5s
 done
 
+[ ! -h ~/Sync ] && ln -s ~/Dropbox ~/Sync
+export SYNC_PATH=~/Sync/config-backup
+
 msg_end 'remote folder'

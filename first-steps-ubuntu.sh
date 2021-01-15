@@ -48,6 +48,7 @@ msg_end 'upgrading ubuntu'
 
 ## Run install scripts
 $BASE_PATH/install_remote_folder.sh
+$BASE_PATH/bash-scripts/restore-my-sym-links.sh
 $BASE_PATH/install_base_packages.sh
 $BASE_PATH/install_3rd_party_packages.sh
 $BASE_PATH/install_3rd_party_apps.sh
