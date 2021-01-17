@@ -7,34 +7,20 @@ source $BASE_PATH/msg.sh
 
 msg_welcome() {
     echo ''
-    echo ''
-    echo ' __    ____  ____  _ ____     ___   __  '
-    echo '(  )  (  __)(_  _)(// ___)   / __) /  \ '
-    echo '/ (_/\ ) _)   )(    \___ \  ( (_ \(  O )'
-    echo '\____/(____) (__)   (____/   \___/ \__/ '
-    echo ' ____  __  ____  ____  ____ '
-    echo '(  __)(  )(  _ \/ ___)(_  _)'
-    echo ' ) _)  )(  )   /\___ \  )(  '
-    echo '(__)  (__)(__\_)(____/ (__) '
-    echo ' ____  ____  ____  ____  ____ '
-    echo '/ ___)(_  _)(  __)(  _ \/ ___)'
-    echo '\___ \  )(   ) _)  ) __/\___ \'
-    echo '(____/ (__) (____)(__)  (____/'
-    echo ' _  _  ____  _  _  __ _  ____  _  _ '
-    echo '/ )( \(  _ \/ )( \(  ( \(_  _)/ )( \'
-    echo ') \/ ( ) _ () \/ (/    /  )(  ) \/ ('
-    echo '\____/(____/\____/\_)__) (__) \____/'
-    echo ''
-    echo ''
+    echo ' ___ _         _          _                  _            _           _       '
+    echo '|  _|_|___ ___| |_    ___| |_ ___ ___ ___   |_|___    _ _| |_ _ _ ___| |_ _ _ '
+    echo '|  _| |  _|_ -|  _|  |_ -|  _| -_| . |_ -|  | |   |  | | | . | | |   |  _| | |'
+    echo '|_| |_|_| |___|_|    |___|_| |___|  _|___|  |_|_|_|  |___|___|___|_|_|_| |___|'
+    echo '                                 |_|                                          '
     echo ''
 }
 
 msg_welcome
 
 ## Upgrade ubuntu
-msg_init 'upgrading ubuntu'
+msg_init 'ubuntu upgrade'
 sudo apt upgrade --yes
-msg_end 'upgrading ubuntu'
+msg_end 'ubuntu upgrade'
 
 # Creating temp folder
 [ ! -f ~/tmp ] && mkdir -p ~/tmp
