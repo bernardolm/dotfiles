@@ -8,8 +8,10 @@ timestamp=$(date +"%Y-%m-%d-%H-%M")
 
 while read line; do
     function ln_smart() {
-        from=$0
-        to=$1
+        from=$1
+        to=$2
+
+        echo "linking $from to $to..."
 
         if [[ "$to" == "/home"* ]]; then
             mv $to "$to-bkp-$timestamp"
@@ -18,12 +20,10 @@ while read line; do
             sudo mv $to "$to-bkp-$timestamp"
             sudo ln -sf $from $to
         fi
-    }
 
-    # only to ZSH
-    # paths=("${(@s/;/)line}")
-    # from=${paths[1]}
-    # to=${paths[2]}
+        echo "link OK"
+        ll $to
+    }
 
     IFS=';' read -r -a paths <<< "$line"
     from=${paths[0]}
