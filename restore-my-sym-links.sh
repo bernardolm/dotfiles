@@ -2,7 +2,7 @@
 
 source $BASE_PATH/msg.sh
 
-msg_init 'restore symbolic links'
+msg_init 'restore symlink'
 
 timestamp=$(date +"%Y-%m-%d-%H-%M")
 
@@ -10,42 +10,54 @@ while read line; do
     function ln_smart() {
         from=$1
         to=$2
-
-        echo "linking $from to $to..."
+        skipBackup=$3
 
         if [[ "$to" == "/home"* ]]; then
+            [ ! $skipBackup ] && echo -n "backuping... "
             mv $to "$to-bkp-$timestamp"
+
+            echo -n "linking $from to $to... "
             ln -sf $from $to
         else
+            [ ! $skipBackup ] && echo -n "backuping with sudo... "
             sudo mv $to "$to-bkp-$timestamp"
+
+            echo -n "linking with sudo $from to $to... "
             sudo ln -sf $from $to
         fi
 
-        echo "link OK"
-        ls -lah  $to
+        echo -n "finish"
+        [ -L $to ] && ls -lah  $to
     }
 
     IFS=';' read -r -a paths <<< "$line"
     from=${paths[0]}
     to=${paths[1]}
 
-    echo "from $from to $to"
+    echo -n "checking $to... "
 
-    if test -d $to; then
+    if test -L $to; then
+        echo "is a symlink, skipping"
+    elif test -d $to; then
         if test -L $to; then
-            echo "$to is a symlink to a directory"
+            echo "is a symlink to a directory"
         else
-            echo "$to is just a plain directory"
+            echo -n "is just a plain directory... "
+            ln_smart $from $to
+        fi
+    elif test -f $to; then
+        if test -L $to; then
+            echo "is a symlink to a file"
+        else
+            echo -n "is just a plain file... "
             ln_smart $from $to
         fi
     else
-        if test -L $to; then
-            echo "$to is a symlink to a file"
-        else
-            echo "$to is just a plain file"
-            ln_smart $from $to
-        fi
+        echo -n "don't exist... "
+        ln_smart $from $to true
     fi
+
+    echo -e "\n"
 done <~/Sync/config-backup/scripts/my-sym-links.txt
 
-msg_end 'restore symbolic links'
+msg_end 'restore symlink'
