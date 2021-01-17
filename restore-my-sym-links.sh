@@ -13,15 +13,11 @@ while read line; do
         skipBackup=$3
 
         if [[ "$to" == "/home"* ]]; then
-            [ ! $skipBackup ] && echo -n "backuping... "
-            mv $to "$to-bkp-$timestamp"
-
+            [ ! $skipBackup ] && echo -n "backuping... " && mv $to "$to-bkp-$timestamp"
             echo -n "linking $from to $to... "
             ln -sf $from $to
         else
-            [ ! $skipBackup ] && echo -n "backuping with sudo... "
-            sudo mv $to "$to-bkp-$timestamp"
-
+            [ ! $skipBackup ] && echo -n "backuping with sudo... " && sudo mv $to "$to-bkp-$timestamp"
             echo -n "linking with sudo $from to $to... "
             sudo ln -sf $from $to
         fi
