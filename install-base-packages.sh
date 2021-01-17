@@ -27,6 +27,7 @@ sudo apt install --yes --no-install-recommends \
     fontconfig \
     fonts-symbola \
     fritzing \
+    fzf \
     gawk \
     gconf-editor \
     gdebi \
@@ -55,8 +56,6 @@ sudo apt install --yes --no-install-recommends \
     iotop \
     jq \
     libclamunrar7 \
-    libdvd-pkg \
-    libdvdnav4 \
     libfdk-aac1 \
     libkeybinder-3.0-0 \
     libmemcached-tools \
