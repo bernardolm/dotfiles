@@ -24,6 +24,6 @@ if [[ `hostname` != "hunb*" ]]; then
         ungoogled-chromium
 fi
 
-sudo apt install -f
+sudo apt install -f --yes
 
 msg_end '3rd party packages'

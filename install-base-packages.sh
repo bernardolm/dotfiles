@@ -110,6 +110,6 @@ sudo apt install --yes --no-install-recommends \
     xclip \
     zsh
 
-sudo apt install -f
+sudo apt install -f --yes
 
 msg_end 'base packages'

@@ -6,8 +6,7 @@ function get_keys() {
     # subkeys.pgp.net
 
     if [[ "$(command -v curl)" == "" ]]; then
-        echo -e "\n💾 installing curl..."
-        sudo apt install curl
+        sudo apt install --yes curl
     fi
 
     sudo apt-get update 2>&1 1>/dev/null | sed -ne 's/.*NO_PUBKEY //p' |

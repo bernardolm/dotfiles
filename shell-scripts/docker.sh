@@ -139,7 +139,7 @@ function install_docker() {
 
     if [[ `apt list --installed '*docker*' 2>/dev/null | wc -l | bc` -le 1 ]]; then
         echo "installing docker ubuntu package"
-        sudo apt install docker-ce docker-compose --yes
+        sudo apt install --yes docker-ce docker-compose
     fi
 
     if [[ -d $HOME/.docker ]]; then
