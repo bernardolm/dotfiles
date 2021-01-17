@@ -19,6 +19,11 @@ sudo apt install --yes --no-install-recommends \
     wine-staging-amd64 \
     winehq-staging
 
+if [[ `hostname` != "hunb*" ]]; then
+    sudo apt install --yes --no-install-recommends \
+        ungoogled-chromium
+fi
+
 sudo apt install -f
 
 msg_end '3rd party packages'
