@@ -22,7 +22,7 @@ while read line; do
         fi
 
         echo "link OK"
-        ll $to
+        ls -lah  $to
     }
 
     IFS=';' read -r -a paths <<< "$line"
