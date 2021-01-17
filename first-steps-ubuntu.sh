@@ -26,6 +26,7 @@ $BASE_PATH/restore-my-sym-links.sh
 $BASE_PATH/setting-apt.sh
 $BASE_PATH/install-base-packages.sh
 $BASE_PATH/install-3rd-party-packages.sh
+$BASE_PATH/setting-ssh.sh
 $BASE_PATH/install-3rd-party-apps.sh
 $BASE_PATH/install-snap-packages.sh
 $BASE_PATH/post-install.sh.sh
