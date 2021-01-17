@@ -13,8 +13,8 @@ function install_dropbox() {
     }
 
     if [[ "$(command -v dropbox)" == "" ]]; then
-        echo -e "\n💾 installing dropbox..."
-        sudo apt install python3-gpg
+        echo -e "\ninstalling dropbox..."
+        sudo apt install --yes python3-gpg curl
         nautilus --quit
         curl https://linux.dropbox.com/packages/ubuntu/dropbox_2020.03.04_amd64.deb -o ~/tmp/dropbox.deb && sudo dpkg -i ~/tmp/dropbox.deb
     fi
