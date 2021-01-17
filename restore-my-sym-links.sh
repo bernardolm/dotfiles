@@ -27,7 +27,7 @@ while read line; do
         fi
 
         echo -n "finish"
-        [ -L $to ] && ls -lah  $to
+        [ -L $to ] && echo "" && ls -lah  $to
     }
 
     IFS=';' read -r -a paths <<< "$line"
@@ -57,7 +57,7 @@ while read line; do
         ln_smart $from $to true
     fi
 
-    echo -e "\n"
+    echo -e ""
 done <~/Sync/config-backup/scripts/my-sym-links.txt
 
 msg_end 'restore symlink'
