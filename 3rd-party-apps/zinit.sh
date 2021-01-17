@@ -4,7 +4,7 @@ source $BASE_PATH/msg.sh
 
 msg_init 'zinit'
 
-if [[ "$(command -v zinit)" == "off" ]]; then
+if [[ ! -d $HOME/.zinit ]]; then
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/zdharma/zinit/master/doc/install.sh)"
 fi
 
