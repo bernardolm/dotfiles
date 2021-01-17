@@ -92,6 +92,7 @@ sudo apt install --yes --no-install-recommends \
     resolvconf \
     samba \
     screen \
+    shellcheck \
     silversearcher-ag \
     smartmontools \
     smem \

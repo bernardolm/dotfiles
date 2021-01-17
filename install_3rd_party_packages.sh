@@ -5,6 +5,7 @@ source $BASE_PATH/msg.sh
 msg_init '3rd party packages'
 
 sudo apt install --yes --no-install-recommends \
+    balena-etcher-electron \
     gh \
     google-chrome-stable \
     google-cloud-sdk \

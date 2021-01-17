@@ -1,6 +1,13 @@
 #!/usr/bin/zsh
 source ~/.zshrc
 
+# TODO:
+# [x] backup apt packages list with a timestamp
+# [x] backup crontab list
+# [ ] backup resolve.conf.d files
+# [x] backup snap packages list with a timestamp
+
+
 backup_gnome
 backup_guake
 

@@ -31,14 +31,6 @@ msg_welcome() {
 
 msg_welcome
 
-# STEPS:
-# 1. ask to remove /etc/apt/sources.list.d (backup before) and link with related back folder
-# 2. run get keys (needs curl)
-# 3. apt update and apt upgrade
-# 4. install packages and apps
-# 5. restore gnome
-# 6. restore guake
-
 ## Upgrade ubuntu
 msg_init 'upgrading ubuntu'
 sudo apt upgrade --yes
