@@ -17,12 +17,6 @@ msg_welcome() {
 
 msg_welcome
 
-## Upgrade ubuntu
-msg_init 'ubuntu upgrade'
-sudo apt update
-sudo apt upgrade --yes
-msg_end 'ubuntu upgrade'
-
 # Creating temp folder
 [ ! -f ~/tmp ] && mkdir -p ~/tmp
 

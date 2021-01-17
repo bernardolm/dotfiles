@@ -11,5 +11,6 @@ get_keys
 sudo dpkg --add-architecture i386
 
 sudo apt update
+sudo apt upgrade --yes
 
 msg_end 'setting apt'
