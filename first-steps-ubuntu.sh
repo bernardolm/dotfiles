@@ -27,13 +27,13 @@ msg_end 'ubuntu upgrade'
 [ ! -f ~/tmp ] && mkdir -p ~/tmp
 
 ## Run install scripts
-$BASE_PATH/install_remote_folder.sh
+$BASE_PATH/install-remote-folder.sh
 $BASE_PATH/restore-my-sym-links.sh
 $BASE_PATH/setting-apt.sh
-$BASE_PATH/install_base_packages.sh
-$BASE_PATH/install_3rd_party_packages.sh
-$BASE_PATH/install_3rd_party_apps.sh
-$BASE_PATH/install_snap_packages.sh
+$BASE_PATH/install-base-packages.sh
+$BASE_PATH/install-3rd-party-packages.sh
+$BASE_PATH/install-3rd-party-apps.sh
+$BASE_PATH/install-snap-packages.sh
 $BASE_PATH/post-install.sh.sh
 
 echo -e '\n\n🏁 thats all folks... bye!'
