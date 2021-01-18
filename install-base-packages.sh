@@ -77,8 +77,10 @@ sudo apt install --yes --no-install-recommends \
     powertop \
     python-pygments \
     python3 \
+    python3-all-dev \
     python3-cairo \
     python3-dbus \
+    python3-dev \
     python3-gi \
     python3-gpg \
     python3-pbr \
