@@ -4,7 +4,7 @@ source $BASE_PATH/msg.sh
 
 msg_init 'todo.txt-cli'
 
-if [[ "$(command -v todo.sh)" == "" ]]; then
+if [ ! -f ~/.local/bin/todo.sh ]; then
     version="2.12.0"
     curl -s -L https://github.com/todotxt/todo.txt-cli/releases/download/v$version/todo.txt_cli-$version.zip -o ~/tmp/todo.zip
     unzip ~/tmp/todo.zip -d ~/tmp/todo
