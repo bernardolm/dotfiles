@@ -19,7 +19,7 @@ sudo apt install --yes --no-install-recommends \
     wine-staging-amd64 \
     winehq-staging
 
-if [[ `hostname` != "hunb*" ]]; then
+if [[ "`hostname`" != "hunb*" ]]; then
     sudo apt install --yes --no-install-recommends \
         ungoogled-chromium
 fi
