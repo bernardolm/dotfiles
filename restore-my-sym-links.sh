@@ -22,7 +22,7 @@ while read line; do
             sudo ln -sf $from $to
         fi
 
-        echo -n "finish"
+        echo -ne "finish\n"
         [ -L $to ] && echo "" && ls -lah  $to
     }
 
@@ -33,27 +33,25 @@ while read line; do
     echo -n "checking $to... "
 
     if test -L $to; then
-        echo "is a symlink, skipping"
+        echo -ne "is a symlink, skipping\n"
     elif test -d $to; then
         if test -L $to; then
-            echo "is a symlink to a directory"
+            echo -ne "is a symlink to a directory\n"
         else
-            echo -n "is just a plain directory... "
+            echo -n "is a plain directory... "
             ln_smart $from $to
         fi
     elif test -f $to; then
         if test -L $to; then
-            echo "is a symlink to a file"
+            echo -ne "is a symlink to a file\n"
         else
-            echo -n "is just a plain file... "
+            echo -n "is a plain file... "
             ln_smart $from $to
         fi
     else
         echo -n "don't exist... "
         ln_smart $from $to true
     fi
-
-    echo -e ""
 done <~/Sync/config-backup/scripts/my-sym-links.txt
 
 msg_end 'restore symlink'
