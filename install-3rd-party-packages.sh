@@ -4,26 +4,32 @@ source $BASE_PATH/msg.sh
 
 msg_init '3rd party packages'
 
-sudo apt install --yes --no-install-recommends \
-    balena-etcher-electron \
-    gh \
-    google-chrome-stable \
-    google-cloud-sdk \
-    kubectl \
-    libreoffice-calc \
-    nmap \
-    python-gtk2 \
-    stacer \
-    sublime-text \
-    wine-staging \
-    wine-staging-amd64 \
-    winehq-staging
+[ -f ~/tmp/apt_3rd_party_packages ] || touch -d "2 years ago" ~/tmp/apt_3rd_party_packages
 
-if [[ `hostname` != hunb* ]]; then
+if test `find ~/tmp/apt_3rd_party_packages -mmin +180`; then
     sudo apt install --yes --no-install-recommends \
-        ungoogled-chromium
-fi
+        balena-etcher-electron \
+        gh \
+        google-chrome-stable \
+        google-cloud-sdk \
+        kubectl \
+        libreoffice-calc \
+        nmap \
+        python-gtk2 \
+        stacer \
+        sublime-text \
+        wine-staging \
+        wine-staging-amd64 \
+        winehq-staging
 
-sudo apt install -f --yes
+    if [[ `hostname` != hunb* ]]; then
+        sudo apt install --yes --no-install-recommends \
+            ungoogled-chromium
+    fi
+
+    sudo apt install -f --yes
+else
+    echo "3rd party packages updated"
+fi
 
 msg_end '3rd party packages'
