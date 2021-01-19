@@ -1,5 +1,5 @@
 #!/usr/bin/zsh
-source  ~/.zshrc
+source ~/.zshrc
 
 TIMENOW=$(date +"%Y%m%d%H%M%S")
 
