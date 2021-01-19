@@ -29,7 +29,7 @@ fi
 [ -f ~/tmp/sudo_apt_upgrade ] || touch -d "2 years ago" ~/tmp/sudo_apt_upgrade
 
 if test `find ~/tmp/sudo_apt_upgrade -mmin +180`; then
-    echo "apt updating..."
+    echo "apt upgrading..."
     sudo apt upgrade --yes
     touch ~/tmp/sudo_apt_upgrade
 else
