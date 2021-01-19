@@ -4,8 +4,6 @@ source $BASE_PATH/msg.sh
 
 msg_init 'setting apt'
 
-sudo dpkg --add-architecture i386
-
 [ -f ~/tmp/get_keys ] || touch -d "2 years ago" ~/tmp/get_keys
 
 if test `find ~/tmp/get_keys -mmin +180`; then
@@ -21,6 +19,7 @@ fi
 
 if test `find ~/tmp/sudo_apt_update -mmin +180`; then
     echo "apt updating..."
+    sudo dpkg --add-architecture i386
     sudo apt update
     touch ~/tmp/sudo_apt_update
 else
