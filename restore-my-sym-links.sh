@@ -23,7 +23,6 @@ while read line; do
         fi
 
         echo -ne "finish\n"
-        [ -L $to ] && echo "" && ls -lah  $to
     }
 
     IFS=';' read -r -a paths <<< "$line"
