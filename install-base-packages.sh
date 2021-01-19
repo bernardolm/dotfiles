@@ -115,6 +115,8 @@ if test `find ~/tmp/apt_base_packages -mmin +180`; then
         zsh
 
     sudo apt install -f --yes
+
+    touch ~/tmp/apt_base_packages
 else
     echo "base packages updated"
 fi

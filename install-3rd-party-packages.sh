@@ -28,6 +28,8 @@ if test `find ~/tmp/apt_3rd_party_packages -mmin +180`; then
     fi
 
     sudo apt install -f --yes
+
+    touch ~/tmp/apt_3rd_party_packages
 else
     echo "3rd party packages updated"
 fi

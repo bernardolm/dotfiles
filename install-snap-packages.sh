@@ -22,6 +22,8 @@ if test `find ~/tmp/snap_packages -mmin +180`; then
         code \
         --classic \
         && true
+
+    touch ~/tmp/snap_packages
 else
     echo "snap packages updated"
 fi
