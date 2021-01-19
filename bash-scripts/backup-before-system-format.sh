@@ -11,8 +11,8 @@ source ~/.zshrc
 backup_gnome
 backup_guake
 
-crontab -l > $SYNC_PATH/crontab
-dpkg --get-selections > $SYNC_PATH/Package.list
-snap list > $SYNC_PATH/snap.list
+crontab -l > $SYNC_PATH/crontab_`hostname`
+dpkg --get-selections > $SYNC_PATH/Package_`hostname`.list
+snap list > $SYNC_PATH/snap_`hostname`.list
 
 backup_my_sym_links
