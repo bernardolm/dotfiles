@@ -4,7 +4,7 @@ source $BASE_PATH/msg.sh
 
 msg_init 'post install'
 
-sudo apt --purge autoremove
+sudo apt --purge --yes autoremove
 chsh -s $(which zsh)
 fc-cache -f -v > /dev/null
 gnome-extensions disable ubuntu-dock@ubuntu.com
