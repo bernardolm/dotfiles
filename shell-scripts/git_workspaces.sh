@@ -13,13 +13,21 @@ function backup_git_workspaces() {
 
 function restore_git_workspaces() {
     while read line; do
-        IFS=';' read -r -a paths <<<"$line"
-        origin_name=${paths[0]}
-        remote_url=${paths[1]}
-        local_path=${paths[2]}
+        if [[ `ps -p $$ -ocomm=` == "zsh" ]]; then
+            paths=("${(@s/;/)line}")
+            origin_name=${paths[1]}
+            remote_url=${paths[2]}
+            local_path=${paths[3]}
+        else
+            IFS=';' read -r -a paths <<<"$line"
+            origin_name=${paths[0]}
+            remote_url=${paths[1]}
+            local_path=${paths[2]}
+        fi
 
         if [ ! -d $local_path ]; then
             git clone $remote_url $local_path
+            echo "-------------"
         fi
     done <$1
 }
