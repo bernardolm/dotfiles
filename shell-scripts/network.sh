@@ -2,10 +2,10 @@ PORTS_TO_ALLOW_IN_UFW=$(<$SYNC_PATH/scripts/ports-to-open-in-ufw.txt)
 
 function reset_iptables() {
     CMDS=(ip6tables iptables)
-    echo -e 'running for '${CMDS[@]}'\n'
+    echo 'running for '${CMDS[@]}
 
     for p in ${CMDS[@]}; do
-        echo -e 'running '$p'...'
+        echo 'running '$p'...'
 
         sudo $p -F
         sudo $p -F FORWARD
@@ -28,30 +28,31 @@ function reset_iptables() {
         sudo $p -t nat -X
         sudo $p -X
 
-        echo -e 'finish '$p'\n'
+        echo 'finish '$p
     done
 
     sudo ufw --force reset
     sudo ufw --force enable
 
-    echo -e "\nrestoring rules\n"
+    echo "restoring rules"
 
     for i in $PORTS_TO_ALLOW_IN_UFW; do
+        echo "allowing $i"
         $(sudo ufw allow $i)
     done
 
     sudo ufw --force reload
 
-    echo -e "\nlisting simple updated rules\n"
+    echo "listing simple updated rules"
 
     sudo ufw status numbered
 
-    echo -e "\nlisting verbose updated rules\n"
+    echo "listing verbose updated rules"
 }
 
 function setup_tunnel() {
     sleep 15s
-    $WORKSPACE_USER/first-steps-ubuntu/bash-scripts/add-my-routes-to-vpn.sh
+    add_my_routes_to_vpn
 }
 
 function vpn_hu() {
