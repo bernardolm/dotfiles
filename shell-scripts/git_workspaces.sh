@@ -15,15 +15,15 @@ function backup_git_workspaces() {
 function restore_git_workspaces() {
     while read line; do
         if [[ `ps -p $$ -ocomm=` == "zsh" ]]; then
-            paths=("${(@s/;/)line}")
-            origin_name=${paths[1]}
-            remote_url=${paths[2]}
-            local_path=${paths[3]}
+            parts=("${(@s/;/)line}")
+            origin_name=${parts[1]}
+            remote_url=${parts[2]}
+            local_path=${parts[3]}
         else
-            IFS=';' read -r -a paths <<<"$line"
-            origin_name=${paths[0]}
-            remote_url=${paths[1]}
-            local_path=${paths[2]}
+            IFS=';' read -r -a parts <<<"$line"
+            origin_name=${parts[0]}
+            remote_url=${parts[1]}
+            local_path=${parts[2]}
         fi
 
         if [ ! -d $local_path ]; then
