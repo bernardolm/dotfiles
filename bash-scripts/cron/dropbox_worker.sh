@@ -1,7 +1,6 @@
-#!/usr/bin/zsh
-source ~/.zshrc
+#!/bin/bash
 
-function cron/dropbox() {
+function dropbox_worker() {
     wait_for=5m
 
     echo -e "running dropbox crontab..."
@@ -25,4 +24,4 @@ if [ ! -d "$log_path" ]; then
     mkdir -p "$log_path"
 fi
 
-cron/dropbox > $log_path/$(date +"%Y-%m-%d-%H-%M").log 2>&1
+dropbox_worker > $log_path/$(date +"%Y-%m-%d-%H-%M").log 2>&1
