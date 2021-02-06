@@ -102,6 +102,7 @@ if test `find ~/tmp/apt_base_packages -mmin +180`; then
         smem \
         software-properties-common \
         sudo \
+        traceroute \
         trash-cli \
         ttf-ancient-fonts-symbola \
         tweak \
