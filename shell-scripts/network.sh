@@ -1,5 +1,3 @@
-PORTS_TO_ALLOW_IN_UFW=$(<$SYNC_PATH/scripts/ports-to-open-in-ufw.txt)
-
 function reset_iptables() {
     CMDS=(ip6tables iptables)
     echo 'running for '${CMDS[@]}
@@ -36,18 +34,18 @@ function reset_iptables() {
 
     echo "restoring rules"
 
-    for i in $PORTS_TO_ALLOW_IN_UFW; do
-        echo "allowing $i"
-        $(sudo ufw allow $i)
-    done
+    PORTS_TO_ALLOW_IN_UFW=$SYNC_PATH/scripts/ports-to-open-in-ufw.txt
+
+    while IFS= read -r i; do
+        [ -z "$i" ] && continue
+        echo -e "\nallowing $i"
+        sudo ufw allow $i
+    done < "$PORTS_TO_ALLOW_IN_UFW"
+
+    echo ""
 
     sudo ufw --force reload
-
-    echo "listing simple updated rules"
-
     sudo ufw status numbered
-
-    echo "listing verbose updated rules"
 }
 
 function setup_tunnel() {
