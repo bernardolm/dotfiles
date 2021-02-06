@@ -100,6 +100,8 @@ if test `find ~/tmp/apt_base_packages -mmin +180`; then
         silversearcher-ag \
         smartmontools \
         smem \
+        snap \
+        snapd \
         software-properties-common \
         sudo \
         traceroute \
