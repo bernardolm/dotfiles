@@ -34,13 +34,7 @@ function reset_iptables() {
 
     echo "restoring rules"
 
-    PORTS_TO_ALLOW_IN_UFW=$SYNC_PATH/scripts/ports-to-open-in-ufw.txt
-
-    while IFS= read -r i; do
-        [ -z "$i" ] && continue
-        echo -e "\nallowing $i"
-        sudo ufw allow $i
-    done < "$PORTS_TO_ALLOW_IN_UFW"
+    bash $SYNC_PATH/scripts/ufw-custom.txt
 
     echo ""
 
