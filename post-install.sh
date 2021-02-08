@@ -9,9 +9,11 @@ chsh -s $(which zsh)
 fc-cache -f -v > /dev/null
 gnome-extensions disable ubuntu-dock@ubuntu.com
 
-# sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
-# sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
-# sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+# echo "net.ipv6.conf.all.disable_ipv6=1" | sudo tee -a /etc/sysctl.conf
+# echo "net.ipv6.conf.default.disable_ipv6=1" | sudo tee -a /etc/sysctl.conf
+# echo "net.ipv6.conf.lo.disable_ipv6=1" | sudo tee -a /etc/sysctl.conf
+echo "vm.swappiness=25" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
 
 gconftool-2 --shutdown
 gconftool-2 --spawn
