@@ -11,8 +11,6 @@ if test `find ~/tmp/apt_3rd_party_packages -mmin +180`; then
         balena-etcher-electron \
         gh \
         google-chrome-stable \
-        google-cloud-sdk \
-        kubectl \
         libreoffice-calc \
         nmap \
         python-gtk2 \

@@ -20,6 +20,8 @@ if test `find ~/tmp/snap_packages -mmin +180`; then
 
     sudo snap install \
         code \
+        google-cloud-sdk \
+        kubectl \
         --classic \
         && true
 
