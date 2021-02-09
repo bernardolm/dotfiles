@@ -148,7 +148,7 @@ function install_docker() {
 
     sudo groupadd docker || true
     sudo usermod -aG docker $USER || true
-    newgrp docker
+    $(newgrp docker)
 
     sudo systemctl enable docker
 }
