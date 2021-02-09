@@ -123,12 +123,16 @@ function sanitize_docker_install() {
         done
     fi
 
-    if [[ `apt-get list --installed '*docker*' 2>/dev/null | wc -l | bc` -gt 1 ]]; then
-        echo "purging docker ubuntu package"
-        sudo apt-get purge '^docker' '^containerd' --yes > /dev/null
-        sudo apt-get autoremove --purge --yes > /dev/null
+    if [[ "$1" != "no-purge" ]]; then
+        echo "purging docker installation"
+        if [[ `apt-get list --installed 'docker*' 2>/dev/null | wc -l | bc` -gt 1 ]]; then
+            echo "purging docker ubuntu package"
+            sudo apt-get purge '^docker' '^containerd' --yes > /dev/null
+            # sudo apt-get autoremove --purge --yes > /dev/null
+        fi
     fi
 
+    sanitize_dockerdns_vestiges
     sanitize_docker_config_files
     sanitize_docker_local_ip
 }
@@ -138,7 +142,7 @@ function install_docker() {
 
     if [[ `apt-get list --installed '*docker*' 2>/dev/null | wc -l | bc` -le 1 ]]; then
         echo "installing docker ubuntu package"
-        sudo apt-get install --yes docker-ce docker-compose
+        sudo apt-get install --yes --purge --reinstall docker-ce
     fi
 
     if [[ -d $HOME/.docker ]]; then
@@ -155,7 +159,7 @@ function install_docker() {
 
 function reset_docker() {
     echo "reseting docker"
-    sanitize_docker_install
+    sanitize_docker_install no-purge
     install_docker
     install_dockerdns
 }
