@@ -6,14 +6,37 @@ function sanitize_dockerdns_vestiges() (
 
     grep -v 'docker-dns' /etc/resolvconf/resolv.conf.d/head | sudo tee /etc/resolvconf/resolv.conf.d/head.tmp > /dev/null
     /bin/cat /etc/resolvconf/resolv.conf.d/head.tmp | sudo tee /etc/resolvconf/resolv.conf.d/head > /dev/null
+
+    sudo resolvconf -u
 )
 
 function install_dockerdns() {
     echo "installing docker-dns"
     sanitize_dockerdns_vestiges
-    git -C $WORKSPACE_USER/docker-dns checkout .
-    git -C $WORKSPACE_USER/docker-dns checkout version/1.x
-    git -C $WORKSPACE_USER/docker-dns fetch --prune
-    git -C $WORKSPACE_USER/docker-dns pull
-    make -C $WORKSPACE_USER/docker-dns install tag=hu/ns0 name=ns0 tld=hud
+
+    git \
+        --work-tree=$WORKSPACE_USER/docker-dns \
+        --git-dir=$WORKSPACE_USER/docker-dns/.git \
+        -C $WORKSPACE_USER/docker-dns \
+        fetch --prune
+    git \
+        --work-tree=$WORKSPACE_USER/docker-dns \
+        --git-dir=$WORKSPACE_USER/docker-dns/.git \
+        -C $WORKSPACE_USER/docker-dns \
+        checkout .
+    # git \
+    #     --work-tree=$WORKSPACE_USER/docker-dns \
+    #     --git-dir=$WORKSPACE_USER/docker-dns/.git \
+    #     -C $WORKSPACE_USER/docker-dns \
+    #     checkout version/1.x
+    git \
+        --work-tree=$WORKSPACE_USER/docker-dns \
+        --git-dir=$WORKSPACE_USER/docker-dns/.git \
+        -C $WORKSPACE_USER/docker-dns \
+        pull
+
+    make \
+        --directory=$WORKSPACE_USER/docker-dns \
+        --makefile=$WORKSPACE_USER/docker-dns/Makefile \
+        install tag=hu/ns0 name=ns0 tld=hud
 }
