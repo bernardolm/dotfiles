@@ -1,5 +1,4 @@
 DOCKER=$(which docker)
-
 DOCKER_CONTAINERS="$DOCKER ps -aq"
 DOCKER_IMAGES_DANGLING="$DOCKER images -q -f 'dangling=true'"
 DOCKER_IMAGES="$DOCKER images -aq"
@@ -13,43 +12,43 @@ function check_docker_running() {
 }
 
 function stop_docker_containers() {
-    echo 'stopping docker containers'
+    echo "stopping docker containers"
     check_docker_install || return true
     for id in $(eval $DOCKER_CONTAINERS); do
-        echo 'stopping '$id
+        echo "stopping $id"
         docker stop ${id} || continue
     done
 }
 
 function sanitize_docker_containers() {
-    echo 'removing docker containers'
+    echo "removing docker containers"
     check_docker_install || return true
     for id in $(eval $DOCKER_CONTAINERS); do
-        echo 'removing '$id
+        echo "removing $id"
         docker rm ${id} || continue
     done
 }
 
 function sanitize_docker_images() {
-    echo 'removing docker images'
+    echo "removing docker images"
     check_docker_install || return true
     for id in $(eval $DOCKER_IMAGES); do
-        echo 'removing '$id
+        echo "removing $id"
         docker rmi ${id} || continue
     done
 }
 
 function sanitize_docker_untagged() {
-    echo 'removing untagged docker images'
+    echo "removing untagged docker images"
     check_docker_install || return true
     for id in $(eval $DOCKER_IMAGES_DANGLING); do
-        echo 'removing '$id
+        echo "removing $id"
         docker rmi ${id} || continue
     done
 }
 
 function sanitize_docker_content() {
-    echo 'removing docker content'
+    echo "removing docker content"
     check_docker_install || return true
     stop_docker_containers
     sanitize_docker_containers
@@ -58,19 +57,19 @@ function sanitize_docker_content() {
 }
 
 function sanitize_docker_logs() {
-    echo 'removing docker logs'
+    echo "removing docker logs"
     check_docker_install || return true
     for container_id in $(eval $DOCKER_CONTAINERS); do
-        echo 'catching '$container_id' log path'
-        file=$($DOCKER inspect --format='{{.LogPath}}' $container_id)
-        echo 'container '$container_id' log file in '$file', truncating'
+        echo "catching $container_id log path"
+        file=$($DOCKER inspect --format="{{.LogPath}}" $container_id)
+        echo "container $container_id log file in $file, truncating"
         sudo sh -c "truncate -s 0 $file"
-        echo 'done to container '$container_id
+        echo "done to container $container_id"
     done
 }
 
 function give_me_back_my_docker() {
-    echo 'recovering docker app control'
+    echo "recovering docker app control"
     check_docker_install || return true
     for id in $(eval $DOCKER_CONTAINERS); do
         docker update --restart=no ${id}
@@ -79,7 +78,7 @@ function give_me_back_my_docker() {
 }
 
 function sanitize_docker_config_files() {
-    echo 'removing docker install files'
+    echo "removing docker install files"
     /bin/rm -rf ~/.docker
     sudo /bin/rm -rf /etc/apparmor.d/docker
     sudo /bin/rm -rf /etc/docker
@@ -97,20 +96,20 @@ function docker0_ip() {
 }
 
 function sanitize_docker_local_ip() {
-    echo 'reseting docker network config'
+    echo "reseting docker network config"
     current_docker0_ip=`docker0_ip`
     if [[ "$current_docker0_ip" != "" ]]; then
-        echo 'docker0 network found in IP $current_docker0_ip'
+        echo "docker0 network found in IP $current_docker0_ip"
         sudo ip addr del dev docker0 $current_docker0_ip/16
         sudo ip link delete docker0
     fi
 }
 
 function sanitize_docker_install() {
-    echo 'removing docker installation'
+    echo "removing docker installation"
 
     if [[ $(check_docker_running) -eq 1 ]]; then
-        echo 'docker is running'
+        echo "docker is running"
 
         sanitize_docker_content
 
@@ -119,13 +118,13 @@ function sanitize_docker_install() {
         sudo service docker stop
 
         while [[ $(check_docker_running) -eq 1 ]]; do
-            echo 'waiting docker be stopped...'
+            echo "waiting docker be stopped..."
             sleep 1
         done
     fi
 
     if [[ `apt list --installed '*docker*' 2>/dev/null | wc -l | bc` -gt 1 ]]; then
-        echo 'purging docker ubuntu package'
+        echo "purging docker ubuntu package"
         sudo apt-get purge '^docker' '^containerd' --yes > /dev/null
         sudo apt-get autoremove --purge --yes > /dev/null
     fi
@@ -135,10 +134,10 @@ function sanitize_docker_install() {
 }
 
 function install_docker() {
-    echo 'installing docker'
+    echo "installing docker"
 
     if [[ `apt list --installed '*docker*' 2>/dev/null | wc -l | bc` -le 1 ]]; then
-        echo 'installing docker ubuntu package'
+        echo "installing docker ubuntu package"
         sudo apt install --yes docker-ce docker-compose
     fi
 
@@ -155,7 +154,7 @@ function install_docker() {
 }
 
 function reset_docker() {
-    echo 'reseting docker'
+    echo "reseting docker"
     sanitize_docker_install
     install_docker
     install_dockerdns

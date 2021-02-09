@@ -1,9 +1,9 @@
 function reset_iptables() {
     CMDS=(ip6tables iptables)
-    echo 'running for '${CMDS[@]}
+    echo "running for ${CMDS[@]}"
 
     for p in ${CMDS[@]}; do
-        echo 'running '$p'...'
+        echo "running $p..."
 
         sudo $p -F
         sudo $p -F FORWARD
@@ -26,7 +26,7 @@ function reset_iptables() {
         sudo $p -t nat -X
         sudo $p -X
 
-        echo 'finish '$p
+        echo "finish $p"
     done
 
     sudo ufw --force reset

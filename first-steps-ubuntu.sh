@@ -7,13 +7,13 @@ export BASE_PATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 source $BASE_PATH/msg.sh
 
 msg_welcome() {
-    echo ''
-    echo ' ___ _         _          _                  _            _           _       '
-    echo '|  _|_|___ ___| |_    ___| |_ ___ ___ ___   |_|___    _ _| |_ _ _ ___| |_ _ _ '
-    echo '|  _| |  _|_ -|  _|  |_ -|  _| -_| . |_ -|  | |   |  | | | . | | |   |  _| | |'
-    echo '|_| |_|_| |___|_|    |___|_| |___|  _|___|  |_|_|_|  |___|___|___|_|_|_| |___|'
-    echo '                                 |_|                                          '
-    echo ''
+    echo ""
+    echo " ___ _         _          _                  _            _           _       "
+    echo "|  _|_|___ ___| |_    ___| |_ ___ ___ ___   |_|___    _ _| |_ _ _ ___| |_ _ _ "
+    echo "|  _| |  _|_ -|  _|  |_ -|  _| -_| . |_ -|  | |   |  | | | . | | |   |  _| | |"
+    echo "|_| |_|_| |___|_|    |___|_| |___|  _|___|  |_|_|_|  |___|___|___|_|_|_| |___|"
+    echo "                                 |_|                                          "
+    echo ""
 }
 
 msg_welcome
@@ -32,4 +32,4 @@ $BASE_PATH/install-3rd-party-apps.sh
 $BASE_PATH/install-snap-packages.sh
 $BASE_PATH/post-install.sh
 
-echo -e '\n\n🏁 thats all folks... bye!'
+echo -e "\n\n🏁 thats all folks... bye!"
