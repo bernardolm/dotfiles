@@ -4,7 +4,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 WORKDIR /home/workdir
 
-RUN apt update && apt install --yes --no-install-recommends \
+RUN apt-get update && apt-get install --yes --no-install-recommends \
     apt-utils \
     dialog \
     git \
@@ -15,8 +15,8 @@ RUN apt update && apt install --yes --no-install-recommends \
     procps \
     zip \
     unzip \
-    && apt --purge autoremove --yes \
-    && apt clean --yes \
+    && apt-get --purge autoremove --yes \
+    && apt-get clean --yes \
     && rm -rf /var/lib/apt/lists/*
 
 RUN curl -sS https://getcomposer.org/installer | php -- \

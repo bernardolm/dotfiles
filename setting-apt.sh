@@ -20,7 +20,7 @@ fi
 if test `find ~/tmp/sudo_apt_update -mmin +180`; then
     echo "apt updating..."
     sudo dpkg --add-architecture i386
-    sudo apt update
+    sudo apt-get update
     touch ~/tmp/sudo_apt_update
 else
     echo "apt already updated"
@@ -30,7 +30,7 @@ fi
 
 if test `find ~/tmp/sudo_apt_upgrade -mmin +180`; then
     echo "apt upgrading..."
-    sudo apt upgrade --yes
+    sudo apt-get upgrade --yes
     touch ~/tmp/sudo_apt_upgrade
 else
     echo "apt already upgraded"

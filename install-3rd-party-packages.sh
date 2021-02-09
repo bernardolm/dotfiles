@@ -7,7 +7,7 @@ msg_init '3rd party packages'
 [ -f ~/tmp/apt_3rd_party_packages ] || touch -d "2 years ago" ~/tmp/apt_3rd_party_packages
 
 if test `find ~/tmp/apt_3rd_party_packages -mmin +180`; then
-    sudo apt install --yes --no-install-recommends \
+    sudo apt-get install --yes --no-install-recommends \
         balena-etcher-electron \
         gh \
         google-chrome-stable \
@@ -23,11 +23,11 @@ if test `find ~/tmp/apt_3rd_party_packages -mmin +180`; then
         winehq-staging
 
     if [[ `hostname` != hunb* ]]; then
-        sudo apt install --yes --no-install-recommends \
+        sudo apt-get install --yes --no-install-recommends \
             ungoogled-chromium
     fi
 
-    sudo apt install -f --yes
+    sudo apt-get install -f --yes
 
     touch ~/tmp/apt_3rd_party_packages
 else

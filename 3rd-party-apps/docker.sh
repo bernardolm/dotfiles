@@ -5,7 +5,7 @@ source $BASE_PATH/msg.sh
 msg_init 'docker'
 
 if [[ "$(command -v docker)" == "" ]]; then
-    sudo apt install --yes docker-ce docker-ce-cli containerd.io
+    sudo apt-get install --yes docker-ce docker-ce-cli containerd.io
     [ `cat /etc/group | grep docker | wc -l | bc` -eq 0 ] && sudo groupadd docker
     sudo usermod -aG docker $USER
     ## newgrp docker # FIXME: exiting from current shell

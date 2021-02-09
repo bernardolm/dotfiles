@@ -7,7 +7,7 @@ msg_init 'base packages'
 [ -f ~/tmp/apt_base_packages ] || touch -d "2 years ago" ~/tmp/apt_base_packages
 
 if test `find ~/tmp/apt_base_packages -mmin +180`; then
-    sudo apt install --yes --no-install-recommends \
+    sudo apt-get install --yes --no-install-recommends \
         alacarte \
         apt-transport-https \
         aspell-fr \
@@ -117,7 +117,7 @@ if test `find ~/tmp/apt_base_packages -mmin +180`; then
         xclip \
         zsh
 
-    sudo apt install -f --yes
+    sudo apt-get install -f --yes
 
     touch ~/tmp/apt_base_packages
 else

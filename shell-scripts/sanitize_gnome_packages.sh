@@ -1,5 +1,5 @@
 function sanitize_gnome_packages() {
-    sudo apt purge --yes \
+    sudo apt-get purge --yes \
         '^gnome-todo' \
         '^remmina' \
         '^rhythmbox' \
