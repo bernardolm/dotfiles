@@ -25,7 +25,7 @@ function add_my_routes_to_vpn() {
     function add_route() {
         SOURCE_NET=$(format_network $1)
         CMD="sudo ip route add $SOURCE_NET via $TUNNEL_ADDR"
-        eval $CMD
+        eval $CMD 2>/dev/null
     }
 
     echo "adding my routes do active VPN 🛡️"
@@ -52,7 +52,7 @@ function add_my_routes_to_vpn() {
         fi
 
         if [[ "$down_at" != "" ]]; then
-            echo "🔴 addr $host was inactivated, exiting..."
+            # echo "🔴 addr $host was inactivated, exiting..."
             echo $line | tee -a ~/tmp/hosts-to-route-to-vpn.csv >/dev/null
             continue
         fi
