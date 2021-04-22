@@ -18,7 +18,9 @@ if test `find ~/tmp/apt_base_packages -mmin +180`; then
         ca-certificates \
         chrome-gnome-shell \
         clamav \
-        clamtk \
+        clamav-base \
+        clamav-daemon \
+        clamav-freshclam \
         colortest \
         conky \
         curl \
