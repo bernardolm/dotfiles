@@ -127,8 +127,8 @@ function sanitize_docker_install() {
         echo "purging docker installation"
         if [[ `apt-get list --installed 'docker*' 2>/dev/null | wc -l | bc` -gt 1 ]]; then
             echo "purging docker ubuntu package"
-            sudo apt-get purge '^docker' '^containerd' --yes > /dev/null
-            # sudo apt-get autoremove --purge --yes > /dev/null
+            sudo apt-get purge --yes '^docker' '^containerd' runc > /dev/null
+            sudo apt-get autoremove --purge --yes > /dev/null
         fi
     fi
 
@@ -142,7 +142,7 @@ function install_docker() {
 
     if [[ `apt-get list --installed '*docker*' 2>/dev/null | wc -l | bc` -le 1 ]]; then
         echo "installing docker ubuntu package"
-        sudo apt-get install --yes --purge --reinstall docker-ce
+        sudo apt-get install --yes docker-ce docker-ce-cli containerd.io
     fi
 
     if [[ -d $HOME/.docker ]]; then
@@ -150,9 +150,8 @@ function install_docker() {
         sudo chmod g+rwx $HOME/.docker -R
     fi
 
-    sudo groupadd docker || true
-    sudo usermod -aG docker $USER || true
-    $(newgrp docker)
+    [ `/bin/cat /etc/group | grep docker | wc -l | bc` -eq 0 ] && sudo groupadd docker && newgrp docker
+    [ `getent group docker | grep $USER | wc -l | bc` -eq 0 ] && sudo usermod -aG docker $USER
 
     sudo systemctl enable docker
 }
