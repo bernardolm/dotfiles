@@ -60,8 +60,8 @@ if test `find ~/tmp/apt_base_packages -mmin +180`; then
         htop \
         iotop \
         jq \
-        libclamunrar7 \
         libfdk-aac1 \
+        libgconf2-dev \
         libkeybinder-3.0-0 \
         libmemcached-tools \
         libmysqlclient-dev \
@@ -70,8 +70,8 @@ if test `find ~/tmp/apt_base_packages -mmin +180`; then
         libvulkan1 \
         libxml2-utils \
         make \
+        mariadb-client-10.3 \
         meld \
-        mysql-client-5.7 \
         net-tools \
         nodejs \
         npm \

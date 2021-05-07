@@ -8,12 +8,10 @@ msg_init '3rd party packages'
 
 if test `find ~/tmp/apt_3rd_party_packages -mmin +180`; then
     sudo apt-get install --yes --no-install-recommends \
-        balena-etcher-electron \
         gh \
         google-chrome-stable \
         libreoffice-calc \
         nmap \
-        python-gtk2 \
         stacer \
         sublime-text \
         wine-staging \
