@@ -18,12 +18,10 @@ if test `find ~/tmp/snap_packages -mmin +180`; then
         sweethome3d-homedesign \
         && true
 
-    sudo snap install \
-        code \
-        google-cloud-sdk \
-        kubectl \
-        --classic \
-        && true
+    # classic snaps are not parallel installable yet
+    sudo snap install --classic code
+    sudo snap install --classic google-cloud-sdk
+    sudo snap install --classic kubectl \
 
     touch ~/tmp/snap_packages
 else
