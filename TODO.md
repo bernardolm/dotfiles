@@ -1,11 +1,12 @@
 - [ ] Install video card driver https://launchpad.net/~oibaf/+archive/ubuntu/graphics-drivers
 - [x] Fix dropbox install, "Dropbox isn't running!"
 - [x] Add libgconf2-dev base package
-- [ ] Add custom keys to docker and ungoogled chromium
+- [x] Add custom keys to docker and ungoogled chromium
 - [x] Fix mysql-client-5.7 install, use mariadb-client-10.3 instead
 - [x] Fix balena-etcher-electron install
 - [x] Fix python-gtk2 install
-- [ ] Fix snap install
+- [x] Fix snap install
 - [x] Fix post install chsh command
-- [ ] Fix zsh install
+- [x] Fix zsh install
 - [x] Remove libclamunrar7 install
+- [ ] Install epson scanner driver

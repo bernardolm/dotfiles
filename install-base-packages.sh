@@ -117,6 +117,7 @@ if test `find ~/tmp/apt_base_packages -mmin +180`; then
         wget \
         winetricks \
         xclip \
+        xsane \
         zsh
 
     sudo apt-get install -f --yes
