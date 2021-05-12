@@ -125,7 +125,7 @@ function sanitize_docker_install() {
 
     if [[ "$1" != "no-purge" ]]; then
         echo "purging docker installation"
-        if [[ `apt-get list --installed 'docker*' 2>/dev/null | wc -l | bc` -gt 1 ]]; then
+        if [[ `apt list --installed 'docker*' 2>/dev/null | wc -l | bc` -gt 1 ]]; then
             echo "purging docker ubuntu package"
             sudo apt-get purge --yes '^docker' '^containerd' runc > /dev/null
             sudo apt-get autoremove --purge --yes > /dev/null
@@ -140,7 +140,7 @@ function sanitize_docker_install() {
 function install_docker() {
     echo "installing docker"
 
-    if [[ `apt-get list --installed '*docker*' 2>/dev/null | wc -l | bc` -le 1 ]]; then
+    if [[ `apt list --installed '*docker*' 2>/dev/null | wc -l | bc` -le 1 ]]; then
         echo "installing docker ubuntu package"
         sudo apt-get install --yes docker-ce docker-ce-cli containerd.io
     fi
