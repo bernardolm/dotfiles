@@ -7,5 +7,5 @@ function sanitize_zsh_history() {
         [ `stat -c '%s' $HISTFILE` -ge 50000000 ] && zsh-history-clear --file $HISTFILE
     done
     zsh-history-clear --file $HISTFILE
-    echo "🏁 finish with "`get_file_size $HISTFILE`
+    echo "🏁 finish file with size "`get_file_size $HISTFILE`
 }
