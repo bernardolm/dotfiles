@@ -5,7 +5,7 @@ function install_go_tools() {
     GO111MODULE=on go get -v github.com/k0kubun/pp
 
     # General tools
-    GOPATH=~/gopath-tools go get -v github.com/golang/dep/cmd/dep
+    GO111MODULE=off GOPATH=~/gopath-tools curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
     # General go mod tools
     GO111MODULE=on GOPATH=~/gopath-tools go get -v github.com/cortesi/modd/cmd/modd
