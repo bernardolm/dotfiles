@@ -1,5 +1,5 @@
 function sanitize_gnome() {
-    NOW=$(date +"%Y-%m-%d-%H-%M-%S")
+    NOW=$(date +"%Y%m%d%H%M%S")
     mkdir -p ~/.old-gnome-config/${NOW}
     sudo mv ~/.gnome* ~/.old-gnome-config/${NOW}
     sudo mv ~/.gconf* ~/.old-gnome-config/${NOW}
