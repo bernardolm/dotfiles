@@ -15,7 +15,8 @@ function add_my_routes_to_vpn() {
     }
 
     function get_addrs() {
-        echo $(nslookup $host | grep Address | grep -v '#' | cut -d: -f2)
+        local CMD="nslookup $1 | grep Address | grep -v '#' | cut -d: -f2"
+        eval $CMD 2>/dev/null
     }
 
     function format_network() {
@@ -23,8 +24,8 @@ function add_my_routes_to_vpn() {
     }
 
     function add_route() {
-        SOURCE_NET=$(format_network $1)
-        CMD="sudo ip route add $SOURCE_NET via $TUNNEL_ADDR"
+        local SOURCE_NET=$(format_network $1)
+        local CMD="sudo ip route add $SOURCE_NET via $2"
         eval $CMD 2>/dev/null
     }
 
@@ -32,8 +33,8 @@ function add_my_routes_to_vpn() {
 
     init_tmp_file
 
-    NOW=$(date --rfc-3339=seconds)
-    TUNNEL_ADDR=$(ip -o -4 addr list tun0 | awk '{print $4}')
+    local NOW=$(date --rfc-3339=seconds)
+    local TUNNEL_ADDR=`tun0_ip`
     echo "VPN address is ${TUNNEL_ADDR}"
 
     while read line; do
@@ -52,7 +53,6 @@ function add_my_routes_to_vpn() {
         fi
 
         if [[ "$down_at" != "" ]]; then
-            # echo "🔴 addr $host was inactivated, exiting..."
             echo $line | tee -a ~/tmp/hosts-to-route-to-vpn.csv >/dev/null
             continue
         fi
@@ -71,7 +71,7 @@ function add_my_routes_to_vpn() {
 
         for j in "${IP_ADDRS_ARR[@]}"; do
             echo "🔵 routing $j from $host to $TUNNEL_ADDR"
-            add_route $j
+            add_route $j $TUNNEL_ADDR
             if [[ "$?" == "1" ]]; then
                 echo "🔴 fail to route"
                 continue
