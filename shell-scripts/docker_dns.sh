@@ -26,7 +26,7 @@ function install_dockerdns() {
 
     sanitize_dockerdns_vestiges
 
-    function install_dockerdns_1_x() {
+    function _install_dockerdns_1_x() {
         echo "installing 1.x version"
 
         git checkout version/1.x
@@ -35,7 +35,7 @@ function install_dockerdns() {
         make install tag=hu/ns0 name=ns0 tld=hud
     }
 
-    function install_dockerdns_lastest() {
+    function _install_dockerdns_lastest() {
         echo "installing latest version"
 
         git checkout master
@@ -50,7 +50,7 @@ function install_dockerdns() {
 
     git fetch --prune
 
-    install_dockerdns_lastest
+    _install_dockerdns_lastest
 
     cd $last_pwd
 }
