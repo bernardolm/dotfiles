@@ -1,0 +1,11 @@
+function db_migrate () {
+    DOCKER_IMAGE_NAME=renatovico/simple-db-migrate
+    docker build https://raw.githubusercontent.com/renatovico/simple-db-migrate-docker/master/Dockerfile -t ${DOCKER_IMAGE_NAME}:latest
+    echo "params to use in database ${1}:"
+    for ITEM in ${@:2}; do
+        echo "🔸 ${ITEM}"
+    done
+    DB_MIGRATE_CMD="docker run -it --rm --user $(id -u):$(id -g) --volume $WORKSPACE_ORG/banco-de-dados/migrate/${1}:/banco-de-dados --workdir=/banco-de-dados $DOCKER_IMAGE_NAME db-migrate --color --config=$1.conf --db-host=database_$1.hud --db-user=${HUD_DB_USER} --db-password=${HUD_DB_PASSWORD} ${@:2}"
+    echo "executing cmd:\n${DB_MIGRATE_CMD}\n"
+    eval "$DB_MIGRATE_CMD"
+}
