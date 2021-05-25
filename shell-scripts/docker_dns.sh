@@ -29,8 +29,8 @@ function install_dockerdns() {
     function _install_dockerdns_1_x() {
         echo "installing 1.x version"
 
-        git checkout version/1.x
-        git pull origin version/1.x
+        # git checkout version/1.x
+        # git pull origin version/1.x
 
         make install tag=hu/ns0 name=ns0 tld=hud
     }
@@ -38,8 +38,8 @@ function install_dockerdns() {
     function _install_dockerdns_lastest() {
         echo "installing latest version"
 
-        git checkout master
-        git pull origin master
+        # git checkout master
+        # git pull origin master
 
         sudo ./bin/docker-dns install -t hu/ns0 -d hud -n ns0
     }
