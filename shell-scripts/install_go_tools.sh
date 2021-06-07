@@ -10,6 +10,7 @@ function install_go_tools() {
     # General go mod tools
     GO111MODULE=on go get -v github.com/cortesi/modd/cmd/modd
     GO111MODULE=on go get -v github.com/liudng/dogo
+    GO111MODULE=on go get -v github.com/odeke-em/drive/cmd/drive
     GO111MODULE=on go get -v github.com/pkg/profile
     GO111MODULE=on go get -v github.com/tsenart/vegeta
 
