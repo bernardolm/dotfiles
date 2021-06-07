@@ -11,7 +11,8 @@ source ~/.zshrc
 backup_gnome
 backup_guake
 
-crontab -l >$SYNC_PATH/crontab_$(hostname)
+backup-crontab
+
 dpkg --get-selections >$SYNC_PATH/Package_$(hostname).list
 snap list >$SYNC_PATH/snap_$(hostname).list
 
