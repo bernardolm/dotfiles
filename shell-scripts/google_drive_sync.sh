@@ -6,7 +6,10 @@ function google_drive_sync() {
     rsync -avu --delete $SYNC_PATH/ $HOME/google-drive/config-backup/
 
     echo -e "syncing virtual..."
-    drive push -ignore-name-clashes -ignore-conflict $HOME/google-drive
+    time (cd $HOME/google-drive && \
+        exec drive push -ignore-name-clashes -ignore-conflict config-backup && \
+        exec drive pull -ignore-name-clashes -ignore-conflict config-backup
+    )
 
     echo -e "finish google drive worker"
     notify-send "google drive worker" "finish"
