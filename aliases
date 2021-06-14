@@ -25,6 +25,7 @@ alias l='ls -lFha'
 alias less="cless"
 alias ll='ls -la'
 alias make-it-mine="sudo chown -R $USER:$USER ."
+alias mouse-battery="upower -e | grep mouse | xargs upower -i | grep percentage | awk '{print $2}'"
 alias n="nautilus"
 alias new-guid="uuidgen | tr '[A-Z]' '[a-z]'"
 alias remove-x="chmod -R -x+X ."
