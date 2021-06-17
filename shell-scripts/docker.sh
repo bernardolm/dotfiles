@@ -150,8 +150,13 @@ function install_docker() {
         sudo chmod g+rwx $HOME/.docker -R
     fi
 
-    [ `/bin/cat /etc/group | grep docker | wc -l | bc` -eq 0 ] && sudo groupadd docker && newgrp docker
-    [ `getent group docker | grep $USER | wc -l | bc` -eq 0 ] && sudo usermod -aG docker $USER
+    [ `/bin/cat /etc/group | grep -c docker | bc` -eq 0 ] && sudo groupadd docker && newgrp docker
+    [ `getent group docker | grep -c $USER | bc` -eq 0 ] && sudo usermod -aG docker $USER
+
+    sudo sysctl -w vm.max_map_count=262144
+    [ `/bin/cat /etc/sysctl.conf | grep -c max_map_count | bc` -eq 0 ] && (echo "\nvm.max_map_count = 262144" | sudo tee -a /etc/sysctl.conf)
+
+    sudo systemctl restart docker
 
     sudo systemctl enable docker
 }
