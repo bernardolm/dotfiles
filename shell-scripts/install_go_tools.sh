@@ -1,46 +1,50 @@
 function install_go_tools() {
-    echo "installing tool golang packages..."
+    echo "installing tool golang tools package..."
+
+    export GO111MODULE=on
 
     # General helper packages
-    GO111MODULE=on go get -v github.com/k0kubun/pp
+    go get -v github.com/k0kubun/pp
 
     # General tools
     curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
 
     # General go mod tools
-    GO111MODULE=on go get -v github.com/cortesi/modd/cmd/modd
-    GO111MODULE=on go get -v github.com/liudng/dogo
-    GO111MODULE=on go get -v github.com/odeke-em/drive/cmd/drive
-    GO111MODULE=on go get -v github.com/pkg/profile
-    GO111MODULE=on go get -v github.com/tsenart/vegeta
+    go get -v github.com/cortesi/modd/cmd/modd
+    go get -v github.com/liudng/dogo
+    go get -v github.com/odeke-em/drive/cmd/drive
+    go get -v github.com/pkg/profile
+    go get -v github.com/tsenart/vegeta
+
+    curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
 
     # VS Code Go
-    GO111MODULE=on go get -v github.com/acroca/go-symbols
-    GO111MODULE=on go get -v github.com/cweill/gotests/...
-    GO111MODULE=on go get -v github.com/davidrjenni/reftools/cmd/fillstruct
-    GO111MODULE=on go get -v github.com/fatih/gomodifytags
-    GO111MODULE=on go get -v github.com/go-delve/delve/cmd/dlv
-    GO111MODULE=on go get -v github.com/godoctor/godoctor
-    GO111MODULE=on go get -v github.com/golangci/golangci-lint/cmd/golangci-lint
-    GO111MODULE=on go get -v github.com/haya14busa/goplay/cmd/goplay
-    GO111MODULE=on go get -v github.com/josharian/impl
-    GO111MODULE=on go get -v github.com/mdempsky/gocode
-    GO111MODULE=on go get -v github.com/mgechev/revive
-    GO111MODULE=on go get -v github.com/ramya-rao-a/go-outline
-    GO111MODULE=on go get -v github.com/rogpeppe/godef
-    GO111MODULE=on go get -v github.com/sqs/goreturns
-    GO111MODULE=on go get -v github.com/stamblerre/gocode
-    GO111MODULE=on go get -v github.com/tylerb/gotype-live
-    GO111MODULE=on go get -v github.com/uudashr/gopkgs/v2/cmd/gopkgs
-    GO111MODULE=on go get -v github.com/zmb3/gogetdoc
-    GO111MODULE=on go get -v golang.org/x/lint/golint
-    GO111MODULE=on go get -v golang.org/x/tools/cmd/goimports
-    GO111MODULE=on go get -v golang.org/x/tools/cmd/gorename
-    GO111MODULE=on go get -v golang.org/x/tools/cmd/guru
-    GO111MODULE=on go get -v golang.org/x/tools/gopls
-    GO111MODULE=on go get -v honnef.co/go/tools/...
-    GO111MODULE=on go get -v mvdan.cc/sh/v3/cmd/shfmt
-    GO111MODULE=on go get -v winterdrache.de/goformat/goformat
+    go get -v github.com/acroca/go-symbols
+    go get -v github.com/cweill/gotests/...
+    go get -v github.com/davidrjenni/reftools/cmd/fillstruct
+    go get -v github.com/fatih/gomodifytags
+    go get -v github.com/go-delve/delve/cmd/dlv
+    go get -v github.com/godoctor/godoctor
+    go get -v github.com/golangci/golangci-lint/cmd/golangci-lint
+    go get -v github.com/haya14busa/goplay/cmd/goplay
+    go get -v github.com/josharian/impl
+    go get -v github.com/mdempsky/gocode
+    go get -v github.com/mgechev/revive
+    go get -v github.com/ramya-rao-a/go-outline
+    go get -v github.com/rogpeppe/godef
+    go get -v github.com/sqs/goreturns
+    go get -v github.com/stamblerre/gocode
+    go get -v github.com/tylerb/gotype-live
+    go get -v github.com/uudashr/gopkgs/v2/cmd/gopkgs
+    go get -v github.com/zmb3/gogetdoc
+    go get -v golang.org/x/lint/golint
+    go get -v golang.org/x/tools/cmd/goimports
+    go get -v golang.org/x/tools/cmd/gorename
+    go get -v golang.org/x/tools/cmd/guru
+    go get -v golang.org/x/tools/gopls
+    go get -v honnef.co/go/tools/...
+    go get -v mvdan.cc/sh/v3/cmd/shfmt
+    go get -v winterdrache.de/goformat/goformat
 
-    echo "installing OK"
+    echo "install finish"
 }
