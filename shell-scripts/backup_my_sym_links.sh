@@ -9,6 +9,7 @@ function backup_my_sym_links() {
         grep -iv '/.themes/' |
         grep -iv '/.zinit/' |
         grep -iv '/app/' |
+        grep -iv '/java.base/' |
         grep -iv '/proc' |
         grep -iv '/tmp/' |
         grep -iv '/workspaces/' |
@@ -25,6 +26,7 @@ function backup_my_sym_links() {
         grep -iv 'Rambox' |
         grep -iv 'share/Trash' |
         grep -iv 'snap' |
+        grep -iv 'studio3t/jre' |
         grep -iv 'venv/' |
         grep -iv 'webkitgtk' |
         grep -iv $GITHUB_ORG \
