@@ -1,17 +1,17 @@
-function add_my_routes_to_vpn() {
+function add_vpn_custom_routes() {
     function init_tmp_file() {
-        if [ -f ~/tmp/hosts-to-route-to-vpn.csv ]; then
-            mv ~/tmp/hosts-to-route-to-vpn.csv \
-                ~/tmp/hosts-to-route-to-vpn-$(date +%d-%m-%Y_%H-%M-%S).csv
+        if [ -f ~/tmp/vpn-custom-routes/current.csv ]; then
+            mv ~/tmp/vpn-custom-routes/current.csv \
+                ~/tmp/vpn-custom-routes/$(date +"%Y%m%d%H%M%S").csv
         fi
-        echo "host;up at;down at" | tee ~/tmp/hosts-to-route-to-vpn.csv >/dev/null
+        echo "host;up at;down at" | tee ~/tmp/vpn-custom-routes/current.csv >/dev/null
     }
 
     function save_final_file() {
-        mv $SYNC_PATH/scripts/hosts-to-route-to-vpn.csv \
-            $SYNC_PATH/scripts/hosts-to-route-to-vpn-$(date +%d-%m-%Y_%H-%M-%S).csv
-        mv ~/tmp/hosts-to-route-to-vpn.csv \
-            $SYNC_PATH/scripts/hosts-to-route-to-vpn.csv
+        mv $SYNC_PATH/vpn-custom-routes/current.csv \
+            $SYNC_PATH/vpn-custom-routes/$(date +"%Y%m%d%H%M%S").csv
+        mv ~/tmp/vpn-custom-routes/current.csv \
+            $SYNC_PATH/vpn-custom-routes/current.csv
     }
 
     function get_addrs() {
@@ -53,7 +53,7 @@ function add_my_routes_to_vpn() {
         fi
 
         if [[ "$down_at" != "" ]]; then
-            echo $line | tee -a ~/tmp/hosts-to-route-to-vpn.csv >/dev/null
+            echo $line | tee -a ~/tmp/vpn-custom-routes/current.csv >/dev/null
             continue
         fi
 
@@ -61,11 +61,11 @@ function add_my_routes_to_vpn() {
 
         if [[ "$IP_ADDRS" == "" ]]; then
             echo "🔴 addr $host is down, exiting..."
-            echo $host";"$up_at";"$NOW | tee -a ~/tmp/hosts-to-route-to-vpn.csv >/dev/null
+            echo $host";"$up_at";"$NOW | tee -a ~/tmp/vpn-custom-routes/current.csv >/dev/null
             continue
         fi
 
-        echo $host";"$NOW";" | tee -a ~/tmp/hosts-to-route-to-vpn.csv >/dev/null
+        echo $host";"$NOW";" | tee -a ~/tmp/vpn-custom-routes/current.csv >/dev/null
 
         IP_ADDRS_ARR=($(echo $IP_ADDRS | tr " " "\n"))
 
@@ -80,7 +80,7 @@ function add_my_routes_to_vpn() {
         done
 
         IP_ADDRS=/dev/null
-    done <$SYNC_PATH/scripts/hosts-to-route-to-vpn.csv
+    done < $SYNC_PATH/vpn-custom-routes/current.csv
 
     save_final_file
 }
