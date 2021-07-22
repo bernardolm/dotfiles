@@ -1,4 +1,5 @@
-function backup_my_sym_links() {
+function backup_symbolic_links() {
+    mv $SYNC_PATH/symbolic-links/current.txt $SYNC_PATH/symbolic-links/$(hostname)_$(date +"%Y%m%d%H%M%S").txt
     find / -type l -ls 2>/dev/null | awk -F" " '{print $13";"$11}\' | grep '/home/'$USER |
         grep -iv '.cache' |
         grep -iv '.dropbox-dist' |
@@ -30,5 +31,5 @@ function backup_my_sym_links() {
         grep -iv 'venv/' |
         grep -iv 'webkitgtk' |
         grep -iv $GITHUB_ORG \
-            >>$SYNC_PATH/scripts/my-sym-links.txt
+            >> $SYNC_PATH/symbolic-links/current.txt
 }
