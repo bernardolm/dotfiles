@@ -34,7 +34,7 @@ function reset_iptables() {
 
     echo "restoring rules"
 
-    bash $SYNC_PATH/scripts/ufw-custom.txt
+    bash $SYNC_PATH/ufw-custom.txt
 
     echo ""
 
@@ -44,7 +44,7 @@ function reset_iptables() {
 
 function setup_tunnel() {
     sleep 15s
-    add_my_routes_to_vpn
+    add_vpn_custom_routes
 }
 
 function vpn_hu() {
