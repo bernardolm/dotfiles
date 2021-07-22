@@ -1,14 +1,14 @@
 function sanitize_gnome() {
     NOW=$(date +"%Y%m%d%H%M%S")
-    mkdir -p ~/.old-gnome-config/${NOW}
-    sudo mv ~/.gnome* ~/.old-gnome-config/${NOW}
-    sudo mv ~/.gconf* ~/.old-gnome-config/${NOW}
-    sudo mv ~/.metacity ~/.old-gnome-config/${NOW}
-    sudo mv ~/.cache ~/.old-gnome-config/${NOW}
-    sudo mv ~/.dbus ~/.old-gnome-config/${NOW}
-    sudo mv ~/.dmrc ~/.old-gnome-config/${NOW}
-    sudo mv ~/.mission-control ~/.old-gnome-config/${NOW}
-    sudo mv ~/.thumbnails ~/.old-gnome-config/${NOW}
-    sudo mv ~/.config/dconf/* ~/.old-gnome-config/${NOW}
+    mkdir -p ~/tmp/old-gnome-config/${NOW}
+    sudo mv ~/.gnome* ~/tmp/old-gnome-config/${NOW}
+    sudo mv ~/.gconf* ~/tmp/old-gnome-config/${NOW}
+    sudo mv ~/.metacity ~/tmp/old-gnome-config/${NOW}
+    sudo mv ~/.cache ~/tmp/old-gnome-config/${NOW}
+    sudo mv ~/.dbus ~/tmp/old-gnome-config/${NOW}
+    sudo mv ~/.dmrc ~/tmp/old-gnome-config/${NOW}
+    sudo mv ~/.mission-control ~/tmp/old-gnome-config/${NOW}
+    sudo mv ~/.thumbnails ~/tmp/old-gnome-config/${NOW}
+    sudo mv ~/.config/dconf/* ~/tmp/old-gnome-config/${NOW}
     dconf reset -f /org/gnome/
 }
