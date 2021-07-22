@@ -11,4 +11,4 @@ if [ ! -d $log_path ]; then
     mkdir -p $log_path
 fi
 
-google_drive_sync > $log_path/$(date +"%Y-%m-%d-%H-%M").log 2>&1
+google_drive_sync > $log_path/$(date +"%Y%m%d%H%M%S").log 2>&1

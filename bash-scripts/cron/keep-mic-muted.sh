@@ -24,4 +24,4 @@ if [ ! -d $log_path ]; then
     mkdir -p $log_path
 fi
 
-keep_mic_muted 60 > $log_path/$(date +"%Y-%m-%d-%H-%M").log 2>&1
+keep_mic_muted 60 > $log_path/$(date +"%Y%m%d%H%M%S").log 2>&1
