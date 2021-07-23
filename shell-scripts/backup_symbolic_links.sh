@@ -1,4 +1,5 @@
 function backup_symbolic_links() {
+    mkdir -p $SYNC_PATH/symbolic-links/
     mv $SYNC_PATH/symbolic-links/current.txt $SYNC_PATH/symbolic-links/$(hostname)_$(date +"%Y%m%d%H%M%S").txt
     find / -type l -ls 2>/dev/null | awk -F" " '{print $13";"$11}\' | grep '/home/'$USER |
         grep -iv '.cache' |
