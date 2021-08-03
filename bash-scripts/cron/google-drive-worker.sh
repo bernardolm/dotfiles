@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/envs.sh
+source ~/init.sh
 
 source $WORKSPACE_USER/first-steps-ubuntu/shell-scripts/google_drive_sync.sh
 

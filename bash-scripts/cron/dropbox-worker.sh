@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source ~/envs.sh
+source ~/init.sh
 
 source $WORKSPACE_USER/first-steps-ubuntu/shell-scripts/dropbox_sync.sh
 
