@@ -22,9 +22,9 @@ zinit light-mode for \
 ### End of Zinit's installer chunk
 
 zinit light-mode for \
-    denysdovhan/spaceship-prompt \
     johanhaleby/kubetail \
     ohmyzsh/ohmyzsh \
+    spaceship-prompt/spaceship-prompt \
     zdharma/fast-syntax-highlighting \
     zdharma/history-search-multi-word \
     zsh-users/zsh-autosuggestions \

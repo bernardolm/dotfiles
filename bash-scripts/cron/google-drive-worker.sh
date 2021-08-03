@@ -1,7 +1,6 @@
 #!/bin/bash
 
 source ~/init.sh
-
 source $WORKSPACE_USER/first-steps-ubuntu/shell-scripts/google_drive_sync.sh
 
 log_path=$USER_TMP/cron/google-drive-worker

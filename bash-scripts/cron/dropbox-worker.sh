@@ -1,7 +1,6 @@
 #!/bin/bash
 
 source ~/init.sh
-
 source $WORKSPACE_USER/first-steps-ubuntu/shell-scripts/dropbox_sync.sh
 
 log_path=$USER_TMP/cron/dropbox-worker

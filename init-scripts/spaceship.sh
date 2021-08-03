@@ -1,4 +1,5 @@
 export SPACESHIP_CHAR_SUFFIX="$(random_emoji)  "
+export SPACESHIP_CHAR_SYMBOL_ROOT="🚨"
 export SPACESHIP_DIR_TRUNC_REPO=false
 export SPACESHIP_DIR_TRUNC=1
 export SPACESHIP_DOCKER_SHOW=false
