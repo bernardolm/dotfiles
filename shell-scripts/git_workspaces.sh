@@ -9,7 +9,8 @@ function show_git_repo_info() {
 
 function backup_git_workspaces() {
     [[ "$1" == "" ]] && echo "you need pass the root path and alias for this. i.e.: backup_git_workspaces ~/my_workspace user" && return 1
-    for d in $1/*; do show_git_repo_info $d; done | tee -a $SYNC_PATH/git-workspaces/$2_$(date +"%Y%m%d%H%M%S").txt >/dev/null
+    mv $SYNC_PATH/git-workspaces/$(hostname)_$2_current.csv $SYNC_PATH/git-workspaces/$(hostname)_$2_$(date +"%Y%m%d%H%M%S").csv
+    for d in $1/*; do show_git_repo_info $d; done | tee -a $SYNC_PATH/git-workspaces/$(hostname)_$2_current.csv >/dev/null
 }
 
 function restore_git_workspaces() {
