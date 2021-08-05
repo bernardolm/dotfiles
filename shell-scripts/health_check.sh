@@ -11,16 +11,13 @@ function health_check() {
         libclamav9 \
         libclamunrar9
     sudo service clamav-freshclam stop
-    sudo freshclam --quiet
-    sudo service clamav-daemon stop
-    sudo clamscan \
+    sudo freshclam
+    sudo service clamav-freshclam restart
+    clamscan \
         --alert-encrypted=yes \
         --bell \
         --disable-cache \
         --heuristic-alerts=yes \
-        --quiet \
         --recursive \
-        $path_to_scan \
-    sudo service clamav-daemon restart
-    sudo service clamav-freshclam restart
+        $path_to_scan
 }
