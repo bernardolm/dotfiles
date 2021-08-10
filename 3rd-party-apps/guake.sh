@@ -6,7 +6,7 @@ msg_init 'guake'
 
 if [[ "$(command -v guake)" == "" ]]; then
     pip3 install --user guake
-    export PATH=$PATH:~/.local/bin
+    export PATH=$PATH:$HOME/.local/bin:
 fi
 
 msg_end 'guake'

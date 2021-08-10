@@ -9,7 +9,7 @@ if [ ! -f ~/.local/bin/todo.sh ]; then
     curl -s -L https://github.com/todotxt/todo.txt-cli/releases/download/v$version/todo.txt_cli-$version.zip -o ~/tmp/todo.zip
     unzip ~/tmp/todo.zip -d ~/tmp/todo
     yes | mv ~/tmp/todo/todo.txt_cli-$version.dirty/todo.sh ~/.local/bin/todo.sh
-    export PATH=$PATH:~/.local/bin
+    export PATH=$PATH:$HOME/.local/bin:
 fi
 
 msg_end 'todo.txt-cli'
