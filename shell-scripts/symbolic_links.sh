@@ -57,9 +57,7 @@ function restore_symbolic_links() {
             echo -ne "finish\n"
         }
 
-        IFS=';' read -r -a paths <<< "$line"
-        from=${paths[0]}
-        to=${paths[1]}
+        IFS=';' read -r from to <<< "$line"
 
         echo -n "checking $to... "
 
