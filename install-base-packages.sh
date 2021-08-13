@@ -32,7 +32,6 @@ if test `find ~/tmp/apt_base_packages -mmin +180`; then
         fontconfig \
         fonts-symbola \
         fritzing \
-        fzf \
         gawk \
         gconf-editor \
         gdebi \
