@@ -29,6 +29,8 @@ zinit light-mode for \
     zdharma/history-search-multi-word \
     zsh-users/zsh-autosuggestions \
     zsh-users/zsh-completions \
+    zsh-users/zsh-history-substring-search \
+    zsh-users/zsh-syntax-highlighting \
     && ($DEBUG && echo "zinit init plugins loaded")
 
 # Set up the prompt
