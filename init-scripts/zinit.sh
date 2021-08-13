@@ -1,8 +1,12 @@
+$DEBUG && typeset -g ZPLG_MOD_DEBUG=1
+
+setopt promptsubst
+
+# zinit snippet OMZL::git.zsh
+
 zinit_plugins=(
     johanhaleby/kubetail
-    ohmyzsh/ohmyzsh
     spaceship-prompt/spaceship-prompt
-    zdharma/fast-syntax-highlighting
     zdharma/history-search-multi-word
     zsh-users/zsh-autosuggestions
     zsh-users/zsh-completions
@@ -11,8 +15,12 @@ zinit_plugins=(
 )
 
 for p in ${zinit_plugins[@]}; do
-    $DEBUG && echo "zinit plugin being loaded $p..."
-    zinit load $p
+    if [ $DEBUG ]; then
+        echo "zinit plugin being loaded $p..."
+        zinit load $p
+    else
+        zinit light $p
+    fi
 done
 $DEBUG && echo "zinit plugins loaded"
 
@@ -35,3 +43,6 @@ $DEBUG && zinit times
 
 # zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 # zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+autoload -Uz compinit
+compinit
