@@ -16,7 +16,7 @@ zinit_plugins=(
 
 for p in ${zinit_plugins[@]}; do
     if [ $DEBUG ]; then
-        echo "zinit plugin being loaded $p..."
+        $DEBUG && echo "zinit plugin being loaded $p..."
         zinit load $p
     else
         zinit light $p
