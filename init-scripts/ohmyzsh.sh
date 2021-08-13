@@ -42,6 +42,4 @@ setopt inc_append_history
 setopt share_history
 unsetopt hist_save_by_copy
 
-export ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-
 zinit load ohmyzsh/ohmyzsh
