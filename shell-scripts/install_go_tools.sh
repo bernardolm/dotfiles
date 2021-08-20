@@ -1,5 +1,5 @@
 function install_go_tools() {
-    echo "installing tool golang tools package..."
+    echo "installing golang tools package..."
 
     export GO111MODULE=on
 
