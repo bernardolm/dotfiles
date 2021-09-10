@@ -31,6 +31,7 @@ alias n="nautilus ."
 alias new-guid="uuidgen | tr '[A-Z]' '[a-z]'"
 alias remove-x="chmod -R -x+X ."
 alias rm='trash'
+alias rrm='/bin/rm -rf'
 alias s="screen"
 alias sai="sudo apt install"
 alias sapar="sudo apt --purge --yes autoremove"
