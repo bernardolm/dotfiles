@@ -82,7 +82,7 @@ update_repo() {
 
 iter_paths() {
     $(echo $1) | while read f; do
-        if [[ $f == *"first-steps-ubuntu"* ]]; then
+        if [[ $f == *"dotfiles"* ]]; then
             continue
         fi
 

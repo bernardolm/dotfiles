@@ -1,7 +1,7 @@
 # Loading init scripts
 init_scripts_path=(
     $SYNC_PATH/scripts/init-scripts
-    $WORKSPACE_USER/first-steps-ubuntu/init-scripts
+    $WORKSPACE_USER/dotfiles/init-scripts
 )
 
 $DEBUG && echo "💿 loading init scripts in paths $init_scripts_path"
