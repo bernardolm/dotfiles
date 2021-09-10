@@ -27,3 +27,5 @@ export GITHUB_ORG=$(git config github.organization)
     source $SYNC_PATH/aliases
 [ -f $DOTFILES/aliases ] && (($DEBUG && echo "loading git path aliases") || true) && \
     source $DOTFILES/aliases
+
+export GREP_OPTIONS='—color=auto'
