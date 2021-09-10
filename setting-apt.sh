@@ -8,7 +8,7 @@ msg_init 'setting apt'
 
 if test `find ~/tmp/get_keys -mmin +180`; then
     echo "fixing absent keys..."
-    source $BASE_PATH/shell-scripts/get_keys.sh
+    source $BASE_PATH/shell/get_keys.sh
     get_keys
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
     curl -s 'https://download.opensuse.org/repositories/home:/ungoogled_chromium/Ubuntu_Focal/Release.key' | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/home-ungoogled_chromium.gpg > /dev/null

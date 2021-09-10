@@ -1,7 +1,7 @@
 # Loading init scripts
 init_scripts_path=(
-    $SYNC_PATH/scripts/init-scripts
-    $DOTFILES/init-scripts
+    $SYNC_PATH/shell/init
+    $DOTFILES/shell/init
 )
 
 $DEBUG && echo "💿 loading init scripts in paths $init_scripts_path"

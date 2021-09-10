@@ -1,4 +1,4 @@
-FUNCTIONS_PATH="$(dirname $(readlink -f $0))/shell-scripts"
+FUNCTIONS_PATH="$(dirname $(readlink -f $0))/shell"
 $DEBUG && echo -n "\t\t\t🔎 searching script files in $FUNCTIONS_PATH\n"
 
 for NAME in $(find $FUNCTIONS_PATH/*.sh); do
