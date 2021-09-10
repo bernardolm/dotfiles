@@ -11,6 +11,8 @@ export GITHUB_ORG=$(git config github.organization)
 [ -d ~/workspaces/$GITHUB_USER ] && export WORKSPACE_USER=~/workspaces/$GITHUB_USER
 [ -d ~/workspaces/$GITHUB_ORG ] && export WORKSPACE_ORG=~/workspaces/$GITHUB_ORG
 
+[ -z $WORKSPACE_USER ] && export DOTFILES=$WORKSPACE_USER/dotfiles
+
 [ ! -d $WORKSPACE_USER ] && mkdir -p $WORKSPACE_USER
 [ ! -d $WORKSPACE_ORG ] && mkdir -p $WORKSPACE_ORG
 
@@ -22,6 +24,6 @@ export GITHUB_ORG=$(git config github.organization)
 [ -f $SYNC_PATH/aliases ] && \
     (($DEBUG && echo "loading sync path aliases") || true) && \
     source $SYNC_PATH/aliases
-[ -f $WORKSPACE_USER/dotfiles/aliases ] && \
+[ -f $DOTFILES/aliases ] && \
     (($DEBUG && echo "loading git path aliases") || true) && \
-    source $WORKSPACE_USER/dotfiles/aliases
+    source $DOTFILES/aliases
