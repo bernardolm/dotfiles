@@ -14,7 +14,6 @@ function backup_symbolic_links() {
         grep -iv '/java.base/' |
         grep -iv '/proc' |
         grep -iv '/tmp/' |
-        grep -iv '/workspaces/' |
         grep -iv 'applications-merged' |
         grep -iv 'arduino' |
         grep -iv 'chrome' |
