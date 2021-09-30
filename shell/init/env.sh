@@ -23,7 +23,7 @@ export GITHUB_ORG=$(git config github.organization)
 [ -d ~/gopath ] && export GOPATH=~/gopath
 [ -d $GOPATH/bin ] && export PATH=$PATH:$GOPATH/bin:
 
-[ -f $SYNC_PATH/aliases ] && (($DEBUG && echo "loading sync path aliases") || true) && \
+[ -f $SYNC_PATH/aliases ] && (($DEBUG_SHELL && echo "loading sync path aliases") || true) && \
     source $SYNC_PATH/aliases
-[ -f $DOTFILES/aliases ] && (($DEBUG && echo "loading git path aliases") || true) && \
+[ -f $DOTFILES/aliases ] && (($DEBUG_SHELL && echo "loading git path aliases") || true) && \
     source $DOTFILES/aliases

@@ -1,4 +1,4 @@
-$DEBUG && typeset -g ZPLG_MOD_DEBUG=1
+$DEBUG_SHELL && typeset -g ZPLG_MOD_DEBUG=1
 
 setopt promptsubst
 
@@ -14,16 +14,16 @@ zinit_plugins=(
 )
 
 for p in ${zinit_plugins[@]}; do
-    if [ $DEBUG ]; then
-        $DEBUG && echo "zinit plugin being loaded $p..."
+    if [ $DEBUG_SHELL ]; then
+        $DEBUG_SHELL && echo "zinit plugin being loaded $p..."
         zinit load $p
     else
         zinit light $p
     fi
 done
-$DEBUG && echo "zinit plugins loaded"
+$DEBUG_SHELL && echo "zinit plugins loaded"
 
-$DEBUG && zinit times
+$DEBUG_SHELL && zinit times
 
 # zstyle ':completion:*' auto-description 'specify: %d'
 # zstyle ':completion:*' completer _expand _complete _correct _approximate
