@@ -10,7 +10,7 @@ function google_drive_sync() {
         -exec /bin/rm rm -rf {} \; 2>/dev/null
 
     echo -e "syncing virtual..."
-    rclone sync --check-first --delete-before --delete-excluded --fast-list \
+    rclone sync --copy-links --check-first --delete-before --delete-excluded --fast-list \
         --progress --rc --rc-enable-metrics --transfers 12 \
         $HOME/google-drive/config-backup/ config-backup:
 
