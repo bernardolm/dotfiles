@@ -4,7 +4,7 @@ source ~/.zshrc
 # amixer -q -D pulse sset Master toggle
 # amixer -q -D pulse sset Capture toggle
 
-[ `aseqdump -l | grep LPD8 | wc -l | bc` == 0 ] && echo "LPD8 not found" && exit 1
+[ `aseqdump -l | grep -c LPD8 | bc` == 0 ] && echo "LPD8 not found" && exit 1
 
 # Use aseqdump -l to find midi device and aseqdump -p "The midi device name" to listen and know notes of each button
 aseqdump -p "LPD8" | \
