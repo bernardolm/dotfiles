@@ -13,7 +13,7 @@ for scripts_path in $init_scripts_path; do
         source $scripts_path
     else
         $DEBUG_SHELL && echo "\t🔎 searching scripts in path `basename $scripts_path`"
-        for another_scripts_path in $(find $scripts_path/*.sh ! -name '*init.sh'); do
+        for another_scripts_path in $(find $scripts_path/*.sh ! -name '*init.sh' ! -name 'env.sh'); do
             $DEBUG_SHELL && echo "\t\t📄 loading script `basename $another_scripts_path`"
             source $another_scripts_path
         done

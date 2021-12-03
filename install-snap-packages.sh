@@ -10,10 +10,11 @@ if test `find ~/tmp/snap_packages -mmin +180`; then
     sudo snap refresh
 
     sudo snap install \
-        dbeaver-ce \
         glimpse-editor \
+        kubectl \
         postman \
         redis-desktop-manager \
+        snap-store \
         spotify \
         sweethome3d-homedesign \
         && true

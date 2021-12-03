@@ -4,5 +4,4 @@
 [ -f $TODO_DIR/report.txt ] && export REPORT_FILE=$TODO_DIR/report.txt
 [ -f $TODO_DIR/todo-zsh.cfg ] && export TODOTXT_CFG_FILE=$TODO_DIR/todo-zsh.cfg
 [ -f $TODO_DIR/todo.txt ] && export TODO_FILE=$TODO_DIR/todo.txt
-
 [ -f $TODO_DIR/todo_completion ] && source $TODO_DIR/todo_completion

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $HOME/env.sh
+# source $HOME/env.sh
 source $DOTFILES/shell/google_drive_sync.sh
 
 log_path=$USER_TMP/cron/google-drive-worker
