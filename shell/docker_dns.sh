@@ -13,6 +13,11 @@ function sanitize_dockerdns_vestiges() (
 function install_dockerdns() {
     echo "installing docker-dns"
 
+    if [[ $(check_docker_install) -eq 1 ]]; then
+        echo "docker isn't installed"
+        return
+    fi
+
     if [[ `docker ps -a -q --filter name=ns0 | wc -l | bc` -gt 0 ]]; then
         echo "stopping and removing container"
         docker stop ns0
@@ -50,7 +55,8 @@ function install_dockerdns() {
 
     git fetch --prune
 
-    _install_dockerdns_lastest
+    # _install_dockerdns_lastest
+    _install_dockerdns_1_x
 
     cd $last_pwd
 }

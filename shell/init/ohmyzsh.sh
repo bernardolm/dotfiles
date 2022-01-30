@@ -10,10 +10,8 @@ plugins=(
     fd
     git
     git-extras
-    git-flow
     git-hubflow
     git-prompt
-    gitfast
     github
     gitignore
     golang
@@ -29,6 +27,8 @@ plugins=(
     vscode
     zsh-interactive-cd
 )
+# git-flow
+# gitfast
 
 export HIST_STAMPS="yyyy-mm-dd"
 export HISTDUP=erase # Erase duplicates in the history file

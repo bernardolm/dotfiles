@@ -8,7 +8,8 @@ function check_docker_install() {
 }
 
 function check_docker_running() {
-    systemctl is-active --quiet docker && echo 1
+    # systemctl is-active --quiet docker && echo 1
+    [[ $(docker ps >/dev/null 2>&1 | grep -c Cannot | bc) -eq 1 ]]
 }
 
 function stop_docker_containers() {
@@ -124,11 +125,15 @@ function sanitize_docker_install() {
     fi
 
     if [[ "$1" != "no-purge" ]]; then
-        echo "purging docker installation"
-        if [[ `apt list --installed 'docker*' 2>/dev/null | wc -l | bc` -gt 1 ]]; then
-            echo "purging docker ubuntu package"
-            sudo apt-get purge --yes '^docker' '^containerd' runc > /dev/null
-            sudo apt-get autoremove --purge --yes > /dev/null
+        echo "finding docker installation..."
+        if [[ $(check_docker_install) -eq 1 ]]; then
+            echo "purging existent docker ubuntu package"
+            echo "\033[0;36m"
+            sudo apt-get purge docker docker-engine docker.io containerd runc --yes
+            sudo apt-get autoremove --purge --yes
+            echo "\033[0m"
+        else
+            echo "no docker install found"
         fi
     fi
 
@@ -140,9 +145,14 @@ function sanitize_docker_install() {
 function install_docker() {
     echo "installing docker"
 
-    if [[ `apt list --installed '*docker*' 2>/dev/null | wc -l | bc` -le 1 ]]; then
+    if [[ $(check_docker_install) -eq 0 ]]; then
         echo "installing docker ubuntu package"
-        sudo apt-get install --yes docker-ce docker-ce-cli containerd.io
+        echo "\033[0;36m"
+        sudo apt-get install --yes docker-ce docker-ce-cli containerd.io docker-compose
+        sleep 1
+        sudo apt install -f
+        sleep 1
+        echo "\033[0m"
     fi
 
     if [[ -d $HOME/.docker ]]; then
@@ -156,14 +166,15 @@ function install_docker() {
     sudo sysctl -w vm.max_map_count=262144
     [ `/bin/cat /etc/sysctl.conf | grep -c max_map_count | bc` -eq 0 ] && (echo "\nvm.max_map_count = 262144" | sudo tee -a /etc/sysctl.conf)
 
-    sudo systemctl restart docker
-
     sudo systemctl enable docker
+
+    sudo systemctl restart docker
 }
 
 function reset_docker() {
     echo "reseting docker"
-    sanitize_docker_install no-purge
+    # sanitize_docker_install no-purge
+    sanitize_docker_install
     install_docker
     install_dockerdns
 }
