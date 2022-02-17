@@ -1,6 +1,9 @@
 function backup_symbolic_links() {
     mkdir -p $SYNC_PATH/symbolic-links/
-    mv $SYNC_PATH/symbolic-links/$(hostname)_current.csv $SYNC_PATH/symbolic-links/$(hostname)_$(date +"%Y%m%d%H%M%S").csv
+
+    [ -f $SYNC_PATH/symbolic-links/$(hostname)_current.csv ] && mv \
+        $SYNC_PATH/symbolic-links/$(hostname)_current.csv $SYNC_PATH/symbolic-links/$(hostname)_$(date +"%Y%m%d%H%M%S").csv
+
     find / -type l -ls 2>/dev/null | awk -F" " '{print $13";"$11}\' | grep '/home/'$USER |
         grep -iv '.cache' |
         grep -iv '.dropbox-dist' |
@@ -43,6 +46,9 @@ function backup_symbolic_links() {
 }
 
 function restore_symbolic_links() {
+    local 'file'
+    file=$(last_backup_version symbolic-links csv)
+
     NOW=$(date +"%Y%m%d%H%M%S")
 
     while read line; do
@@ -88,5 +94,5 @@ function restore_symbolic_links() {
             echo -n "don't exist... "
             ln_smart $from $to true
         fi
-    done < $SYNC_PATH/symbolic-links/$(hostname)_current.csv
+    done < $file
 }
