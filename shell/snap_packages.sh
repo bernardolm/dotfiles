@@ -7,15 +7,15 @@ function backup_snap_packages() {
 
 function restore_snap_packages() {
     local 'file'
-    local 'packages'
-    local 'packages_classic'
     file=$(last_backup_version snap-packages txt)
 
     sudo snap refresh
 
     echo "installing classic snap packages..."
-    /bin/cat $file | /bin/grep -v Publisher | /bin/grep classic | /bin/awk -F' ' '{print $1}' ORS=' ' | xargs sudo snap install --classic
+    /bin/cat $file | /bin/grep -v Publisher | /bin/grep classic | /bin/awk -F' ' '{print $1}' | \
+        sort | uniq | xargs -L1 sudo snap install --classic
 
     echo "installing snap packages..."
-    /bin/cat $file | /bin/grep -v Publisher | /bin/grep -v classic | /bin/awk -F' ' '{print $1}' ORS=' ' | xargs sudo snap install
+    /bin/cat $file | /bin/grep -v Publisher | /bin/grep -v classic | /bin/awk -F' ' '{print $1}' | \
+        sort | uniq | tr '\n' ' ' | xargs sudo snap install
 }
