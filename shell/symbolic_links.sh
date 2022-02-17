@@ -4,6 +4,7 @@ function backup_symbolic_links() {
     find / -type l -ls 2>/dev/null | awk -F" " '{print $13";"$11}\' | grep '/home/'$USER |
         grep -iv '.cache' |
         grep -iv '.dropbox-dist' |
+        grep -iv '.ecryptfs' |
         grep -iv '.mozilla' |
         grep -iv '.oh-my-zsh/' |
         grep -iv '.old-gnome-config' |
@@ -11,9 +12,13 @@ function backup_symbolic_links() {
         grep -iv '/.themes/' |
         grep -iv '/.zinit/' |
         grep -iv '/app/' |
+        grep -iv '/dev/null' |
         grep -iv '/java.base/' |
+        grep -iv '/pid-' |
         grep -iv '/proc' |
         grep -iv '/tmp/' |
+        grep -iv 'alerts/glass.ogg' |
+        grep -iv 'alerts/sonar.ogg' |
         grep -iv 'applications-merged' |
         grep -iv 'arduino' |
         grep -iv 'chrome' |
@@ -24,12 +29,15 @@ function backup_symbolic_links() {
         grep -iv 'linux' |
         grep -iv 'lutris' |
         grep -iv 'node_modules' |
+        grep -iv 'OMZ::plugins' |
         grep -iv 'Rambox' |
         grep -iv 'share/Trash' |
         grep -iv 'snap' |
         grep -iv 'studio3t/jre' |
+        grep -iv 'systemd/user/pipewire' |
         grep -iv 'venv/' |
         grep -iv 'webkitgtk' |
+        grep -iv 'zinit/plugins' |
         grep -iv $GITHUB_ORG \
             >> $SYNC_PATH/symbolic-links/$(hostname)_current.csv
 }
