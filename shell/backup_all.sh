@@ -2,7 +2,6 @@ function backup_all() {
     # TODO:
     # [ ] backup resolve.conf.d files
 
-
     backup_apt_packages
     backup_crontab
     backup_git_workspaces $WORKSPACE_ORG org
