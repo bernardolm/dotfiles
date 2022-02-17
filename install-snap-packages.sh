@@ -4,29 +4,31 @@ source $BASE_PATH/msg.sh
 
 msg_init 'snap packages'
 
-[ -f ~/tmp/snap_packages ] || touch -d "2 years ago" ~/tmp/snap_packages
+# NOTE: Restoring by last installed backup
 
-if test `find ~/tmp/snap_packages -mmin +180`; then
-    sudo snap refresh
+# [ -f ~/tmp/snap_packages ] || touch -d "2 years ago" ~/tmp/snap_packages
 
-    sudo snap install \
-        glimpse-editor \
-        kubectl \
-        postman \
-        redis-desktop-manager \
-        snap-store \
-        spotify \
-        sweethome3d-homedesign \
-        && true
+# if test `find ~/tmp/snap_packages -mmin +180`; then
+#     sudo snap refresh
 
-    # classic snaps are not parallel installable yet
-    sudo snap install --classic code
-    sudo snap install --classic google-cloud-sdk
-    sudo snap install --classic kubectl \
+#     sudo snap install \
+#         glimpse-editor \
+#         kubectl \
+#         postman \
+#         redis-desktop-manager \
+#         snap-store \
+#         spotify \
+#         sweethome3d-homedesign \
+#         && true
 
-    touch ~/tmp/snap_packages
-else
-    echo "snap packages updated"
-fi
+#     # classic snaps are not parallel installable yet
+#     sudo snap install --classic code
+#     sudo snap install --classic google-cloud-sdk
+#     sudo snap install --classic kubectl \
+
+#     touch ~/tmp/snap_packages
+# else
+#     echo "snap packages updated"
+# fi
 
 msg_end 'snap packages'
