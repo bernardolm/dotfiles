@@ -4,7 +4,7 @@ function add_vpn_custom_routes() {
             mv $SYNC_PATH/vpn-custom-routes/current.csv \
                 $SYNC_PATH/vpn-custom-routes/$1.csv
         fi
-        echo "host;up at;down at" | tee $SYNC_PATH/vpn-custom-routes/current.csv >/dev/null
+        touch $SYNC_PATH/vpn-custom-routes/current.csv
     }
 
     function get_addrs() {
@@ -33,9 +33,7 @@ function add_vpn_custom_routes() {
     echo "VPN address is ${TUNNEL_ADDR}"
 
     while read line; do
-        [[ "$line" == host\;* ]] && continue
-
-        if [[ `ps -p $$ -ocomm=` == "zsh" ]]; then
+        if [[ `which_shell` == "zsh" ]]; then
             parts=("${(@s/;/)line}")
             host=${parts[1]}
             up_at=${parts[2]}
