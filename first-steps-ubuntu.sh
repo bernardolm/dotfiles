@@ -23,7 +23,7 @@ msg_welcome
 
 ## Run install scripts
 $BASE_PATH/install-remote-folder.sh
-# $BASE_PATH/restore-my-sym-links.sh # TODO: Use funcion from restore_symbolic_links.sh
+source shell/last_backup_version.sh shell/symbolic_links.sh && restore_symbolic_links
 $BASE_PATH/setting-apt.sh
 $BASE_PATH/install-base-packages.sh
 $BASE_PATH/install-3rd-party-packages.sh
