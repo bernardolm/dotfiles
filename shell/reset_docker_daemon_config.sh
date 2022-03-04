@@ -15,10 +15,15 @@ function reset_docker_daemon_config() {
         fi
     fi
 
+    local nameservers=(`/bin/cat /etc/resolv.conf | /bin/grep ^nameserver | /bin/awk '{print $2}' | uniq`)
+    local nameserversJson=`jq --compact-output --null-input '$ARGS.positional' --args "${nameservers[@]}"`
+    echo "nameserversJson=${nameserversJson}"
+
     echo "recreating docker daemon json"
-    echo "{\"debug\":true,\"bip\":\"172.17.0.1/24\",\"dns\":[\"172.17.0.1\",\"127.0.0.53\"]}" | \
+    echo '{"debug":true,"bip":"'${nameservers[1]}'/24","dns":'${nameserversJson}'}' | \
         sudo tee /etc/docker/daemon.json > /dev/null
-    sleep 2
+    cat /etc/docker/daemon.json
+    sleep 1
 
     if [ $HAS_DOCKER_SERVICE -gt 0 ]; then
         echo "restarting service"
