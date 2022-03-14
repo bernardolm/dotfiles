@@ -1,3 +1,0 @@
-function chmod_easy() {
-    chmod u=$1,g=$2,o=$3 $4
-}

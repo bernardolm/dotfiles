@@ -1,31 +1,51 @@
 plugins=(
+    aliases
+    aws
+    battery
     bgnotify
     colored-man-pages
     colorize
     command-not-found
+    common-aliases
+    copyfile
+    copypath
     cp
     docker
     docker-compose
+    dotenv
     extract
     fd
+    fzf
     git
     git-extras
     git-hubflow
     git-prompt
     github
     gitignore
+    gnu-utils
     golang
+    history
     jsontools
+    kubectl
+    last-working-dir
     man
     nmap
+    pip
+    pipenv
+    python
+    redis-cli
     screen
+    ssh-agent
+    sublime
     sudo
     systemd
+    timer
     ubuntu
     ufw
     virtualenv
     vscode
     zsh-interactive-cd
+    zsh-navigation-tools
 )
 # git-flow
 # gitfast

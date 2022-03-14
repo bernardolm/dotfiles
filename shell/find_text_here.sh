@@ -1,3 +1,3 @@
 function find_text_here() {
-    grep -irnwEe $1 .
+    rg -i $1 2> /dev/null
 }
