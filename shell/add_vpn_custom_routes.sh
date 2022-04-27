@@ -19,8 +19,22 @@ function add_vpn_custom_routes() {
     function add_route() {
         local SOURCE_NET=$(format_network $1)
         local CMD="sudo ip route add $SOURCE_NET via $2"
-        echo "$CMD"
+        echo "\033[40m\033[32m> $CMD\033[0m"
         eval $CMD 2>/dev/null
+    }
+
+    function add_routes_arr() {
+        local IP_ADDRS_ARR=$1
+        local host=$2
+        for j in "${IP_ADDRS_ARR[@]}"; do
+            echo "🔵 routing $j from $host to $TUNNEL_ADDR"
+            add_route $j $TUNNEL_ADDR
+            if [[ "$?" == "1" ]]; then
+                echo "🔴 fail to route"
+                continue
+            fi
+            echo "🟢 route complete"
+        done
     }
 
     echo "adding my routes do active VPN 🛡️"
@@ -69,24 +83,13 @@ function add_vpn_custom_routes() {
 
             IP_ADDRS_ARR=($(echo $IP_ADDRS | tr " " "\n"))
 
-            for j in "${IP_ADDRS_ARR[@]}"; do
-                echo "🔵 routing $j from $host to $TUNNEL_ADDR"
-                add_route $j $TUNNEL_ADDR
-                if [[ "$?" == "1" ]]; then
-                    echo "🔴 fail to route"
-                    continue
-                fi
-                echo "🟢 route complete"
-            done
+            add_routes_arr $IP_ADDRS_ARR $host
 
             IP_ADDRS=/dev/null
         done < $SYNC_PATH/vpn-custom-routes/$NOW.csv
     else
         IP_ADDRS=$(get_addrs $1)
         IP_ADDRS_ARR=($(echo $IP_ADDRS | tr " " "\n"))
-        for j in "${IP_ADDRS_ARR[@]}"; do
-            echo "adding $j to VPN"
-            add_route $j $TUNNEL_ADDR
-        done
+        add_routes_arr $IP_ADDRS_ARR $1
     fi
 }
