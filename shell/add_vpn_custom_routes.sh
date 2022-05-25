@@ -41,11 +41,14 @@ function add_vpn_custom_routes() {
 
     local MOMENT=$(date --rfc-3339=seconds)
     local NOW=$(date +"%Y%m%d%H%M%S")
-    local TUNNEL_ADDR=`tun0_ip`
+    local TUNNEL_ADDR=`vpn_ip ppp0`
 
     if [[ "$TUNNEL_ADDR" == "" ]]; then
-        echo "VPN down"
-        return
+        TUNNEL_ADDR=`vpn_ip tun0`
+        if [[ "$TUNNEL_ADDR" == "" ]]; then
+            echo "VPN down"
+            return
+        fi
     fi
 
     echo "VPN address is ${TUNNEL_ADDR}"
