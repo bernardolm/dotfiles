@@ -1,7 +1,7 @@
 alias ack="ag"
 alias available-ports="comm -23 <(seq \"8000\" \"1200\" | sort) <(ss -tan | awk '{print $4}' | cut -d':' -f2 | grep '[0-9]\{1,5\}' | sort -u) | head -n \"10\""
 alias cat="ccat"
-alias chmod-octal="chmod -R 0600 "
+alias chmod-octal="chmod -R 0664 "
 alias dciv="docker container inspect -f '{{range .Mounts}}{{.Type}}:{{.Source}}:{{.Destination}}{{println}}{{ end }}'"
 alias deit="docker exec -it "
 alias di="docker images"
