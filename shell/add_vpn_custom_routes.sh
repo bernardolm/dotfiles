@@ -1,3 +1,33 @@
+function get_addrs() {
+    local CMD="nslookup $1 | grep Address | grep -v '#' | cut -d: -f2"
+    eval $CMD 2>/dev/null
+}
+
+function format_network() {
+    echo $(echo $1 | cut -d. -f1-3).0/24
+}
+
+function add_route() {
+    local SOURCE_NET=$(format_network $1)
+    local CMD="sudo ip route add $SOURCE_NET via $2"
+    echo "\033[40m\033[32m> $CMD\033[0m"
+    eval $CMD 2>/dev/null
+}
+
+function add_routes_arr() {
+    local IP_ADDRS_ARR=$1
+    local host=$2
+    for j in "${IP_ADDRS_ARR[@]}"; do
+        echo "🔵 routing $j from $host to $TUNNEL_ADDR"
+        add_route $j $TUNNEL_ADDR
+        if [[ "$?" == "1" ]]; then
+            echo "🔴 fail to route"
+            continue
+        fi
+        echo "🟢 route complete"
+    done
+}
+
 function add_vpn_custom_routes() {
     function init_file() {
         if [ -f $SYNC_PATH/vpn-custom-routes/current.csv ]; then
@@ -5,36 +35,6 @@ function add_vpn_custom_routes() {
                 $SYNC_PATH/vpn-custom-routes/$1.csv
         fi
         touch $SYNC_PATH/vpn-custom-routes/current.csv
-    }
-
-    function get_addrs() {
-        local CMD="nslookup $1 | grep Address | grep -v '#' | cut -d: -f2"
-        eval $CMD 2>/dev/null
-    }
-
-    function format_network() {
-        echo $(echo $1 | cut -d. -f1-3).0/24
-    }
-
-    function add_route() {
-        local SOURCE_NET=$(format_network $1)
-        local CMD="sudo ip route add $SOURCE_NET via $2"
-        echo "\033[40m\033[32m> $CMD\033[0m"
-        eval $CMD 2>/dev/null
-    }
-
-    function add_routes_arr() {
-        local IP_ADDRS_ARR=$1
-        local host=$2
-        for j in "${IP_ADDRS_ARR[@]}"; do
-            echo "🔵 routing $j from $host to $TUNNEL_ADDR"
-            add_route $j $TUNNEL_ADDR
-            if [[ "$?" == "1" ]]; then
-                echo "🔴 fail to route"
-                continue
-            fi
-            echo "🟢 route complete"
-        done
     }
 
     echo "adding my routes do active VPN 🛡️"
