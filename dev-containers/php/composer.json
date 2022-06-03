@@ -1,8 +1,0 @@
-{
-    "name": "devcontainers/php",
-    "description": "",
-    "require": {
-        "friendsofphp/php-cs-fixer": "^2.16",
-        "squizlabs/php_codesniffer": "^3.5"
-    }
-}
