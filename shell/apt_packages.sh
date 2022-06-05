@@ -11,9 +11,57 @@ function restore_apt_packages() {
 
     sudo apt update
 
-    echo "restoring apt packages..."
-    /bin/cat $file | /bin/grep -v deinstall | /bin/awk -F' ' '{print $1}' ORS=' ' | xargs sudo apt install --yes
+    echo "\nrestoring apt packages from $file..."
 
-    echo "removing unused apt packages..."
-    /bin/cat $file | /bin/grep deinstall | /bin/awk -F' ' '{print $1}' ORS=' ' | xargs sudo apt purge --yes
+    local 'packages'
+    packages=($(/bin/cat $file | /bin/grep -v deinstall | /bin/awk -F' ' '{print $1}' ORS=' '))
+    echo "${#packages[@]} packages found"
+    
+    local 'packages_len'
+    packages_len=${#packages[@]}
+
+    local 'packages_valid'
+    packages_valid=()
+
+    local 'counter'
+    counter=0
+
+    for package in $packages; do
+        ((counter+=1))
+        progress_bar $counter $packages_len
+        apt show "$package" 2>/dev/null | grep -qvz 'State:.*(virtual)' && packages_valid+=($package);
+    done
+
+    echo "${#packages_valid[@]} valid packages to install"
+
+    sudo apt install --yes $packages_valid
+
+    ---
+
+    # TODO: Don't duplicate code
+
+    echo "\nremoving unsed apt packages from $file..."
+
+    local 'packages'
+    packages=($(/bin/cat $file | /bin/grep deinstall | /bin/awk -F' ' '{print $1}' ORS=' '))
+    echo "${#packages[@]} packages found to remove"
+    
+    local 'packages_len'
+    packages_len=${#packages[@]}
+
+    local 'packages_valid'
+    packages_valid=()
+
+    local 'counter'
+    counter=0
+    
+    for package in $packages; do
+        ((counter+=1))
+        echo "$counter/$packages_len"
+        apt show "$package" 2>/dev/null | grep -qvz 'State:.*(virtual)' && packages_valid+=($package);
+    done
+
+    echo "${#packages_valid[@]} valid packages to remove"
+
+    sudo apt purge --yes $packages_valid
 }
