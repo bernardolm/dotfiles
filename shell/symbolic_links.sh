@@ -1,3 +1,5 @@
+#!/bin/bash
+
 function backup_symbolic_links() {
     mkdir -p $SYNC_PATH/symbolic-links/
 
@@ -46,6 +48,8 @@ function backup_symbolic_links() {
 }
 
 function restore_symbolic_links() {
+    source $WORKSPACE_USER/dotfiles/shell/last_backup_version.sh
+    
     local 'file'
     file=$(last_backup_version symbolic-links csv)
 
