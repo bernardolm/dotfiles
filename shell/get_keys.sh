@@ -12,7 +12,7 @@ function get_keys() {
     sudo apt-get update 2>&1 1>/dev/null | sed -ne 's/.*NO_PUBKEY //p' |
     while read key; do
         echo "processing key: $key"
-        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "$key"
+        sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys "$key" &
     done
 
     # Others
