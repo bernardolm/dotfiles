@@ -6,62 +6,46 @@ function backup_apt_packages() {
 }
 
 function restore_apt_packages() {
-    local 'file'
-    file=$(last_backup_version apt-packages txt)
+    function run() {
+        local filter
+        local action=$1
+        local nc='\033[0m'
+        local cyan='\033[0;36m'
+        local yellow='\033[1;33m'
+        local file=$(last_backup_version apt-packages txt)
 
-    sudo apt update
+        if [[ "$action" == "install" ]]; then
+            filter="/bin/grep -v deinstall";
+        elif [[ "$action" == "purge" ]]; then
+            filter="/bin/grep deinstall";
+        fi
 
-    echo "\nrestoring apt packages from $file..."
+        # start message
+        echo "$cyan$action apt packages from $yellow$file$cyan...$nc"
 
-    local 'packages'
-    packages=($(/bin/cat $file | /bin/grep -v deinstall | /bin/awk -F' ' '{print $1}' ORS=' '))
-    echo "${#packages[@]} packages found"
-    
-    local 'packages_len'
-    packages_len=${#packages[@]}
+        local counter=0
+        local packages=($(/bin/cat $file | sed '/^$/d' | eval $filter | /bin/awk -F' ' '{print $1}' ORS=' '))
+        local packages_len=${#packages[@]}
+        local packages_valid=()
 
-    local 'packages_valid'
-    packages_valid=()
+        echo "$yellow${#packages[@]}$cyan found$nc\c"
+        [[ -z $packages ]] && echo "\n" && return
 
-    local 'counter'
-    counter=0
+        echo "$cyan, now filtering valid packages...$nc"
 
-    for package in $packages; do
-        ((counter+=1))
-        progress_bar $counter $packages_len
-        apt show "$package" 2>/dev/null | grep -qvz 'State:.*(virtual)' && packages_valid+=($package);
-    done
+        # found message
 
-    echo "${#packages_valid[@]} valid packages to install"
+        for package in $packages; do
+            ((counter+=1))
+            progress_bar $counter $packages_len
+            apt show "$package" 2>/dev/null | grep -qvz 'State:.*(virtual)' && packages_valid+=($package);
+        done
 
-    sudo apt install --yes $packages_valid
+        echo "\n$yellow${#packages_valid[@]}$cyan valid packages$nc"
 
-    ---
+        sudo apt $action --yes $packages_valid 2>/dev/null
+    }
 
-    # TODO: Don't duplicate code
-
-    echo "\nremoving unsed apt packages from $file..."
-
-    local 'packages'
-    packages=($(/bin/cat $file | /bin/grep deinstall | /bin/awk -F' ' '{print $1}' ORS=' '))
-    echo "${#packages[@]} packages found to remove"
-    
-    local 'packages_len'
-    packages_len=${#packages[@]}
-
-    local 'packages_valid'
-    packages_valid=()
-
-    local 'counter'
-    counter=0
-    
-    for package in $packages; do
-        ((counter+=1))
-        echo "$counter/$packages_len"
-        apt show "$package" 2>/dev/null | grep -qvz 'State:.*(virtual)' && packages_valid+=($package);
-    done
-
-    echo "${#packages_valid[@]} valid packages to remove"
-
-    sudo apt purge --yes $packages_valid
+    run "install"
+    run "purge"
 }
