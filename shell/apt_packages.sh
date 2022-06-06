@@ -28,12 +28,12 @@ function restore_apt_packages() {
         local packages_len=${#packages[@]}
         local packages_valid=()
 
+        # found message
         echo "$yellow${#packages[@]}$cyan found$nc\c"
         [[ -z $packages ]] && echo "\n" && return
 
+        # filter valid message
         echo "$cyan, now filtering valid packages...$nc"
-
-        # found message
 
         for package in $packages; do
             ((counter+=1))
@@ -41,6 +41,7 @@ function restore_apt_packages() {
             apt show "$package" 2>/dev/null | grep -qvz 'State:.*(virtual)' && packages_valid+=($package);
         done
 
+        # valid found message
         echo "\n$yellow${#packages_valid[@]}$cyan valid packages$nc"
 
         sudo apt $action --yes $packages_valid 2>/dev/null
