@@ -70,7 +70,7 @@ function add_vpn_custom_routes() {
             fi
 
             if [[ "$down_at" != "" ]]; then
-                echo $line | tee -a $SYNC_PATH/vpn-custom-routes/current.csv >/dev/null
+                echo $line | tee -a $SYNC_PATH/vpn-custom-routes/current.csv &>/dev/null
                 continue
             fi
 
@@ -78,11 +78,11 @@ function add_vpn_custom_routes() {
 
             if [[ "$IP_ADDRS" == "" ]]; then
                 echo "🔴 addr $host is down, exiting..."
-                echo $host";"$up_at";"$MOMENT | tee -a $SYNC_PATH/vpn-custom-routes/current.csv >/dev/null
+                echo $host";"$up_at";"$MOMENT | tee -a $SYNC_PATH/vpn-custom-routes/current.csv &>/dev/null
                 continue
             fi
 
-            echo $host";"$MOMENT";" | tee -a $SYNC_PATH/vpn-custom-routes/current.csv >/dev/null
+            echo $host";"$MOMENT";" | tee -a $SYNC_PATH/vpn-custom-routes/current.csv &>/dev/null
 
             IP_ADDRS_ARR=($(echo $IP_ADDRS | tr " " "\n"))
 

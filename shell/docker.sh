@@ -4,12 +4,12 @@ DOCKER_IMAGES_DANGLING="$DOCKER images -q -f 'dangling=true'"
 DOCKER_IMAGES="$DOCKER images -aq"
 
 function check_docker_install() {
-    command -v docker >/dev/null 2>&1
+    command -v docker &>/dev/null
 }
 
 function check_docker_running() {
     # systemctl is-active --quiet docker && echo 1
-    [[ $(docker ps >/dev/null 2>&1 | grep -c Cannot | bc) -eq 1 ]]
+    [[ $(docker ps &>/dev/null | grep -c Cannot | bc) -eq 1 ]]
 }
 
 function stop_docker_containers() {

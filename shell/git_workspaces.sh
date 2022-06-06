@@ -29,7 +29,7 @@ function backup_git_workspaces() {
     for d in `find $1 -path '*/.git/config'`; do
         d=${d%/.git/config}
         # echo `get_username $d`";"`show_git_repo_info $d`
-        show_git_repo_info $d | tee -a $file >/dev/null
+        show_git_repo_info $d | tee -a $file &>/dev/null
     ; done
 }
 
