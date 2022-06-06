@@ -2,8 +2,7 @@
 set -e
 set -a
 
-export BASE_PATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
-
+export BASE_PATH=$WORKSPACE_USER/dotfiles
 source $BASE_PATH/msg.sh
 
 msg_welcome() {
@@ -23,7 +22,8 @@ msg_welcome
 
 ## Run install scripts
 $BASE_PATH/install-remote-folder.sh
-source shell/last_backup_version.sh shell/symbolic_links.sh && restore_symbolic_links
+source $BASE_PATH/shell/symbolic_links.sh
+restore_symbolic_links
 $BASE_PATH/setting-apt.sh
 $BASE_PATH/install-base-packages.sh
 $BASE_PATH/install-3rd-party-packages.sh

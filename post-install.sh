@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export BASE_PATH=$WORKSPACE_USER/dotfiles
 source $BASE_PATH/msg.sh
 
 msg_init 'post install'
