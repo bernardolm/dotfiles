@@ -12,7 +12,7 @@ function progress_bar() {
     
     local percent
     ((percent=100*$current/$target))
-    local right_message=" $(printf %3s $percent)% "
+    local right_message=" $(printf %3s $percent)%"
 
     local messages_size=$(expr length "${left_message}${right_message}")
     local total_size
