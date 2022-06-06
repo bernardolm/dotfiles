@@ -20,8 +20,7 @@ function get_username() {
 function backup_git_workspaces() {
     [[ "$1" == "" ]] && echo "you need pass the root path and alias for this. i.e.: backup_git_workspaces ~/my_workspace_root_path" && return 1
 
-    local 'file'
-    file=$(last_backup_version git-workspaces csv)
+    local file=$(last_backup_version git-workspaces csv)
 
     [ -f $file ] && mv \
         $file $SYNC_PATH/git-workspaces/$(hostname)_$(date +"%Y%m%d%H%M%S").csv
