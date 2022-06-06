@@ -1,24 +1,26 @@
 function progress_bar() {
-    CURRENT=$1
-    TARGET=$2
-    ((POSITION=100*$CURRENT/$TARGET))
-    LR='\033[1;31m'
-    LC='\033[1;36m'
-    LW='\033[1;37m'
-    NC='\033[0m'
-    TEXT="$CURRENT/$TARGET"
-    PRC=$(printf "%.0f" ${POSITION})
-    SHW=$(printf "%3d\n" ${PRC})
-    LNE=$(printf "%.0f" $((${PRC} / 2)))
-    LRR=$(printf "%.0f" $((${PRC} / 2 - 12)))
-    LCC=$(printf "%.0f" $((${PRC} / 2 - 50)))
-    if [ ${LCC} -le 0 ]; then LCC=0; fi
-    LCC_=""
-    for ((i = 1; i <= 50; i++)); do
-        DOTS=""
-        for ((ii = ${i}; ii < 50; ii++)); do DOTS="${DOTS}."; done
-        if [ ${i} -le ${LNE} ]; then LCC_="${LCC_}🔷"; else LCC_="${LCC_}🔸"; fi
-        echo -ne "> ${LW}${TEXT} ${LR}${LRR_}${LY}${LYY_}${LC}${LCC_}${DOTS} ${SHW}%${NC}\r"
-        if [ ${LNE} -ge 26 ]; then sleep .05; fi
-    done
+    local bar=""
+    local current=$1
+    local left_char="█"
+    local right_char="░"
+    local bar_size=999999
+    local target=$2
+    local terminal_size=$(tput cols)
+
+    local target_char_size=$(expr length $target)
+    local left_message="▁ $(eval printf %${target_char_size}s $current)/$target "
+    
+    ((position=100*$current/$target))
+    local right_message=" $(printf %3s $position)% "
+
+    local messages_size=$(expr length "${left_message}${right_message}")
+    ((total_size=$messages_size+$bar_size))
+
+    if [ $total_size -gt $terminal_size ]; then
+        ((bar_size=$terminal_size-$messages_size));
+    fi
+
+    for ((left=0; left<$position; left++)); do bar+=$left_char; done
+    for ((right=$position; right<$bar_size; right++)); do bar+=$right_char; done
+    echo -ne "$left_message$bar$right_message\r"
 }
