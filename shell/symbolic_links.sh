@@ -3,8 +3,10 @@
 function backup_symbolic_links() {
     mkdir -p $SYNC_PATH/symbolic-links/
 
+    local now=$(date +"%Y%m%d%H%M%S")
+
     [ -f $SYNC_PATH/symbolic-links/$(hostname)_current.csv ] && mv \
-        $SYNC_PATH/symbolic-links/$(hostname)_current.csv $SYNC_PATH/symbolic-links/$(hostname)_$(date +"%Y%m%d%H%M%S").csv
+        $SYNC_PATH/symbolic-links/$(hostname)_current.csv $SYNC_PATH/symbolic-links/$(hostname)_$now.csv
 
     find / -type l -ls 2>/dev/null | awk -F" " '{print $13";"$11}\' | grep '/home/'$USER |
         grep -iv '.cache' |
@@ -50,10 +52,8 @@ function backup_symbolic_links() {
 function restore_symbolic_links() {
     source $WORKSPACE_USER/dotfiles/shell/last_backup_version.sh
     
-    local 'file'
-    file=$(last_backup_version symbolic-links csv)
-
-    NOW=$(date +"%Y%m%d%H%M%S")
+    local file=$(last_backup_version symbolic-links csv)
+    local now=$(date +"%Y%m%d%H%M%S")
 
     while read line; do
         function ln_smart() {
@@ -62,11 +62,11 @@ function restore_symbolic_links() {
             skipBackup=$3
 
             if [[ "$to" == "/home"* ]]; then
-                [ ! $skipBackup ] && echo -n "backuping... " && mv $to "$to-bkp-$NOW"
+                [ ! $skipBackup ] && echo -n "backuping... " && mv $to "$to-bkp-$now"
                 echo -n "linking $from to $to... "
                 ln -sf $from $to
             else
-                [ ! $skipBackup ] && echo -n "backuping with sudo... " && sudo mv $to "$to-bkp-$NOW"
+                [ ! $skipBackup ] && echo -n "backuping with sudo... " && sudo mv $to "$to-bkp-$now"
                 echo -n "linking with sudo $from to $to... "
                 sudo ln -sf $from $to
             fi

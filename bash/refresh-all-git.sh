@@ -1,10 +1,10 @@
 #!/usr/bin/zsh
 source ~/.zshrc
 
-TIMENOW=$(date +"%Y%m%d%H%M%S")
+NOW=$(date +"%Y%m%d%H%M%S")
 
-mkdir -p ~/tmp/git-update/${TIMENOW}
-TEMP_PATH=~/tmp/git-update/${TIMENOW}
+mkdir -p ~/tmp/git-update/${NOW}
+TEMP_PATH=~/tmp/git-update/${NOW}
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
@@ -36,7 +36,7 @@ WAIT_FOR=0
 
 do_bkp() {
     FROM="$1"
-    TO="../_$2-bkp-${TIMENOW}"
+    TO="../_$2-bkp-${NOW}"
     mv ${FROM} ${TO}
 }
 
