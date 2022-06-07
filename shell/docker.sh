@@ -129,7 +129,7 @@ function sanitize_docker_install() {
         if [[ $(check_docker_install) -eq 1 ]]; then
             echo "purging existent docker ubuntu package"
             echo "\033[0;36m"
-            sudo apt-get purge docker docker-engine docker.io containerd runc --yes
+            sudo apt-get purge ^docker containerd runc --yes 2>/dev/null
             sudo apt-get autoremove --purge --yes
             echo "\033[0m"
         else
