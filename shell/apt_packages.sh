@@ -24,7 +24,7 @@ function restore_apt_packages() {
         echo "$cyan$action apt packages from $yellow$file$cyan...$nc"
 
         local counter=0
-        local packages=($(/bin/cat $file | sed '/^$/d' | eval $filter | /bin/awk -F' ' '{print $1}' ORS=' '))
+        local packages=($(/bin/cat $file | sed '/^$/d' | eval $filter | /bin/awk -F' ' '{print $1}' ORS=' ' | sort -r))
         local packages_len=${#packages[@]}
         local packages_valid=()
 
