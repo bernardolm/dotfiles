@@ -52,3 +52,17 @@ function vpn_hu() {
     # setup_tunnel &
     start_vpn
 }
+
+function fix_wifi_wpa_ubuntu_22_04() {
+    if [ ! -f /etc/apt/sources.list.d/impish.list ]; then
+        sudo /bin/cat <<'EOF' | sudo tee /etc/apt/sources.list.d/impish.list
+deb http://archive.ubuntu.com/ubuntu/impish main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/impish-updates main restricted universe multiverse
+deb http://archive.ubuntu.com/ubuntu/impish-security main restricted universe multiverse
+EOF
+    ; fi
+    sudo apt update
+    sudo apt -y --allow-downgrades --allow-change-held-packages install wpasupplicant=2:2.9.0-21build1
+    sudo apt-mark hold wpasupplicant
+    echo -n "Warning! \\n\\tYou need to forget your known Wi-Fi networks with WPA and reconnect.\\n"
+}
