@@ -48,3 +48,7 @@ export SPACESHIP_TIME_PREFIX=""
 export SPACESHIP_TIME_SHOW=true
 export SPACESHIP_USER_SHOW=needed
 export SPACESHIP_VENV_SYMBOL="🤖🐍 "
+
+LS_COLORS=$LS_COLORS:'ow=01;34:' ; export LS_COLORS
+
+zinit light spaceship-prompt/spaceship-prompt

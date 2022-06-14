@@ -1,3 +1,38 @@
+plugins_off=(
+    copyfile
+    copypath
+    dotenv
+    extract
+    fd
+    git
+    git-extras
+    git-flow
+    git-hubflow
+    git-prompt
+    gitfast
+    github
+    gitignore
+    gnu-utils
+    history
+    jsontools
+    last-working-dir
+    pip
+    pipenv
+    python
+    redis-cli
+    ssh-agent
+    sublime
+    sudo
+    systemd
+    tmux
+    ubuntu
+    ufw
+    virtualenv
+    vscode
+    zsh-autosuggestions
+    zsh-syntax-highlighting
+)
+
 plugins=(
     aliases
     aws
@@ -7,59 +42,36 @@ plugins=(
     colorize
     command-not-found
     common-aliases
-    copyfile
-    copypath
     cp
     docker
     docker-compose
-    dotenv
     extract
-    fd
     fzf
     git
-    git-extras
-    git-hubflow
-    git-prompt
-    github
-    gitignore
-    gnu-utils
     golang
-    history
-    jsontools
     kubectl
-    last-working-dir
     man
     nmap
-    pip
-    pipenv
-    python
-    redis-cli
+    rsync
     screen
-    ssh-agent
-    sublime
-    sudo
-    systemd
     timer
-    ubuntu
-    ufw
-    virtualenv
-    vscode
     zsh-interactive-cd
     zsh-navigation-tools
 )
-# git-flow
-# gitfast
 
-export HIST_STAMPS="yyyy-mm-dd"
-export HISTDUP=erase # Erase duplicates in the history file
-export HISTFILE=$SYNC_PATH/.zsh_history # Where to save history to disk
-export HISTSIZE=999999
-export SAVEHIST=$HISTSIZE
+if [ "$DEBUG_SHELL" = "true" ]; then
+    echo -n "oh-my-zsh plugins disabled: "
+    for p in $plugins_off; do
+        echo -n "$p, ";
+    done
+    echo ""
+fi
 
-setopt extended_history
-setopt hist_ignore_dups
-setopt inc_append_history
-setopt share_history
-unsetopt hist_save_by_copy
+for p in $plugins; do
+    zinit snippet OMZP::$p/$p.plugin.zsh
+done
 
-zinit load ohmyzsh/ohmyzsh
+zinit cdclear -q
+
+autoload -U compinit
+compinit

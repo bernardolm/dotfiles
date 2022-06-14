@@ -30,6 +30,7 @@ alias make-it-mine="sudo chown -R $USER:$USER ."
 alias mouse-battery="upower -e | grep mouse | xargs upower -i | grep percentage | awk '{print $2}'"
 alias n="nautilus ."
 alias new-guid="uuidgen | tr '[A-Z]' '[a-z]'"
+alias purge-zinit="/bin/rm -rf ~/.zinit ~/.local/share/zinit"
 alias remove-x="chmod -R -x+X ."
 alias rm='trash'
 alias rrm='/bin/rm -rf'

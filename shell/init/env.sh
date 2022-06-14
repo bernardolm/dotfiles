@@ -1,7 +1,7 @@
 export TERM=xterm-256color # for common 256 color terminals (e.g. gnome-terminal)
 export USER_TMP=$HOME/tmp
 
-export ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+export ZINIT_ROOT="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit"
 
 [ -d $HOME/Sync/config-backup ] && export SYNC_PATH=$HOME/Sync/config-backup
 [ -d $SYNC_PATH/bin ] && export PATH=$PATH:$SYNC_PATH/bin:
