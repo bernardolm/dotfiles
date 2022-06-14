@@ -12,24 +12,24 @@ function zinit_runner() {
         && echo "\"$cmd_mode\" isn't a known command, exiting...\n" \
         && return false
     
-    [[ "$cmd_mode" = "debug" || $DEBUG_SHELL = "true" ]] && cmd="zinit load"
+    [[ "$cmd_mode" = "debug" ]] && cmd="zinit load"
     [[ "$cmd_mode" = "echo" ]] && cmd="echo -n"
     [[ "$cmd_mode" = "start" ]] && cmd="zinit light"
     [[ "$cmd_mode" = "turbo" ]] && cmd="zinit load" && zinit ice wait lucid
 
     if [ "$cmd_mode" != "echo" ]; then
-        echo "zinit loading plugins with '$cmd_mode' mode ($cmd):"
+        $DEBUG_SHELL && echo "zinit loading plugins with '$cmd_mode' mode ($cmd):"
         for p in $params; do
-            echo "> $cmd $p"
+            $DEBUG_SHELL && echo "> $cmd $p"
             eval "$cmd $p"
         done
-        echo "zinit $cmd_mode finished"
+        $DEBUG_SHELL && echo "zinit $cmd_mode finished"
     else
-        echo "zinit will not be loading follow plugins:"
-        echo ${params[@]}
+        $DEBUG_SHELL && echo "zinit will not be loading follow plugins:"
+        $DEBUG_SHELL && echo ${params[@]}
     fi
 
-    echo ""
+    $DEBUG_SHELL && echo ""
 }
 
 function start_zinit() {
@@ -53,7 +53,6 @@ zinit_plugins_turbo=(
     johanhaleby/kubetail
     mafredri/zsh-async
     ohmyzsh/ohmyzsh
-    SkyyySi/ztheme
     spaceship-prompt/spaceship-prompt
     zdharma-continuum/fast-syntax-highlighting
     zdharma-continuum/history-search-multi-word
