@@ -1,0 +1,14 @@
+#!/bin/bash
+# Lists N items in the terminal.
+
+if [ -n "$1" ]; then
+	if [ "$1" == "usage" ]; then
+		echo "    $(basename $0) [TERM...]"
+		echo "      Lists N items in the terminal."
+		echo ""
+		exit
+	fi
+	shift
+fi
+
+_list "$TODO_FILE" | head -n$1

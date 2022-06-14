@@ -59,7 +59,7 @@ plugins=(
     zsh-navigation-tools
 )
 
-if [ "$DEBUG_SHELL" = "true" ]; then
+if $DEBUG_SHELL; then
     echo -n "oh-my-zsh plugins disabled: "
     for p in $plugins_off; do
         echo -n "$p, ";

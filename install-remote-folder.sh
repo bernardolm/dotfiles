@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/zsh
 
-export BASE_PATH=$WORKSPACE_USER/dotfiles
-source $BASE_PATH/msg.sh
+source ./shell/init/env.sh
+source ./shell/init/functions_loader.sh
 
-msg_init 'remote folder'
+msg_start 'remote folder'
 
 function install_dropbox() {
     function is_dropbox_finish() {

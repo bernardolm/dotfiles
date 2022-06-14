@@ -1,11 +1,9 @@
-#!/bin/bash
+#!/bin/zsh
 
-export BASE_PATH=$WORKSPACE_USER/dotfiles
-source $BASE_PATH/msg.sh
+source ./shell/init/env.sh
+source ./shell/init/functions_loader.sh
 
-msg_init '3rd party apps'
-
-export PATH=$PATH:$HOME/.local/bin:
+msg_start '3rd party apps'
 
 for NAME in $(find $(dirname $(readlink -f $0))/3rd-party-apps/*.sh); do
     source $NAME

@@ -2,8 +2,8 @@ function progress_bar() {
     local bar_size=300
     local bar=""
     local current=$1
-    local left_char="█"
-    local right_char="░"
+    local left_char="${GREEN}█${NC}"
+    local right_char="${RED}░${NC}"
     local target=$2
 
     local terminal_size=$(tput cols)

@@ -1,9 +1,9 @@
 #!/bin/bash
 
-export BASE_PATH=$WORKSPACE_USER/dotfiles
-source $BASE_PATH/msg.sh
+source ./shell/init/env.sh
+source ./shell/init/functions_loader.sh
 
-msg_init 'post install'
+msg_start 'post install'
 
 sudo apt-get --purge --yes autoremove
 [ `command -v zsh` ] && chsh -s $(which zsh)
@@ -14,7 +14,10 @@ gnome-extensions disable ubuntu-dock@ubuntu.com
 # echo "net.ipv6.conf.default.disable_ipv6=1" | sudo tee -a /etc/sysctl.conf
 # echo "net.ipv6.conf.lo.disable_ipv6=1" | sudo tee -a /etc/sysctl.conf
 echo "vm.swappiness=25" | sudo tee -a /etc/sysctl.conf
-sudo sysctl -p
+echo "vm.max_map_count=524288" | sudo tee -a /etc/sysctl.conf
+echo "fs.file-max=131072" | sudo tee -a /etc/sysctl.conf
+sudo ulimit -n 131072 || true
+sudo ulimit -u 8192 || true
 
 gconftool-2 --shutdown
 gconftool-2 --spawn

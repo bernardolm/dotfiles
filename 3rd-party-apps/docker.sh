@@ -1,9 +1,9 @@
 #!/bin/bash
 
-export BASE_PATH=$WORKSPACE_USER/dotfiles
-source $BASE_PATH/msg.sh
+source ./shell/init/env.sh
+source ./shell/init/functions_loader.sh
 
-msg_init 'docker'
+msg_start 'docker'
 
 if [[ "$(command -v docker)" == "" ]]; then
     sudo apt-get install --yes docker-ce docker-desktop docker-ce-cli containerd.io

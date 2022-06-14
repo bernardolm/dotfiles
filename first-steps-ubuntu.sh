@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/bin/zsh
 set -e
 set -a
 
-export BASE_PATH=$WORKSPACE_USER/dotfiles
-source $BASE_PATH/msg.sh
+source ./shell/init/env.sh
+source ./shell/init/functions_loader.sh
 
 msg_welcome() {
     echo ""
@@ -25,11 +25,11 @@ $BASE_PATH/install-remote-folder.sh
 source $BASE_PATH/shell/symbolic_links.sh
 restore_symbolic_links
 $BASE_PATH/setting-apt.sh
-$BASE_PATH/install-base-packages.sh
-$BASE_PATH/install-3rd-party-packages.sh
+# $BASE_PATH/install-base-packages.sh
+# $BASE_PATH/install-3rd-party-packages.sh
 $BASE_PATH/setting-ssh.sh
-$BASE_PATH/install-3rd-party-apps.sh
-$BASE_PATH/install-snap-packages.sh
+# $BASE_PATH/install-3rd-party-apps.sh
+# $BASE_PATH/install-snap-packages.sh
 $BASE_PATH/post-install.sh
 
 echo -e "\n\n🏁 thats all folks... bye!"

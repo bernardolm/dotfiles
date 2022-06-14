@@ -1,9 +1,9 @@
 #!/bin/bash
 
-export BASE_PATH=$WORKSPACE_USER/dotfiles
-source $BASE_PATH/msg.sh
+source ./shell/init/env.sh
+source ./shell/init/functions_loader.sh
 
-msg_init 'setting ssh'
+msg_start 'setting ssh'
 
 if [ ! -f ~/.ssh/id_ed25519 ]; then
     ssh-keygen -t ed25519 -C `git config user.email`

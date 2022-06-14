@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/zsh
 source ~/.zshrc
 
 # amixer -q -D pulse sset Master toggle

@@ -1,4 +1,4 @@
-#!/usr/bin/zsh
+#!/bin/zsh
 source ~/.zshrc
 
 NOW=$(date +"%Y%m%d%H%M%S")

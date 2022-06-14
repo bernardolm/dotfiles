@@ -50,8 +50,6 @@ function backup_symbolic_links() {
 }
 
 function restore_symbolic_links() {
-    source $WORKSPACE_USER/dotfiles/shell/last_backup_version.sh
-    
     local file=$(last_backup_version symbolic-links csv)
     local now=$(date +"%Y%m%d%H%M%S")
 

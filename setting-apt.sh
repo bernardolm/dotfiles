@@ -1,9 +1,9 @@
 #!/bin/bash
 
-export BASE_PATH=$WORKSPACE_USER/dotfiles
-source $BASE_PATH/msg.sh
+source ./shell/init/env.sh
+source ./shell/init/functions_loader.sh
 
-msg_init 'setting apt'
+msg_start 'setting apt'
 
 [ -f ~/tmp/get_keys ] || touch -d "2 years ago" ~/tmp/get_keys
 

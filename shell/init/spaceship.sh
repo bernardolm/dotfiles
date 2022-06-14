@@ -13,7 +13,7 @@ export SPACESHIP_PROMPT_ORDER=(
     aws               # Amazon Web Services section
     gcloud            # Google Cloud Platform section
     venv              # virtualenv section
-    conda             # conda virtualenv section
+    # conda             # conda virtualenv section
     kubectl           # Kubectl context section
     # line_sep        # Line break
     battery           # Battery level and status
@@ -24,10 +24,6 @@ export SPACESHIP_PROMPT_ORDER=(
     char              # Prompt character
 )
 
-# export SPACESHIP_DIR_TRUNC_REPO=false
-# export SPACESHIP_JOBS_AMOUNT_THRESHOLD=0
-# export SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
-# export SPACESHIP_PROMPT_SEPARATE_LINE=true
 export SPACESHIP_BATTERY_SHOW=true
 export SPACESHIP_BATTERY_SYMBOL_FULL=""
 export SPACESHIP_BATTERY_THRESHOLD=25
@@ -35,16 +31,17 @@ export SPACESHIP_CHAR_SYMBOL_ROOT="🚨 "
 export SPACESHIP_DIR_TRUNC=2
 export SPACESHIP_DOCKER_SHOW=true
 export SPACESHIP_EXEC_TIME_ELAPSED=0.1
-export SPACESHIP_EXEC_TIME_PREFIX="⏳ "
+export SPACESHIP_EXEC_TIME_PREFIX="⏱ "
 export SPACESHIP_EXIT_CODE_COLOR="white"
 export SPACESHIP_EXIT_CODE_SHOW=true
 export SPACESHIP_EXIT_CODE_SYMBOL="🚧 "
 export SPACESHIP_GCLOUD_SHOW=false
 export SPACESHIP_JOBS_SHOW=true
-export SPACESHIP_PROMPT_ADD_NEWLINE=true
+export SPACESHIP_PROMPT_ADD_NEWLINE=false
+export SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
 export SPACESHIP_RANDOM_EMOJI_SHOW=true
 export SPACESHIP_TIME_12HR=false
-export SPACESHIP_TIME_PREFIX=""
+export SPACESHIP_TIME_PREFIX="⌚ "
 export SPACESHIP_TIME_SHOW=true
 export SPACESHIP_USER_SHOW=needed
 export SPACESHIP_VENV_SYMBOL="🤖🐍 "
