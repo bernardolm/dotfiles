@@ -13,3 +13,7 @@ function backup_all() {
     backup_snap_packages
     backup_symbolic_links
 }
+
+function backup_it() {
+    cp --preserve=all --recursive $1 $1_$(date +"%Y%m%d%H%M%S%N")
+}
