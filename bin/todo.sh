@@ -1,1 +1,1 @@
-todo-txt/todo.sh
+/home/bernardo/workspaces/bernardolm/dotfiles/todo-txt/todo.sh

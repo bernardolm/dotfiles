@@ -1,5 +1,11 @@
+function spaceship_history_size() {
+    backup_it $SYNC_PATH/.zsh_history
+    echo -n "💽 `wc -l < $SYNC_PATH/.zsh_history` "
+}
+
 export SPACESHIP_PROMPT_ORDER=(
     time              # Time stamps section
+    history_size
     dir               # Current directory section
     host              # Hostname section
     git               # Git section (git_branch + git_status)
@@ -49,3 +55,9 @@ export SPACESHIP_VENV_SYMBOL="🤖🐍 "
 LS_COLORS=$LS_COLORS:'ow=01;34:' ; export LS_COLORS
 
 zinit light spaceship-prompt/spaceship-prompt
+
+# autoload -Uz $fpath[1]/*(.:t)
+
+autoload -Uz promptinit
+# promptinit
+# prompt spaceship

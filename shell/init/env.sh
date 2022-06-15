@@ -39,7 +39,7 @@ export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.zinit/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$SYNC_PATH/bin
-typeset -U PATH # Remove duplicates in $PATH
+[[ `ps -p $$ -ocomm=` == "zsh" ]] && typeset -U PATH # Remove duplicates in $PATH
 
 BLUE="\033[0;34m"
 BOLD="\033[1m"
