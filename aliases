@@ -45,6 +45,7 @@ alias speed-up-nautilus="sudo rm -rf $HOME/.local/share/gvfs-metadata && sudo pk
 alias sr="screen -r"
 alias sudo='sudo '
 alias szh="sanitize_zsh_history"
+alias szhd="DEBUG_SHELL=true szh"
 alias tt="$DOTFILES/todo-txt/todo-zsh.sh"
 alias tta="tt add"
 alias ttls="tt top"
