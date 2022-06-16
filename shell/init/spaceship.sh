@@ -1,6 +1,6 @@
 function spaceship_histsize() {
-    backup_it $HISTSIZE
-    echo -n "💽 `wc -l < $HISTSIZE` "
+    # [ -f $HISTSIZE ] && echo -n "💽 `wc -l < $HISTSIZE` "
+    [ -f $HISTSIZE ] && echo -n `wc -l < $HISTSIZE`
 }
 
 export SPACESHIP_PROMPT_ORDER=(
@@ -40,6 +40,8 @@ export SPACESHIP_EXIT_CODE_COLOR="white"
 export SPACESHIP_EXIT_CODE_SHOW=true
 export SPACESHIP_EXIT_CODE_SYMBOL="🚧 "
 export SPACESHIP_GCLOUD_SHOW=false
+export SPACESHIP_HISTSIZE_PREFIX_SHOW=true
+export SPACESHIP_HISTSIZE_PREFIX="💽 "
 export SPACESHIP_JOBS_SHOW=true
 export SPACESHIP_PROMPT_ADD_NEWLINE=false
 export SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true

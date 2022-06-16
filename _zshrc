@@ -17,5 +17,7 @@ done
 
 eval `dircolors $HOME/.dir_colors`
 
+load_aliases
+
 ### Added by Zinit's installer
 ### End of Zinit's installer chunk

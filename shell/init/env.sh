@@ -15,6 +15,8 @@ export GITHUB_ORG=$(git config github.organization)
 [ -d ~/workspaces/$GITHUB_USER ] && export WORKSPACE_USER=~/workspaces/$GITHUB_USER
 [ ! -z $WORKSPACE_USER ] && export DOTFILES=$WORKSPACE_USER/dotfiles
 
+source $DOTFILES/shell/load_aliases.sh; load_aliases
+
 [ -d ~/workspaces/$GITHUB_ORG ] && export WORKSPACE_ORG=~/workspaces/$GITHUB_ORG
 
 [ ! -d $WORKSPACE_USER ] && mkdir -p $WORKSPACE_USER
@@ -25,10 +27,6 @@ export GITHUB_ORG=$(git config github.organization)
 [ -d ~/gopath ] && export GOPATH=~/gopath
 # [ -d $GOPATH/bin ] && export PATH=$PATH:$GOPATH/bin:
 
-[ -f $SYNC_PATH/aliases ] && (($DEBUG_SHELL && echo "loading sync path aliases in $SYNC_PATH/aliases") || true) && \
-    source $SYNC_PATH/aliases
-[ -f $DOTFILES/aliases ] && (($DEBUG_SHELL && echo "loading git path aliases in $DOTFILES/aliases") || true) && \
-    source $DOTFILES/aliases
 
 export PATH=$PATH:/bin:/usr/bin
 export PATH=$PATH:/usr/local/bin
@@ -122,6 +120,7 @@ COLORS=(
 
 if $DEBUG_SHELL; then
     for c in ${COLORS[@]}; do
+        # TODO: print var name instead foobar
         if [[ "$(ps -p $$ -ocomm=)" = "zsh" ]]; then
             printf "${(P)c} foobar ${NC}\n"
         else

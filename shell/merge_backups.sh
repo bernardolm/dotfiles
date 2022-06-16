@@ -1,14 +1,21 @@
 function merge_backup() {
-    /bin/cat $SYNC_PATH/$1/* > $SYNC_PATH/$1/current.$2.tmp
-    clear_backup $1 $2
-    mv $SYNC_PATH/$1/current.$2.tmp $SYNC_PATH/$1/current.$2
+    local folder=$1
+    local ext=$2
+    local search_in=$SYNC_PATH/$folder
+    
+    /bin/cat --squeeze-blank `ls $search_in` | sort -u > $search_in/current.$ext.new
+    clear_backup $search_in $ext
+    mv current.$ext.new current.$ext
 }
 
 function clear_backup() {
-    find $SYNC_PATH/$1/*.$2 | /bin/grep -v /current.$2 | xargs trash
+    local search_in=$1
+    local ext=$2
+
+    find $search_in -name "*.$ext" | xargs gio trash
 }
 
-function merge_backups() {
+function merge_all_backups() {
     merge_backup apt-packages txt
     merge_backup git-workspaces csv
     merge_backup python-packages txt
