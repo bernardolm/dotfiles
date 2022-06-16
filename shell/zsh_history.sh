@@ -1,77 +1,85 @@
 # foobar(){ dst="$HOME/zsh_history/$(date +'%Y%m%d%H%M')" ; mkdir -p $dst ; mv -v "$1" "$dst" ; }; export -f foobar; find ~ -mindepth 1 -maxdepth 1 -type f -name '*zsh_history*' | xargs -I {} bash -c 'foobar "$@"' _ {}; find ~/zsh_history/ -mindepth 1 -maxdepth 1 -name '*zsh_history*' | xargs -I {} bash -c 'foobar "$@"' _ {}
 
 
-function sanitize_zsh_history() {
+function zsh_history_sanitize() {
+    local function files_to_sanitize() {
+        find $search_in -size $size_to_search -regex '.*\.zsh_history[ \._]+.*' \
+            -not -name $HISTFILE \
+            -not -name $new_histfile 2>/dev/null
+    }
+
+    local function count_files_to_sanitize() {
+        [ -z $files ] && files=`files_to_sanitize`
+        echo -n $files | wc -l
+    }
+
+    msg_start "zsh history sanitize"
+
     backup_it $HISTFILE
-    local new_histfile="$HOME/zsh_history/`basename -a $HISTFILE`_NEW_"$(date +"%Y%m%d%H%M%S%N")"
+    local new_histfile="$HOME/zsh_history/`basename -a $HISTFILE`_NEW_"$(date +"%Y%m%d%H%M%S%N")
     cp $HISTFILE $new_histfile
-    echo "history file is $new_histfile"
+    echo -n "using history file $new_histfile"
+
     local histfile_lines=`/bin/cat --squeeze-blank $new_histfile | wc -l`
-    $DEBUG_SHELL && echo "$histfile_lines lines in $new_histfile at begin"
+    [ $histfile_lines -eq 0 ] && echo ", no lines found." && return
+    echo ", $histfile_lines lines found."
 
-    local function list_files() {
-        find -L $HOME -size -101M -regex '.*\.zsh_history[ \._]+.*' -not -name $HISTFILE -not -name $new_histfile 2>/dev/null
-    }
+    local current=0
 
-    local function count_current() {
-        [ -z $files ] && files=`list_files`
-        list_files | wc -l
-    }
+    local search_in=$HOME
+    [ "$1" != "" ] && search_in=$1
 
-    local current
-    local files=`list_files`
-    local last=`count_current`
-    local total=$last
-    local x=0
-    local merge_up_to=3
+    local size_to_search="-100M"
+    [ "$2" != "" ] && size_to_search=$2
 
-    [ $total -eq 0 ] && msg_end "no files found and" && return
+    echo -n "searching files in $search_in with $size_to_search"
 
-    msg_start "merging of $total files"
+    local files=`files_to_sanitize`
+    local total_files_to_sanitize=`count_files_to_sanitize`
 
-    echo $files | while read filename; do
-        current=`count_current`
-        declare -i diff=$total-$current
-        $DEBUG_SHELL && echo "reduce from $last to $current ($diff/$total) files"
-        last=$current
-        $DEBUG_SHELL || progress_bar $diff $total
+    [ $total_files_to_sanitize -eq 0 ] && echo ", no files found." && return
 
-        $DEBUG_SHELL && echo "🔹 $filename "
+    echo ", merging $total_files_to_sanitize files"
+
+    echo -n $files | while read filename; do
+        $DEBUG_SHELL && echo -n "🔹 $filename"
 
         local filename_lines=`/bin/cat --squeeze-blank $filename | wc -l`
-        $DEBUG_SHELL && echo "$filename_lines lines in $filename"
+        [ $filename_lines -eq 0 ] \
+            && ($DEBUG_SHELL && echo ", no lines found." && continue) \
+            || $DEBUG_SHELL && echo -n ", $filename_lines lines found."
+
         if [ $filename_lines -gt 0 ]; then
-            local cleaned="${filename}_clean"
-            touch $cleaned
-            /bin/sed '/\x0/d' "$filename" > $cleaned
-            mv -f $cleaned "$filename"
+            $DEBUG_SHELL && echo -n " cleaning"
+            /bin/sed -i '/\x0/d' "$filename"
+            /bin/sed -i '/^[^:]/d' "$filename"
 
             local filename_lines=`/bin/cat --squeeze-blank $filename | wc -l`
-            $DEBUG_SHELL && echo "$filename_lines lines in $filename after cleaning"
-
-            [ $filename_lines -le 0 ] && continue
+            [ $filename_lines -eq 0 ] \
+                && ($DEBUG_SHELL && echo ", no lines found." && continue) \
+                || $DEBUG_SHELL && echo -n ", $filename_lines lines found."
 
             local histfile_lines=`/bin/cat --squeeze-blank $new_histfile | wc -l`
-            $DEBUG_SHELL && echo "$histfile_lines lines in $new_histfile"
+            $DEBUG_SHELL && echo -n " $histfile_lines lines now in histfile, merging"
 
             /bin/cat --squeeze-blank $filename | tee -a $new_histfile 1>/dev/null
 
-            local histfile_lines=`/bin/cat --squeeze-blank $new_histfile | wc -l`
-            $DEBUG_SHELL && echo "$histfile_lines lines in $new_histfile at final"
+            local histfile_final_lines=`/bin/cat --squeeze-blank $new_histfile | wc -l`
+            $DEBUG_SHELL && echo ", $histfile_final_lines at final."
         fi
-        /bin/rm "$filename"
+        [ $histfile_final_lines -ge $(($histfile_lines+$filename_lines)) ] \
+            && eval "frm "$($DEBUG_SHELL && echo "-v" || echo "")" $filename"
 
-        #echo "x=$x, and up to $merge_up_to"
-        [ $x -lt $merge_up_to ] && let "x=x+1" && continue
-        let "x=0"
+        $DEBUG_SHELL && echo "increase history file to "`get_file_size $new_histfile`
 
-        $DEBUG_SHELL && echo "increase history file to "`get_file_size $new_histfile`" size"
+        [ $histfile_final_lines -ge 100000 ] && zsh-history-clear --file $new_histfile || true
 
-        [ `stat -c '%s' $new_histfile` -ge 1000 ] && zsh-history-clear --file $new_histfile || true
+        let "current=$current+1"
+        $DEBUG_SHELL || progress_bar $current $total_files_to_sanitize
     done
     zsh-history-clear --file $new_histfile
     backup_it $new_histfile
-    msg_end "🏁 finish file with size "`get_file_size $new_histfile`
+    msg_end "finish file with size "`get_file_size $new_histfile`
 }
 
 function zsh_history_joiner() {
@@ -82,7 +90,7 @@ function zsh_history_joiner() {
     local function remove() {
         $DEBUG_SHELL && echo "removing $@" && return
 
-        /bin/rm $1
+        frm $1
     }
 
     local function batch_filename() {
