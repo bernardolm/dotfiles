@@ -53,7 +53,6 @@ zinit_plugins_turbo=(
     johanhaleby/kubetail
     mafredri/zsh-async
     ohmyzsh/ohmyzsh
-    spaceship-prompt/spaceship-prompt
     zdharma-continuum/fast-syntax-highlighting
     zdharma-continuum/history-search-multi-word
     zdharma-continuum/zsh-navigation-tools
