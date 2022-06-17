@@ -3,8 +3,12 @@ function backup_gnome() {
     dconf dump /org/gnome/ > "$SYNC_PATH/gnome/$now.txt"
 }
 
+function reset_gnome() {
+    dconf reset -f /org/gnome/
+}
+
 function restore_gnome() {
     local file=$(last_backup_version gnome txt)
-    dconf reset -f /org/gnome/
+    reset_gnome
     dconf load /org/gnome/ <$file
 }
