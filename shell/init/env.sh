@@ -27,8 +27,8 @@ source $DOTFILES/shell/load_aliases.sh; load_aliases
 [ -d ~/gopath ] && export GOPATH=~/gopath
 # [ -d $GOPATH/bin ] && export PATH=$PATH:$GOPATH/bin:
 
-
-export PATH=$PATH:/bin:/usr/bin
+export PATH=$PATH:/bin
+export PATH=$PATH:/usr/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$DOTFILES/bin
@@ -37,7 +37,6 @@ export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.zinit/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$SYNC_PATH/bin
-[[ `ps -p $$ -ocomm=` == "zsh" ]] && typeset -U PATH # Remove duplicates in $PATH
 
 BLUE="\033[0;34m"
 BOLD="\033[1m"

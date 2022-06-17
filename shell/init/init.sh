@@ -1,12 +1,12 @@
 # Loading init scripts
-init_scripts_path=(
+local init_scripts_path=(
     $SYNC_PATH/shell/init
     $DOTFILES/shell/init
 )
 
 $DEBUG_SHELL && echo "💿 loading init scripts in paths $init_scripts_path"
 
-function load_custom_script() {
+local function load_custom_script() {
     local script=$1
     local tabs=$2
     local script_file=`basename $script`

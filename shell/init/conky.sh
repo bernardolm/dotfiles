@@ -1,11 +1,11 @@
-conky_instances=$(ps auxwf | grep -v grep | grep '_ conky' | wc -l)
-$DEBUG_SHELL && notify-send "conky" "$conky_instances was instances started"
+local conky_instances=$(ps auxwf | grep -v grep | grep '_ conky' | wc -l | bc)
+$DEBUG_SHELL && notify-send "conky" "$conky_instances instances running"
 
-[ $(echo $conky_instances | bc) -gt 1 ] && \
-    echo "many conkys are started, killing them" && \
-    kill-conky && \
-    sleep 1 && \
-    conky -q
-[ $(echo $conky_instances | bc) -eq 0 ] && \
-    echo "starting conky" && \
-    conky -q
+if [ $conky_instances -gt 1 ]; then
+    echo "many conkys are started, killing them and start only one"
+    kill-conky
+    sleep 1
+    conky -q -d
+fi
+
+[ $conky_instances -eq 0 ] && conky -q -d
