@@ -197,12 +197,8 @@ function zsh_history_joiner() {
     doit "-1w" "remove"
 
     # merge not so small files
-    for n in $(seq 1 5); do doit "-${n}M" "merge" "$((1000/${n}))"; done
-    for n in $(seq 6 10); do doit "+$(($n-1))M -size -${n}M" "merge" "$((500/${n}))"; done
-    for n in $(seq 11 15); do doit "+$(($n-1))M -size -${n}M" "merge" "$((250/${n}))"; done
-    for n in $(seq 16 20); do doit "+$(($n-1))M -size -${n}M" "merge" "$((175/${n}))"; done
+    doit "-100M" "merge" 
 
     # split biggest files
     doit "+100M" "split_it"
 }
-
