@@ -43,7 +43,7 @@ function zsh_history_sanitize() {
     local function zsh_history_clear() {
         local file="$1"
         local cmd="zsh-history-clear --file $file"
-        $DEBUG_SHELL && eval $cmd || eval $cmd 1>/dev/null
+        $DEBUG_SHELL && echo "running: $cmd" && eval $cmd || eval $cmd 1>/dev/null
     }
 
     msg_start "zsh history sanitize"
@@ -99,6 +99,7 @@ function zsh_history_sanitize() {
             $DEBUG_SHELL && echo ", $histfile_final_lines at final."
         fi
         [ $histfile_final_lines -ge $(($histfile_lines+$filename_lines)) ] \
+            && echo "running: frm "$($DEBUG_SHELL && echo "-v" || echo "")" $filename" \ 
             && eval "frm "$($DEBUG_SHELL && echo "-v" || echo "")" $filename"
 
         $DEBUG_SHELL && echo "increase history file to "`get_file_size $new_histfile`
