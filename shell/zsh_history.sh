@@ -18,7 +18,7 @@ function zsh_history_sanitize() {
     local function search_files() {
         local search_in=$1
         local size_to_search=$2
-        find $search_in -size $size_to_search -regex '.*\.zsh_history[ \._]+.*' \
+        find $search_in -type f -size $size_to_search -regex '.*\.zsh_history[ \._]+.*' \
             -not -name $HISTFILE \
             -not -name `new_histfile_name` \
             2>/dev/null
@@ -42,11 +42,12 @@ function zsh_history_sanitize() {
 
     local function zsh_history_clear() {
         local file="$1"
-        local cmd="zsh-history-clear --file \"$file\""
-        $DEBUG_SHELL && echo "running: $cmd" && eval "$cmd" || eval $cmd 1>/dev/null
+        local cmd="zsh-history-clear --file \"$file\" $($DEBUG_SHEL && echo --debug true)"
+        $DEBUG_SHELL && echo "running: $cmd" && eval "$cmd" && return
+	 eval $cmd 1>/dev/null
     }
 
-    msg_start "zsh history sanitize"
+    msg_start "zsh history sanitize$($DEBUG_SHELL && echo ' in '${RED}debug mode${NC})"
 
     local now=$(date +"%Y%m%d%H%M%S%N")
 
@@ -99,8 +100,8 @@ function zsh_history_sanitize() {
             $DEBUG_SHELL && echo ", $histfile_final_lines at final."
         fi
         [ $histfile_final_lines -ge $(($histfile_lines+$filename_lines)) ] \
-            && local remove_cmd="frm $($DEBUG_SHELL && echo "-v" || echo "") \"$filename\"" \
-            && echo "running: $remove_cmd" \
+            && local remove_cmd="gio trash $($DEBUG_SHELL && echo -v || echo '') \"$filename\"" \
+            && ($DEBUG_SHELL && echo "running: $remove_cmd" || true) \
             && eval "$remove_cmd"
 
         $DEBUG_SHELL && echo "increase history file to "`get_file_size $new_histfile`
@@ -124,7 +125,7 @@ function zsh_history_joiner() {
 
     local function remove() {
         $DEBUG_SHELL && echo "removing $@" && return
-        frm $1
+        gio trash $1
     }
 
     local function batch_filename() {
