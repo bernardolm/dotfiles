@@ -99,8 +99,9 @@ function zsh_history_sanitize() {
             $DEBUG_SHELL && echo ", $histfile_final_lines at final."
         fi
         [ $histfile_final_lines -ge $(($histfile_lines+$filename_lines)) ] \
-            && echo "running: frm "$($DEBUG_SHELL && echo "-v" || echo "")" $filename" \ 
-            && eval "frm "$($DEBUG_SHELL && echo "-v" || echo "")" $filename"
+            && local remove_cmd="frm \"$($DEBUG_SHELL && echo "-v" || echo "")\" $filename" \
+            && echo "running: $remove_cmd" \ 
+            && eval "$remove_cmd"
 
         $DEBUG_SHELL && echo "increase history file to "`get_file_size $new_histfile`
 
