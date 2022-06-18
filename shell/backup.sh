@@ -17,3 +17,31 @@ function backup_all() {
 function backup_it() {
     cp --preserve=all --recursive $1 $1_$(date +"%Y%m%d%H%M%S%N")
 }
+
+function merge_backup() {
+    local folder=$1
+    local ext=$2
+    local search_in=$SYNC_PATH/$folder
+
+    echo "working on $search_in with ext *.$ext"
+
+    local new="$search_in/$(date +"%Y%m%d%H%M%S%N").$ext.new"
+
+    [ ! -f $new ] && touch $new
+
+    local files=(`find $search_in -type f -name "*.$ext" -printf '"%p" '`)
+    [ ${#files[@]} -eq 0 ] && return
+
+    eval "/bin/cat --squeeze-blank $files | sort -u > $new"
+    eval "gio trash $files"
+    mv "$new" "$search_in/current.$ext"
+}
+
+function merge_all_backups() {
+    merge_backup apt-packages txt
+    merge_backup git-workspaces csv
+    merge_backup python-packages txt
+    merge_backup snap-packages txt
+    merge_backup symbolic-links csv
+    merge_backup vpn-custom-routes csv
+}

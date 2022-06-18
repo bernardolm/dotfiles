@@ -15,7 +15,7 @@ function zsh_history_sanitize() {
         cp $HISTFILE $new
     }
 
-    local function seach_files() {
+    local function search_files() {
         local search_in=$1
         local size_to_search=$2
         find $search_in -size $size_to_search -regex '.*\.zsh_history[ \._]+.*' \
@@ -66,7 +66,7 @@ function zsh_history_sanitize() {
 
     echo -n "searching files in $search_in with $size_to_search"
 
-    local files=`seach_files $search_in $size_to_search`
+    local files=`search_files $search_in $size_to_search`
     local total_files_to_sanitize=`count_files $files`
 
     [ $total_files_to_sanitize -eq 0 ] && echo ", no files found." && return
@@ -197,7 +197,7 @@ function zsh_history_joiner() {
     doit "-1w" "remove"
 
     # merge not so small files
-    doit "-100M" "merge" 
+    doit "-100M" "merge"
 
     # split biggest files
     doit "+100M" "split_it"
