@@ -196,11 +196,11 @@ function zsh_history_joiner() {
     local path_to_run=$HOME
 
     # smallest files to bin
-    doit "-1c" "remove"
-    doit "-1w" "remove"
+#    doit "-1c" "remove"
+#    doit "-1w" "remove"
 
     # merge not so small files
-    doit "-100M" "merge"
+#    doit "-100M" "merge"
 
     # split biggest files
     doit "+100M" "split_it"
