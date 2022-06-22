@@ -9,6 +9,7 @@ sudo apt-get --purge --yes autoremove
 [ `command -v zsh` ] && chsh -s $(which zsh)
 fc-cache -f -v > /dev/null
 gnome-extensions disable ubuntu-dock@ubuntu.com
+gsettings set org.cinnamon.desktop.wm.preferences num-workspaces 1
 
 # echo "net.ipv6.conf.all.disable_ipv6=1" | sudo tee -a /etc/sysctl.conf
 # echo "net.ipv6.conf.default.disable_ipv6=1" | sudo tee -a /etc/sysctl.conf
