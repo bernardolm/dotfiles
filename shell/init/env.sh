@@ -15,24 +15,24 @@ export GITHUB_ORG=$(git config github.organization)
 [ -d ~/workspaces/$GITHUB_USER ] && export WORKSPACE_USER=~/workspaces/$GITHUB_USER
 [ ! -z $WORKSPACE_USER ] && export DOTFILES=$WORKSPACE_USER/dotfiles
 
-source $DOTFILES/shell/load_aliases.sh; load_aliases
+source $DOTFILES/shell/load_aliases.sh
+load_aliases
 
 [ -d ~/workspaces/$GITHUB_ORG ] && export WORKSPACE_ORG=~/workspaces/$GITHUB_ORG
 
 [ ! -d $WORKSPACE_USER ] && mkdir -p $WORKSPACE_USER
 [ ! -d $WORKSPACE_ORG ] && mkdir -p $WORKSPACE_ORG
 
-# [ -d /usr/local/go/bin ] && export PATH=$PATH:/usr/local/go/bin:
-
 [ -d ~/gopath ] && export GOPATH=~/gopath
-# [ -d $GOPATH/bin ] && export PATH=$PATH:$GOPATH/bin:
 
 export PATH=$PATH:/bin
+export PATH=$PATH:/snap/bin/
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$DOTFILES/bin
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/.zinit/bin
 export PATH=$PATH:$HOME/bin
@@ -116,15 +116,3 @@ export COLORS=(
     UNDERLINE
     WHITE
 )
-
-if $DEBUG_SHELL; then
-    for c in ${COLORS[@]}; do
-        # TODO: print var name instead foobar
-        if [[ "$(ps -p $$ -ocomm=)" = "zsh" ]]; then
-            printf "${(P)c} foobar ${NC}\n"
-        else
-            printf "${!c} foobar ${NC}\n"
-        fi
-    done
-    echo "$NC"
-fi
