@@ -1,6 +1,5 @@
 function find_to_array() {
-    eval "find $@ -print0" | 
-    while IFS= read -r -d '' file; do
+    eval "find $@ -print0" | while IFS= read -r -d '' file; do
         printf '%s\n' "$file"
     done
 }
