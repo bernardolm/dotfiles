@@ -1,4 +1,4 @@
-function sanitize_dockerdns_vestiges() (
+function dockerdns_sanitize_vestiges() (
     echo "sanitizing docker-dns vestiges"
 
     grep -v 'docker-dns' /etc/resolv.conf | sudo tee /etc/resolv.conf.tmp > /dev/null
@@ -10,7 +10,7 @@ function sanitize_dockerdns_vestiges() (
     sudo resolvconf -u
 )
 
-function install_dockerdns() {
+function dockerdns_install() {
     echo "installing docker-dns"
 
     if [[ $(check_docker_install) -eq 1 ]]; then
@@ -29,9 +29,9 @@ function install_dockerdns() {
         docker rmi hu/ns0:latest
     fi
 
-    sanitize_dockerdns_vestiges
+    dockerdns_sanitize_vestiges
 
-    function _install_dockerdns_1_x() {
+    function _install_1_x() {
         echo "installing 1.x version"
 
         # git checkout version/1.x
@@ -40,7 +40,7 @@ function install_dockerdns() {
         make install tag=hu/ns0 name=ns0 tld=hud
     }
 
-    function _install_dockerdns_lastest() {
+    function _install_lastest() {
         echo "installing latest version"
 
         # git checkout master
@@ -55,8 +55,8 @@ function install_dockerdns() {
 
     git fetch --prune
 
-    # _install_dockerdns_lastest
-    _install_dockerdns_1_x
+    _install_lastest
+    # _install_1_x
 
     cd $last_pwd
 }
