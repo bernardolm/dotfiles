@@ -23,10 +23,9 @@ local function find_cmd() {
 
 local files_limit=100
 local lines_limit=100000
-local new_file_lines=0
-local lines_total=0
 local lines_overall=0
-
+local lines_total=0
+local new_file_lines=0
 local new_file=`new_file_name`
 touch $new_file
 
