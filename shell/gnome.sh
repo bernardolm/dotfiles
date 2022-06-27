@@ -10,5 +10,5 @@ function reset_gnome() {
 function restore_gnome() {
     local file=$(last_backup_version gnome txt)
     reset_gnome
-    dconf load /org/gnome/ <$file
+    dconf load /org/gnome/ <"$file"
 }
