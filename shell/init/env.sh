@@ -116,3 +116,5 @@ export COLORS=(
     UNDERLINE
     WHITE
 )
+
+eval $(thefuck --alias)
