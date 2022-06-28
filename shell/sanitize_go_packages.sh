@@ -1,8 +1,0 @@
-function sanitize_go_packages() {
-    echo "cleaning old golang packages..."
-
-    ls $GOPATH/bin | xargs -n1 -I % trash "$GOPATH/bin/%"
-    find $GOPATH/src -mindepth 2 -maxdepth 2 -type d | grep -vE "$GITHUB_ORG|$GITHUB_USER" | xargs -n1 -I % trash "%"
-
-    echo "cleaning OK"
-}

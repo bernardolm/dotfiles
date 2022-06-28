@@ -1,11 +1,32 @@
-function backup_apt_packages() {
+function apt_backup() {
     mkdir -p $SYNC_PATH/apt-packages/
     [ -f $SYNC_PATH/apt-packages/$(hostname)_current.txt ] && mv \
         $SYNC_PATH/apt-packages/$(hostname)_current.txt $SYNC_PATH/apt-packages/$(hostname)_$(date +"%Y%m%d%H%M%S").txt
     dpkg --get-selections > $SYNC_PATH/apt-packages/$(hostname)_current.txt
 }
 
-function restore_apt_packages() {
+function apt_sanitize() {
+    sudo apt-get purge --yes \
+        '^gnome-todo' \
+        '^remmina' \
+        '^rhythmbox' \
+        '^thunderbird' \
+        '^totem' \
+        '^transmission' \
+        aisleriot \
+        deja-dup \
+        glade \
+        xserver-xorg-input-wacom \
+        gnome-2048 \
+        gnome-mahjongg \
+        gnome-mines \
+        gnome-sudoku \
+        libreoffice-draw \
+        libreoffice-impress \
+        libreoffice-writer
+}
+
+function apt_restore() {
     function run() {
         local filter
         local action=$1
@@ -49,4 +70,36 @@ function restore_apt_packages() {
 
     run "install"
     run "purge"
+}
+
+function apt_search_installed() {
+    apt list --installed "*$1*" 2>/dev/null | awk -F'/' 'NR>1{print $1}'
+}
+
+function apt_get_keys() {
+    local servers=(
+        ha.pool.sks-keyservers.net
+        keys.gnupg.net
+        keyserver.linuxmint.com
+        keyserver.ubuntu.com
+        subkeys.pgp.net
+    )
+
+    local function search_and_add() {
+        for server in ${servers[@]}; do
+            echo "searching key $1 on $server"
+            apt-key adv --keyserver $server --recv-keys $1 && break
+        done
+    }
+
+    if [[ "$(command -v curl)" == "" ]]; then
+        sudo apt-get install --yes curl
+    fi
+
+    sudo apt-get update 2>&1 1>/dev/null | sed -ne 's/.*NO_PUBKEY //p' | while read key; do
+        search_and_add $key &
+    done
+
+    # Others
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 }

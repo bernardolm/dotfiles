@@ -1,4 +1,4 @@
-function sanitize_vscode() {
+function vscode_sanitize() {
     /bin/rm -rf ~/.config/Code/Backups
     /bin/rm -rf ~/.config/Code/blob_storage
     /bin/rm -rf ~/.config/Code/Cache

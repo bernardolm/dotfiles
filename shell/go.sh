@@ -1,7 +1,14 @@
-function install_go_tools() {
-    echo "installing golang tools package..."
+function go_packages_sanitize() {
+    echo "cleaning old golang packages..."
 
-    export GO111MODULE=on
+    ls $GOPATH/bin | xargs -n1 -I % trash "$GOPATH/bin/%"
+    find $GOPATH/src -mindepth 2 -maxdepth 2 -type d | grep -vE "$GITHUB_ORG|$GITHUB_USER" | xargs -n1 -I % trash "%"
+
+    echo "cleaning OK"
+}
+
+function go_install_tools() {
+    echo "installing golang tools package..."
 
     # General helper packages
     go get -v github.com/k0kubun/pp
