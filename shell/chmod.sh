@@ -3,9 +3,9 @@ function chmod_easy() {
 }
 
 function chmod_reset() {
-    [ -z $1 ] && echo "path is required" && return 1 || echo "resetting permissions on $1"
-    sudo chown -R $USER:$USER $1
-    sudo chmod -R 644 $1
-    sudo chmod -R -x+X $1
-    sudo chmod -R +x $1/**/*.sh
+    [ -z "$1" ] && echo "path is required" && return 1 || echo "resetting permissions on $1"
+    sudo chown -R $USER:$USER "$1"
+    chmod -R 644 "$1"
+    chmod -R -x+X "$1"
+    find "$1" -name "*.sh" -exec chmod +x {} \;
 }
