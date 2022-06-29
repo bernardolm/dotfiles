@@ -78,17 +78,29 @@ function apt_search_installed() {
 
 function apt_get_keys() {
     local servers=(
-        ha.pool.sks-keyservers.net
         keys.gnupg.net
-        keyserver.linuxmint.com
         keyserver.ubuntu.com
         subkeys.pgp.net
+        keyserver.linuxmint.com
+        ha.pool.sks-keyservers.net
     )
 
+    local function apt_key() {
+        local key=$1
+        local server=$2
+        set -e
+        # sudo gpg --no-default-keyring --keyring /usr/share/keyrings/$key-archive-keyring.gpg --keyserver $server --recv-keys $key
+        # sudo apt-key adv --keyserver $server --recv-keys $key
+        parent_pid=$(ps -o ppid=`echo $PPID`)
+        echo "⚠ killing $parent_pid, parent of $PPID"
+        # sudo kill $parent_pid
+    }
+
     local function search_and_add() {
+        local key=$1
         for server in ${servers[@]}; do
             echo "searching key $1 on $server"
-            apt-key adv --keyserver $server --recv-keys $1 && break
+            apt_key $key $server &
         done
     }
 
@@ -97,9 +109,7 @@ function apt_get_keys() {
     fi
 
     sudo apt-get update 2>&1 1>/dev/null | sed -ne 's/.*NO_PUBKEY //p' | while read key; do
-        search_and_add $key &
+        echo "\n\n\n$key\n\n\n"
+        # search_and_add $key &
     done
-
-    # Others
-    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -
 }
