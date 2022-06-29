@@ -1,6 +1,8 @@
 plugins_off=(
     copyfile
     copypath
+    docker
+    docker-compose
     dotenv
     extract
     fd
@@ -43,8 +45,6 @@ plugins=(
     command-not-found
     common-aliases
     cp
-    docker
-    docker-compose
     extract
     fzf
     git
