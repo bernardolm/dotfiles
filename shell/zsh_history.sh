@@ -44,7 +44,7 @@ function zsh_history_sanitize() {
         local file="$1"
         local cmd="zsh-history-clear --file \"$file\" $($DEBUG_SHEL && echo --debug true)"
         $DEBUG_SHELL && echo "running: $cmd" && eval "$cmd" && return
-	 eval $cmd 1>/dev/null
+	    eval $cmd 1>/dev/null
     }
 
     msg_start "zsh history sanitize$($DEBUG_SHELL && echo ' in '${RED}debug mode${NC})"

@@ -13,7 +13,7 @@ function dockerdns_sanitize_vestiges() (
 function dockerdns_install() {
     echo "installing docker-dns"
 
-    if [[ $(check_docker_install) -eq 1 ]]; then
+    if [[ $(docker_install_check) -eq 1 ]]; then
         echo "docker isn't installed"
         return
     fi

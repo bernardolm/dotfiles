@@ -137,7 +137,7 @@ function docker_install_sanitize() {
         fi
     fi
 
-    dockerdns_vestiges_sanitize
+    dockerdns_sanitize_vestiges
     docker_config_files_sanitize
     docker_local_ip_sanitize
 }
