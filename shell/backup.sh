@@ -1,4 +1,4 @@
-function backup_all() {
+function backup_everthing() {
     # TODO:
     # [ ] backup resolve.conf.d files
 
