@@ -5,7 +5,8 @@ function chmod_easy() {
 function chmod_reset() {
     [ -z "$1" ] && echo "path is required" && return 1 || echo "resetting permissions on $1"
     sudo chown -R $USER:$USER "$1"
-    chmod -R 644 "$1"
-    chmod -R -x+X "$1"
-    find "$1" -name "*.sh" -exec chmod +x {} \;
+    sudo chmod -R 644 "$1"
+    sudo chmod -R -x+X "$1"
+    find "$1" -name "*.sh" -exec sudo chmod +x {} \;
+    find "$1" -name "*.AppImage" -exec sudo chmod +x {} \;
 }
