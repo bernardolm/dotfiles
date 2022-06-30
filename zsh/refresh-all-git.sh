@@ -51,7 +51,7 @@ update_repo() {
 
     echo -e ${COLORIZE[$RANDOM_NUMBER]} >>${THIS_LOG} 2>&1
 
-    if [[ ${REPO_NAME} =~ ^_+.*$ ]]; then
+    if [[ ${REPO_NAME} =~ '^_+.*$' ]]; then
         echo -e "skipping ${REPO_NAME}" >>${THIS_LOG} 2>&1
     elif [ -d ".git" ]; then
         echo -e "starting ${REPO_NAME} after "$2"s" >>${THIS_LOG} 2>&1

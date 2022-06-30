@@ -129,7 +129,7 @@ function docker_install_sanitize() {
         if [[ `docker_install_check` -eq 1 ]]; then
             echo "purging existent docker ubuntu package"
             echo "\033[0;36m"
-            sudo apt-get purge ^docker containerd runc --yes 2>/dev/null
+            sudo apt-get purge '^docker' containerd runc --yes 2>/dev/null
             sudo apt-get autoremove --purge --yes
             echo "\033[0m"
         else
@@ -192,37 +192,46 @@ function docker_shell() {
 function docker_daemon_config_reset() {
     echo "starting docker daemon json sanitize..."
 
-    local HAS_DOCKER_SERVICE=1
+    [ `ifconfig docker0 | grep -c docker0` -gt 0 ] \
+        && ifconfig docker0 \
+        && sudo ifconfig docker0 down
 
+    local HAS_DOCKER_SERVICE=1
     [ ! -f /lib/systemd/system/docker.service ] && HAS_DOCKER_SERVICE=0
 
     echo "docker service active? $HAS_DOCKER_SERVICE"
 
     if [ $HAS_DOCKER_SERVICE -gt 0 ]; then
+        sudo systemctl stop docker
+
         if [[ `/bin/cat /lib/systemd/system/docker.service | grep 'StartLimitBurst=3' | wc -l | bc` -eq 1 ]]; then
             echo "changing docker restart limit"
             sudo sed -i 's/StartLimitBurst=3/StartLimitBurst=99/g' /lib/systemd/system/docker.service
             sudo systemctl daemon-reload
         fi
-    fi
 
-    local nameservers=(`/bin/cat /etc/resolv.conf | /bin/grep ^nameserver | /bin/awk '{print $2}' | uniq`)
-    local nameserversJson=`jq --compact-output --null-input '$ARGS.positional' --args "${nameservers[@]}"`
-    echo "nameserversJson=${nameserversJson}"
+        echo "recreating docker daemon json"
 
-    echo "recreating docker daemon json"
-    echo '{"debug":true,"bip":"'${nameservers[1]}'/24","dns":'${nameserversJson}'}' | \
-        sudo tee /etc/docker/daemon.json > /dev/null
-    cat /etc/docker/daemon.json
-    sleep 1
+        sudo ip link delete docker0
 
-    if [ $HAS_DOCKER_SERVICE -gt 0 ]; then
-        echo "restarting service"
-        sudo systemctl restart --no-pager docker
-        sleep 2
+        # local nameservers=(`/bin/cat /etc/resolv.conf | /bin/grep '^nameserver' | /bin/awk '{print $2}' | uniq`)
+        # local nameserversJson=`jq --compact-output --null-input '$ARGS.positional' --args "${nameservers[@]}"`
+        # echo "nameserversJson=${nameserversJson}"
+        # echo '{"debug":true,"bip":"'${nameservers[1]}'/24","dns":'${nameserversJson}'}' | \
+        #     sudo tee /etc/docker/daemon.json > /dev/null
 
-        echo "displaying service status"
-        sudo systemctl status --no-pager docker
+        echo '{"debug":true,"bip":"172.17.0.1/24"}' | sudo tee /etc/docker/daemon.json > /dev/null
+
+        cat /etc/docker/daemon.json
+
+        sudo systemctl restart docker
+        sudo systemctl status docker
+
+        [ `ifconfig docker0 | grep -c docker0` -gt 0 ] \
+            && ifconfig docker0 \
+            && sudo ifconfig docker0 up
+    else
+        echo "docker service not found"
     fi
 
     echo "bye!"
