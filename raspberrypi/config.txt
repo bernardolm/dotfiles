@@ -1,0 +1,20 @@
+arm_boost=1
+boot_delay=0
+disable_audio_dither=1
+disable_poe_fan=1
+disable_splash=1
+disable_touchscreen=1
+enable_dpi_lcd=0
+enable_uart=1
+force_turbo=1
+gpu_mem_1024=16
+gpu_mem_256=16
+gpu_mem_512=16
+gpu_mem=16
+hdmi_cvt 800 480 60 6 0 0 0
+hdmi_drive=1
+hdmi_force_hotplug=1
+hdmi_group=2
+hdmi_mode=1
+hdmi_mode=87
+ignore_lcd=1
