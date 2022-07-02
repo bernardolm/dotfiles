@@ -60,7 +60,7 @@ plugins=(
 )
 
 if $DEBUG_SHELL; then
-    echo -n "oh-my-zsh plugins disabled: "
+    echo -n "\noh-my-zsh plugins disabled: "
     for p in $plugins_off; do
         echo -n "$p, ";
     done
@@ -72,6 +72,8 @@ for p in $plugins; do
 done
 
 zinit cdclear -q
+
+source $ZSH/oh-my-zsh.sh
 
 autoload -U compinit
 compinit

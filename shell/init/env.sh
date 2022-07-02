@@ -2,6 +2,7 @@ export TERM=xterm-256color # for common 256 color terminals (e.g. gnome-terminal
 export USER_TMP=$HOME/tmp
 
 export ZINIT_ROOT="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit"
+export ZSH="$ZINIT_ROOT/plugins/ohmyzsh---ohmyzsh"
 
 [ -d $HOME/Sync/config-backup ] && export SYNC_PATH=$HOME/Sync/config-backup
 # [ -d $SYNC_PATH/bin ] && export PATH=$PATH:$SYNC_PATH/bin:
@@ -14,9 +15,6 @@ export GITHUB_ORG=$(git config github.organization)
 
 [ -d ~/workspaces/$GITHUB_USER ] && export WORKSPACE_USER=~/workspaces/$GITHUB_USER
 [ ! -z $WORKSPACE_USER ] && export DOTFILES=$WORKSPACE_USER/dotfiles
-
-source $DOTFILES/shell/load_aliases.sh
-load_aliases
 
 [ -d ~/workspaces/$GITHUB_ORG ] && export WORKSPACE_ORG=~/workspaces/$GITHUB_ORG
 

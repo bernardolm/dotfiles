@@ -11,7 +11,7 @@ function zinit_runner() {
     [[ ! "(debug turbo echo start)" =~ "$cmd_mode" ]] \
         && echo "\"$cmd_mode\" isn't a known command, exiting...\n" \
         && return false
-    
+
     [[ "$cmd_mode" = "debug" ]] && cmd="zinit load"
     [[ "$cmd_mode" = "echo" ]] && cmd="echo -n"
     [[ "$cmd_mode" = "start" ]] && cmd="zinit light"
@@ -63,7 +63,7 @@ zinit_plugins_turbo=(
 
 $DEBUG_SHELL && typeset -g ZPLG_MOD_DEBUG=1
 
-$DEBUG_SHELL && echo "looking for zinit in $ZINIT_ROOT..."
+$DEBUG_SHELL && echo "\nlooking for zinit in $ZINIT_ROOT..."
 
 if [[ ! -d $ZINIT_ROOT ]]; then
     $DEBUG_SHELL && echo "zinit not found ($ZINIT_ROOT), installing..."
@@ -81,11 +81,11 @@ if [[ ! -d $ZINIT_ROOT ]]; then
 
     zinit_runner "echo" $zinit_plugins_off
     zinit_runner "debug" $zinit_plugins
-    zinit_runner "turbo" $zinit_plugins_turbo    
+    zinit_runner "turbo" $zinit_plugins_turbo
 else
     chmod g-rwX $ZINIT_ROOT
     start_zinit
 fi
 
 zinit_runner "start" $zinit_plugins
-zinit_runner "start" $zinit_plugins_turbo    
+zinit_runner "start" $zinit_plugins_turbo
