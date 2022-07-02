@@ -56,7 +56,7 @@ function load_script_path() {
             source $script_path
             $DEBUG_SHELL && echo "✅ loaded."
         else
-            echo -n "📁"
+            $DEBUG_SHELL && echo -n "📁"
 
             local script_folder=$(basename "$script_path")
 
