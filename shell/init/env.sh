@@ -115,7 +115,7 @@ export COLORS=(
     WHITE
 )
 
-[ $DEBUG_SHELL ] && \
+[ ! $DEBUG_SHELL ] && \
     echo "`readlink /proc/$$/exe`" && \
     for color in ${COLORS[@]}; do
         case `readlink /proc/$$/exe` in
