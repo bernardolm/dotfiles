@@ -6,8 +6,7 @@ function backup_snap_packages() {
 }
 
 function restore_snap_packages() {
-    local 'file'
-    file=$(last_backup_version snap-packages txt)
+    local file=$(last_backup_version snap-packages txt)
 
     sudo snap refresh
 

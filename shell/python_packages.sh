@@ -10,8 +10,7 @@ function restore_python_packages() {
     [[ $(dpkg -l swig | grep -c 'swig' | bc) -eq 0 ]] && sudo apt install swig
     [[ $(dpkg -l libgpgme-dev | grep -c 'libgpgme-dev' | bc) -eq 0 ]] && sudo apt install swig
 
-    local 'file'
-    file=$(last_backup_version python-packages txt)
+    local file=$(last_backup_version python-packages txt)
 
     /bin/cat $file | /bin/awk -F'==' '{print $1}' ORS=' ' | xargs pip3 install
 }

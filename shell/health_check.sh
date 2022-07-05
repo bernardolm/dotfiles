@@ -1,6 +1,5 @@
 function health_check() {
-    local 'path_to_scan'
-    path_to_scan="/"
+    local path_to_scan="/"
     [ ! -z "$1" ] && path_to_scan=$1
     echo "scanning '$path_to_scan'..."
     sudo apt install \

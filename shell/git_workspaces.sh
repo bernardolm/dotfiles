@@ -33,8 +33,7 @@ function backup_git_workspaces() {
 }
 
 function restore_git_workspaces() {
-    local 'file'
-    file=$(last_backup_version git-workspaces csv)
+    local file=$(last_backup_version git-workspaces csv)
 
     while read line; do
         if [[ `which_shell` == "zsh" ]]; then

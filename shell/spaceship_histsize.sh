@@ -5,9 +5,7 @@ function spaceship_histsize() {
     # Use quotes around unassigned local variables to prevent
     # getting replaced by global aliases
     # http://zsh.sourceforge.net/Doc/Release/Shell-Grammar.html#Aliasing
-    local 'histfile_size'
-
-    histfile_size=$([ -f $HISTFILE ] && echo -n $(wc -l <$HISTFILE))
+    local histfile_size=$([ -f $HISTFILE ] && echo -n $(wc -l <$HISTFILE))
 
     # Exit section if variable is empty
     [[ -z $histfile_size ]] && return
