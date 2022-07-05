@@ -38,41 +38,41 @@ export PATH=$PATH:$SYNC_PATH/bin
 
 export BLUE="\033[0;34m"
 export BOLD="\033[1m"
-export FOREST_BG="\\033[48;5;22m"
-export FOREST="\\033[38;5;22m"
+export FOREST_BG="\033[48;5;22m"
+export FOREST="\033[38;5;22m"
 export GRAY="\033[0;37m"
 export GREEN="\033[0;32m"
-export HOTPINK_BG="\\033[48;5;198m"
-export HOTPINK="\\033[38;5;198m"
-export JADE_BG="\\033[48;5;35m"
-export JADE="\\033[38;5;35m"
-export LAVENDER_BG="\\033[48;5;183m"
-export LAVENDER="\\033[38;5;183m"
+export HOTPINK_BG="\033[48;5;198m"
+export HOTPINK="\033[38;5;198m"
+export JADE_BG="\033[48;5;35m"
+export JADE="\033[38;5;35m"
+export LAVENDER_BG="\033[48;5;183m"
+export LAVENDER="\033[38;5;183m"
 export LIGHT_GRAY="\033[0;37m"
 export LIGHT_RED="\033[1;31m"
-export LIGHTORANGE_BG="\\033[48;5;215m"
-export LIGHTORANGE="\\033[38;5;215m"
-export LIGHTRED_BG="\\033[48;5;203m"
-export LIGHTRED="\\033[38;5;203m"
-export LIME_BG="\\033[48;5;154m"
-export LIME="\\033[38;5;154m"
-export MAROON_BG="\\033[48;5;52m"
-export MAROON="\\033[38;5;52m"
-export MEDIUMGREY_BG="\\033[48;5;246m"
-export MEDIUMGREY="\\033[38;5;246m"
-export MINTGREEN_BG="\\033[48;5;121m"
-export MINTGREEN="\\033[38;5;121m"
+export LIGHTORANGE_BG="\033[48;5;215m"
+export LIGHTORANGE="\033[38;5;215m"
+export LIGHTRED_BG="\033[48;5;203m"
+export LIGHTRED="\033[38;5;203m"
+export LIME_BG="\033[48;5;154m"
+export LIME="\033[38;5;154m"
+export MAROON_BG="\033[48;5;52m"
+export MAROON="\033[38;5;52m"
+export MEDIUMGREY_BG="\033[48;5;246m"
+export MEDIUMGREY="\033[38;5;246m"
+export MINTGREEN_BG="\033[48;5;121m"
+export MINTGREEN="\033[38;5;121m"
 export NC="\033[0m"
-export ORANGE_BG="\\033[48;5;203m"
-export ORANGE="\\033[38;5;203m"
-export PINK_BG="\\033[48;5;211m"
-export PINK="\\033[38;5;211m"
+export ORANGE_BG="\033[48;5;203m"
+export ORANGE="\033[38;5;203m"
+export PINK_BG="\033[48;5;211m"
+export PINK="\033[38;5;211m"
 export RED="\033[0;31m"
-export SKYBLUE_BG="\\033[48;5;111m"
-export SKYBLUE="\\033[38;5;111m"
-export TAN_BG="\\033[48;5;179m"
-export TAN="\\033[38;5;179m"
-export UNDERLINE="\\033[4m"
+export SKYBLUE_BG="\033[48;5;111m"
+export SKYBLUE="\033[38;5;111m"
+export TAN_BG="\033[48;5;179m"
+export TAN="\033[38;5;179m"
+export UNDERLINE="\033[4m"
 export WHITE="\033[1;37m"
 
 export COLORS=(
@@ -114,5 +114,19 @@ export COLORS=(
     UNDERLINE
     WHITE
 )
+
+[ $DEBUG_SHELL ] && \
+    echo "`readlink /proc/$$/exe`" && \
+    for color in ${COLORS[@]}; do
+        case `readlink /proc/$$/exe` in
+            *zsh)
+                echo -ne "${(P)${color}} The quick brown fox jumps over the lazy dog ${NC}"
+                ;;
+            *)
+                echo -ne "${!color} The quick brown fox jumps over the lazy dog ${NC}"
+                ;;
+        esac
+        echo " --- ${color}"
+    done
 
 eval $(thefuck --alias)
