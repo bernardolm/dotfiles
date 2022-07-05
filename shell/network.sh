@@ -44,7 +44,7 @@ function reset_iptables() {
 
 function setup_tunnel() {
     sleep 15s
-    add_vpn_custom_routes
+    add_vpn_routes
 }
 
 function vpn_hu() {

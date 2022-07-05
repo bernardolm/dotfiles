@@ -20,7 +20,7 @@ function load_script_path() {
     do
         if [ `is_number $1` -eq 1 ]; then
             ((space=$1+1))
-            shift 1
+            shift
             continue
         fi
 
@@ -37,19 +37,19 @@ function load_script_path() {
 
             if [ "$script_file_ext" != "sh" -a "$script_file_name" != "aliases" ]; then
                 $DEBUG_SHELL && echo "💢, not a script, skipped."
-                shift 1
+                shift
                 continue
             fi
 
             if [ $script_base = "functions.sh" ]; then
                 $DEBUG_SHELL && echo "💢 skipped."
-                shift 1
+                shift
                 continue
             fi
 
             if [ `has_hash_bang $script_path` -eq 1 ]; then
                 $DEBUG_SHELL && echo "#️⃣  skipped, hash bang found."
-                shift 1
+                shift
                 continue
             fi
 
@@ -62,7 +62,7 @@ function load_script_path() {
 
             if [ "$script_folder" = "init" ]; then
                 $DEBUG_SHELL && echo "✔ already loaded."
-                shift 1
+                shift
                 continue
             else
                 $DEBUG_SHELL && echo ""
@@ -73,6 +73,6 @@ function load_script_path() {
             done
         fi
 
-        shift 1
+        shift
     done
 }

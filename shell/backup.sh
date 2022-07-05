@@ -43,5 +43,5 @@ function merge_all_backups() {
     merge_backup python-packages txt
     merge_backup snap-packages txt
     merge_backup symbolic-links csv
-    merge_backup vpn-custom-routes csv
+    merge_backup vpn-routes csv
 }
