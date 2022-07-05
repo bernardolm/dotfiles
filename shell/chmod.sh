@@ -9,4 +9,5 @@ function chmod_reset() {
     sudo chmod -R -x+X "$1"
     find "$1" -name "*.sh" -exec sudo chmod +x {} \;
     find "$1" -name "*.AppImage" -exec sudo chmod +x {} \;
+    find "$1/bin" -type f -exec sudo chmod +x {} \;
 }
