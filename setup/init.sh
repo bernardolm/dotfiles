@@ -1,9 +1,10 @@
 # Loading init scripts
 declare -a init_script_paths=(
-    "$DOTFILES/shell/init"
+    "$DOTFILES/setup"
     "$DOTFILES/aliases"
-    "$SYNC_PATH/shell/init"
+    "$SYNC_PATH/setup"
     "$SYNC_PATH/aliases"
+    "$SYNC_PATH/.local/share/fonts/awesome-terminal-fonts"
 )
 
 declare -a custom_script_paths=(
@@ -15,6 +16,10 @@ declare -a custom_script_paths=(
     # "$SYNC_PATH/zsh"
 )
 
-echo ""
 load_script_path "${init_script_paths[@]}"
 load_script_path "${custom_script_paths[@]}"
+
+eval $(thefuck --alias)
+
+# eval $(op signin my)
+# op signin --list

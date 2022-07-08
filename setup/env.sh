@@ -1,4 +1,7 @@
 export TERM=xterm-256color # for common 256 color terminals (e.g. gnome-terminal)
+export LSCOLORS="exfxcxdxbxegedabagacad"
+export CLICOLOR=true
+
 export USER_TMP=$HOME/tmp
 
 export ZINIT_ROOT="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit"
@@ -129,4 +132,4 @@ $DEBUG_SHELL && \
         echo " --- ${color}"
     done
 
-eval $(thefuck --alias)
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'

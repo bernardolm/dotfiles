@@ -68,7 +68,7 @@ if $DEBUG_SHELL; then
 fi
 
 for p in $plugins; do
-    zinit snippet OMZP::$p/$p.plugin.zsh
+    zinit snippet OMZP::$p/$p.plugin.zsh || true
 done
 
 zinit cdclear -q

@@ -22,7 +22,7 @@ source $DOTFILES/shell/function.sh
 export INIT_SCRIPTS=(zsh.sh zinit.sh ohmyzsh.sh spaceship.sh todo_txt.sh conky.sh init.sh)
 
 for file in $INIT_SCRIPTS; do
-    local full_path=$DOTFILES/shell/init/$file
+    local full_path=$DOTFILES/setup/$file
     load_script_path $full_path
 done
 
