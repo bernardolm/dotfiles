@@ -76,3 +76,8 @@ function load_script_path() {
         shift
     done
 }
+
+
+# fpath=(~/myfuncs $fpath)
+# autoload myfunc1 myfunc2 ...
+# https://zsh.sourceforge.io/Doc/Release/Functions.html
