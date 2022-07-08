@@ -3,7 +3,7 @@ function has_hash_bang() {
     [ `/bin/cat $file | head -2 | grep -c '#!'` -gt 0 ] && echo 1 || echo 0
 }
 
-source $DOTFILES/shell/types.sh
+source_and_log_session $DOTFILES/shell/types.sh
 
 function load_script_path() {
     local function spacer() {
@@ -53,20 +53,15 @@ function load_script_path() {
                 continue
             fi
 
-            source $script_path
+            source_and_log_session $script_path
+
             $DEBUG_SHELL && echo "✅ loaded."
         else
             $DEBUG_SHELL && echo -n "📁"
 
             local script_folder=$(basename "$script_path")
 
-            if [ "$script_folder" = "init" ]; then
-                $DEBUG_SHELL && echo "✔ already loaded."
-                shift
-                continue
-            else
-                $DEBUG_SHELL && echo ""
-            fi
+            $DEBUG_SHELL && echo ""
 
             for sp in `ls $script_path`; do
                 load_script_path $space "$script_path/$sp"

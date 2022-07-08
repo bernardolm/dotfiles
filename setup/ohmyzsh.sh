@@ -17,4 +17,4 @@ done
 
 zinit cdclear -q
 
-source $ZSH/oh-my-zsh.sh
+source_and_log_session $ZSH/oh-my-zsh.sh

@@ -33,7 +33,7 @@ function zinit_runner() {
 }
 
 function start_zinit() {
-    source $ZINIT_ROOT/zinit.git/zinit.zsh
+    source_and_log_session $ZINIT_ROOT/zinit.git/zinit.zsh
     autoload -Uz _zinit
     (( ${+_comps} )) && _comps[zinit]=_zinit
 }

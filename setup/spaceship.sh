@@ -52,8 +52,8 @@ export SPACESHIP_VENV_SYMBOL="🤖🐍 "
 
 ###############################################################################
 
-source $DOTFILES/shell/spaceship_histsize.sh
-source $DOTFILES/shell/spaceship_random_emoji.sh
+source_and_log_session $DOTFILES/shell/spaceship_histsize.sh
+source_and_log_session $DOTFILES/shell/spaceship_random_emoji.sh
 
 zinit light spaceship-prompt/spaceship-prompt
 

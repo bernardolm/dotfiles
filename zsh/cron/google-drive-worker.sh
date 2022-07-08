@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-source $DOTFILES/setup/env.sh
-source $DOTFILES/shell/google_drive_sync.sh
+source_and_log_session $DOTFILES/setup/env.sh
+source_and_log_session $DOTFILES/shell/google_drive_sync.sh
 
 log_path=$USER_TMP/cron/google-drive-worker
 

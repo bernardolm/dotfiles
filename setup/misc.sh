@@ -1,9 +1,8 @@
-# Loading init scripts
-declare -a init_script_paths=(
+# Loading setup scripts
+declare -a setup_script_paths=(
     "$DOTFILES/setup"
     "$DOTFILES/aliases"
     "$SYNC_PATH/setup"
-    "$SYNC_PATH/aliases"
     "$SYNC_PATH/.local/share/fonts/awesome-terminal-fonts"
 )
 
@@ -16,7 +15,7 @@ declare -a custom_script_paths=(
     # "$SYNC_PATH/zsh"
 )
 
-load_script_path "${init_script_paths[@]}"
+load_script_path "${setup_script_paths[@]}"
 load_script_path "${custom_script_paths[@]}"
 
 eval $(thefuck --alias)
