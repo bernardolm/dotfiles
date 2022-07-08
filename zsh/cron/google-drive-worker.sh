@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-source $DOTFILES/shell/init/env.sh
+source $DOTFILES/setup/env.sh
 source $DOTFILES/shell/google_drive_sync.sh
 
 log_path=$USER_TMP/cron/google-drive-worker

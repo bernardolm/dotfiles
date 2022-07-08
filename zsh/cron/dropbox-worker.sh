@@ -1,6 +1,6 @@
 #!/bin/zsh
 
-source $DOTFILES/shell/init/env.sh
+source $DOTFILES/setup/env.sh
 source $DOTFILES/shell/dropbox_sync.sh
 
 log_path=$USER_TMP/cron/dropbox-worker
