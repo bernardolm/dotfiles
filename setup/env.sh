@@ -1,3 +1,7 @@
+# making bash compatible
+autoload bashcompinit
+bashcompinit
+
 export TERM=xterm-256color # for common 256 color terminals (e.g. gnome-terminal)
 export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
