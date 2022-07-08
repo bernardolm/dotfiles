@@ -116,7 +116,8 @@ function docker_install_sanitize() {
 
         yes | docker system prune --all --volumes --force
 
-        sudo service docker stop
+        sudo systemctl stop docker.socket
+        sudo systemctl stop docker.service
 
         while [[ `docker_running_check` -eq 1 ]]; do
             echo "waiting docker be stopped..."
