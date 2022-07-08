@@ -1,67 +1,11 @@
-plugins_off=(
-    copyfile
-    copypath
-    docker
-    docker-compose
-    dotenv
-    extract
-    fd
-    git
-    git-extras
-    git-flow
-    git-hubflow
-    git-prompt
-    gitfast
-    github
-    gitignore
-    gnu-utils
-    history
-    jsontools
-    last-working-dir
-    pip
-    pipenv
-    python
-    redis-cli
-    ssh-agent
-    sublime
-    sudo
-    systemd
-    tmux
-    ubuntu
-    ufw
-    virtualenv
-    vscode
-    zsh-autosuggestions
-    zsh-syntax-highlighting
-)
+autoload -U compinit
+compinit
 
-plugins=(
-    aliases
-    aws
-    battery
-    bgnotify
-    colored-man-pages
-    colorize
-    command-not-found
-    common-aliases
-    cp
-    extract
-    fzf
-    git
-    golang
-    kubectl
-    man
-    nmap
-    rsync
-    screen
-    timer
-    zsh-interactive-cd
-    zsh-navigation-tools
-)
+plugins=($(cat $DOTFILES/ohmyzsh/plugins.txt | grep -v '#'))
 
 if $DEBUG_SHELL; then
     echo -n "\noh-my-zsh plugins disabled: "
-    for p in $plugins_off; do
+    for p in $(cat $DOTFILES/ohmyzsh/plugins.txt | grep '#'); do
         echo -n "$p, ";
     done
     echo ""
@@ -74,6 +18,3 @@ done
 zinit cdclear -q
 
 source $ZSH/oh-my-zsh.sh
-
-autoload -U compinit
-compinit
