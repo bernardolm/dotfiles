@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-source ./shell/init/env.sh
-source ./shell/init/functions_loader.sh
+source ./setup/env.sh
+source ./setup/functions_loader.sh
 
 msg_start '3rd party packages'
 
