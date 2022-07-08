@@ -1,12 +1,14 @@
 #!/bin/sh
+echo "welcome to alpine install"
 
-# http://dl-cdn.alpinelinux.org/alpine/v3.15/main
-# http://dl-cdn.alpinelinux.org/alpine/v3.15/community
-# http://dl-cdn.alpinelinux.org/alpine/latest-stable/main
-# http://dl-cdn.alpinelinux.org/alpine/latest-stable/community
+repositories="
+http://dl-cdn.alpinelinux.org/alpine/v3.15/main
+http://dl-cdn.alpinelinux.org/alpine/v3.15/community
+http://dl-cdn.alpinelinux.org/alpine/latest-stable/main
+http://dl-cdn.alpinelinux.org/alpine/latest-stable/community
+"
 
-
-echo "http://dl-cdn.alpinelinux.org/alpine/v3.15/main \n http://dl-cdn.alpinelinux.org/alpine/v3.15/community \n http://dl-cdn.alpinelinux.org/alpine/latest-stable/main \n http://dl-cdn.alpinelinux.org/alpine/latest-stable/community" | tee -a /etc/apk/repositories
+echo "$repositories" | tee -a /etc/apk/repositories
 
 apk update
 
