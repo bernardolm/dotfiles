@@ -2,8 +2,8 @@
 set -e
 set -a
 
-source ./setup/env.sh
-source ./setup/functions_loader.sh
+source ../setup/env.sh
+source ../setup/functions_loader.sh
 
 msg_welcome() {
     echo ""
