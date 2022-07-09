@@ -16,10 +16,10 @@ export DEBUG_SHELL=$(test -z "$DEBUG_SHELL" && echo "false" || echo $DEBUG_SHELL
 $DEBUG_SHELL && echo "\033[1;31m📢 📢 📢 running in DEBUG mode\033[0m\n"
 
 # ---------------------------------- setup ------------------------------------
-source $HOME/env.sh &&
-source $DOTFILES/shell/session.sh &&
+source $HOME/env.sh
+source $DOTFILES/shell/session.sh
 start_zsh_session
-log_zsh_session $HOME/env.sh
+log_zsh_session `realpath $HOME/env.sh`
 log_zsh_session $DOTFILES/shell/session.sh
 
 source_and_log_session $DOTFILES/shell/function.sh
