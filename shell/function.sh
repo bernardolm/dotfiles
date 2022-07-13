@@ -73,6 +73,14 @@ function load_script_path() {
 }
 
 
+# BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 # fpath=(~/myfuncs $fpath)
 # autoload myfunc1 myfunc2 ...
 # https://zsh.sourceforge.io/Doc/Release/Functions.html
+
+#add each topic folder to fpath so that they can add functions and completion scripts
+# for topic_folder ($ZSH/*) if [ -d $topic_folder ]; then  fpath=($topic_folder $fpath); fi;
+# https://github.com/anishathalye/dotbot
+# https://dotfiles.github.io/tutorials/
+# https://www.abdullah.today/encrypted-dotfiles/
