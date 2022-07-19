@@ -2,56 +2,21 @@
 echo "welcome to alpine install"
 
 repositories="
-http://dl-cdn.alpinelinux.org/alpine/v3.15/main
-http://dl-cdn.alpinelinux.org/alpine/v3.15/community
-http://dl-cdn.alpinelinux.org/alpine/latest-stable/main
-http://dl-cdn.alpinelinux.org/alpine/latest-stable/community
+http://alpinelinux.c3sl.ufpr.br/latest-stable/community
+http://alpinelinux.c3sl.ufpr.br/latest-stable/main
+http://alpinelinux.c3sl.ufpr.br/v3.15/community
+http://alpinelinux.c3sl.ufpr.br/v3.15/main
+http://alpinelinux.c3sl.ufpr.br/v3.16/community
+http://alpinelinux.c3sl.ufpr.br/v3.16/main
 "
-
 echo "$repositories" | tee -a /etc/apk/repositories
 
-apk update
+modules="
+i2c_dev
+w1-gpio
+w1-therm
+"
+echo "$modules" | tee -a /etc/apk/modules
 
-apk add \
-    attr \
-    bash \
-    bash-completion \
-    binutils \
-    busybox-extras \
-    cfdisk \
-    chsh \
-    curl \
-    dialog \
-    docs \
-    dosfstools \
-    e2fsprogs \
-    findutils \
-    fzf \
-    gawk \
-    git \
-    grep \
-    haveged \
-    htop \
-    iputils \
-    less \
-    libuser \
-    lsof \
-    make \
-    man-pages \
-    mandoc \
-    nano \
-    openrc \
-    openrc-doc \
-    pciutils \
-    py3-pip \
-    py3-virtualenv \
-    python3 \
-    readline \
-    rsync \
-    sed \
-    sudo \
-    syncthing \
-    usbutils \
-    util-linux \
-    zsh \
-    && echo "done"
+apk update
+apk add $(cat packages.txt) && echo "done"
