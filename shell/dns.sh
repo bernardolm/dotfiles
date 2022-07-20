@@ -37,14 +37,17 @@ function dns_local_reset() {
     }
 
     function start() {
+        mkdir -p $HOME/.$container_name/dnsmasq-hosts.d
+
         docker run -d \
             --name $container_name \
-            --restart unless-stopped \
+            --restart always \
             -e DNS_DOMAIN=$domain \
             -e NAMING=$naming \
             -p 53:53/udp \
             -v /etc/resolv.conf:/mnt/resolv.conf \
             -v /var/run/docker.sock:/var/run/docker.sock:ro \
+            -v $HOME/.$container_name/dnsmasq-hosts.d:/etc/dnsmasq-hosts.d \
             -v $root_path/run.sh:/run.sh \
             $image_name
     }
@@ -53,4 +56,6 @@ function dns_local_reset() {
     remove_all
     kill_53_port_user
     start
+    docker ps --filter "name=$container_name"
+    docker logs -n-1 $container_name
 }
