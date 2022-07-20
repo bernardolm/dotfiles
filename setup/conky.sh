@@ -3,7 +3,7 @@ $DEBUG_SHELL && notify-send "conky" "$conky_instances instances running"
 
 if [ $conky_instances -gt 1 ]; then
     echo "many conkys are started, killing them and start only one"
-    kill-conky
+    killall -9 conky
     sleep 1
     conky -q -d
 fi
