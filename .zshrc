@@ -19,7 +19,7 @@ $DEBUG_SHELL && echo "\033[1;31m📢 📢 📢 running in DEBUG mode\033[0m\n"
 source $HOME/env.sh
 source $DOTFILES/shell/session.sh
 start_zsh_session
-log_zsh_session `realpath $HOME/env.sh`
+log_zsh_session $(realpath $HOME/env.sh)
 log_zsh_session $DOTFILES/shell/session.sh
 
 source_and_log_session $DOTFILES/shell/function.sh
@@ -42,9 +42,9 @@ done
 finish_zsh_session
 
 # ---------------------------------- something else? --------------------------
-[ -f /usr/local/lib/node_modules/hudctl/completion/hudctl-completion.bash ] \
-    && source_and_log_session /usr/local/lib/node_modules/hudctl/completion/hudctl-completion.bash
+[ -f /usr/local/lib/node_modules/hudctl/completion/hudctl-completion.bash ] &&
+    source_and_log_session /usr/local/lib/node_modules/hudctl/completion/hudctl-completion.bash
 
-[ `command -v disable_accelerometter` ] && disable_accelerometter
+[ $(command -v disable_accelerometter) ] && disable_accelerometter
 
-eval `dircolors $HOME/.dir_colors`
+eval $(dircolors $HOME/.dir_colors)
