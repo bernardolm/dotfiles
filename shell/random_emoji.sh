@@ -1,4 +1,37 @@
-EMOJI=(💩 🐦 🚀 🐞 🎨 🍕 🐭 👽 ☕️ 🔬 💀 🐷 🐼 🐶 🐸 🐧 🐳 🍔 🍣 🍻 🔮 💰 💎 💾 💜 🍪 🌞 🌍 🐌 🐓 🍄 )
+SELECTED_EMOJIS=(
+    💩
+    🐦
+    🚀
+    🐞
+    🎨
+    🍕
+    🐭
+    👽
+    ☕️
+    🔬
+    💀
+    🐷
+    🐼
+    🐶
+    🐸
+    🐧
+    🐳
+    🍔
+    🍣
+    🍻
+    🔮
+    💰
+    💎
+    💾
+    💜
+    🍪
+    🌞
+    🌍
+    🐌
+    🐓
+    🍄
+)
 function random_emoji {
-    echo -n "$EMOJI[$RANDOM%$#EMOJI+1]"
+    local index=$(($RANDOM%${#SELECTED_EMOJIS[@]}+1))
+    echo -n ${SELECTED_EMOJIS[$index]}
 }
