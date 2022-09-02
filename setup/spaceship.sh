@@ -30,10 +30,10 @@ export SPACESHIP_PROMPT_ORDER=(
     # terraform     # Terraform workspace section
     # ibmcloud      # IBM Cloud section
     exec_time     # Execution time
-    # async         # Async jobs indicator
-    # line_sep      # Line break
+    # # async         # Async jobs indicator
+    # # line_sep      # Line break
     battery       # Battery level and status
-    jobs          # Background jobs indicator
+    # jobs          # Background jobs indicator
     exit_code     # Exit code section
     char          # Prompt character
     random_emoji  # Random emoji to better distinct terminals
@@ -70,6 +70,7 @@ export SPACESHIP_BATTERY_THRESHOLD=25
 export SPACESHIP_DIR_PREFIX='in 📂 '
 export SPACESHIP_EXEC_TIME_PRECISION=4
 export SPACESHIP_EXEC_TIME_THRESHOLD=0
+export SPACESHIP_PROMPT_ASYNC=false
 export SPACESHIP_PROMPT_DEFAULT_SUFFIX=" "
 export SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
 export SPACESHIP_TIME_PREFIX="⌚ "
