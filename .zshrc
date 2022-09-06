@@ -21,7 +21,6 @@ source $DOTFILES/shell/session.sh
 start_zsh_session
 log_zsh_session $(realpath $HOME/env.sh)
 log_zsh_session $DOTFILES/shell/session.sh
-
 source_and_log_session $DOTFILES/shell/function.sh
 
 export setup_script_order=(
@@ -38,8 +37,6 @@ for file in $setup_script_order; do
     local full_path=$DOTFILES/setup/$file
     load_script_path $full_path
 done
-
-finish_zsh_session
 
 # ---------------------------------- something else? --------------------------
 [ -f /usr/local/lib/node_modules/hudctl/completion/hudctl-completion.bash ] &&

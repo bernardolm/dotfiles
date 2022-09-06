@@ -30,4 +30,8 @@ function progress_bar() {
     for ((left = 0; left < $position; left++)); do bar+=$left_char; done
     for ((right = $position; right < $bar_size; right++)); do bar+=$right_char; done
     echo -ne "$left_message$bar$right_message\r"
+
+    if [ $current -eq $target ]; then
+        echo ""
+    fi
 }
