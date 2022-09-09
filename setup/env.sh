@@ -11,24 +11,24 @@ export USER_TMP=$HOME/tmp
 export ZINIT_ROOT="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit"
 export ZSH="$ZINIT_ROOT/plugins/ohmyzsh---ohmyzsh"
 
-[ -d $HOME/Sync/config-backup ] && export SYNC_PATH=$HOME/Sync/config-backup
+[ -d "$HOME/Sync/config-backup" ] && export SYNC_PATH=$HOME/Sync/config-backup
 # [ -d $SYNC_PATH/bin ] && export PATH=$PATH:$SYNC_PATH/bin:
 
 # Workspaces (at this point, isn't exist workspaces envs exported)
 export GITHUB_USER=$(git config github.user)
 export GITHUB_ORG=$(git config github.organization)
 
-[ ! -z $GITHUB_ORG ] && export GOPRIVATE=github.com/$GITHUB_ORG/*
+[ -n "$GITHUB_ORG" ] && export GOPRIVATE="github.com/$GITHUB_ORG/*"
 
-[ -d ~/workspaces/$GITHUB_USER ] && export WORKSPACE_USER=~/workspaces/$GITHUB_USER
-[ ! -z $WORKSPACE_USER ] && export DOTFILES=$WORKSPACE_USER/dotfiles
+[ -d "$HOME/workspaces/$GITHUB_USER" ] && export WORKSPACE_USER=$HOME/workspaces/$GITHUB_USER
+[ -n "$WORKSPACE_USER" ] && export DOTFILES=$WORKSPACE_USER/dotfiles
 
-[ -d ~/workspaces/$GITHUB_ORG ] && export WORKSPACE_ORG=~/workspaces/$GITHUB_ORG
+[ -d "$HOME/workspaces/$GITHUB_ORG" ] && export WORKSPACE_ORG=$HOME/workspaces/$GITHUB_ORG
 
-[ ! -d $WORKSPACE_USER ] && mkdir -p $WORKSPACE_USER
-[ ! -d $WORKSPACE_ORG ] && mkdir -p $WORKSPACE_ORG
+[ ! -d "$WORKSPACE_USER" ] && mkdir -p "$WORKSPACE_USER"
+[ ! -d "$WORKSPACE_ORG" ] && mkdir -p "$WORKSPACE_ORG"
 
-[ -d ~/gopath ] && export GOPATH=~/gopath
+[ -d "$HOME/gopath" ] && export GOPATH=$HOME/gopath
 
 export PATH=$PATH:/bin
 export PATH=$PATH:/snap/bin/
@@ -123,9 +123,9 @@ export COLORS=(
 )
 
 $DEBUG_SHELL && \
-    echo "`readlink /proc/$$/exe`" && \
-    for color in ${COLORS[@]}; do
-        case `readlink /proc/$$/exe` in
+    readlink /proc/$$/exe && \
+    for color in "${COLORS[@]}"; do
+        case $(readlink /proc/$$/exe) in
             *zsh)
                 echo -ne "${(P)${color}} The quick brown fox jumps over the lazy dog ${NC}"
                 ;;

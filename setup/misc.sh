@@ -3,7 +3,6 @@ declare -a setup_script_paths=(
     "$DOTFILES/setup"
     "$DOTFILES/aliases"
     "$SYNC_PATH/setup"
-    "$SYNC_PATH/.local/share/fonts/awesome-terminal-fonts"
 )
 
 declare -a custom_script_paths=(
@@ -18,7 +17,7 @@ declare -a custom_script_paths=(
 load_script_path "${setup_script_paths[@]}"
 load_script_path "${custom_script_paths[@]}"
 
-eval $(thefuck --alias)
+eval "$(thefuck --alias)"
 
 # eval $(op signin my)
 # op signin --list

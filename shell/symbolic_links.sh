@@ -1,5 +1,3 @@
-#!/bin/bash
-
 function backup_symbolic_links() {
     mkdir -p $SYNC_PATH/symbolic-links/
 
