@@ -54,6 +54,9 @@ function dns_local_reset() {
 
     echo "Reset local DNS at $(date)"
     remove_all
+    build
+    kill_53_port_user
+    kill_53_port_user
     kill_53_port_user
     start
     docker ps --filter "name=$container_name"
