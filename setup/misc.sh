@@ -11,7 +11,6 @@ declare -a custom_script_paths=(
     "$DOTFILES/zsh"
     "$SYNC_PATH/bash"
     "$SYNC_PATH/shell"
-    # "$SYNC_PATH/zsh"
 )
 
 load_script_path "${setup_script_paths[@]}"

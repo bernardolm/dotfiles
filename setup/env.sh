@@ -1,6 +1,6 @@
 # making bash compatible
-autoload bashcompinit
-bashcompinit
+command -v autoload &>/dev/null && autoload bashcompinit
+command -v bashcompinit &>/dev/null && bashcompinit
 
 export TERM=xterm-256color # for common 256 color terminals (e.g. gnome-terminal)
 export LSCOLORS="exfxcxdxbxegedabagacad"
@@ -15,8 +15,10 @@ export ZSH="$ZINIT_ROOT/plugins/ohmyzsh---ohmyzsh"
 # [ -d $SYNC_PATH/bin ] && export PATH=$PATH:$SYNC_PATH/bin:
 
 # Workspaces (at this point, isn't exist workspaces envs exported)
-export GITHUB_USER=$(git config github.user)
-export GITHUB_ORG=$(git config github.organization)
+export GITHUB_USER
+GITHUB_USER=$(git config github.user)
+export GITHUB_ORG
+GITHUB_ORG=$(git config github.organization)
 
 [ -n "$GITHUB_ORG" ] && export GOPRIVATE="github.com/$GITHUB_ORG/*"
 
