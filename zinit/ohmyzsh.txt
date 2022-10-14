@@ -1,3 +1,5 @@
+# L::git.zsh
+# L::prompt_info_functions.zsh
 # P::copyfile
 # P::copypath
 # P::docker
@@ -5,7 +7,6 @@
 # P::dotenv
 # P::extract
 # P::fd
-# P::git
 # P::git-extras
 # P::git-flow
 # P::git-hubflow
@@ -32,8 +33,6 @@
 # P::vscode
 # P::zsh-autosuggestions
 # P::zsh-syntax-highlighting
-L::git.zsh
-# L::prompt_info_functions.zsh
 P::aliases
 P::aws
 P::battery
@@ -45,7 +44,6 @@ P::common-aliases
 P::cp
 P::extract
 P::fzf
-P::git
 P::git
 P::golang
 P::kubectl
