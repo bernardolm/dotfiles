@@ -2,9 +2,9 @@
 
 reset
 
-source ~/workspaces/bernardolm/dotfiles/shell/debug.sh
-source ~/workspaces/bernardolm/dotfiles/shell/find.sh
-source ~/workspaces/bernardolm/dotfiles/shell/progress_bar.sh
+source ~/workspaces/bernardolm/dotfiles/zsh/debug.zsh
+source ~/workspaces/bernardolm/dotfiles/zsh/find.zsh
+source ~/workspaces/bernardolm/dotfiles/zsh/progress_bar.zsh
 
 local function find_cmd() {
     find_to_array $HOME/zsh_history/ -type f -size +1G

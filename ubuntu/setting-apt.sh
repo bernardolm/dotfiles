@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source ../setup/env.sh
-source ../setup/functions_loader.sh
+source ../init/env.sh
+source ../init/functions_loader.sh
 
 msg_start 'setting apt'
 
@@ -9,7 +9,7 @@ msg_start 'setting apt'
 
 if test `find ~/tmp/get_keys -mmin +180`; then
     echo "fixing absent keys..."
-    source $BASE_PATH/shell/get_keys.sh
+    source $BASE_PATH/zsh/get_keys.zsh
     get_keys
     touch ~/tmp/get_keys
 else

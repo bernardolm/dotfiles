@@ -2,8 +2,8 @@
 set -e
 set -a
 
-source ../setup/env.sh
-source ../setup/functions_loader.sh
+source ../init/env.sh
+source ../init/functions_loader.sh
 
 msg_welcome() {
     echo ""
@@ -22,7 +22,7 @@ msg_welcome
 
 ## Run install scripts
 $BASE_PATH/install-remote-folder.sh
-source $BASE_PATH/shell/symbolic_links.sh
+source $BASE_PATH/zsh/symbolic_links.zsh
 restore_symbolic_links
 $BASE_PATH/setting-apt.sh
 # $BASE_PATH/install-base-packages.sh

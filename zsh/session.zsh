@@ -37,7 +37,7 @@ check_zsh_session() {
 
 finish_zsh_session() {
     # shellcheck source=/dev/null
-    command -v progress_bar &>/dev/null || . "$DOTFILES/shell/progress_bar.sh"
+    command -v progress_bar &>/dev/null || . "$DOTFILES/zsh/progress_bar.zsh"
 
     if [ -n "$ZSH_SESSION" ]; then
         local position
@@ -53,7 +53,7 @@ finish_zsh_session() {
     fi
 }
 
-source_and_log_session() {
+xsource_and_log_session() {
     local file checked
     file=$(realpath "$1")
     checked=$(check_zsh_session "$file")

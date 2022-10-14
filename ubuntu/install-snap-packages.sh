@@ -1,7 +1,7 @@
 #!/bin/zsh
 
-source ../setup/env.sh
-source ../setup/functions_loader.sh
+source ../init/env.sh
+source ../init/functions_loader.sh
 
 msg_start 'snap packages'
 

@@ -1,5 +1,10 @@
-# zsh-users/zsh-syntax-highlighting
-zdharma-continuum/zinit-annex-as-monitor
-zdharma-continuum/zinit-annex-bin-gem-node
-zdharma-continuum/zinit-annex-patch-dl
-zdharma-continuum/zinit-annex-rust
+johanhaleby/kubetail
+mafredri/zsh-async
+ohmyzsh/ohmyzsh
+zdharma-continuum/fast-syntax-highlighting
+zdharma-continuum/history-search-multi-word
+zdharma-continuum/zsh-navigation-tools
+zdharma/fast-syntax-highlighting
+zsh-users/zsh-autosuggestions
+zsh-users/zsh-completions
+trapd00r/LS_COLORS

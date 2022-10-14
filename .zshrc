@@ -1,47 +1,142 @@
-# ---------------------------------- zshrc from official repository -----------
-# export ZSH="$HOME/.oh-my-zsh"
-# export ZSH="$ZINIT_ROOT/plugins/ohmyzsh---ohmyzsh"
-# export ZSH="/home/bernardo/.local/share/zinit/plugins/ohmyzsh---ohmyzsh"
-# ZSH_THEME="robbyrussell"
-# ZSH_THEME="spaceship"
-# plugins=(git)
-# source $ZSH/oh-my-zsh.sh
+source $HOME/workspaces/bernardolm/dotfiles/init.sh
 
-# ---------------------------------- start -------------------------------------
-# DEBUG_SHELL=true
+### Added by Zinit's installer
+### End of Zinit's installer chunk
 
-[ $DEBUG ] && set -x
+### Added by Zinit's installer
+if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
+    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
+    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
+    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
+        print -P "%F{33} %F{34}Installation successful.%f%b" || \
+        print -P "%F{160} The clone has failed.%f%b"
+fi
 
-export DEBUG_SHELL=$(test -z "$DEBUG_SHELL" && echo "false" || echo $DEBUG_SHELL)
-$DEBUG_SHELL && echo "\033[1;31m📢 📢 📢 running in DEBUG mode\033[0m\n"
+source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit
+### End of Zinit's installer chunk
+### End of Zinit's installer chunk
+### End of Zinit's installer chunk
+### End of Zinit's installer chunk
+### End of Zinit's installer chunk
 
-# ---------------------------------- setup ------------------------------------
-source $HOME/env.sh
-source $DOTFILES/shell/session.sh
-start_zsh_session
-log_zsh_session $(realpath $HOME/env.sh)
-log_zsh_session $DOTFILES/shell/session.sh
-source_and_log_session $DOTFILES/shell/function.sh
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
 
-export setup_script_order=(
-    zsh.sh
-    zinit.sh
-    ohmyzsh.sh
-    spaceship.sh
-    todo_txt.sh
-    conky.sh
-    misc.sh
-)
+### End of Zinit's installer chunk
 
-for file in $setup_script_order; do
-    local full_path=$DOTFILES/setup/$file
-    load_script_path $full_path
-done
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
 
-# ---------------------------------- something else? --------------------------
-[ -f /usr/local/lib/node_modules/hudctl/completion/hudctl-completion.bash ] &&
-    source_and_log_session /usr/local/lib/node_modules/hudctl/completion/hudctl-completion.bash
+### End of Zinit's installer chunk
 
-[ $(command -v disable_accelerometter) ] && disable_accelerometter
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
 
-eval $(dircolors $HOME/.dir_colors)
+### End of Zinit's installer chunk
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk
+
+# Load a few important annexes, without Turbo
+# (this is currently required for annexes)
+zinit light-mode for \
+    zdharma-continuum/zinit-annex-as-monitor \
+    zdharma-continuum/zinit-annex-bin-gem-node \
+    zdharma-continuum/zinit-annex-patch-dl \
+    zdharma-continuum/zinit-annex-rust
+
+### End of Zinit's installer chunk

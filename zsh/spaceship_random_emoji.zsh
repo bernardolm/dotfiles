@@ -5,7 +5,7 @@ function spaceship_random_emoji() {
     # Use quotes around unassigned local variables to prevent
     # getting replaced by global aliases
     # http://zsh.sourceforge.net/Doc/Release/Shell-Grammar.html#Aliasing
-    source $DOTFILES/shell/random_emoji.sh
+    source $DOTFILES/zsh/random_emoji.zsh
     local emoji="$(random_emoji)"
 
     spaceship::exists random_emoji || return

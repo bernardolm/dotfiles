@@ -9,7 +9,7 @@ setopt notify
 setopt share_history
 unsetopt hist_save_by_copy
 
-[ ! $DEBUG_SHELL ] && setopt promptsubst
+$DEBUG_SHELL || setopt promptsubst
 
 export SAVEHIST=999999
 
@@ -43,5 +43,9 @@ bindkey -e
 
 # zstyle :compinstall filename '/home/ubuntu/.zshrc'
 
-autoload -Uz compinit
-compinit
+# autoload -Uz compinit
+# compinit
+
+# making bash compatible
+# command -v autoload &>/dev/null && autoload bashcompinit
+# command -v bashcompinit &>/dev/null && bashcompinit

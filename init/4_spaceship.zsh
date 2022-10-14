@@ -1,3 +1,5 @@
+export LS_COLORS=$LS_COLORS:'ow=01;34:'
+
 export SPACESHIP_PROMPT_ORDER=(
     time          # Time stampts section
     histsize      # ZSH command history counter
@@ -39,7 +41,6 @@ export SPACESHIP_PROMPT_ORDER=(
     random_emoji  # Random emoji to better distinct terminals
 )
 
-export LS_COLORS=$LS_COLORS:'ow=01;34:'
 
 # export SPACESHIP_BATTERY_SYMBOL_FULL=""
 # export SPACESHIP_CHAR_SYMBOL_ROOT="☣🚨 "
@@ -76,10 +77,7 @@ export SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
 export SPACESHIP_TIME_PREFIX="⌚ "
 export SPACESHIP_TIME_SHOW=true
 
-#############################################################
+source_and_log_session $DOTFILES/zsh/spaceship_histsize.zsh
+source_and_log_session $DOTFILES/zsh/spaceship_random_emoji.zsh
 
-source_and_log_session $DOTFILES/shell/spaceship_histsize.sh
-source_and_log_session $DOTFILES/shell/spaceship_random_emoji.sh
-
-autoload -Uz promptinit
-promptinit
+zinit load spaceship-prompt/spaceship-prompt

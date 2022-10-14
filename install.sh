@@ -64,3 +64,17 @@ alpine)
     return 0
     ;;
 esac
+
+
+
+## https://github.com/holman/dotfiles/blob/21342e9f4e7d55ebfdc6e4e9071f94cbbc9eb0ef/script/install
+#!/usr/bin/env bash
+#
+# Run all dotfiles installers.
+
+# set -e
+
+# cd "$(dirname $0)"/..
+
+# # find the installers and run them iteratively
+# find . -name install.sh | while read installer ; do sh -c "${installer}" ; done

@@ -1,24 +1,17 @@
-# making bash compatible
-command -v autoload &>/dev/null && autoload bashcompinit
-command -v bashcompinit &>/dev/null && bashcompinit
-
-export TERM=xterm-256color # for common 256 color terminals (e.g. gnome-terminal)
-export LSCOLORS="exfxcxdxbxegedabagacad"
 export CLICOLOR=true
+export EDITOR=nano
+export LSCOLORS="exfxcxdxbxegedabagacad"
+export TERM=xterm-256color # for common 256 color terminals (e.g. gnome-terminal)
 
 export USER_TMP=$HOME/tmp
 
-export ZINIT_ROOT="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit"
-export ZSH="$ZINIT_ROOT/plugins/ohmyzsh---ohmyzsh"
-
 [ -d "$HOME/Sync/config-backup" ] && export SYNC_PATH=$HOME/Sync/config-backup
-# [ -d $SYNC_PATH/bin ] && export PATH=$PATH:$SYNC_PATH/bin:
 
 # Workspaces (at this point, isn't exist workspaces envs exported)
 export GITHUB_USER
-GITHUB_USER=$(git config github.user)
+GITHUB_USER=$(git config --file "$SYNC_PATH/.gitconfig" github.user)
 export GITHUB_ORG
-GITHUB_ORG=$(git config github.organization)
+GITHUB_ORG=$(git config --file "$SYNC_PATH/.gitconfig" github.organization)
 
 [ -n "$GITHUB_ORG" ] && export GOPRIVATE="github.com/$GITHUB_ORG/*"
 
@@ -37,6 +30,7 @@ export PATH=$PATH:/snap/bin/
 export PATH=$PATH:/usr/bin
 export PATH=$PATH:/usr/local/bin
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:/usr/local/java/jre/bin
 export PATH=$PATH:$DOTFILES/bin
 export PATH=$PATH:$GOPATH/bin
 export PATH=$PATH:$HOME/.cargo/bin
@@ -124,18 +118,21 @@ export COLORS=(
     WHITE
 )
 
-$DEBUG_SHELL && \
-    readlink /proc/$$/exe && \
-    for color in "${COLORS[@]}"; do
-        case $(readlink /proc/$$/exe) in
-            *zsh)
-                echo -ne "${(P)${color}} The quick brown fox jumps over the lazy dog ${NC}"
-                ;;
-            *)
-                echo -ne "${!color} The quick brown fox jumps over the lazy dog ${NC}"
-                ;;
-        esac
-        echo " --- ${color}"
-    done
+# $DEBUG_SHELL && \
+#     readlink /proc/$$/exe && \
+#     for color in "${COLORS[@]}"; do
+#         case $(readlink /proc/$$/exe) in
+#             *zsh)
+#                 echo -ne "${(P)${color}} The quick brown fox jumps over the lazy dog ${NC}"
+#                 ;;
+#             *)
+#                 echo -ne "${!color} The quick brown fox jumps over the lazy dog ${NC}"
+#                 ;;
+#         esac
+#         echo " --- ${color}"
+#     done
+
+export ZINIT_ROOT="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit"
+export ZSH="$ZINIT_ROOT/plugins/ohmyzsh---ohmyzsh"
 
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'

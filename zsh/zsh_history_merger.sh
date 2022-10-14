@@ -2,9 +2,9 @@
 
 reset
 
-source ~/workspaces/bernardolm/dotfiles/shell/debug.sh
-source ~/workspaces/bernardolm/dotfiles/shell/find.sh
-source ~/workspaces/bernardolm/dotfiles/shell/progress_bar.sh
+source ~/workspaces/bernardolm/dotfiles/zsh/debug.zsh
+source ~/workspaces/bernardolm/dotfiles/zsh/find.zsh
+source ~/workspaces/bernardolm/dotfiles/zsh/progress_bar.zsh
 
 local function new_file_name() {
     local now=`date +"%Y%m%d%H%M%S%N"`
@@ -56,9 +56,9 @@ while true; do
             new_file=`new_file_name`
             touch $new_file
         fi
-        
+
         /bin/cat $file >> $new_file
-        
+
         local trash_file=`basename -a "$file"`
         mv "$file" "$HOME/zsh_history_trash/$trash_file"
 
