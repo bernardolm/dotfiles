@@ -3,7 +3,7 @@ function has_hash_bang() {
     [ `/bin/cat $file | head -2 | grep -c '#!'` -gt 0 ] && echo 1 || echo 0
 }
 
-source_and_log_session $DOTFILES/zsh/types.zsh
+source $DOTFILES/zsh/types.zsh
 
 function load_script_path() {
     local function spacer() {
@@ -53,7 +53,7 @@ function load_script_path() {
                 continue
             fi
 
-            source_and_log_session $script_path
+            source $script_path
 
             $DEBUG_SHELL && echo "✅ loaded."
         else

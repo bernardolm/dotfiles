@@ -77,7 +77,7 @@ export SPACESHIP_PROMPT_FIRST_PREFIX_SHOW=true
 export SPACESHIP_TIME_PREFIX="⌚ "
 export SPACESHIP_TIME_SHOW=true
 
-source_and_log_session $DOTFILES/zsh/spaceship_histsize.zsh
-source_and_log_session $DOTFILES/zsh/spaceship_random_emoji.zsh
+source $DOTFILES/zsh/spaceship_histsize.zsh
+source $DOTFILES/zsh/spaceship_random_emoji.zsh
 
 zinit load spaceship-prompt/spaceship-prompt

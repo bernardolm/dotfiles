@@ -33,7 +33,7 @@
 # P::zsh-autosuggestions
 # P::zsh-syntax-highlighting
 L::git.zsh
-L::prompt_info_functions.zsh
+# L::prompt_info_functions.zsh
 P::aliases
 P::aws
 P::battery
