@@ -41,12 +41,3 @@ setopt HIST_REDUCE_BLANKS
 setopt complete_aliases
 
 bindkey -e
-
-# zstyle :compinstall filename '/home/ubuntu/.zshrc'
-
-# autoload -Uz compinit
-# compinit
-
-# making bash compatible
-# command -v autoload &>/dev/null && autoload bashcompinit
-# command -v bashcompinit &>/dev/null && bashcompinit

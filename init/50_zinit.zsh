@@ -2,14 +2,14 @@ function zinit_runner() {
     local params=($*)
 
     [ ${#params[@]} -le 1 ] \
-        && echo "\"$params\" not enought params, exiting..." \
+        && notice "\"$params\" not enought params, exiting..." \
         && return false
 
     local cmd_mode=${params[1]}
     params=("${params[@]:1}")
 
     [[ ! "(debug turbo echo start omz)" =~ "$cmd_mode" ]] \
-        && echo "\"$cmd_mode\" isn't a known command, exiting..." \
+        && notice "\"$cmd_mode\" isn't a known command, exiting..." \
         && return false
 
     [[ "$cmd_mode" = "debug" ]] && cmd="zinit load "
@@ -19,18 +19,18 @@ function zinit_runner() {
     [[ "$cmd_mode" = "omz" ]] && cmd="zinit snippet OMZ"
 
     if [ "$cmd_mode" != "echo" ]; then
-        $DEBUG_SHELL && echo "zinit loading plugins with '$cmd_mode' mode ($cmd):"
+        $DEBUG_SHELL && notice "zinit loading plugins with '$cmd_mode' mode ($cmd):"
         for p in $params; do
-            $DEBUG_SHELL && echo "> $cmd$p"
+            $DEBUG_SHELL && notice "> $cmd$p"
             eval "$cmd$p 1>/dev/null"
         done
-        $DEBUG_SHELL && echo "zinit $cmd_mode finished"
+        $DEBUG_SHELL && notice "zinit $cmd_mode finished"
     else
-        $DEBUG_SHELL && echo "zinit will not be loading follow plugins:"
-        $DEBUG_SHELL && echo ${params[@]}
+        $DEBUG_SHELL && notice "zinit will not be loading follow plugins:"
+        $DEBUG_SHELL && notice ${params[@]}
     fi
 
-    $DEBUG_SHELL && echo ""
+    $DEBUG_SHELL && notice ""
 }
 
 function zinit_start() {
@@ -42,7 +42,7 @@ function zinit_start() {
 $DEBUG_SHELL && typeset -g ZPLG_MOD_DEBUG=1
 
 if [[ ! -d $ZINIT_ROOT ]]; then
-    $DEBUG_SHELL && echo "zinit not found ($ZINIT_ROOT), installing..."
+    $DEBUG_SHELL && notice "zinit not found ($ZINIT_ROOT), installing..."
     local zinit_url="https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh"
     echo y | \
         bash -c "$(curl --fail --show-error --silent --location $zinit_url)" \
@@ -53,11 +53,6 @@ if [[ ! -d $ZINIT_ROOT ]]; then
 
     zinit_runner turbo $(cat $DOTFILES/zinit/plugins.txt | grep -v '#')
     zinit_runner omz $(cat $DOTFILES/zinit/ohmyzsh.txt | grep -v '#')
-
-    zinit pack for ls_colors
-    zinit ice atclone"dircolors -b LS_COLORS > clrs.zsh" \
-        atpull'%atclone' pick"clrs.zsh" nocompile'!' \
-        atload'zstyle ":completion:*" list-colors “${(s.:.)LS_COLORS}”'
 else
     zinit self-update &>/dev/null
     zinit update --parallel &>/dev/null

@@ -1,5 +1,3 @@
-export LS_COLORS=$LS_COLORS:'ow=01;34:'
-
 export SPACESHIP_PROMPT_ORDER=(
     time          # Time stampts section
     histsize      # ZSH command history counter
