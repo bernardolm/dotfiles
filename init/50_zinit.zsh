@@ -37,16 +37,28 @@ function zinit_start() {
     source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
     autoload -Uz _zinit
     (( ${+_comps} )) && _comps[zinit]=_zinit
+
+    zinit light-mode for \
+        zdharma-continuum/zinit-annex-as-monitor \
+        zdharma-continuum/zinit-annex-bin-gem-node \
+        zdharma-continuum/zinit-annex-patch-dl \
+        zdharma-continuum/zinit-annex-rust
 }
 
 $DEBUG_SHELL && typeset -g ZPLG_MOD_DEBUG=1
 
 if [[ ! -d $ZINIT_ROOT ]]; then
     $DEBUG_SHELL && notice "zinit not found ($ZINIT_ROOT), installing..."
+
     local zinit_url="https://raw.githubusercontent.com/zdharma-continuum/zinit/HEAD/scripts/install.sh"
-    echo y | \
-        bash -c "$(curl --fail --show-error --silent --location $zinit_url)" \
-        1>/dev/null
+
+    export NO_ANNEXES=yes
+    export NO_COLOR=yes
+    export NO_EDIT=yes
+    export NO_EMOJI=yes
+    export NO_INPUT=yes
+
+    bash -c "$(curl --fail --show-error --silent --location $zinit_url)" 1>/dev/null
 
     zinit_start
     zinit self-update &>/dev/null

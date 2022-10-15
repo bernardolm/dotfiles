@@ -4,7 +4,7 @@ function notice() {
     test -z "${NC}" && echo "💬 $@" || echo "💬 ${CYAN}$@${NC}"
 }
 function warn() {
-    test -z "${NC}" && echo "☢ $@" || echo "💬 ${RED}$@${NC}"
+    test -z "${NC}" && echo "🚧 $@" || echo "🚧 ${RED}$@${NC}"
 }
 
 export DOTFILES
