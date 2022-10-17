@@ -1,14 +1,9 @@
 #!/usr/bin/env zsh
 
-function notice() {
-    test -z "${NC}" && echo "💬 $@" || echo "💬 ${CYAN}$@${NC}"
-}
-function warn() {
-    test -z "${NC}" && echo "🚧 $@" || echo "🚧 ${RED}$@${NC}"
-}
-
 export DOTFILES
 DOTFILES=$(dirname "$0")
+
+source $DOTFILES/init/10_debug.zsh
 
 find "$DOTFILES/init" -name '*.zsh' | sort | while read -r file ; do
     $DEBUG_SHELL && notice "loading ${file}"

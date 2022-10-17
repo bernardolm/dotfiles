@@ -1,6 +1,6 @@
 export EDITOR=nano
 
-export USER_TMP=$HOME/tmp
+export USER_TMP=$(mktemp -d)
 
 [ -d "$HOME/Sync/config-backup" ] && export SYNC_PATH=$HOME/Sync/config-backup
 
