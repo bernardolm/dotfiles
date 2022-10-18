@@ -3,9 +3,9 @@
 export DOTFILES
 DOTFILES=$(dirname "$0")
 
-source $DOTFILES/init/10_debug.zsh
+source $DOTFILES/zsh/init/10_debug.zsh
 
-find "$DOTFILES/init" -name '*.zsh' | sort | while read -r file ; do
+find "$DOTFILES/zsh/init" -name '*.zsh' | sort | while read -r file ; do
     $DEBUG_SHELL && notice "loading ${file}"
     source "${file}"
 done
