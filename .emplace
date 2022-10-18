@@ -1,6 +1,11 @@
 ([
 (
 source: Apt(()),
+name: "blueman",
+flags: [],
+),
+(
+source: Apt(()),
 name: "meld",
 flags: [],
 ),
