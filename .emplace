@@ -15,6 +15,11 @@ name: "git",
 flags: [],
 ),
 (
+source: Pip3(()),
+name: "mackup",
+flags: [],
+),
+(
 source: Apt(()),
 name: "meld",
 flags: [],
