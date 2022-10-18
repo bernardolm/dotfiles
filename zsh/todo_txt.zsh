@@ -1,3 +1,19 @@
+function todo_zsh() {
+    source $TODO_DIR/zsh.cfg
+    todo.sh $@ | \
+        todotxt_hide_create_date | \
+        todotxt_highlight_project_and_context | \
+        todotxt_hide_project_and_context_symbols
+}
+
+function todo_conky() {
+    source $TODO_DIR/conky.cfg
+    todo.sh $@ | \
+        todotxt_hide_footer | \
+        todotxt_hide_create_date | \
+        todotxt_hide_project_and_context_symbols
+}
+
 function todotxt_hide_create_date() {
     local line
     while IFS= read -r line; do

@@ -40,3 +40,5 @@ export ZINIT_ROOT="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit"
 export ZSH="$ZINIT_ROOT/plugins/ohmyzsh---ohmyzsh"
 
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
+
+export EMPLACE_CONFIG="$DOTFILES/.config/emplace.toml"

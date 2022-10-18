@@ -7,4 +7,4 @@
 [ -f $SYNC_PATH/todo-txt/todo.txt ] && export TODO_FILE=$SYNC_PATH/todo-txt/todo.txt
 
 [ -f $TODO_DIR/todo_completion ] && source $TODO_DIR/todo_completion
-[ -f $TODO_DIR/todo-zsh.cfg ] && export TODOTXT_CFG_FILE=$TODO_DIR/todo-zsh.cfg
+[ -f $TODO_DIR/zsh.cfg ] && export TODOTXT_CFG_FILE=$TODO_DIR/zsh.cfg

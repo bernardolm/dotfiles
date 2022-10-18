@@ -4,7 +4,7 @@ sudo() {
 		"$@"
 	else
 		if ! command sudo --non-interactive true 2>/dev/null; then
-			warn "Root privileges are required, please enter your password below"
+			warn "root privileges are required, please enter your password below\npay attention for what you doing!"
 			command sudo --validate
 		fi
 		command sudo "$@"
