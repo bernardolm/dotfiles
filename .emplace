@@ -6,7 +6,27 @@ flags: [],
 ),
 (
 source: Apt(()),
+name: "bluez",
+flags: [],
+),
+(
+source: Apt(()),
+name: "git",
+flags: [],
+),
+(
+source: Apt(()),
 name: "meld",
+flags: [],
+),
+(
+source: Apt(()),
+name: "nano",
+flags: [],
+),
+(
+source: Apt(()),
+name: "python3",
 flags: [],
 ),
 ])
