@@ -25,12 +25,15 @@ $time\
 [ ](fg:#33658A)\
 """
 
+# format = "$all"
+
 # Disable the blank line at the start of the prompt
 # add_newline = false
 
 # You can also replace your username with a neat symbol like  to save some space
 [username]
-show_always = true
+# show_always = true
+disabled=true
 style_user = "bg:#9A348E"
 style_root = "bg:#9A348E"
 format = '[$user ]($style)'
@@ -55,76 +58,93 @@ truncation_symbol = "…/"
 # "Important  " = "  "
 
 [c]
+disabled=true
 symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [docker_context]
+# disabled=true
 symbol = " "
 style = "bg:#06969A"
 format = '[ $symbol $context ]($style) $path'
 
 [elixir]
+disabled=true
 symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [elm]
+disabled=true
 symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [git_branch]
+# disabled=true
 symbol = ""
 style = "bg:#FCA17D"
 format = '[ $symbol $branch ]($style)'
 
 [git_status]
+# disabled=true
 style = "bg:#FCA17D"
 format = '[$all_status$ahead_behind ]($style)'
 
 [golang]
+# disabled=true
 symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [haskell]
+disabled=true
 symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [java]
+disabled=true
 symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [julia]
+disabled=true
 symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [nodejs]
+# disabled=true
 symbol = ""
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [nim]
+disabled=true
 symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [rust]
+# disabled=true
 symbol = ""
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [scala]
+disabled=true
 symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [time]
-disabled = false
+disabled=true
 time_format = "%R" # Hour:Minute Format
 style = "bg:#33658A"
 format = '[ ♥ $time ]($style)'
+
+# [package]
+# disabled = true
