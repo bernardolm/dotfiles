@@ -39,4 +39,9 @@ source: Apt(()),
 name: "python3",
 flags: [],
 ),
+(
+source: Snap(()),
+name: "starship",
+flags: [],
+),
 ])
