@@ -1,21 +1,15 @@
 function todo_zsh() {
-    todo.sh -d $TODO_DIR/zsh.cfg $@
-    # todotxt_hide_create_date
-    # todotxt_highlight_project_and_context
-    # todotxt_hide_project_and_context_symbols
+    todo.sh -d $TODO_DIR/zsh.cfg -c -P $@ | todotxt_hide_create_date | todotxt_highlight_project_and_context | todotxt_hide_project_and_context_symbols
 }
 
 function todo_conky() {
-    todo.sh -d $TODO_DIR/conky.cfg $@
-        # todotxt_hide_footer | \
-        # todotxt_hide_create_date | \
-        # todotxt_hide_project_and_context_symbols
+    todo.sh -d $TODO_DIR/conky.cfg -@ -c -P $@ | todotxt_hide_footer | todotxt_hide_create_date | todotxt_hide_project_and_context_symbols
 }
 
 function todotxt_hide_create_date() {
     local line
     while IFS= read -r line; do
-        echo "$line" | sed -E 's/[0-9]{4,4}-[0-9]{2,2}-[0-9]{2,2}\s//g'
+        echo "$line" | sed -E 's/[0-9]{4,4}-[0-9]{2,2}-[0-9]{2,2}\s?//g'
     done
 }
 
