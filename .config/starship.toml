@@ -1,34 +1,33 @@
 format = """
 [](#9A348E)\
 $username\
+$gcloud\
+$aws\
 [](bg:#DA627D fg:#9A348E)\
 $directory\
 [](fg:#DA627D bg:#FCA17D)\
 $git_branch\
 $git_status\
 [](fg:#FCA17D bg:#86BBD8)\
-$c\
-$elixir\
-$elm\
 $golang\
-$haskell\
-$java\
-$julia\
 $nodejs\
-$nim\
+$php\
+$python\
+$ruby\
 $rust\
-$scala\
 [](fg:#86BBD8 bg:#06969A)\
 $docker_context\
+$package\
 [](fg:#06969A bg:#33658A)\
-$time\
+$battery\
+$env_var\
+$cmd_duration\
+$sudo\
 [ ](fg:#33658A)\
 """
 
-# format = "$all"
-
 # Disable the blank line at the start of the prompt
-# add_newline = false
+add_newline=false
 
 # You can also replace your username with a neat symbol like  to save some space
 [username]
@@ -43,6 +42,7 @@ style = "bg:#DA627D"
 format = "[ $path ]($style)"
 truncation_length = 3
 truncation_symbol = "…/"
+truncate_to_repo=false
 
 # Here is how you can shorten some long paths by text replacement
 # similar to mapped_locations in Oh My Posh:
@@ -57,94 +57,98 @@ truncation_symbol = "…/"
 # So either put "Important Documents" before "Documents" or use the substituted version:
 # "Important  " = "  "
 
-[c]
-disabled=true
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
+[battery]
+discharging_symbol="💀 "
+charging_symbol = "🔋 "
+
+[[battery.display]] # "bold red" style and discharging_symbol when capacity is between 0% and 10%
+threshold = 10
+style = "bold red"
+
+[[battery.display]] # "bold yellow" style and 💦 symbol when capacity is between 10% and 30%
+threshold = 30
+style = "bold yellow"
 
 [docker_context]
-# disabled=true
-symbol = " "
+# symbol = " "
 style = "bg:#06969A"
 format = '[ $symbol $context ]($style) $path'
 
-[elixir]
-disabled=true
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[elm]
-disabled=true
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
 [git_branch]
-# disabled=true
-symbol = ""
-style = "bg:#FCA17D"
-format = '[ $symbol $branch ]($style)'
+# ignore_branches = ["master", "main"]
+always_show_remote=true
+format = '[ $symbol $branch(:\($remote_branch\)) ]($style)'
+style = "bg:#FCA17D fg:#9A348E"
+symbol = "🌱 "
 
 [git_status]
-# disabled=true
-style = "bg:#FCA17D"
+ahead = "🏎💨"
+behind = "😰"
+conflicted = "🏳"
+deleted = "🗑"
+diverged = "😵"
 format = '[$all_status$ahead_behind ]($style)'
+modified = "📝"
+renamed = "👅"
+staged = '[++\($count\)](green)'
+stashed = "📦"
+style = "bg:#FCA17D"
+untracked = "🤷"
+up_to_date = "✓"
 
 [golang]
-# disabled=true
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[haskell]
-disabled=true
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[java]
-disabled=true
-symbol = " "
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[julia]
-disabled=true
-symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [nodejs]
-# disabled=true
-symbol = ""
-style = "bg:#86BBD8"
-format = '[ $symbol ($version) ]($style)'
-
-[nim]
-disabled=true
-symbol = " "
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [rust]
-# disabled=true
-symbol = ""
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
-[scala]
-disabled=true
-symbol = " "
+[php]
 style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
-[time]
-disabled=true
-time_format = "%R" # Hour:Minute Format
+[python]
+style = "bg:#86BBD8"
+format = '[ $symbol ($version) ]($style)'
+
+[ruby]
+style = "bg:#86BBD8"
+format = '[ $symbol ($version) ]($style)'
+
+[cmd_duration]
+min_time = 100
 style = "bg:#33658A"
-format = '[ ♥ $time ]($style)'
+format = '[ $duration ]($style)'
+min_time_to_notify=10000
+show_notifications=true
 
-# [package]
-# disabled = true
+# [env_var.SHELL]
+# variable = "SHELL"
+# default = "unknown shell"
+
+# [env_var.USER]
+# default = "unknown user"
+
+[gcloud]
+style = "bg:#9A348E"
+format = '[🔹($profile )(\($region\) )(\[$duration\] )]($style)'
+
+[aws]
+style = "bg:#9A348E"
+format = '[🔸($profile )(\($region\) )(\[$duration\] )]($style)'
+
+[aws.region_aliases]
+us-east-1='ue1'
+
+[package]
+style = "bg:#06969A"
+
+[sudo]
+style = "bg:#33658A"
+disabled=false
+format=	"[ as $symbol]($style)"
