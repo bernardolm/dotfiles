@@ -1,7 +1,7 @@
 johanhaleby/kubetail
 mafredri/zsh-async
 ohmyzsh/ohmyzsh
-spaceship-prompt/spaceship-prompt
+# spaceship-prompt/spaceship-prompt
 trapd00r/LS_COLORS
 zdharma-continuum/fast-syntax-highlighting
 zdharma-continuum/history-search-multi-word

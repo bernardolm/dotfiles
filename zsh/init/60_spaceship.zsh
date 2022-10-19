@@ -78,4 +78,4 @@ export SPACESHIP_TIME_SHOW=true
 source $DOTFILES/zsh/spaceship_histsize.zsh
 source $DOTFILES/zsh/spaceship_random_emoji.zsh
 
-zinit load spaceship-prompt/spaceship-prompt
+# zinit load spaceship-prompt/spaceship-prompt
