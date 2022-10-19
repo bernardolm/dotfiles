@@ -11,6 +11,11 @@ flags: [],
 ),
 (
 source: Apt(()),
+name: "fonts-powerline",
+flags: [],
+),
+(
+source: Apt(()),
 name: "git",
 flags: [],
 ),
