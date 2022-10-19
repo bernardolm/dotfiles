@@ -39,7 +39,7 @@ export SPACESHIP_PROMPT_ORDER=(
     random_emoji  # Random emoji to better distinct terminals
 )
 
-
+# Disabled
 # export SPACESHIP_BATTERY_SYMBOL_FULL=""
 # export SPACESHIP_CHAR_SYMBOL_ROOT="☣🚨 "
 # export SPACESHIP_DIR_TRUNC=3
