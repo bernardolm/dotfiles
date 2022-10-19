@@ -20,6 +20,11 @@ name: "git",
 flags: [],
 ),
 (
+source: Apt(()),
+name: "licenseutils",
+flags: [],
+),
+(
 source: Pip3(()),
 name: "mackup",
 flags: [],
