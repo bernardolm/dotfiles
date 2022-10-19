@@ -1,0 +1,6 @@
+repo_directory = "/home/bernardo/workspaces/bernardolm/dotfiles"
+
+[repo]
+branch = "master"
+file = ".emplace"
+url = "git@github.com:bernardolm/dotfiles.git"
