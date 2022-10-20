@@ -31,7 +31,6 @@ add_newline=false
 
 # You can also replace your username with a neat symbol like  to save some space
 [username]
-# show_always = true
 disabled=true
 style_user = "bg:#9A348E"
 style_root = "bg:#9A348E"
@@ -58,24 +57,23 @@ truncate_to_repo=false
 # "Important  " = "  "
 
 [battery]
-discharging_symbol="💀 "
-charging_symbol = "🔋 "
+discharging_symbol='💀'
+charging_symbol = '🔋'
+format='[ $symbol$percentage ]($style)'
 
 [[battery.display]] # "bold red" style and discharging_symbol when capacity is between 0% and 10%
+style="bg:#33658A bold red"
 threshold = 10
-style = "bold red"
 
 [[battery.display]] # "bold yellow" style and 💦 symbol when capacity is between 10% and 30%
 threshold = 30
-style = "bold yellow"
+style="bg:#33658A bold yellow"
 
 [docker_context]
-# symbol = " "
 style = "bg:#06969A"
 format = '[ $symbol $context ]($style) $path'
 
 [git_branch]
-# ignore_branches = ["master", "main"]
 always_show_remote=true
 format = '[ $symbol $branch(:\($remote_branch\)) ]($style)'
 style = "bg:#FCA17D fg:#9A348E"

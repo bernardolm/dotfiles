@@ -42,3 +42,5 @@ export ZSH="$ZINIT_ROOT/plugins/ohmyzsh---ohmyzsh"
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
 
 export EMPLACE_CONFIG="$DOTFILES/.config/emplace.toml"
+
+export STARSHIP_CONFIG="$DOTFILES/starship/pastel-powerline.toml"
