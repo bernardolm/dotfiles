@@ -78,3 +78,9 @@ esac
 
 # # find the installers and run them iteratively
 # find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+
+
+
+
+
+# BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
