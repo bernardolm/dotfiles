@@ -1,0 +1,78 @@
+[user]
+    name = Bernardo Loureiro
+
+[github]
+    user = bernardolm
+
+[color]
+    diff = true
+    status = true
+    branch = true
+    ui = true
+
+[push]
+    # https://git-scm.com/docs/git-config#git-config-pushdefault
+    default = matching
+    default = simple
+    followTags = true
+
+[pull]
+    default = matching
+
+[url "git@github.com:"]
+    insteadOf = "gh:"
+    insteadOf = "https://github.com"
+    pushInsteadOf = "git://github.com"
+    pushInsteadOf = "github:"
+
+[core]
+    editor = code --wait
+    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+    untrackedCache = true
+
+[gpg]
+    program = gpg
+
+[alias]
+    mv-index = "!f() { \
+        old=\"$1\"; \
+        new=\"$2\"; \
+        info=$(git ls-files -s -- \"$old\" | cut -d' ' -f-2 | tr ' ' ,); \
+        git update-index --add --cacheinfo \"$info,$new\" && \
+        git rm --cached \"$old\"; \
+    }; f"
+
+[merge]
+#    external = $DOTFILES/zsh/git-diff.sh
+    log = true
+
+[apply]
+    whitespace = fix
+
+[difftool]
+    prompt = false
+
+[help]
+    autocorrect = 1
+
+[diff]
+#    external = $DOTFILES/zsh/git-diff.sh
+    tool = default-difftool
+    renames = copies
+
+[difftool "default-difftool"]
+    cmd = code --wait --diff $LOCAL $REMOTE
+
+[init]
+    defaultBranch = main
+
+[commit]
+    # https://help.github.com/articles/signing-commits-using-gpg/
+    gpgsign = true
+
+[branch]
+    # Show most recently changed branches first.
+    sort = -committerdate
+
+[include]
+    path = ~/Sync/config-backup/.gitconfig_work
