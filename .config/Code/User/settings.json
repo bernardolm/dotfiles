@@ -50,7 +50,6 @@
         "**/bower_components": true,
         "**/node_modules": true,
         "**/vendor/**": true,
-        "**/vendor/github.com/hurbcom": false,
         "**/venv/**": true,
     },
     "github.copilot.enable": {
@@ -101,9 +100,14 @@
         "**/bower_components": true,
         "**/node_modules": true,
         "**/vendor/**": true,
-        "**/vendor/github.com/hurbcom": false,
         "**/venv/**": true,
     },
+    "shellcheck.exclude": [
+        "SC1090",
+        "SC2148",
+        "SC1071",
+        "SC2296"
+    ],
     "shellformat.effectLanguages": [
         "azcli",
         "dotenv",
@@ -228,11 +232,4 @@
     "workbench.editor.enablePreview": false,
     "git.autofetch": true,
     "workbench.colorTheme": "SynthWave '84",
-    "window.zoomLevel": -1,
-    "shellcheck.exclude": [
-        "SC1090",
-        "SC2148",
-        "SC1071",
-        "SC2296"
-    ],
 }

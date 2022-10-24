@@ -42,6 +42,7 @@ P::colorize
 P::command-not-found
 P::common-aliases
 P::cp
+P::docker
 P::extract
 P::fzf
 P::git

@@ -1,6 +1,8 @@
-*.tar.gz
-*.deb
 *.bin
+*.deb
+*.tar.gz
 *.zip
 **/*.pid
 *venv/
+debian/*
+dotbot
