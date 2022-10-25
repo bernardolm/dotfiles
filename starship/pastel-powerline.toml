@@ -122,7 +122,7 @@ format = '[ $symbol ($version) ]($style)'
 min_time = 100
 style = "bg:#33658A"
 format = '[ $duration ]($style)'
-min_time_to_notify=10000
+min_time_to_notify=30000
 show_notifications=true
 
 # [env_var.SHELL]

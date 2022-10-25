@@ -1,1 +1,1 @@
-sudo snap install starship
+# sudo snap install starship

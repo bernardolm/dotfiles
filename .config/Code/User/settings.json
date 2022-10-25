@@ -164,7 +164,6 @@
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
     "editor.bracketPairColorization.enabled": true,
-    "editor.fontFamily": "Menlo, Fira Code, Hack, monospace, Roboto Mono, Cascadia Mono, JetBrains Mono, SF Mono, UbuntuMono Nerd Font Mono, Emoji",
     "editor.fontLigatures": "'ss01', 'ss03', 'ss04', 'ss05', 'ss06', 'zero', 'onum'",
     "editor.formatOnPaste": false,
     "editor.formatOnType": true,
@@ -232,4 +231,6 @@
     "workbench.editor.enablePreview": false,
     "git.autofetch": true,
     "workbench.colorTheme": "SynthWave '84",
+    "window.zoomLevel": -1,
+    "editor.fontFamily": "CaskaydiaCove Nerd Font Mono",
 }
