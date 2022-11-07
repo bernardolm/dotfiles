@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+    <alias binding="strong">
+        <family>monospace</family>
+        <default>
+            <family>Cascadia Code PL</family>
+        </default>
+    </alias>
+</fontconfig>
