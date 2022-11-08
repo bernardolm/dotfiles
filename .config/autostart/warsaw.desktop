@@ -1,0 +1,10 @@
+[Desktop Entry]
+Comment[en_US]=Bancos
+Comment=Bancos
+Exec=/usr/bin/warsaw start
+Name=Warsaw
+NoDisplay=false
+Type=Application
+X-GNOME-AutoRestart=true
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Phase=Initialization
