@@ -5,18 +5,23 @@ DOTFILES=$(dirname "$0")
 
 source $DOTFILES/zsh/init/10_debug.zsh
 
-find "$DOTFILES/zsh/init" -name '*.zsh' | sort | while read -r file ; do
-    $DEBUG_SHELL && notice "loading ${file}"
+find "$DOTFILES/zsh/init" -name '*.zsh' | sort | while read -r file; do
+    $DEBUG_SHELL && _info "loading ${file}"
     source "${file}"
 done
 
-find "$DOTFILES" -name '*.zsh' | grep -v "/init/" | while read -r file ; do
-    $DEBUG_SHELL && notice "loading ${file}"
+find "$SYNC_PATH/zsh/init" -name '*.zsh' | sort | while read -r file; do
+    $DEBUG_SHELL && _info "loading ${file}"
     source "${file}"
 done
 
-find "$DOTFILES" -name 'aliases' | grep -v "/init/" | while read -r file ; do
-    $DEBUG_SHELL && notice "loading ${file}"
+find "$DOTFILES" -name '*.zsh' | grep -v "/init/" | while read -r file; do
+    $DEBUG_SHELL && _info "loading ${file}"
+    source "${file}"
+done
+
+find "$DOTFILES" -name 'aliases' | grep -v "/init/" | while read -r file; do
+    $DEBUG_SHELL && _info "loading ${file}"
     source "${file}"
 done
 
