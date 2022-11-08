@@ -1,9 +1,22 @@
+export ZSH
+
+ZSH="$HOME/.antigen/bundles/robbyrussell/oh-my-zsh"
+[ ! -d "$ZSH" ] && ZSH=$(find ~ -name '*oh-my-zsh.sh' | xargs dirname)
+
 plugins=""
 
-cat $DOTFILES/zinit/ohmyzsh.txt | grep -v '#' | while read -r file ; do
-    plugins+=$(cut -d':' -f3 <<<$file)","
+/bin/cat "$DOTFILES/ohmyzsh/plugins.txt" | grep -v '#' | grep -v '/' | while read -r file ; do
+    plugins="$plugins\n$file"
 done
 
-plugins=(${(@s:,:)plugins})
+plugins=($(echo $plugins))
 
-source $ZSH/oh-my-zsh.sh
+$DEBUG_SHELL && _info "oh-my-zsh plugins='$plugins'"
+
+# Needed to load it's plugins
+source "$ZSH/oh-my-zsh.sh"
+
+/bin/cat "$DOTFILES/ohmyzsh/plugins.txt" | grep '/' | while read -r file ; do
+    zshfile=$(echo $file | cut -d "/" -f2);
+    source ~/.antigen/bundles/$file/$zshfile.zsh;
+done

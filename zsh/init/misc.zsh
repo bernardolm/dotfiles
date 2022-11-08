@@ -1,8 +1,4 @@
-eval "$(thefuck --alias)"
-
-eval "$(emplace init zsh)"
-export EMPLACE_CONFIG="$DOTFILES/emplace.toml"
-export EMPLACE_CONFIG_PATH="$DOTFILES"
+eval "$(thefuck --enable-experimental-instant-mode --yeah --alias)"
 
 eval "$(starship init zsh)"
 

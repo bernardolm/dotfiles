@@ -1,3 +1,5 @@
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
+
 setopt autocd
 setopt beep
 setopt extended_history
@@ -15,8 +17,8 @@ $DEBUG_SHELL || setopt promptsubst
 export SAVEHIST=999999
 
 export HISTDUP=erase # Erase duplicates in the history file
-export HISTFILE=$SYNC_PATH/.zsh_history # Where to save history to disk
-export HISTSIZE=$SAVEHIST
+export HISTFILE="$SYNC_PATH/.zsh_history" # Where to save history to disk
+export HISTSIZE="$SAVEHIST"
 
 setopt NO_BG_NICE # don't nice background tasks
 setopt NO_HUP
@@ -41,3 +43,5 @@ setopt HIST_REDUCE_BLANKS
 setopt complete_aliases
 
 bindkey -e
+
+# autoload -U compinstall

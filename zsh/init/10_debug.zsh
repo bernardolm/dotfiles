@@ -1,7 +1,7 @@
 test -z "$debugfileloaded" || return 1
 export debugfileloaded="yes"
 
-function log() {
+function _echo() {
     local icon
     icon="$1"
 
@@ -15,12 +15,12 @@ function log() {
     test -z "${NC}" && echo "$icon $@" >&2 || echo "$icon ${color}$@${NC}" >&2
 }
 
-function notice() {
-    log "💬" "$CYAN" "$@"
+function _info() {
+    _echo "💬" "$CYAN" "$@"
 }
 
-function warn() {
-    log "🚧" "$RED" "$@"
+function _warn() {
+    _echo "🚧" "$RED" "$@"
 }
 
 # -e: exit on error
@@ -34,4 +34,4 @@ function warn() {
 export DEBUG_SHELL
 DEBUG_SHELL=$(test -z "$DEBUG_SHELL" && echo "false" || echo $DEBUG_SHELL)
 
-$DEBUG_SHELL && warn "running in DEBUG mode"
+$DEBUG_SHELL && _warn "running in DEBUG mode"
