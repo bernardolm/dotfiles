@@ -5,15 +5,13 @@
     user = bernardolm
 
 [color]
+    branch = true
     diff = true
     status = true
-    branch = true
     ui = true
 
 [push]
-    # https://git-scm.com/docs/git-config#git-config-pushdefault
     default = matching
-    default = simple
     followTags = true
 
 [pull]
@@ -27,10 +25,11 @@
 
 [core]
     editor = code --wait
-    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
     untrackedCache = true
+    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
 
 [gpg]
+    format = ssh
     program = gpg
 
 [alias]
@@ -67,11 +66,9 @@
     defaultBranch = main
 
 [commit]
-    # https://help.github.com/articles/signing-commits-using-gpg/
     gpgsign = true
 
 [branch]
-    # Show most recently changed branches first.
     sort = -committerdate
 
 [include]
