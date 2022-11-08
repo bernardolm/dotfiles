@@ -1,11 +1,1 @@
-[Desktop Entry]
-Type=Application
-Exec=$DOTFILES/bash-scripts/akai-lpd8-to-commands.sh
-Hidden=true
-NoDisplay=false
-X-GNOME-Autostart-enabled=true
-Name[en_US]=Akai LPD8 Commands
-Name=Akai LPD8 Commands
-Comment[en_US]=
-Comment=
-
+/home/bernardo/workspaces/bernardolm/dotfiles/.config/autostart/akai-lpd8-to-commands.sh.desktop

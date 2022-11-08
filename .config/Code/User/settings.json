@@ -40,8 +40,9 @@
     ],
     "files.associations": {
         "*.migration": "sql",
-        ".env": "dotenv",
-        ".zsh_history": "shellscript"
+        "*.env": "dotenv",
+        "*.zsh_history": "shellscript",
+        "*.conf": "xml"
     },
     "files.watcherExclude": {
         "**/.git": true,
@@ -87,9 +88,6 @@
         "-short",
         "-race"
     ],
-    "gopls": {
-        "experimentalWorkspaceModule": true
-    },
     "python.testing.pytestArgs": [
         "tests"
     ],
@@ -158,13 +156,15 @@
     "bracketLens.mode": "auto",
     "breadcrumbs.enabled": true,
     "debug.inlineValues": "off",
+    "dev.containers.workspaceMountConsistency": "delegated",
     "diffEditor.codeLens": true,
     "diffEditor.ignoreTrimWhitespace": false,
     "diffEditor.maxComputationTime": 0,
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
     "editor.bracketPairColorization.enabled": true,
-    "editor.fontLigatures": "'ss01', 'ss03', 'ss04', 'ss05', 'ss06', 'zero', 'onum'",
+    "editor.fontFamily": "'NovaMono', 'JetBrains Mono', 'Space Mono', 'Share Tech Mono', 'Cascadia Code PL', 'JetBrains Mono NL', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.fontLigatures": "'cv02', 'cv06', 'cv13', 'cv14', 'cv16', 'cv18', 'cv20', 'cv22', 'cv23', 'cv24', 'cv25', 'cv26', 'cv28', 'cv29', 'cv30', 'cv31', 'cv32', 'ss01', 'ss02', 'ss04', 'ss07', 'ss09', 'zero', 'ss20'",
     "editor.formatOnPaste": false,
     "editor.formatOnType": true,
     "editor.guides.bracketPairs": "active",
@@ -175,6 +175,7 @@
     "editor.renderControlCharacters": true,
     "editor.renderWhitespace": "none",
     "editor.snippetSuggestions": "top",
+    "editor.stickyScroll.enabled": true,
     "editor.suggest.localityBonus": false,
     "editor.wordBasedSuggestions": false,
     "editor.wordWrap": "on",
@@ -184,6 +185,7 @@
     "extensions.ignoreRecommendations": true,
     "files.autoSave": "onFocusChange",
     "files.trimTrailingWhitespace": true,
+    "git.autofetch": true,
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
     "go.autocompleteUnimportedPackages": true,
@@ -205,7 +207,7 @@
     "intelephense.environment.phpVersion": "5.6.40",
     "javascript.updateImportsOnFileMove.enabled": "always",
     "partialDiff.enableTelemetry": false,
-    "python.envFile": "${workspaceFolder}/.env",
+    "python.envFile": "${workspaceFolder}/*.env",
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": true,
     "python.linting.pycodestyleEnabled": false,
@@ -213,9 +215,10 @@
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": true,
     "redhat.telemetry.enabled": false,
-    "dev.containers.workspaceMountConsistency": "delegated",
     "scm.providerCountBadge": "auto",
     "security.workspace.trust.untrustedFiles": "open",
+    "synthwave84.brightness": 0.45,
+    "synthwave84.disableGlow": false,
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.defaultProfile.linux": "zsh",
     "trailing-spaces.deleteModifiedLinesOnly": true,
@@ -225,12 +228,10 @@
     "window.newWindowDimensions": "maximized",
     "window.restoreWindows": "none",
     "window.title": "${dirty}${separator}${rootName}${separator}vs",
-    "window.titleSeparator": " - ",
+    "window.titleSeparator": " • ",
+    "workbench.colorTheme": "SynthWave '84",
+    "workbench.editor.enablePreview": false,
     "workbench.editor.restoreViewState": false,
     "workbench.startupEditor": "newUntitledFile",
-    "workbench.editor.enablePreview": false,
-    "git.autofetch": true,
-    "workbench.colorTheme": "SynthWave '84",
     "window.zoomLevel": -1,
-    "editor.fontFamily": "CaskaydiaCove Nerd Font Mono",
 }
