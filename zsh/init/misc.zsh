@@ -1,4 +1,4 @@
-eval "$(thefuck --enable-experimental-instant-mode --yeah --alias)"
+eval "$(thefuck --yeah --alias)"
 
 eval "$(starship init zsh)"
 
