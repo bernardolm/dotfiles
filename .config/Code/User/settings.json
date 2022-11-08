@@ -1,0 +1,237 @@
+// Place your settings in this file to overwrite the default settings
+{
+    "[dockerfile]": {
+        "editor.defaultFormatter": null,
+    },
+    "[go]": {
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+    },
+    "[javascript]": {
+        "editor.defaultFormatter": "vscode.json-language-features",
+        "editor.tabSize": 2
+    },
+    "[json]": {
+        "editor.defaultFormatter": "vscode.json-language-features",
+        "editor.tabSize": 2
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features",
+        "editor.tabSize": 2
+    },
+    "[php]": {
+        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    },
+    "[python]": {
+        "editor.formatOnPaste": true,
+        "editor.formatOnSave": true,
+    },
+    "[xml]": {},
+    "dlvLoadConfig": {
+        "maxVariableRecurse": 3,
+        "maxStringLen": 1024,
+        "maxArrayValues": 400,
+        "maxStructFields": -1
+    },
+    "editor.rulers": [
+        79,
+        119
+    ],
+    "files.associations": {
+        "*.migration": "sql",
+        "*.env": "dotenv",
+        "*.zsh_history": "shellscript",
+        "*.conf": "xml"
+    },
+    "files.watcherExclude": {
+        "**/.git": true,
+        "**/*assets*": true,
+        "**/*zsh_history*": true,
+        "**/bower_components": true,
+        "**/node_modules": true,
+        "**/vendor/**": true,
+        "**/venv/**": true,
+    },
+    "github.copilot.enable": {
+        "*": true,
+        "yaml": true,
+        "plaintext": true,
+        "markdown": false
+    },
+    "gitlens.advanced.messages": {
+        "suppressLineUncommittedWarning": true
+    },
+    "go.editorContextMenuCommands": {
+        "removeTags": true,
+        "fillStruct": true,
+        "testFile": true,
+        "testPackage": true,
+        "generateTestForFile": true,
+        "generateTestForPackage": true,
+        "benchmarkAtCursor": true
+    },
+    "go.delveConfig": {
+        "dlvLoadConfig": {
+            "maxStringLen": 1024,
+        },
+        "apiVersion": 2,
+    },
+    "go.formatFlags": [
+        "-w"
+    ],
+    "go.liveErrors": {
+        "enabled": true,
+        "delay": 500
+    },
+    "go.testFlags": [
+        "-short",
+        "-race"
+    ],
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "search.exclude": {
+        "**/.git": true,
+        "**/*assets*": true,
+        "**/*zsh_history*": true,
+        "**/bower_components": true,
+        "**/node_modules": true,
+        "**/vendor/**": true,
+        "**/venv/**": true,
+    },
+    "shellcheck.exclude": [
+        "SC1090",
+        "SC2148",
+        "SC1071",
+        "SC2296"
+    ],
+    "shellformat.effectLanguages": [
+        "azcli",
+        "dotenv",
+        "gitignore",
+        "hosts",
+        "ignore",
+        "jvmoptions",
+        "properties",
+        "shellscript",
+        "spring-boot-properties",
+    ],
+    "todo-tree.highlights.customHighlight": {
+        "FIXME": {
+            "background": "#ff0000",
+            "foreground": "#000000",
+            "icon": "bug",
+            "iconColour": "#ff0000",
+            "opacity": 100,
+            "type": "text",
+        },
+        "TODO": {
+            "background": "#ffcc00",
+            "foreground": "#000000",
+            "icon": "alert",
+            "iconColour": "#ffcc00",
+            "opacity": 100,
+            "type": "text",
+        },
+        "NOTE": {
+            "background": "#33cc33",
+            "foreground": "#000000",
+            "icon": "megaphone",
+            "iconColour": "#33cc33",
+            "opacity": 100,
+            "type": "text",
+        }
+    },
+    "todo-tree.general.tags": [
+        "[ ]",
+        "[x]",
+        "FIXME",
+        "NOTE",
+        "TODO",
+    ],
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "bracketLens.mode": "auto",
+    "breadcrumbs.enabled": true,
+    "debug.inlineValues": "off",
+    "dev.containers.workspaceMountConsistency": "delegated",
+    "diffEditor.codeLens": true,
+    "diffEditor.ignoreTrimWhitespace": false,
+    "diffEditor.maxComputationTime": 0,
+    "editor.autoClosingBrackets": "never",
+    "editor.autoClosingQuotes": "never",
+    "editor.bracketPairColorization.enabled": true,
+    "editor.fontFamily": "'NovaMono', 'JetBrains Mono', 'Space Mono', 'Share Tech Mono', 'Cascadia Code PL', 'JetBrains Mono NL', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.fontLigatures": "'cv02', 'cv06', 'cv13', 'cv14', 'cv16', 'cv18', 'cv20', 'cv22', 'cv23', 'cv24', 'cv25', 'cv26', 'cv28', 'cv29', 'cv30', 'cv31', 'cv32', 'ss01', 'ss02', 'ss04', 'ss07', 'ss09', 'zero', 'ss20'",
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": true,
+    "editor.guides.bracketPairs": "active",
+    "editor.inlineSuggest.enabled": true,
+    "editor.largeFileOptimizations": true,
+    "editor.minimap.enabled": false,
+    "editor.multiCursorModifier": "ctrlCmd",
+    "editor.renderControlCharacters": true,
+    "editor.renderWhitespace": "none",
+    "editor.snippetSuggestions": "top",
+    "editor.stickyScroll.enabled": true,
+    "editor.suggest.localityBonus": false,
+    "editor.wordBasedSuggestions": false,
+    "editor.wordWrap": "on",
+    "emojisense.unicodeCompletionsEnabled": true,
+    "explorer.confirmDelete": false,
+    "explorer.confirmDragAndDrop": false,
+    "extensions.ignoreRecommendations": true,
+    "files.autoSave": "onFocusChange",
+    "files.trimTrailingWhitespace": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.enableSmartCommit": true,
+    "go.autocompleteUnimportedPackages": true,
+    "go.buildOnSave": "off",
+    "go.coverageOptions": "showUncoveredCodeOnly",
+    "go.coverOnSave": false,
+    "go.coverShowCounts": true,
+    "go.formatTool": "goimports",
+    "go.gotoSymbol.includeGoroot": true,
+    "go.gotoSymbol.includeImports": true,
+    "go.lintTool": "golangci-lint",
+    "go.testOnSave": false,
+    "go.testTimeout": "1m",
+    "go.toolsManagement.autoUpdate": true,
+    "go.useCodeSnippetsOnFunctionSuggest": true,
+    "go.useCodeSnippetsOnFunctionSuggestWithoutType": true,
+    "go.useLanguageServer": true,
+    "go.vetOnSave": "off",
+    "intelephense.environment.phpVersion": "5.6.40",
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "partialDiff.enableTelemetry": false,
+    "python.envFile": "${workspaceFolder}/*.env",
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.pycodestyleEnabled": false,
+    "python.linting.pylintEnabled": true,
+    "python.testing.pytestEnabled": true,
+    "python.testing.unittestEnabled": true,
+    "redhat.telemetry.enabled": false,
+    "scm.providerCountBadge": "auto",
+    "security.workspace.trust.untrustedFiles": "open",
+    "synthwave84.brightness": 0.45,
+    "synthwave84.disableGlow": false,
+    "telemetry.telemetryLevel": "off",
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "trailing-spaces.deleteModifiedLinesOnly": true,
+    "trailing-spaces.liveMatching": false,
+    "trailing-spaces.trimOnSave": true,
+    "update.showReleaseNotes": false,
+    "window.newWindowDimensions": "maximized",
+    "window.restoreWindows": "none",
+    "window.title": "${dirty}${separator}${rootName}${separator}vs",
+    "window.titleSeparator": " • ",
+    "window.zoomLevel": -1,
+    "workbench.colorTheme": "SynthWave '84",
+    "workbench.editor.enablePreview": false,
+    "workbench.editor.restoreViewState": false,
+    "workbench.startupEditor": "newUntitledFile",
+}
