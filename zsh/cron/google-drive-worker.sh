@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 source $DOTFILES/setup/env.sh
 source $DOTFILES/zsh/google_drive_sync.zsh

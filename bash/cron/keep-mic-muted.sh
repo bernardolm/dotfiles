@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function keep_mic_muted() {
     [ ! -z $1 ] && echo "duration param is $1";

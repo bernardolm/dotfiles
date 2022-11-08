@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/usr/bin/env zsh
 
 source $DOTFILES/setup/env.sh
 source $DOTFILES/zsh/dropbox_sync.zsh

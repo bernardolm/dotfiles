@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 start_zsh_session() {
     local zsh_start_session=/tmp/zsh_session

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source ../init/env.sh
 source ../init/functions_loader.sh

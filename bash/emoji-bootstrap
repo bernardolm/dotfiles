@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 IFS='' read -r -d '' code << "EOF"
 import sys

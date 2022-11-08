@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 workdir="${XDG_DATA_HOME:-$HOME/.local/share}/wl-clipboard-manager"
 mkdir -p "$workdir"
