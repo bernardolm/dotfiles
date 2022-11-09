@@ -5,3 +5,12 @@
 [submodule "dotbot_plugin_aptget"]
 	path = dotbot_plugin_aptget
 	url = https://github.com/dein0s/dotbot_plugin_aptget.git
+[submodule "dotbot-golang"]
+	path = dotbot-golang
+	url = https://github.com/delicb/dotbot-golang
+[submodule "dotbot-pip"]
+	path = dotbot-pip
+	url = https://github.com/sobolevn/dotbot-pip.git
+[submodule "dotbot-snap"]
+	path = dotbot-snap
+	url = https://github.com/DrDynamic/dotbot-snap.git

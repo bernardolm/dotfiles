@@ -1,0 +1,36 @@
+- aptget:
+    - baobab
+    - blueman
+    - bluez
+    - chrome-gnome-shell
+    - conky
+    - dconf-editor
+    - fonts-emojione
+    - fonts-noto-color-emoji
+    - fonts-noto-mono
+    - fonts-powerline
+    - fonts-recommended
+    - fonts-symbola
+    - gnome-screenshot
+    - gnome-shell-extensions
+    - gnome-tweak-tool
+    - gnome-tweaks
+    - gparted
+    - meld
+    - network-manager-fortisslvpn-gnome
+    - python3-dev
+    - python3-pip
+    - python3-setuptools
+    - snapd
+    - stacer
+    - sublime-text
+    - ttf-ancient-fonts-symbola
+    - tweak
+    - ubuntu-keyboard-emoji
+    - ubuntu-restricted-extras
+    - xsane
+    - yaru-theme-gnome-shell
+    # - gthumb
+    # - redis-tools
+    # - syncthing
+    # - ttf-ancient-fonts
