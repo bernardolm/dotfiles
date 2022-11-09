@@ -12,10 +12,12 @@
     - gnome-3-28-1804
     - gnome-3-34-1804
     - gnome-3-38-2004
-    - google-cloud-sdk
+    - google-cloud-sdk:
+        classic: true
     - gtk-common-themes
     - gtk2-common-themes
-    - kubectl
+    - kubectl:
+        classic: true
     - mqtt-explorer
     - postman
     - redis-desktop-manager
