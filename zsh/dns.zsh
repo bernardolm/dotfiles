@@ -1,4 +1,4 @@
-function systemd_resolved_stop() {
+function dns_systemd_stop() {
     if [ $(sudo systemctl status systemd-resolved | grep 'Active: active' | wc -l | bc) -gt 0 ]; then
         sudo systemctl stop systemd-resolved
         sudo systemctl disable systemd-resolved
@@ -62,7 +62,7 @@ function dns_local_reset() {
     echo "Reset local DNS at $(date)"
     remove_all
     build
-    systemd_resolved_stop
+    dns_systemd_stop
     start
     docker ps --filter "name=$container_name"
     docker logs -n-1 $container_name

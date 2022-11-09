@@ -1,16 +1,16 @@
-function get_ips() {
+function vpn_get_ips() {
     local cmd="nslookup $1 | grep -A 10 'Non-authoritative answer' | \
         grep Address | cut -d' ' -f2"
     # echo "$cmd"
     eval $cmd
 }
 
-function ip_subnet() {
+function vpn_ip_subnet() {
     echo $(echo $1 | cut -d. -f1-3).0/24
 }
 
-function ip_route_add() {
-    local source_net=$(ip_subnet $1)
+function vpn_ip_route_add() {
+    local source_net=$(vpn_ip_subnet $1)
     local cmd="sudo ip route add $source_net via $2"
     # echo "$cmd"
     eval $cmd 2>/dev/null
@@ -20,17 +20,17 @@ function vpn_ip() {
     ip -o addr show up type ppp | /bin/awk '{print $4}'
 }
 
-function add_vpn_route() {
+function vpn_add_route() {
     local host=$1
-    local ips=($(get_ips $host))
+    local ips=($(vpn_get_ips $host))
     local local_vpn_ip=${2:=$(vpn_ip)}
 
-    get_ips $host | while read ip; do
-        ip_route_add "$ip" "$local_vpn_ip"
+    vpn_get_ips $host | while read ip; do
+        vpn_ip_route_add "$ip" "$local_vpn_ip"
     done
 }
 
-function add_vpn_routes() {
+function vpn_add_routes() {
     local now=$(date +"%Y%m%d%H%M%S")
 
     local file=${1:=$(last_backup_version vpn-routes csv)}
@@ -66,7 +66,7 @@ function add_vpn_routes() {
             && echo $line | tee -a $new_file &>/dev/null \
             && continue
 
-        add_vpn_route $host
+        vpn_add_route $host
 
         if [ $? -eq 0 ]; then
             echo $host";"$now";" | tee -a $new_file &>/dev/null

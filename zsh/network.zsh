@@ -1,4 +1,4 @@
-function reset_iptables() {
+function network_reset_iptables() {
     CMDS=(ip6tables iptables)
     echo "running for ${CMDS[@]}"
 
@@ -42,18 +42,18 @@ function reset_iptables() {
     sudo ufw status numbered
 }
 
-function setup_tunnel() {
+function networks_etup_tunnel() {
     sleep 15s
     add_vpn_routes
 }
 
 function vpn_hu() {
     figlet "VPN" -f /usr/share/figlet/slant.flf
-    # setup_tunnel &
+    # networks_etup_tunnel &
     start_vpn
 }
 
-function fix_wifi_wpa_ubuntu_22_04() {
+function network_fix_wifi_wpa_ubuntu_22_04() {
     if [ ! -f /etc/apt/sources.list.d/impish.list ]; then
         sudo /bin/cat <<'EOF' | sudo tee /etc/apt/sources.list.d/impish.list
 deb http://archive.ubuntu.com/ubuntu/impish main restricted universe multiverse

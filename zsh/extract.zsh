@@ -4,7 +4,7 @@
 # Note: .dmg/hdiutil is macOS-specific.
 #
 # credit: http://nparikh.org/notes/zshrc.txt
-extract () {
+function extract () {
     if [ -f $1 ]; then
         case $1 in
             *.tar.bz2)  tar -jxvf $1                        ;;

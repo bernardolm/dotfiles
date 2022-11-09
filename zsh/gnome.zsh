@@ -27,3 +27,8 @@ function gnome_sanitize() {
     sudo mv ~/.config/dconf/* ~/tmp/old-gnome-config/${NOW}
     dconf reset -f /org/gnome/
 }
+
+function gnome_extensions_reload() {
+    active_extensions=$(gsettings get org.gnome.shell enabled-extensions)
+    gsettings set org.gnome.shell enabled-extensions "$active_extensions"
+}

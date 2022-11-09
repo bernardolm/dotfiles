@@ -1,4 +1,4 @@
-function backup_crontab() {
+function crontab_backup() {
     mkdir -p $SYNC_PATH/crontab/
     [ -f $SYNC_PATH/crontab/$(hostname)_current.txt ] && mv \
         $SYNC_PATH/crontab/$(hostname)_current.txt $SYNC_PATH/crontab/$(hostname)_$(date +"%Y%m%d%H%M%S").txt
