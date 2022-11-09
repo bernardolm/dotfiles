@@ -1,6 +1,7 @@
 - aptget:
     - alacarte
     - apt-transport-https
+    - arc-theme
     - aspell-fr
     - baobab
     - bleachbit
@@ -62,6 +63,7 @@
     - libfdk-aac1
     - libgconf2-dev
     - libkeybinder-3.0-0
+    - libkeybinder3
     - libmemcached-tools
     - libmysqlclient-dev
     - libreoffice-calc
