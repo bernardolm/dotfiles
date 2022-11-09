@@ -45,3 +45,38 @@
 
 - shell:
     - [sudo chsh -s $(which zsh), Making zsh the default shell]
+
+- aptget:
+    - baobab
+    - blueman
+    - bluez
+    - chrome-gnome-shell
+    - conky
+    - dconf-editor
+    - fonts-emojione
+    - fonts-noto-color-emoji
+    - fonts-noto-mono
+    - fonts-powerline
+    - fonts-recommended
+    - fonts-symbola
+    - gnome-screenshot
+    - gnome-shell-extensions
+    - gnome-tweak-tool
+    - gnome-tweaks
+    - gparted
+    # - gthumb
+    - guake
+    - meld
+    - network-manager-fortisslvpn-gnome
+    # - redis-tools
+    - snapd
+    - stacer
+    - sublime-text
+    # - syncthing
+    # - ttf-ancient-fonts
+    - ttf-ancient-fonts-symbola
+    - tweak
+    - ubuntu-keyboard-emoji
+    - ubuntu-restricted-extras
+    - xsane
+    - yaru-theme-gnome-shell
