@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Hibernate
+GenericName=Hibernate
+Comment=Enter hibernation
+NoDisplay=false
+Icon=
+Exec=systemctl hibernate
+Terminal=true
+Categories=System;Utility;Settings;
