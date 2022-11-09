@@ -28,6 +28,9 @@
         "editor.formatOnSave": true,
     },
     "[xml]": {},
+    "[yaml]": {
+        "editor.defaultFormatter": "redhat.vscode-yaml"
+    },
     "dlvLoadConfig": {
         "maxVariableRecurse": 3,
         "maxStringLen": 1024,
@@ -233,5 +236,6 @@
     "workbench.colorTheme": "SynthWave '84",
     "workbench.editor.enablePreview": false,
     "workbench.editor.restoreViewState": false,
+    "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "newUntitledFile",
 }
