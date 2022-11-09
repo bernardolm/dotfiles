@@ -1,17 +1,47 @@
 - defaults:
     link:
-      relink: true
+        relink: true
+        glob: true
+        # force: true
+        # ignore-missing: true
+    clear:
+        recursive: true
 
-# - clean: ['~']
+- clean: ["~"]
 
 - link:
-#     ~/.tmux.conf: tmux.conf
-#     ~/.vim: vim
-#     ~/.vimrc: vimrc
-
-# - create:
-#     - ~/downloads
-#     - ~/.vim/undo-history
+    /etc/apt/sources.list.d: $SYNC_PATH/etc/apt/sources.list.d
+    ~/.config/:
+        glob: true
+        path: .config/*
+        relink: true
+        exclude: [ .config/Code ]
+    ~/.config/Code/User/:
+        create: true
+        glob: true
+        path: .config/Code/User/*
+        relink: true
+    ~/.config/rclone: $SYNC_PATH/.config/rclone
+    ~/.curecoin: $SYNC_PATH/.curecoin
+    ~/.epsonscan2: $SYNC_PATH/.epsonscan2
+    ~/.ethereum: $SYNC_PATH/.ethereum
+    ~/.gitconfig: .gitconfig
+    ~/.icons: $SYNC_PATH/.icons
+    ~/.inputrc: .inputrc
+    ~/.local/share/: $SYNC_PATH/.local/share/*
+    ~/.local/share/applications: $SYNC_PATH/.local/share/applications
+    ~/.local/share/fonts: $SYNC_PATH/.local/share/fonts
+    ~/.local/share/gnome-shell: $SYNC_PATH/.local/share/gnome-shell
+    ~/.musicoin: $SYNC_PATH/.musicoin
+    ~/.pypirc: $SYNC_PATH/.pypirc
+    ~/.screenrc: .screenrc
+    ~/.themes: $SYNC_PATH/.themes
+    ~/.wakatime.cfg: $SYNC_PATH/.wakatime.cfg
+    ~/.zshrc: .zshrc
+    ~/env.sh: zsh/init/30_env.zsh
+    ~/Pictures/Wallpapers: $SYNC_PATH/Pictures/Wallpapers
+    ~/ProgramasRFB: $SYNC_PATH/ProgramasRFB
+    ~/Sync: ~/Dropbox
 
 - shell:
-  - [git submodule update --init --recursive, Installing submodules]
+    - [sudo chsh -s $(which zsh), Making zsh the default shell]
