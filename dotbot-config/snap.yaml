@@ -1,8 +1,14 @@
 - snap:
-    - bare
-    - beekeeper-studio
     - code:
         classic: true
+    - google-cloud-sdk:
+        classic: true
+    - kubectl:
+        classic: true
+    - micro:
+        classic: true
+    - bare
+    - beekeeper-studio
     - core
     - core18
     - core20
@@ -12,12 +18,8 @@
     - gnome-3-28-1804
     - gnome-3-34-1804
     - gnome-3-38-2004
-    - google-cloud-sdk:
-        classic: true
     - gtk-common-themes
     - gtk2-common-themes
-    - kubectl:
-        classic: true
     - mqtt-explorer
     - postman
     - redis-desktop-manager

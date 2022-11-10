@@ -5,6 +5,8 @@ __pycache__
 *.zip
 *.zsh.zwc
 **/*.pid
+**/micro/plug
+**/micro/buffers
 *bluetooth*
 *phone.py
 *venv/

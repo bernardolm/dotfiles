@@ -1,0 +1,9 @@
+{
+  "files.exclude": {
+    "dotbot": true,
+    "dotbot_plugin_aptget": true,
+    "dotbot-golang": true,
+    "dotbot-pip": true,
+    "dotbot-snap": true,
+  }
+}

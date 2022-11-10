@@ -13,10 +13,13 @@ plugins=($(echo $plugins))
 
 $DEBUG_SHELL && _info "oh-my-zsh plugins='$plugins'"
 
+# Docker completions
+[ ! -f "$ZSH/plugins/docker/_docker" ] && curl -fLo "$ZSH/plugins/docker/_docker" https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
+
 # Needed to load it's plugins
 source "$ZSH/oh-my-zsh.sh"
 
-/bin/cat "$DOTFILES/ohmyzsh/plugins.txt" | grep '/' | while read -r file ; do
+/bin/cat "$DOTFILES/ohmyzsh/plugins.txt" | grep -v '#' | grep '/' | while read -r file ; do
     zshfile=$(echo $file | cut -d "/" -f2);
     source ~/.antigen/bundles/$file/$zshfile.zsh;
 done

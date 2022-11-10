@@ -1,7 +1,9 @@
 autopep8
 bumpversion
 colorama
+colorz
 flake8
+gcalcli
 ipdb
 oauth2client
 pandas
@@ -14,8 +16,10 @@ pylint
 pyopenssl
 pytest
 python-slugify
+pywal
 supervisor
 tasmotizer
 thefuck
+vobject
 w1thermsensor
 wheel

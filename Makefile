@@ -11,7 +11,7 @@ base:
 	-./install -c ./dotbot-config/base.yaml
 
 apt:
-	-sudo ./install -c ./dotbot-config/aptget.yaml \
+	-sudo ./install -c ./dotbot-config/apt.yaml \
 		-p ./dotbot_plugin_aptget/aptget.py
 
 go:

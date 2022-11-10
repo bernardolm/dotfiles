@@ -46,7 +46,7 @@ function msg_end() {
 
 [ $DEBUG ] && set -x
 
-# DEBUG_SHELL=true
+DEBUG_SHELL=true
 
 export DEBUG_SHELL
 DEBUG_SHELL=$(test -z "$DEBUG_SHELL" && echo "false" || echo $DEBUG_SHELL)

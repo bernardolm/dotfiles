@@ -1,5 +1,7 @@
 export EDITOR=nano
 export LANG=en_US.UTF-8
+export MICRO_TRUECOLOR=1
+export TERM=xterm-256color
 
 export USER_TMP=$(mktemp -d)
 

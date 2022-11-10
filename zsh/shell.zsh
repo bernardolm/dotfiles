@@ -53,3 +53,7 @@ function is_number() {
         && echo 1 \
         || echo 0
 }
+
+function files_count() {
+    find "$1" -type f 2> /dev/null | wc -l | bc
+}

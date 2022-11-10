@@ -12,7 +12,10 @@ dotenv
 extract
 fzf
 git
+git-flow
+github
 golang
+history
 kubectl
 man
 nmap
@@ -20,6 +23,7 @@ pip
 python
 rsync
 screen
+sublime
 sudo
 thefuck
 timer
@@ -27,5 +31,3 @@ ubuntu
 vscode
 zsh-interactive-cd
 zsh-navigation-tools
-zsh-users/zsh-autosuggestions
-zsh-users/zsh-syntax-highlighting

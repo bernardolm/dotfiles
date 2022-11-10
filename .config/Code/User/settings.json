@@ -238,4 +238,7 @@
     "workbench.editor.restoreViewState": false,
     "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "newUntitledFile",
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
 }
