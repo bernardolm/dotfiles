@@ -1,5 +1,8 @@
 // Place your settings in this file to overwrite the default settings
 {
+    "[css]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "[dockerfile]": {
         "editor.defaultFormatter": null,
     },
@@ -45,7 +48,7 @@
         "*.migration": "sql",
         "*.env": "dotenv",
         "*.zsh_history": "shellscript",
-        "*.conf": "xml"
+        "*conky*.conf": "conky"
     },
     "files.watcherExclude": {
         "**/.git": true,
@@ -238,7 +241,4 @@
     "workbench.editor.restoreViewState": false,
     "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "newUntitledFile",
-    "[css]": {
-        "editor.defaultFormatter": "esbenp.prettier-vscode"
-    },
 }

@@ -1,1 +1,11 @@
-{}
+{
+    "Alt-/": "lua:comment.comment",
+    "Alt-a": "lua:snippets.Accept",
+    "Alt-d": "lua:snippets.Cancel",
+    "Alt-s": "lua:snippets.Insert",
+    "Alt-w": "lua:snippets.Next",
+    "CtrlUnderscore": "lua:comment.comment",
+    "F4": "command:jumptag",
+    "F5": "lua:wc.wordCount",
+    "F6": "command-edit:gorename "
+}

@@ -7,4 +7,5 @@ eval "$(starship init zsh)"
 
 source "$HOME/.cargo/env"
 
-source "$DOTFILES/zsh/conky.zsh"; conky_init
+source "$DOTFILES/zsh/conky.zsh"
+conky_restart
