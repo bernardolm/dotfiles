@@ -19,7 +19,8 @@ $DEBUG_SHELL && _info "oh-my-zsh plugins='$plugins'"
 # Needed to load it's plugins
 source "$ZSH/oh-my-zsh.sh"
 
-/bin/cat "$DOTFILES/ohmyzsh/plugins.txt" | grep -v '#' | grep '/' | while read -r file ; do
-    zshfile=$(echo $file | cut -d "/" -f2);
-    source ~/.antigen/bundles/$file/$zshfile.zsh;
+find ~/.antigen/bundles -maxdepth 3 -name '*.zsh' | while read -r file; do
+    source $file
 done
+
+chmod +x /home/bernardo/.local/bin/register-python-argcomplete

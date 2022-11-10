@@ -36,7 +36,6 @@ MenkeTechnologies/zsh-cargo-completion
 MenkeTechnologies/zsh-more-completions
 molovo/revolver
 nmap
-paulmelnikow/zsh-startup-timer
 pip
 python
 reegnz/jq-zsh-plugin

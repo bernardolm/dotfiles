@@ -11,12 +11,8 @@
     - build-essential
     - ca-certificates
     - chrome-gnome-shell
-    - clamav
-    - clamav-base
-    - clamav-daemon
-    - clamav-freshclam
     - colortest
-    - conky
+    - conky-all
     - curl
     - dconf-cli
     - dconf-editor
@@ -43,8 +39,6 @@
     - gir1.2-wnck-3.0
     - git
     - gnome-calendar
-    - gnome-clocks
-    - gnome-panel
     - gnome-screenshot
     - gnome-shell-extensions
     - gnome-tweak-tool
@@ -77,7 +71,6 @@
     - libvulkan-dev
     - libvulkan1
     - libxml2-utils
-    - lxappearance
     - make
     - mariadb-client-10.3
     - meld
@@ -86,15 +79,12 @@
     - nmap
     - nodejs
     - npm
-    - openssh-server
-    - openvpn
-    - pandoc
     - pm-utils
     - pocillo-icon-theme
-    - powertop
     - python-pygments
     - python3
     - python3-all-dev
+    - python3-argcomplete
     - python3-cairo
     - python3-dbus
     - python3-dev
@@ -103,12 +93,6 @@
     - python3-pbr
     - python3-pip
     - python3-setuptools
-    - qml-module-qt-labs-platform
-    - qml-module-qtquick-controls
-    - qml-module-qtquick-dialogs
-    - qml-module-qtwebchannel
-    - qml-module-qtwebengine
-    - resolvconf
     - samba
     - screen
     - shellcheck
@@ -132,15 +116,13 @@
     - vlc
     - vulkan-utils
     - wget
-    - winetricks
     - wl-clipboard
+    - wmctrl
     - xclip
+    - xdotool
     - xsane
     - xsel
+    - yarn
     - yaru-theme-gnome-shell
     - zsh
     - zshdb
-    # - gthumb
-    # - redis-tools
-    # - syncthing
-    # - ttf-ancient-fonts
