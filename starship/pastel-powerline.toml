@@ -119,7 +119,7 @@ style = "bg:#86BBD8"
 format = '[ $symbol ($version) ]($style)'
 
 [cmd_duration]
-min_time = 100
+min_time = 7000
 style = "bg:#33658A"
 format = '[ $duration ]($style)'
 min_time_to_notify=30000

@@ -27,7 +27,7 @@ if [ ! -f "$ANTIGEN" ]; then
 
     antigen apply
 
-    # antigen cache-gen
+    antigen cache-gen
 else
     antigen_start
 fi

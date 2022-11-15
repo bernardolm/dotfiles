@@ -1,6 +1,3 @@
-test -z "$debugfileloaded" || return 1
-export debugfileloaded="yes"
-
 function _echo() {
     local icon
     icon="$1"

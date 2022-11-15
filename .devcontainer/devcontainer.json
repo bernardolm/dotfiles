@@ -1,0 +1,89 @@
+{
+	"name": "Default Linux Universal",
+	// "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
+	"dockerFile": "Dockerfile",
+	"settings": {
+		"files.exclude": {
+			"**/CODE_OF_CONDUCT.md": true,
+			"**/LICENSE": true
+		}
+	},
+	"features": {
+		"ghcr.io/devcontainers/features/desktop-lite:1": {},
+		"ghcr.io/devcontainers/features/docker-from-docker:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:1": {},
+		"ghcr.io/devcontainers/features/git-lfs:1": {},
+		"ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers/features/go:1": {},
+		"ghcr.io/devcontainers/features/python:1": {},
+		"ghcr.io/devcontainers/features/sshd:1": {},
+		"ghcr.io/devcontainers-contrib/features/pylint:1": {},
+		"ghcr.io/dhoeric/features/act:1": {},
+		"ghcr.io/guiyomh/features/golangci-lint:0": {},
+		"ghcr.io/guiyomh/features/goreleaser:0": {},
+		"ghcr.io/guiyomh/features/gotestsum:0": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"aaron-bond.better-comments",
+				"AaronYoung.dark-synthwave-vscode",
+				"ajshortt.tokyo-hack",
+				"atdushi.conky",
+				"Avarayr.synthwave-refined",
+				"bierner.emojisense",
+				"bmewburn.vscode-intelephense-client",
+				"bungcip.better-toml",
+				"csdotav.synthwave84-monokai-edition",
+				"dakara.transformer",
+				"dustypomerleau.rust-syntax",
+				"eamodio.gitlens",
+				"esbenp.prettier-vscode",
+				"foxundermoon.shell-format",
+				"golang.go",
+				"mads-hartmann.bash-ide-vscode",
+				"mikestead.dotenv",
+				"ms-azuretools.vscode-docker",
+				"ms-python.isort",
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"ms-vscode.makefile-tools",
+				"oderwat.indent-rainbow",
+				"ohaihfo.synthwave-x-fluoromachine-avant-noir",
+				"redhat.vscode-xml",
+				"redhat.vscode-yaml",
+				"riccardoNovaglia.missinglineendoffile",
+				"RobbOwen.synthwave-vscode",
+				"rust-lang.rust-analyzer",
+				"ryu1kn.partial-diff",
+				"sabrsorensen.synthwave-blues",
+				"sanchodelniglo.synthwave-80s-color-theme",
+				"serayuzgur.crates",
+				"shakram02.bash-beautify",
+				"shardulm94.trailing-spaces",
+				"Swellaby.rust-pack",
+				"TheCodemonkey.synthwave-x-fluoromachine-epic-animations",
+				"timonwong.shellcheck",
+				"VisualStudioExptTeam.intellicode-api-usage-examples",
+				"VisualStudioExptTeam.vscodeintellicode",
+				"vscode-icons-team.vscode-icons",
+				"WakaTime.vscode-wakatime",
+				"wayou.vscode-todo-highlight",
+				"webrender.synthwave-x-fluoromachine",
+				"wmaurer.change-case",
+				"xdebug.php-debug"
+			]
+		}
+	},
+	// Features to add to the dev container. More info: https://containers.dev/implementors/features.
+	// "features": {},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "uname -a",
+	// Configure tool-specific properties.
+	// "customizations": {},
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+	"postCreateCommand": ".devcontainer/postCreate.sh"
+}
