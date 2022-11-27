@@ -7,6 +7,9 @@ default:
 reset:
 	@reset
 
+sudo:
+	-sudo ./install -c ./dotbot-config/sudo.yaml
+
 base:
 	-./install -c ./dotbot-config/base.yaml
 
@@ -26,4 +29,4 @@ snap:
 	-./install -c ./dotbot-config/snap.yaml \
 		-p ./dotbot-snap/snap.py
 
-setup: reset base apt go pip snap
+setup: reset sudo base apt go pip snap

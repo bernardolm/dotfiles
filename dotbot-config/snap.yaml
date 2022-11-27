@@ -7,6 +7,8 @@
     classic: true
   - micro:
     classic: true
+  - nvim:
+    classic: true
   - bare
   - beekeeper-studio
   - core
@@ -23,7 +25,6 @@
   - gtk2-common-themes
   - hunspell-dictionaries-1-7-2004
   - mqtt-explorer
-  - nvim
   - postman
   - redis-desktop-manager
   - snap-store

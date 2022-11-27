@@ -19,7 +19,6 @@
         glob: true
         path: .config/Code/User/*
         relink: true
-    /etc/apt/sources.list.d: $SYNC_PATH/etc/apt/sources.list.d
     ~/.config/rclone: $SYNC_PATH/.config/rclone
     ~/.curecoin: $SYNC_PATH/.curecoin
     ~/.epsonscan2: $SYNC_PATH/.epsonscan2
@@ -41,15 +40,8 @@
     ~/Sync: ~/Dropbox
 
 - shell:
-    - [echo "fs.file-max=131072" | sudo tee -a /etc/sysctl.conf]
-    - [echo "vm.max_map_count=524288" | sudo tee -a /etc/sysctl.conf]
-    - [echo "vm.swappiness=25" | sudo tee -a /etc/sysctl.conf]
     - [fc-cache -f -v, Updating font cache]
     - [gconftool-2 --shutdown]
     - [gconftool-2 --spawn]
     - [gnome-extensions disable ubuntu-dock@ubuntu.com, Disabling ubuntu dock]
     - [gsettings set org.cinnamon.desktop.wm.preferences num-workspaces 1, Disabling workspaces]
-    - [sudo chsh -s $(which zsh), Making zsh the default shell]
-    - [sudo dpkg --add-architecture i386]
-    - [sudo ulimit -n 131072 || true]
-    - [sudo ulimit -u 8192 || true]

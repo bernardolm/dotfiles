@@ -73,3 +73,6 @@
 
 [include]
     path = ~/Sync/config-backup/.gitconfig_work
+[safe]
+	directory = /home/bernardo/workspaces/bernardolm/dotfiles/dotbot
+	directory = /home/bernardo/workspaces/bernardolm/dotfiles/dotbot
