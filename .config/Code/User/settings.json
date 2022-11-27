@@ -17,7 +17,8 @@
     },
     "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features",
-        "editor.tabSize": 2
+        "editor.tabSize": 2,
+        "editor.formatOnPaste": true
     },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features",
@@ -32,7 +33,8 @@
     },
     "[xml]": {},
     "[yaml]": {
-        "editor.defaultFormatter": "redhat.vscode-yaml"
+        "editor.defaultFormatter": "redhat.vscode-yaml",
+        "editor.tabSize": 2
     },
     "dlvLoadConfig": {
         "maxVariableRecurse": 3,

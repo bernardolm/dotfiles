@@ -29,9 +29,6 @@
     ~/.icons: $SYNC_PATH/.icons
     ~/.inputrc: .inputrc
     ~/.local/share/: $SYNC_PATH/.local/share/*
-    ~/.local/share/applications: $SYNC_PATH/.local/share/applications
-    ~/.local/share/fonts: $SYNC_PATH/.local/share/fonts
-    ~/.local/share/gnome-shell: $SYNC_PATH/.local/share/gnome-shell
     ~/.musicoin: $SYNC_PATH/.musicoin
     ~/.pypirc: $SYNC_PATH/.pypirc
     ~/.screenrc: .screenrc

@@ -52,7 +52,6 @@ trapd00r/LS_COLORS
 ubuntu
 vscode
 wbingli/zsh-wakatime
-wuotr/zsh-plugin-vscode
 zdharma-continuum/zsh-navigation-tools
 zsh-activate-py-environment
 zsh-bash-completions-fallback
