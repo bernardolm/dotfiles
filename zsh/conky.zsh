@@ -3,18 +3,20 @@ function conky_kill() {
 }
 
 function conky_start() {
-    conky -q -d --font='NovaMono:size=12'
+    test -z $DEBUG || DEBUG=" -D "
+    conky ${DEBUG} --config "$DOTFILES/.config/conky/left.conf"
+    conky ${DEBUG} --config "$DOTFILES/.config/conky/right.conf"
 }
 
 function conky_instances() {
-    ps auxwf | grep -v grep | grep '_ conky' | wc -l | bc
+    ps auxwf | grep -v grep | grep "_ conky" | wc -l | bc
 }
 
 function conky_restart() {
     local instaces
     instaces=$(conky_instances)
-    notify-send "conky (re)starting" "$(conky_instances) were running."
+    # notify-send "conky (re)starting" "$(conky_instances) were running."
     conky_kill
     sleep 1
-    conky_start
+    conky_start $@
 }
