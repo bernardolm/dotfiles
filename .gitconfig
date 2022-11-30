@@ -64,12 +64,6 @@
 [commit]
 	gpgsign = true
 
-[gpg]
-	format = ssh
-
-[gpg "ssh"]
-	allowedSignersFile = /home/bernardo/.ssh/allowed_signers
-
 [branch]
     sort = -committerdate
 
