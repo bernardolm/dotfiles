@@ -28,10 +28,6 @@
     untrackedCache = true
     whitespace = space-before-tab,-indent-with-non-tab,trailing-space
 
-[gpg]
-    format = ssh
-    program = gpg
-
 [alias]
     mv-index = "!f() { \
         old=\"$1\"; \
@@ -55,8 +51,8 @@
     autocorrect = 1
 
 [diff]
-#    external = $DOTFILES/zsh/git-diff.sh
-    tool = default-difftool
+    # external = $DOTFILES/zsh/git-diff.sh
+    # tool = default-difftool
     renames = copies
 
 [difftool "default-difftool"]
@@ -66,13 +62,19 @@
     defaultBranch = main
 
 [commit]
-    gpgsign = true
+	gpgsign = true
+
+[gpg]
+	format = ssh
+
+[gpg "ssh"]
+	allowedSignersFile = /home/bernardo/.ssh/allowed_signers
 
 [branch]
     sort = -committerdate
 
-[include]
-    path = ~/Sync/config-backup/.gitconfig_work
 [safe]
 	directory = /home/bernardo/workspaces/bernardolm/dotfiles/dotbot
-	directory = /home/bernardo/workspaces/bernardolm/dotfiles/dotbot
+
+[include]
+    path = ~/Sync/config-backup/.gitconfig_work
