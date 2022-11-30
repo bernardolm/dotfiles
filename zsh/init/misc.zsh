@@ -14,3 +14,5 @@ if [[ `uname` == Linux ]] then
     eval "$(/usr/bin/keychain --quiet --eval $HOME/.ssh/id_ed25519)"
     source $HOME/.keychain/$HOST-sh
 fi
+
+export GPG_TTY=$(tty)
