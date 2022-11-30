@@ -54,6 +54,8 @@
   - gthumb
   - htop
   - jq
+  - llvm-7
+  - llvm-7-dev
   - make
   - mariadb-client-10.3
   - meld

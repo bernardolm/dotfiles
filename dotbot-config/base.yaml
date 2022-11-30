@@ -40,8 +40,17 @@
     ~/Sync: ~/Dropbox
 
 - shell:
-    - [fc-cache -f -v, Updating font cache]
+    - [fc-cache -f, Updating font cache]
     - [gconftool-2 --shutdown]
     - [gconftool-2 --spawn]
-    - [gnome-extensions disable ubuntu-dock@ubuntu.com, Disabling ubuntu dock]
-    - [gsettings set org.cinnamon.desktop.wm.preferences num-workspaces 1, Disabling workspaces]
+    - [gnome-extensions disable auto-move-windows@gnome-shell-extensions.gcampax.github.com, disabling unused ubuntu extensions]
+    - [gnome-extensions disable ding@rastersoft.com, disabling unused ubuntu extensions]
+    - [gnome-extensions disable ubuntu-dock@ubuntu.com, disabling unused ubuntu extensions]
+    - [gnome-extensions disable window-list@gnome-shell-extensions.gcampax.github.com, disabling unused ubuntu extensions]
+    - [gnome-extensions disable windowsNavigator@gnome-shell-extensions.gcampax.github.com, disabling unused ubuntu extensions]
+    - [gnome-extensions disable workspace-indicator@gnome-shell-extensions.gcampax.github.com, disabling unused ubuntu extensions]
+    - [gsettings set org.cinnamon.desktop.wm.preferences num-workspaces 1, disabling workspaces]
+    - [gsettings set org.gnome.shell enable-hot-corners true, disabling hot corner]
+    - [gsettings set org.gnome.shell.extensions.dash-to-dock autohide false, disabling dock]
+    - [gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false, disabling dock]
+    - [gsettings set org.gnome.shell.extensions.dash-to-dock intellihide false, disabling dock]
