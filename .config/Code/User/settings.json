@@ -3,6 +3,9 @@
     "[css]": {
         "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
+    "[**/fontconfig/**.conf]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
     "[dockerfile]": {
         "editor.defaultFormatter": null,
     },
@@ -31,7 +34,9 @@
         "editor.formatOnPaste": true,
         "editor.formatOnSave": true,
     },
-    "[xml]": {},
+    "[xml]": {
+        "editor.defaultFormatter": "DotJoshJohnson.xml"
+    },
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.tabSize": 2
@@ -50,7 +55,8 @@
         "*.migration": "sql",
         "*.env": "dotenv",
         "*.zsh_history": "shellscript",
-        "*conky*.conf": "conky"
+        "*conky*.conf": "conky",
+        "**/fontconfig/**.conf": "xml"
     },
     "files.watcherExclude": {
         "**/.git": true,
