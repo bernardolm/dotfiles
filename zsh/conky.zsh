@@ -3,9 +3,13 @@ function conky_kill() {
 }
 
 function conky_start() {
-    test -z $DEBUG || DEBUG=" -D "
-    conky ${DEBUG} --config "$DOTFILES/.config/conky/left.conf"
-    conky ${DEBUG} --config "$DOTFILES/.config/conky/right.conf"
+    local attrs=" --quiet --daemonize "
+    if [ ! -z "$DEBUG" ]; then
+        attrs=" -D "
+    fi
+
+    eval conky ${attrs} --config "$DOTFILES/.config/conky/left.conf"
+    eval conky ${attrs} --config "$DOTFILES/.config/conky/right.conf"
 }
 
 function conky_instances() {
@@ -18,5 +22,5 @@ function conky_restart() {
     # notify-send "conky (re)starting" "$(conky_instances) were running."
     conky_kill
     sleep 1
-    conky_start $@
+    conky_start
 }
