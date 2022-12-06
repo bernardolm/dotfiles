@@ -11,3 +11,4 @@ __pycache__
 *phone.py
 *venv/
 debian/*
+.config/autostart/gnome-keyring-ssh.desktop
