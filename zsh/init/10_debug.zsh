@@ -28,12 +28,12 @@ function _is_command_success() {
     fi
 }
 
-function msg_start() {
+function _starting() {
     _echo "🥚" "$GREEN" "starting $@..."
 }
 
 
-function msg_end() {
+function _finishing() {
     _echo "🦖" "$RED" "$@ was finished."
 }
 

@@ -17,7 +17,7 @@ function dns_local_reset() {
     }
 
     function kill_53_port_user() {
-        sudo lsof -t -i:53 | while read pid; do
+        sudo lsof -t -i:53 | while read -r pid; do
             sudo kill -9 $pid
         done
         sudo killall -HUP dnsmasq 2>/dev/null
@@ -29,7 +29,7 @@ function dns_local_reset() {
     }
 
     function remove_all() {
-        running | while read container_id; do
+        running | while read -r container_id; do
             docker stop $container_id
             docker rm $container_id
         done

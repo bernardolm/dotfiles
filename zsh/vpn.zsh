@@ -25,7 +25,7 @@ function vpn_add_route() {
     local ips=($(vpn_get_ips $host))
     local local_vpn_ip=${2:=$(vpn_ip)}
 
-    vpn_get_ips $host | while read ip; do
+    vpn_get_ips $host | while read -r ip; do
         vpn_ip_route_add "$ip" "$local_vpn_ip"
     done
 }
@@ -47,7 +47,7 @@ function vpn_add_routes() {
 
     sudo echo "you give root permission"
 
-    cat $file | while read line; do
+    cat $file | while read -r line; do
         ((count=count+1))
 
         if [[ `which_shell` == "zsh" ]]; then

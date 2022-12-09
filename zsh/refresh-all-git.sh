@@ -81,7 +81,7 @@ update_repo() {
 }
 
 iter_paths() {
-    $(echo $1) | while read f; do
+    $(echo $1) | while read -r f; do
         if [[ $f == *"dotfiles"* ]]; then
             continue
         fi

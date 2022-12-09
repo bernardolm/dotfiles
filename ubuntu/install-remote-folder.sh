@@ -3,7 +3,7 @@
 source ../init/env.sh
 source ../init/functions_loader.sh
 
-msg_start 'remote folder'
+_starting 'remote folder'
 
 function install_dropbox() {
     function is_dropbox_finish() {
@@ -33,4 +33,4 @@ function install_dropbox() {
 
 install_dropbox
 
-msg_end 'remote folder'
+_finishing 'remote folder'

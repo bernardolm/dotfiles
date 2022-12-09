@@ -3,7 +3,7 @@
 # source ../init/env.sh
 # source ../init/functions_loader.sh
 
-msg_start 'setting ssh'
+_starting 'setting ssh'
 
 if [ ! -f ~/.ssh/id_ed25519 ]; then
     ssh-keygen -t ed25519 -C "$(git config user.email)"
@@ -15,4 +15,4 @@ if [ ! -f ~/.ssh/id_ed25519 ]; then
     read -p "Press enter to continue..." y
 fi
 
-msg_end 'setting ssh'
+_finishing 'setting ssh'

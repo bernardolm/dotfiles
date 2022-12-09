@@ -3,7 +3,7 @@
 source ../init/env.sh
 source ../init/functions_loader.sh
 
-msg_start 'docker'
+_starting 'docker'
 
 if [ ! $(command -v docker) ]; then
     sudo apt-get install --yes docker-ce docker-desktop docker-ce-cli containerd.io
@@ -11,4 +11,4 @@ if [ ! $(command -v docker) ]; then
     [ $(getent group docker | grep $USER | wc -l | bc) -eq 0 ] && sudo usermod -aG docker $USER
 fi
 
-msg_end 'docker'
+_finishing 'docker'

@@ -119,7 +119,7 @@ function git_clone_repos_by_url() {
 
     function iterate_page_result() {
         PAGE=$1
-        /bin/cat $TMP/page_$PAGE.json | sed -r 's/\\"//g' | jq -r -c '.[]' | while read item; do
+        /bin/cat $TMP/page_$PAGE.json | sed -r 's/\\"//g' | jq -r -c '.[]' | while read -r item; do
             git_clone $(jq -r -c '.name' <<<$item) $(jq -r -c '.ssh_url' <<<$item);
         done
     }
