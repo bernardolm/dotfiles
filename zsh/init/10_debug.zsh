@@ -17,7 +17,7 @@ function _info() {
 }
 
 function _warn() {
-    _echo "🚧" "$RED" "$@"
+    _echo "🚧" "$YELLOW" "$@"
 }
 
 function _is_command_success() {
@@ -29,12 +29,12 @@ function _is_command_success() {
 }
 
 function _starting() {
-    _echo "🥚" "$GREEN" "starting $@..."
+    _echo "🥚" "$PURPLE" "starting $@..."
 }
 
 
 function _finishing() {
-    _echo "🦖" "$RED" "$@ was finished."
+    _echo "🦖" "$PURPLE" "$@ was finished."
 }
 
 # -e: exit on error
