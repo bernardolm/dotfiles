@@ -14,3 +14,6 @@
 [submodule "dotbot-snap"]
 	path = dotbot-snap
 	url = https://github.com/DrDynamic/dotbot-snap.git
+[submodule "antigen"]
+	path = antigen
+	url = https://github.com/zsh-users/antigen.git
