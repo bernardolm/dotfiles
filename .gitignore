@@ -1,14 +1,14 @@
 __pycache__
+.config/autostart/gnome-*.desktop
 *.bin
 *.deb
 *.tar.gz
 *.zip
 *.zsh.zwc
 **/*.pid
-**/micro/plug
 **/micro/buffers
+**/micro/plug
 *bluetooth*
 *phone.py
 *venv/
 debian/*
-.config/autostart/gnome-keyring-ssh.desktop
