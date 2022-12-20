@@ -1,52 +1,33 @@
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
-
-setopt autocd
-setopt beep
-setopt extended_history
-setopt extendedglob
-setopt hist_ignore_dups
-setopt inc_append_history
-setopt nomatch
-setopt notify
-setopt share_history
-unsetopt correct
-unsetopt hist_save_by_copy
-
-$DEBUG_SHELL || setopt promptsubst
-
-export SAVEHIST=999999
-
 export HISTDUP=erase # Erase duplicates in the history file
 export HISTFILE="$SYNC_PATH/.zsh_history" # Where to save history to disk
 export HISTSIZE="$SAVEHIST"
-
-setopt NO_BG_NICE # don't nice background tasks
-setopt NO_HUP
-setopt NO_LIST_BEEP
-setopt LOCAL_OPTIONS # allow functions to have local options
-setopt LOCAL_TRAPS # allow functions to have local traps
-setopt HIST_VERIFY
-setopt SHARE_HISTORY # share history between sessions ???
-setopt EXTENDED_HISTORY # add timestamps to history
-setopt PROMPT_SUBST
-# setopt CORRECT
-setopt COMPLETE_IN_WORD
-setopt IGNORE_EOF
-
-setopt APPEND_HISTORY # adds history
-setopt INC_APPEND_HISTORY SHARE_HISTORY  # adds history incrementally and share it across sessions
-setopt HIST_IGNORE_ALL_DUPS  # don't record dupes in history
-setopt HIST_REDUCE_BLANKS
-
-# don't expand aliases _before_ completion has finished
-#   like: git comm-[tab]
-setopt complete_aliases
-
-bindkey -e
-
-# autoload -U compinstall
-
+export SAVEHIST=999999
 export ZSH_WAKATIME_PROJECT_DETECTION=true
 
-# cat ~/.cache/wal/sequences
-# source ~/.cache/wal/colors-tty.sh
+$DEBUG_SHELL || setopt PROMPT_SUBST # if is set, the prompt string is first subjected to parameter expansion, command substitution and arithmetic expansion.
+
+setopt APPEND_HISTORY # add cmd to history, don't replace. to share history across sessions.
+setopt AUTO_CD # exec cd if cmd is a folder.
+setopt BEEP # beep on error in zle.
+setopt complete_aliases # prevents aliases on the command line from being internally substituted before completion is attempted. the effect is to make the alias a distinct command for completion purposes.
+setopt COMPLETE_IN_WORD # do not go to the end of the word in the completing
+setopt CORRECT # try to correct the spelling of commands
+setopt CORRECT_ALL # try to correct the spelling of arguments too
+setopt EXTENDED_HISTORY # add timestamps to history
+setopt EXTENDEDGLOB # treat the ‘#’, ‘~’ and ‘^’ characters as part of patterns for filename generation
+setopt HIST_IGNORE_ALL_DUPS # remove old entry when an already existing cmd is added
+setopt HIST_IGNORE_DUPS # do not enter command lines into the history list if they are duplicates of the previous event.
+setopt HIST_REDUCE_BLANKS # remove superfluous blanks from each command line being added to the history list.
+setopt HIST_SAVE_BY_COPY # when the history file is re-written, we normally write out a copy of the file named $histfile.new and then rename it over the old one.
+setopt HIST_VERIFY # whenever the user enters a line with history expansion, don’t execute the line directly; instead, perform history expansion and reload the line into the editing buffer.
+setopt IGNORE_EOF # do not exit on end-of-file. require the use of exit or logout instead
+setopt INC_APPEND_HISTORY # this option works like append_history except that new history lines are added to the $histfile incrementally (as soon as they are entered), rather than waiting until the shell exits
+setopt LIST_BEEP # beep on an ambiguous completion.
+setopt PROMPT_SUBST # if set, parameter expansion, command substitution and arithmetic expansion are performed in prompts
+setopt SHARE_HISTORY # this option both imports new commands from the history file, and also causes your typed commands to be appended to the history file
+unsetopt HUP # don't kill bg process when terminal is killed or exited
+unsetopt NOMATCH # if a pattern for filename generation has no matches, print an error
+unsetopt NOTIFY # report the status of background jobs immediately,
+
+# Ref.: https://zsh.sourceforge.io/Doc/Release/Options.html

@@ -249,4 +249,5 @@
     "workbench.editor.restoreViewState": false,
     "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "newUntitledFile",
+    "window.zoomLevel": -1,
 }

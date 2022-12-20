@@ -1,26 +1,42 @@
-export ZSH
+function ohmyzsh_plugins_list() {
+    /bin/cat "$DOTFILES/addons/ohmyzsh-plugins.txt" | grep -v '#' | grep -v '/' | while read -r file ; do
+        plugins="$plugins\n$file"
+    done
+    echo -n $plugins
+}
 
-ZSH="$HOME/.antigen/bundles/robbyrussell/oh-my-zsh"
-[ ! -d "$ZSH" ] && ZSH=$(find ~ -name '*oh-my-zsh.sh' | xargs dirname)
+function ohmyzsh_docker_completions() {
+    [ ! -f "$ZSH/plugins/docker/_docker" ] && \
+        curl -fLo "$ZSH/plugins/docker/_docker" \
+        'https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker'
+}
 
-plugins=""
+function ohmyzsh_bundles_init() {
+    find "$HOME/.antigen/bundles" -maxdepth 3 -name '*.plugin.zsh' | \
+        grep -v 'bundles/robbyrussell' | \
+        while read -r file; do
+        $DEBUG_SHELL && _info "ohmyzsh_bundles_init: ${file}"
+        source $file
+    done
+}
 
-/bin/cat "$DOTFILES/ohmyzsh/plugins.txt" | grep -v '#' | grep -v '/' | while read -r file ; do
-    plugins="$plugins\n$file"
-done
+export ZSH="$HOME/.antigen/bundles/robbyrussell/oh-my-zsh"
+export ZSH_THEME=robbyrussell
 
-plugins=($(echo $plugins))
+if [ ! -d "$ZSH" ]; then
+    $DEBUG_SHELL && _warn "Couldn't find oh-my-zsh root path with '$ZSH'"
+else
+    $DEBUG_SHELL && _info "found '$ZSH' as oh-my-zsh root path"
 
-$DEBUG_SHELL && _info "oh-my-zsh plugins='$plugins'"
+    plugins=($(ohmyzsh_plugins_list))
+    $DEBUG_SHELL && _info "oh-my-zsh plugins='$plugins'"
 
-# Docker completions
-[ ! -f "$ZSH/plugins/docker/_docker" ] && curl -fLo "$ZSH/plugins/docker/_docker" https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker
+    source $ZSH/oh-my-zsh.sh
 
-# Needed to load it's plugins
-source "$ZSH/oh-my-zsh.sh"
+    ohmyzsh_bundles_init
 
-find ~/.antigen/bundles -maxdepth 3 -name '*.zsh' | while read -r file; do
-    source $file
-done
+    # Docker completions
+    ohmyzsh_docker_completions
 
-chmod +x /home/bernardo/.local/bin/register-python-argcomplete
+    chmod +x /home/bernardo/.local/bin/register-python-argcomplete
+fi

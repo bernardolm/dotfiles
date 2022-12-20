@@ -1,11 +1,10 @@
 export EDITOR=nano
 export LANG=en_US.UTF-8
-export MICRO_TRUECOLOR=1
-export TERM=xterm-256color
 
 export USER_TMP=$(mktemp -d)
 
-[ -d "$HOME/Sync/config-backup" ] && export SYNC_PATH=$HOME/Sync/config-backup
+[ -d "$HOME/Sync/config-backup" ] && \
+    export SYNC_PATH=$HOME/Sync/config-backup
 
 export PATH=$PATH:/bin
 export PATH=$PATH:/snap/bin/
@@ -18,3 +17,5 @@ export PATH=$PATH:$HOME/.cargo/bin
 export PATH=$PATH:$HOME/.local/bin
 export PATH=$PATH:$HOME/bin
 export PATH=$PATH:$SYNC_PATH/bin
+
+export EMOJI_CLI_KEYBIND="^e"

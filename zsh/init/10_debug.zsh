@@ -12,6 +12,10 @@ function _echo() {
     test -z "${NC}" && echo "$icon $@" >&2 || echo "$icon ${color}$@${NC}" >&2
 }
 
+function _debug() {
+    _echo "" "$MINTGREEN" "$@"
+}
+
 function _info() {
     _echo "💬" "$CYAN" "$@"
 }
@@ -37,15 +41,15 @@ function _finishing() {
     _echo "🦖" "$PURPLE" "$@ was finished."
 }
 
-# -e: exit on error
-# -u: exit on unset variables
-# set -eu
-
-[ $DEBUG ] && set -x
-
-# DEBUG_SHELL=true
-
 export DEBUG_SHELL
 DEBUG_SHELL=$(test -z "$DEBUG_SHELL" && echo "false" || echo $DEBUG_SHELL)
 
+export DEBUG_SHELL=true
+
+export DEBUG
+[ $DEBUG ] && set -x
+
 $DEBUG_SHELL && _warn "running in DEBUG mode"
+
+$DEBUG_SHELL && echo -e "\xf0\x9f\x90\x8d"
+$DEBUG_SHELL && echo -e "\xee\x82\xa0"
