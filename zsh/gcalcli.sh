@@ -40,6 +40,7 @@ agenda_cmd+=" | sed 's/00:00 00:00/\\t/g' "
 agenda_cmd+=" | sed 's/🎂 /[bd] /g' "
 agenda_cmd+=" | sed 's/🏖 /[vct] /g' "
 agenda_cmd+=" | sed 's/💼 /[wbd] /g' "
+agenda_cmd+=" | sed 's/🩴 /[dof] /g' "
 agenda_cmd+=" | sed 's/📅 /[evt] /g' "
 agenda_cmd+=" | sed 's/🗺️ //g' "
 
