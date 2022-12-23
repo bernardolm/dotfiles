@@ -42,7 +42,7 @@ function antigen_install() {
 export ANTIGEN_PATH="$DOTFILES/antigen"
 export ANTIGEN_WORKDIR="$HOME/.antigen"
 
-# $DEBUG_SHELL && antigen_purge
+$DEBUG_SHELL && antigen_purge
 
 if [ ! -d "$ANTIGEN_WORKDIR" ]; then
     antigen_install
