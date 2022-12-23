@@ -44,7 +44,7 @@ function _finishing() {
 export DEBUG_SHELL
 DEBUG_SHELL=$(test -z "$DEBUG_SHELL" && echo "false" || echo $DEBUG_SHELL)
 
-export DEBUG_SHELL=true
+# export DEBUG_SHELL=true
 
 export DEBUG
 [ $DEBUG ] && set -x
