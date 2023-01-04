@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+# Attention!
+# This file is intended to be extremely lean and simple.
+# Containing only what is really unavoidable to be run manually
+# so that the following tools can work.
+
+# install curl git
+# link apt sources
+# apt get keys
+# apt upgrade
+
+# -----------------------------------------------------------------------------
+
+# sudo apt update
+sudo apt install --yes curl git
+
+cat ".gitmodules" | grep 'submodule' | while read -r item; do
+    item=$(echo "${item}" | sed -E 's/.*\"(.*)\".*/\1/')
+    echo "removing git submodule ${item}"
+    git submodule deinit --force --all "${item}" 2>/dev/null
+    rm -rf "${item}" ".git/modules/${item}" 2>/dev/null
+done
+
+cat ".gitmodules" | grep 'url' | while read -r item; do
+    item=$(echo "${item}" | sed 's/ //g' | cut -d'=' -f2)
+    echo "adding git submodule ${item}"
+    git submodule add --force "${item}" 2>/dev/null
+done
+
+git submodule update --init --recursive --remote
+
+# if [ "${CONFIG}" == "install.conf.yaml" ]; then
+#     CONFIG="$1"
+# fi
+
+# echo "CONFIG is '${CONFIG}'"
