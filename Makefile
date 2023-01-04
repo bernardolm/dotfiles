@@ -23,7 +23,7 @@ go:
 
 pip:
 	-./install -c ./dotbot-config/pip.yaml \
-		-p ./dotbot-python/pip.py
+		-p ./dotbot-pip/pip.py
 
 snap:
 	-./install -c ./dotbot-config/snap.yaml \

@@ -1,41 +1,34 @@
 [submodule "antigen"]
 	active = true
 	ignore = dirty
-	path = antigen
 	url = git@github.com:zsh-users/antigen.git
 
 [submodule "dotbot"]
 	active = true
 	ignore = dirty
-	path = dotbot
 	url = git@github.com:anishathalye/dotbot.git
 
 [submodule "dotbot_plugin_aptget"]
 	active = true
 	ignore = dirty
-	path = dotbot-apt
 	url = git@github.com:dein0s/dotbot_plugin_aptget.git
 
 [submodule "dotbot-golang"]
 	active = true
 	ignore = dirty
-	path = dotbot-golang
 	url = git@github.com:delicb/dotbot-golang.git
 
 [submodule "dotbot-pip"]
 	active = true
 	ignore = dirty
-	path = dotbot-python
 	url = git@github.com:sobolevn/dotbot-pip.git
 
 [submodule "dotbot-snap"]
 	active = true
 	ignore = dirty
-	path = dotbot-snap
 	url = git@github.com:DrDynamic/dotbot-snap.git
 
 [submodule "dotbot-sudo"]
 	active = true
 	ignore = dirty
-	path = dotbot-sudo
 	url = git@github.com:DrDynamic/dotbot-sudo.git

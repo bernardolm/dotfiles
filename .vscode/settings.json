@@ -3,7 +3,7 @@
     "antigen": true,
     "dotbot_plugin_aptget": true,
     "dotbot-golang": true,
-    "dotbot-python": true,
+    "dotbot-pip": true,
     "dotbot-snap": true,
     "dotbot": true,
   }
