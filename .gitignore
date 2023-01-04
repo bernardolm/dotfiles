@@ -11,9 +11,8 @@ __pycache__
 *bluetooth*
 *phone.py
 *venv/
-debian/*
-dotbot
-dotbot-*
 antigen
+debian/*
+dotbot*
 
 !dotbot-config
