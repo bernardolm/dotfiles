@@ -5,6 +5,10 @@
     "dotbot-golang": true,
     "dotbot-pip": true,
     "dotbot-snap": true,
+    "dotbot-sudo": true,
     "dotbot": true,
-  }
+  },
+  "git.autoRepositoryDetection": false,
+  "git.detectSubmodules": false,
+  "git.ignoreSubmodules": true
 }
