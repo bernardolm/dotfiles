@@ -12,3 +12,8 @@ __pycache__
 *phone.py
 *venv/
 debian/*
+dotbot
+dotbot-*
+antigen
+
+!dotbot-config
