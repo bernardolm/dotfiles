@@ -1,4 +1,4 @@
-# sudo() {
+# function sudo() {
 # 	# shellcheck disable=SC2312
 # 	if [ "$(id -u)" -eq 0 ]; then
 # 		"$@"
@@ -11,7 +11,7 @@
 # 	fi
 # }
 
-sudo() {
+function sudo() {
 	(
 		pid=$(exec sh -c 'echo "$PPID"')
 

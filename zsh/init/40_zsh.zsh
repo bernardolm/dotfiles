@@ -10,10 +10,9 @@ $DEBUG_SHELL || setopt PROMPT_SUBST # if is set, the prompt string is first subj
 setopt APPEND_HISTORY # add cmd to history, don't replace. to share history across sessions.
 setopt AUTO_CD # exec cd if cmd is a folder.
 setopt BEEP # beep on error in zle.
-setopt complete_aliases # prevents aliases on the command line from being internally substituted before completion is attempted. the effect is to make the alias a distinct command for completion purposes.
+setopt COMPLETE_ALIASES # prevents aliases on the command line from being internally substituted before completion is attempted. the effect is to make the alias a distinct command for completion purposes.
 setopt COMPLETE_IN_WORD # do not go to the end of the word in the completing
 setopt CORRECT # try to correct the spelling of commands
-setopt CORRECT_ALL # try to correct the spelling of arguments too
 setopt EXTENDED_HISTORY # add timestamps to history
 setopt EXTENDEDGLOB # treat the ‘#’, ‘~’ and ‘^’ characters as part of patterns for filename generation
 setopt HIST_IGNORE_ALL_DUPS # remove old entry when an already existing cmd is added
@@ -26,6 +25,7 @@ setopt INC_APPEND_HISTORY # this option works like append_history except that ne
 setopt LIST_BEEP # beep on an ambiguous completion.
 setopt PROMPT_SUBST # if set, parameter expansion, command substitution and arithmetic expansion are performed in prompts
 setopt SHARE_HISTORY # this option both imports new commands from the history file, and also causes your typed commands to be appended to the history file
+unsetopt CORRECT_ALL # try to correct the spelling of arguments too
 unsetopt HUP # don't kill bg process when terminal is killed or exited
 unsetopt NOMATCH # if a pattern for filename generation has no matches, print an error
 unsetopt NOTIFY # report the status of background jobs immediately,
