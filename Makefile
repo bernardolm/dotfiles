@@ -1,4 +1,3 @@
-
 default:
 	@echo "starting docker to test first steps ubuntu"
 	@docker build -t=bernardolm/dotfiles .
@@ -7,26 +6,33 @@ default:
 reset:
 	@reset
 
-sudo:
-	-sudo ./install -c ./dotbot-config/sudo.yaml
+pre:
+	-@sudo ./pre-install
 
 base:
-	-./install -c ./dotbot-config/base.yaml
+	-@./install -vv -c ./dotbot-config/base.yaml
 
 apt:
-	-sudo ./install -c ./dotbot-config/apt.yaml \
-		-p ./dotbot_plugin_aptget/aptget.py
+	-@./install -vv -c ./dotbot-config/apt.yaml \
+		--except apt \
+		-p ./dotbot-sudo/sudo.py
 
-go:
-	-./install -c ./dotbot-config/go.yaml \
-		-p ./dotbot-golang/go.py
+golang:
+	-@bash go/install.sh
+	-@./install -vv -c ./dotbot-config/go.yaml \
+		--except go \
+		-p ./dotbot-sudo/sudo.py
 
 pip:
-	-./install -c ./dotbot-config/pip.yaml \
+	-@./install -vv -c ./dotbot-config/pip.yaml \
 		-p ./dotbot-pip/pip.py
 
 snap:
-	-./install -c ./dotbot-config/snap.yaml \
+	-@./install -vv -c ./dotbot-config/snap.yaml \
 		-p ./dotbot-snap/snap.py
 
-setup: reset sudo base apt go pip snap
+post:
+	-@./install -vv -c ./dotbot-config/post.yaml \
+		-p ./dotbot-sudo/sudo.py
+
+setup: reset pre base apt golang pip snap post

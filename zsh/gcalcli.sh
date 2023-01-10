@@ -4,7 +4,7 @@ local base_path="$(dirname $0)"
 
 source $base_path/init/30_env.zsh
 
-find "$SYNC_PATH/zsh/init" -name '*.zsh' | while read -r file; do
+find "$SYNC_DOTFILES/zsh/init" -name '*.zsh' | while read -r file; do
     source "$file"
 done
 

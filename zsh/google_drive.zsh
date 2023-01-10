@@ -3,7 +3,7 @@ function google_drive_sync() {
     notify-send "google drive worker" "running..."
 
     echo -e "syncing local..."
-    rsync -au --delete $SYNC_PATH/ $HOME/google-drive/config-backup/
+    rsync -au --delete $SYNC_DOTFILES/ $HOME/google-drive/config-backup/
 
     echo -e "removing vendor paths..."
     find $HOME/google-drive/config-backup/ -name 'node_modules' \

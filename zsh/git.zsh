@@ -177,7 +177,7 @@ function git_workspaces_backup() {
     local file=$(last_backup_version git-workspaces csv)
 
     [ -f $file ] && mv \
-        $file $SYNC_PATH/git-workspaces/$(hostname)_$(date +"%Y%m%d%H%M%S").csv
+        $file $SYNC_DOTFILES/git-workspaces/$(hostname)_$(date +"%Y%m%d%H%M%S").csv
 
     for d in `find $1 -path '*/.git/config'`; do
         d=${d%/.git/config}

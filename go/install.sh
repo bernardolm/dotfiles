@@ -1,14 +1,29 @@
 #!/usr/bin/env bash
 
-source ../init/env.sh
-source ../init/functions_loader.sh
+source ./zsh/init/10_debug.zsh
 
 _starting 'go'
 
-if [ ! -f /usr/local/go/bin/go ]; then
-    wget --quiet https://golang.org/dl/go1.16.15.linux-amd64.tar.gz -O ~/tmp/go.tar.gz
-    sudo /bin/rm -rf /usr/local/go
-    sudo tar -vC /usr/local -xzf ~/tmp/go.tar.gz
-fi
+source ./zsh/init/31_go.zsh
+env | grep GO
+
+VERSION="$(curl --silent https://go.dev/VERSION?m=text)"
+
+_info "installing version $VERSION"
+
+URL="https://golang.org/dl/${VERSION}.linux-amd64.tar.gz"
+TMP=$(mktemp -d)
+DEST="$TMP/go.tar.gz"
+
+curl -L --progress-bar -o "$DEST" "$URL"
+
+ls -lah "$DEST"
+
+sudo rm -rf "$GOROOT"
+sudo tar -C /usr/local -xzf "$DEST"
+
+export PATH=${PATH}:${GOROOT}/bin
+
+go version
 
 _finishing 'go'

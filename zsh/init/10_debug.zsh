@@ -51,5 +51,4 @@ export DEBUG
 
 $DEBUG_SHELL && _warn "running in DEBUG mode"
 
-$DEBUG_SHELL && echo -e "\xf0\x9f\x90\x8d"
-$DEBUG_SHELL && echo -e "\xee\x82\xa0"
+$DEBUG_SHELL && echo -e "debug: testing emoji char: \xee\x82\xa0 \xf0\x9f\x90\x8d"

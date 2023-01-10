@@ -1,56 +1,77 @@
 - defaults:
-    link:
-        force: true
-        glob: true
-        relink: true
     clear:
         recursive: true
+    link:
+        force: true
+        ignore-missing: true
+        relink: true
+    shell:
+        stderr: true
 
 - clean: ["~"]
 
+- shell:
+    - find ~ -xtype l -delete
+
+- link:
+    ~/sync: ~/Dropbox/config-backup
+
 - link:
     ~/.config/:
+        exclude: [.config/Code]
         glob: true
         path: .config/*
-        relink: true
-        exclude: [.config/Code]
     ~/.config/Code/User/:
         create: true
         glob: true
         path: .config/Code/User/*
-        relink: true
-    ~/.config/rclone: $SYNC_PATH/.config/rclone
-    ~/.curecoin: $SYNC_PATH/.curecoin
-    ~/.epsonscan2: $SYNC_PATH/.epsonscan2
-    ~/.ethereum: $SYNC_PATH/.ethereum
-    ~/.gcalclirc: $SYNC_PATH/.gcalclirc
+    ~/.local/share:
+        glob: true
+        path: ~/sync/.local/share/*
+    ~/.config/rclone: ~/sync/.config/rclone
+    ~/.curecoin: ~/sync/.curecoin
+    ~/.epsonscan2: ~/sync/.epsonscan2
+    ~/.ethereum: ~/sync/.ethereum
+    ~/.gcalcli_oauth: ~/sync/.gcalcli_oauth
+    ~/.gcalclirc: ~/sync/.gcalclirc
     ~/.gitconfig: .gitconfig
-    ~/.icons: $SYNC_PATH/.icons
+    ~/.icons: ~/sync/.icons
     ~/.inputrc: .inputrc
-    ~/.local/share/: $SYNC_PATH/.local/share/*
-    ~/.musicoin: $SYNC_PATH/.musicoin
-    ~/.pypirc: $SYNC_PATH/.pypirc
+    ~/.local/share/fonts: ~/sync/.local/share/fonts
+    ~/.musicoin: ~/sync/.musicoin
+    ~/.pypirc: ~/sync/.pypirc
     ~/.screenrc: .screenrc
-    ~/.themes: $SYNC_PATH/.themes
-    ~/.wakatime.cfg: $SYNC_PATH/.wakatime.cfg
+    ~/.themes: ~/sync/.themes
+    ~/.wakatime.cfg: ~/sync/.wakatime.cfg
     ~/.zshrc: .zshrc
     ~/env.sh: zsh/init/30_env.zsh
-    ~/Pictures/Wallpapers: $SYNC_PATH/Pictures/Wallpapers
-    ~/ProgramasRFB: $SYNC_PATH/ProgramasRFB
-    ~/Sync: ~/Dropbox
+    ~/Pictures/Wallpapers: ~/sync/Pictures/Wallpapers
+    ~/ProgramasRFB: ~/sync/ProgramasRFB
 
 - shell:
-    - [fc-cache -f, Updating font cache]
-    - [gconftool-2 --shutdown]
-    - [gconftool-2 --spawn]
-    - [gnome-extensions disable auto-move-windows@gnome-shell-extensions.gcampax.github.com, disabling unused ubuntu extensions]
-    - [gnome-extensions disable ding@rastersoft.com, disabling unused ubuntu extensions]
-    - [gnome-extensions disable ubuntu-dock@ubuntu.com, disabling unused ubuntu extensions]
-    - [gnome-extensions disable window-list@gnome-shell-extensions.gcampax.github.com, disabling unused ubuntu extensions]
-    - [gnome-extensions disable windowsNavigator@gnome-shell-extensions.gcampax.github.com, disabling unused ubuntu extensions]
-    - [gnome-extensions disable workspace-indicator@gnome-shell-extensions.gcampax.github.com, disabling unused ubuntu extensions]
-    - [gsettings set org.cinnamon.desktop.wm.preferences num-workspaces 1, disabling workspaces]
-    - [gsettings set org.gnome.shell enable-hot-corners true, disabling hot corner]
-    - [gsettings set org.gnome.shell.extensions.dash-to-dock autohide false, disabling dock]
-    - [gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false, disabling dock]
-    - [gsettings set org.gnome.shell.extensions.dash-to-dock intellihide false, disabling dock]
+    - gconftool-2 --shutdown
+    - gconftool-2 --spawn
+    - [fc-cache -f,
+        Updating font cache]
+    - [gnome-extensions disable auto-move-windows@gnome-shell-extensions.gcampax.github.com,
+        disabling unused ubuntu extensions]
+    - [gnome-extensions disable ding@rastersoft.com,
+        disabling unused ubuntu extensions]
+    - [gnome-extensions disable ubuntu-dock@ubuntu.com,
+        disabling unused ubuntu extensions]
+    - [gnome-extensions disable window-list@gnome-shell-extensions.gcampax.github.com,
+        disabling unused ubuntu extensions]
+    - [gnome-extensions disable windowsNavigator@gnome-shell-extensions.gcampax.github.com,
+        disabling unused ubuntu extensions]
+    - [gnome-extensions disable workspace-indicator@gnome-shell-extensions.gcampax.github.com,
+        disabling unused ubuntu extensions]
+    - [gsettings set org.cinnamon.desktop.wm.preferences num-workspaces 1,
+        disabling workspaces]
+    - [gsettings set org.gnome.shell enable-hot-corners true,
+        disabling hot corner]
+    - [gsettings set org.gnome.shell.extensions.dash-to-dock autohide false,
+        disabling dock]
+    - [gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false,
+        disabling dock]
+    - [gsettings set org.gnome.shell.extensions.dash-to-dock intellihide false,
+        disabling dock]

@@ -10,12 +10,6 @@
 	url = git@github.com:anishathalye/dotbot.git
 	path = dotbot
 
-[submodule "dotbot_plugin_aptget"]
-	active = true
-	ignore = dirty
-	url = git@github.com:dein0s/dotbot_plugin_aptget.git
-	path = dotbot_plugin_aptget
-
 [submodule "dotbot-golang"]
 	active = true
 	ignore = dirty

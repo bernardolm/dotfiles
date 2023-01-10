@@ -71,4 +71,4 @@
 	directory = /home/bernardo/workspaces/bernardolm/dotfiles/dotbot
 
 [include]
-    path = ~/Sync/config-backup/.gitconfig_work
+    path = ~/sync/.gitconfig_work

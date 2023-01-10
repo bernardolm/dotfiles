@@ -1,6 +1,6 @@
 function gnome_backup() {
     local now=$(date +"%Y%m%d%H%M%S")
-    dconf dump /org/gnome/ > "$SYNC_PATH/gnome/$now.txt"
+    dconf dump /org/gnome/ > "$SYNC_DOTFILES/gnome/$now.txt"
 }
 
 function gnome_reset() {

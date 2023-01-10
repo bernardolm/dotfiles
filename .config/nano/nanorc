@@ -1,6 +1,6 @@
 set smooth
 set autoindent
-set backupdir "/home/bernardo/Sync/config-backup/nano-backups"
+set backupdir "/home/bernardo/sync/nano-backups"
 set casesensitive
 set historylog
 set morespace

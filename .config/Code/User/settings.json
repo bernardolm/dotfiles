@@ -245,7 +245,6 @@
     "window.title": "${dirty}${separator}${rootName}${separator}vs",
     "window.titleSeparator": " • ",
     "workbench.colorTheme": "Ocean Space Refined Italic",
-    "workbench.editor.enablePreview": false,
     "workbench.editor.restoreViewState": false,
     "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "newUntitledFile",

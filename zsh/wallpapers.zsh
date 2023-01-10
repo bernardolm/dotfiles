@@ -1,5 +1,5 @@
 function wallpaperz_reindex() {
-    sh $SYNC_PATH/Pictures/Wallpapers/ubuntu-wallpaper-generator $SYNC_PATH/Pictures/Wallpapers
+    sh $SYNC_DOTFILES/Pictures/Wallpapers/ubuntu-wallpaper-generator $SYNC_DOTFILES/Pictures/Wallpapers
     if ! [ -s "/usr/share/gnome-background-properties/ubuntu-wallpapers.xml" ]; then \
         echo "ubuntu-wallpapers.xml not exist, creating..."; \
         sudo touch /usr/share/gnome-background-properties/ubuntu-wallpapers.xml; \

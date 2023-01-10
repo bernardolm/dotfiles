@@ -1,15 +1,15 @@
 function hibernate_now() {
-	# echo code > /sys/power/pm_test
-	# echo devices > /sys/power/pm_test
-	# echo freezer > /sys/power/pm_test
-	# echo platform > /sys/power/pm_test
-	# echo processors > /sys/power/pm_test
-	echo none > /sys/power/pm_test
+	# echo code | sudo tee /sys/power/pm_test
+	# echo devices | sudo tee /sys/power/pm_test
+	# echo freezer | sudo tee /sys/power/pm_test
+	# echo platform | sudo tee /sys/power/pm_test
+	# echo processors | sudo tee /sys/power/pm_test
+	echo none | sudo tee /sys/power/pm_test
 
-	# echo reboot > /sys/power/disk
-	# echo shutdown > /sys/power/disk
-	# echo test_resume > /sys/power/disk
-	echo platform > /sys/power/disk
+	# echo reboot | sudo tee /sys/power/disk
+	# echo shutdown | sudo tee /sys/power/disk
+	# echo test_resume | sudo tee /sys/power/disk
+	echo platform | sudo tee /sys/power/disk
 
-	echo disk > /sys/power/state
+	echo disk | sudo tee /sys/power/state
 }

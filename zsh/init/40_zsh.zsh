@@ -1,6 +1,6 @@
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
 export HISTDUP=erase # Erase duplicates in the history file
-export HISTFILE="$SYNC_PATH/.zsh_history" # Where to save history to disk
+export HISTFILE="$SYNC_DOTFILES/.zsh_history" # Where to save history to disk
 export HISTSIZE="$SAVEHIST"
 export SAVEHIST=999999
 export ZSH_WAKATIME_PROJECT_DETECTION=true

@@ -28,7 +28,7 @@ function install_dropbox() {
         sleep 5s
     done
 
-    [ ! -h ~/Sync ] && ln -s ~/Dropbox ~/Sync
+    [ ! -h ~/sync ] && ln -s ~/Dropbox ~/sync
 }
 
 install_dropbox

@@ -1,108 +1,118 @@
-- aptget:
-  - 1password-cli
-  - alacarte
-  - apt-transport-https
-  - aspell-fr
-  - baobab
-  - bleachbit
-  - blueman
-  - bluez
-  - build-essential
-  - ca-certificates
-  - chrome-gnome-shell
-  - colortest
-  - conky-all
-  - curl
-  - dconf-cli
-  - dconf-editor
-  - dkms
-  - exa
-  - figlet
-  - flashplugin-installer
-  - fontconfig
-  - fonts-arundina
-  - fonts-dejavu
-  - fonts-dejavu-extra
-  - fonts-emojione
-  - fonts-font-awesome
-  - fonts-hack
-  - fonts-noto-color-emoji
-  - fonts-noto-mono
-  - fonts-powerline
-  - fonts-recommended
-  - fonts-symbola
-  - fonts-twemoji-svginot
-  - fritzing
-  - gawk
-  - gconf2
-  - gconf-editor
-  - gdebi
-  - gettext
-  - gh
-  - git
-  - gnome-calendar
-  - gnome-screenshot
-  - gnome-shell-extensions
-  - gnome-tweak-tool
-  - gnome-tweaks
-  - gnupg
-  - gnupg-agent
-  - google-chrome-stable
-  - gparted
-  - graphviz
-  - gsettings-desktop-schemas
-  - gsmartcontrol
-  - gthumb
-  - htop
-  - jq
-  - llvm-7
-  - llvm-7-dev
-  - make
-  - mariadb-client-10.3
-  - meld
-  - net-tools
-  - network-manager-fortisslvpn-gnome
-  - nmap
-  - openssh-server
-  - pm-utils
-  - python-pygments
-  - python3
-  - python3-all-dev
-  - python3-argcomplete
-  - python3-cairo
-  - python3-dbus
-  - python3-dev
-  - python3-gi
-  - python3-gpg
-  - python3-pbr
-  - python3-pip
-  - python3-pygments
-  - python3-setuptools
-  - screen
-  - shellcheck
-  - silversearcher-ag
-  - smartmontools
-  - smem
-  - snap
-  - snapd
-  - software-properties-common
-  - stacer
-  - sublime-text
-  - sudo
-  - tabby-terminal
-  - traceroute
-  - trash-cli
-  - ttf-ancient-fonts-symbola
-  - ttf-bitstream-vera
-  - ttf-dejavu
-  - ttf-dejavu-extra
-  - tweak
-  - ubuntu-restricted-extras
-  - upx
-  - vlc
-  - vulkan-utils
-  - wget
-  - xclip
-  - yaru-theme-gnome-shell
-  - zsh
-  - zshdb
+- defaults:
+    shell:
+        stdout: true
+        stderr: true
+
+- sudo:
+    - shell:
+        - test -f /usr/bin/yq || wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq
+        - chmod +x /usr/bin/yq
+        - yq '.[2].apt' ./dotbot-config/apt.yaml | xargs -x apt install -y
+
+- apt:
+    1password-cli
+    alacarte
+    apt-transport-https
+    aspell-fr
+    baobab
+    bleachbit
+    blueman
+    bluez
+    build-essential
+    ca-certificates
+    chrome-gnome-shell
+    colortest
+    conky-all
+    curl
+    dconf-cli
+    dconf-editor
+    dkms
+    exa
+    figlet
+    flashplugin-installer
+    fontconfig
+    fonts-arundina
+    fonts-dejavu
+    fonts-dejavu-extra
+    fonts-emojione
+    fonts-font-awesome
+    fonts-hack
+    fonts-noto-color-emoji
+    fonts-noto-mono
+    fonts-powerline
+    fonts-recommended
+    fonts-symbola
+    fonts-twemoji-svginot
+    fritzing
+    fzf
+    gawk
+    gconf-editor
+    gconf2
+    gdebi
+    gettext
+    gh
+    git
+    gnome-calendar
+    gnome-screenshot
+    gnome-shell-extensions
+    gnome-tweak-tool
+    gnome-tweaks
+    gnupg
+    gnupg-agent
+    google-chrome-stable
+    gparted
+    graphviz
+    gsettings-desktop-schemas
+    gsmartcontrol
+    gthumb
+    htop
+    jq
+    llvm-7
+    llvm-7-dev
+    make
+    mariadb-client-10.3
+    meld
+    net-tools
+    network-manager-fortisslvpn-gnome
+    nmap
+    openssh-server
+    pm-utils
+    python3
+    python3-all-dev
+    python3-argcomplete
+    python3-cairo
+    python3-dbus
+    python3-dev
+    python3-gi
+    python3-gpg
+    python3-pbr
+    python3-pip
+    python3-pygments
+    python3-setuptools
+    screen
+    shellcheck
+    silversearcher-ag
+    smartmontools
+    smem
+    snap
+    snapd
+    software-properties-common
+    ssh-askpass
+    stacer
+    sublime-text
+    sudo
+    traceroute
+    trash-cli
+    ttf-ancient-fonts-symbola
+    ttf-bitstream-vera
+    ttf-dejavu
+    ttf-dejavu-extra
+    tweak
+    ubuntu-restricted-extras
+    upx
+    vlc
+    wget
+    xclip
+    yaru-theme-gnome-shell
+    zsh
+    zshdb

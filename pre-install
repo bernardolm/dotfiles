@@ -12,14 +12,35 @@
 
 # -----------------------------------------------------------------------------
 
-# sudo apt update
-sudo apt install --yes curl git
+apt update # maybe not
+apt install --yes curl git python3-pip ttf-mscorefonts-installer
+
+
+# shellcheck source=/dev/null
+source ./zsh/init/10_debug.zsh
+
+# shellcheck source=/dev/null
+HOME=$(eval echo "~$SUDO_USER") source ./zsh/init/30_env.zsh
+
+apt_sources_found=$(find /etc/apt/sources.list.d/ -name '*.list' | wc -l)
+echo "$apt_sources_found sources file found"
+
+if [ "$apt_sources_found" -eq 0 ]; then
+    unlink /etc/apt/sources.list.d
+    ln -sf "$SYNC_DOTFILES/etc/apt/sources.list.d" /etc/apt/sources.list.d
+    # shellcheck source=/dev/null
+    source ./zsh/apt.zsh
+    HOME=$(eval echo "~$SUDO_USER") apt_keys_recovery
+    apt update
+fi
 
 cat ".gitmodules" | grep 'submodule' | while read -r item; do
     item=$(echo "${item}" | sed -E 's/.*\"(.*)\".*/\1/')
-    echo "removing git submodule ${item}"
-    git submodule deinit --force --all "${item}" 2>/dev/null
-    rm -rf "${item}" ".git/modules/${item}" 2>/dev/null
+    echo "sanitizing git submodule ${item}"
+    if [ -z "$(ls -A ./"$item")" ]; then
+        git submodule deinit --force --all "${item}" 2>/dev/null
+        rm -rf "${item}" ".git/modules/${item}" 2>/dev/null
+    fi
 done
 
 cat ".gitmodules" | grep 'url' | while read -r item; do
@@ -29,9 +50,3 @@ cat ".gitmodules" | grep 'url' | while read -r item; do
 done
 
 git submodule update --init --recursive --remote
-
-# if [ "${CONFIG}" == "install.conf.yaml" ]; then
-#     CONFIG="$1"
-# fi
-
-# echo "CONFIG is '${CONFIG}'"

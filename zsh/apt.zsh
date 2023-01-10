@@ -4,17 +4,14 @@ function apt_search_installed() {
 
 function apt_keys_recovery() {
     ## 1password
-    if [ ! -f /etc/apt/trusted.gpg.d/1password.gpg ]; then
-        curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /etc/apt/trusted.gpg.d/1password.gpg
+    if [ ! -f /usr/share/keyrings/1password-archive-keyring.gpg ]; then
+        curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
     fi
 
     ## docker
     if [ ! -f /etc/apt/trusted.gpg.d/docker.gpg ]; then
-        sudo apt-key adv --keyserver pgp.mit.edu --recv-keys 1C61A2656FB57B7E4DE0F4C1FC918B335044912E
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker.gpg
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
     fi
-
-    # curl -s https://packagecloud.io/install/repositories/eugeny/tabby/script.deb.sh | sudo bash
 
     declare -a servers=(
         "keyserver.ubuntu.com"
