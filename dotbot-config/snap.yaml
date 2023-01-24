@@ -3,8 +3,6 @@
     classic: true
   - google-cloud-sdk:
     classic: true
-  - kubectl:
-    classic: true
   - micro:
     classic: true
   - nvim:

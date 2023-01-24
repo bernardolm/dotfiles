@@ -60,6 +60,7 @@
     gnupg
     gnupg-agent
     google-chrome-stable
+    google-cloud-sdk-gke-gcloud-auth-plugin
     gparted
     graphviz
     gsettings-desktop-schemas
@@ -67,6 +68,7 @@
     gthumb
     htop
     jq
+    kubectl
     llvm-7
     llvm-7-dev
     make

@@ -13,7 +13,7 @@ function _echo() {
 }
 
 function _debug() {
-    _echo "" "$MINTGREEN" "$@"
+    _echo "" "${RED}${ON_YELLOW}" "$@"
 }
 
 function _info() {

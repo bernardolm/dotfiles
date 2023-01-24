@@ -1,12 +1,7 @@
 {
   "files.exclude": {
     "antigen": true,
-    "dotbot_plugin_aptget": true,
-    "dotbot-golang": true,
-    "dotbot-pip": true,
-    "dotbot-snap": true,
-    "dotbot-sudo": true,
-    "dotbot": true,
+    "dotbot/**/*": true,
   },
   "git.autoRepositoryDetection": false,
   "git.detectSubmodules": false,
