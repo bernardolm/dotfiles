@@ -8,7 +8,7 @@ function conky_start() {
         attrs=" -D "
     fi
 
-    eval conky ${attrs} --config "$DOTFILES/.config/conky/left.conf"
+    # eval conky ${attrs} --config "$DOTFILES/.config/conky/left.conf"
     eval conky ${attrs} --config "$DOTFILES/.config/conky/right.conf"
 }
 

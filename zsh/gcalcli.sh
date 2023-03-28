@@ -11,7 +11,7 @@ done
 local calendars=""
 
 for item in "${GCALCLI_CALENDARS[@]}"; do
-    calendars="$calendars --calendar=\"$item\""
+    calendars="$calendars --default-calendar=\"$item\""
 done
 
 local agenda="$@"
@@ -39,6 +39,7 @@ agenda_cmd+=" | awk -F'\t' '{ printf ( \"%s\t%s %s\t%s\n\", \$1, \$2, \$4, \$5 )
 agenda_cmd+=" | sed 's/00:00 00:00/\\t/g' "
 agenda_cmd+=" | sed -e 's/🎂\s*/[bd] /g' "
 agenda_cmd+=" | sed -e 's/🏖\s*/[vct] /g' "
+agenda_cmd+=" | sed -e 's/ ️\s*/ /g' "
 agenda_cmd+=" | sed -e 's/💼\s*/[wbd] /g' "
 agenda_cmd+=" | sed -e 's/🩴\s*/[dof] /g' "
 agenda_cmd+=" | sed -e 's/📅\s*/[evt] /g' "
