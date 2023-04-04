@@ -27,8 +27,6 @@ alias goimports-here='find . -type f -name "*.go" -not -path "./vendor*" | tr -s
 alias gotop='gotop-cjbassi'
 alias gsl='git stash list'
 alias gt='go test ./...'
-alias guake-backup='guake --save-preferences=$SYNC_DOTFILES/backup_of_my_guake_settings'
-alias guake-restore='guake --restore-preferences=$SYNC_DOTFILES/backup_of_my_guake_settings'
 alias h='hudctl'
 alias less='command -v cless && cless || less'
 alias ls='ls_2_exa'

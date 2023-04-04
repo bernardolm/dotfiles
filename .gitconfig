@@ -68,7 +68,7 @@
     sort = -committerdate
 
 [safe]
-	directory = /home/bernardo/workspaces/bernardolm/dotfiles/dotbot
+	directory = ~/workspaces/bernardolm/dotfiles/dotbot
 
 [include]
     path = ~/sync/.gitconfig_work

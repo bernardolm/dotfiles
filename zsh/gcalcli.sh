@@ -23,7 +23,7 @@ if [ ! -z $DEBUG ]; then
     local tmp_file="/tmp/gcalcli.cache"
 
     if [ ! -f "$tmp_file" ]; then
-        /home/bernardo/workspaces/bernardolm/dotfiles/zsh/gcalcli.sh > "$tmp_file"
+        ~/workspaces/bernardolm/dotfiles/zsh/gcalcli.sh > "$tmp_file"
     fi
 
     agenda_cmd+=" cat $tmp_file "

@@ -38,5 +38,5 @@ else
     # Docker completions
     ohmyzsh_docker_completions
 
-    chmod +x /home/bernardo/.local/bin/register-python-argcomplete
+    chmod +x ~/.local/bin/register-python-argcomplete
 fi

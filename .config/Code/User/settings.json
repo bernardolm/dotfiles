@@ -56,7 +56,8 @@
         "*.env": "dotenv",
         "*.zsh_history": "shellscript",
         "*conky*.conf": "conky",
-        "**/fontconfig/**.conf": "xml"
+        "**/fontconfig/**.conf": "xml",
+        "*.dconf": "ini"
     },
     "files.watcherExclude": {
         "**/.git": true,
@@ -177,7 +178,7 @@
     "editor.autoClosingBrackets": "never",
     "editor.autoClosingQuotes": "never",
     "editor.bracketPairColorization.enabled": true,
-    "editor.fontFamily": "'NovaMono', 'JetBrains Mono', 'Space Mono', 'Share Tech Mono', 'Cascadia Code PL', 'JetBrains Mono NL', 'Droid Sans Mono', 'monospace', monospace",
+    "editor.fontFamily": "'CaskaydiaCove Nerd Font Semi-Light', 'NovaMono', 'JetBrains Mono', 'Space Mono', 'Share Tech Mono', 'Cascadia Code PL', 'JetBrains Mono NL', 'Droid Sans Mono', 'monospace', monospace",
     "editor.fontLigatures": "'cv02', 'cv06', 'cv13', 'cv14', 'cv16', 'cv18', 'cv20', 'cv22', 'cv23', 'cv24', 'cv25', 'cv26', 'cv28', 'cv29', 'cv30', 'cv31', 'cv32', 'ss01', 'ss02', 'ss04', 'ss07', 'ss09', 'zero', 'ss20'",
     "editor.formatOnPaste": false,
     "editor.formatOnType": true,

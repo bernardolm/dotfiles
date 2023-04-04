@@ -26,6 +26,7 @@
     curl
     dconf-cli
     dconf-editor
+    dconf-tools
     dkms
     exa
     figlet
