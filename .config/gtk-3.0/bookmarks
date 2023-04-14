@@ -1,8 +1,2 @@
-file://~/Documents
-file://~/Downloads
-file://~/Music
-file://~/Pictures
-file://~/sync
-file://~/Videos
-file://~/workspaces
-file://~/workspaces/bernardolm/dotfiles
+file:///home/bernardo/sync
+file:///home/bernardo/workspaces/bernardolm/dotfiles

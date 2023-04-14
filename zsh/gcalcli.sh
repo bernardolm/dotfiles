@@ -46,4 +46,4 @@ agenda_cmd+=" | sed -e 's/📅\s*/[evt] /g' "
 agenda_cmd+=" | sed 's/🗺️//g' "
 
 test -z $DEBUG || echo " $agenda_cmd "
-eval " $agenda_cmd "
+eval " $agenda_cmd " 2>/dev/null

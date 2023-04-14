@@ -3,13 +3,17 @@ function conky_kill() {
 }
 
 function conky_start() {
-    local attrs=" --quiet --daemonize "
+    unset DEBUG
+
+    local attrs="--quiet --daemonize"
     if [ ! -z "$DEBUG" ]; then
         attrs=" -D "
     fi
 
-    # eval conky ${attrs} --config "$DOTFILES/.config/conky/left.conf"
-    eval conky ${attrs} --config "$DOTFILES/.config/conky/right.conf"
+    local cmd="conky ${attrs} --config"
+
+    # eval ${cmd} "$DOTFILES/.config/conky/left.conf"
+    eval "${cmd} ${DOTFILES}/.config/conky/right.conf"
 }
 
 function conky_instances() {

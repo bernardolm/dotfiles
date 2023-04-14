@@ -36,7 +36,6 @@ function _starting() {
     _echo "🥚" "$PURPLE" "starting $@..."
 }
 
-
 function _finishing() {
     _echo "🦖" "$PURPLE" "$@ was finished."
 }
