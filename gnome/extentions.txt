@@ -1,0 +1,15 @@
+# ubuntu-appindicators@ubuntu.com
+apps-menu@gnome-shell-extensions.gcampax.github.com
+auto-move-windows@gnome-shell-extensions.gcampax.github.com
+ControlBlurEffectOnLockScreen@pratap.fastmail.fm
+drive-menu@gnome-shell-extensions.gcampax.github.com
+emoji-selector@maestroschan.fr
+espresso@coadmunkee.github.com
+gnome-shell-screenshot@ttll.de
+places-menu@gnome-shell-extensions.gcampax.github.com
+sound-output-device-chooser@kgshank.net
+status-area-horizontal-spacing@mathematical.coffee.gmail.com
+tactile@lundal.io
+trayIconsReloaded@selfmade.pl
+user-theme@gnome-shell-extensions.gcampax.github.com
+WallpaperSwitcher@Rishu

@@ -45,8 +45,7 @@
     ~/.wakatime.cfg: ~/sync/.wakatime.cfg
     ~/.zshrc: .zshrc
     ~/env.sh: zsh/init/30_env.zsh
-    ~/Pictures/Wallpapers: ~/sync/Pictures/Wallpapers
-    ~/ProgramasRFB: ~/sync/ProgramasRFB
+    ~/ProgramasRFB: ~/sync/misc/apps/ProgramasRFB
 
 - shell:
     - gconftool-2 --shutdown

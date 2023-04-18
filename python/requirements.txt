@@ -4,6 +4,7 @@ colorama
 colorz
 flake8
 gcalcli
+gnome-extensions-cli
 ipdb
 oauth2client
 pandas

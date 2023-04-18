@@ -23,12 +23,17 @@
     chrome-gnome-shell
     colortest
     conky-all
+    containerd.io
     curl
     dconf-cli
     dconf-editor
     dconf-tools
     dkms
+    dnsutils
+    docker-ce
+    docker-ce-cli
     docker-color-output
+    docker-compose-plugin
     exa
     figlet
     flashplugin-installer
@@ -68,9 +73,12 @@
     gsettings-desktop-schemas
     gsmartcontrol
     gthumb
+    hibernate
     htop
     jq
     kubectl
+    libvulkan-dev
+    libvulkan1
     llvm-7
     llvm-7-dev
     make
@@ -112,11 +120,15 @@
     ttf-dejavu
     ttf-dejavu-extra
     tweak
+    ubuntu-advantage-tools
     ubuntu-restricted-extras
     upx
     vlc
+    vulkan-tools
+    vulkan-utils
     wget
     xclip
+    xss-lock
     yaru-theme-gnome-shell
     zsh
     zshdb
