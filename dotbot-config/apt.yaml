@@ -28,6 +28,7 @@
     dconf-editor
     dconf-tools
     dkms
+    docker-color-output
     exa
     figlet
     flashplugin-installer

@@ -237,3 +237,35 @@ function docker_daemon_config_reset() {
 
     echo "bye!"
 }
+
+function dciv() {
+    docker container inspect -f "{{range .Mounts}}{{.Type}}:{{.Source}}:{{.Destination}}{{println}}{{ end }}" $@
+}
+
+function deit() {
+    docker exec -it $@
+}
+
+function di() {
+    docker images $@ | docker-color-output
+}
+
+function diip() {
+    docker inspect -f "{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}" $@
+}
+
+function dpsa() {
+    docker ps --all --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.Status}}" $@ | docker-color-output
+}
+
+function drm() {
+    docker rm $@
+}
+
+function drmi() {
+    docker rmi $@
+}
+
+function ds() {
+    docker stop $@
+}

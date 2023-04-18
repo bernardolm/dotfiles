@@ -38,8 +38,8 @@
     }; f"
 
 [merge]
-#    external = $DOTFILES/zsh/git-diff.sh
     log = true
+    tool = meld
 
 [apply]
     whitespace = fix
@@ -51,9 +51,8 @@
     autocorrect = 1
 
 [diff]
-    # external = $DOTFILES/zsh/git-diff.sh
-    # tool = default-difftool
     renames = copies
+    tool = meld
 
 [difftool "default-difftool"]
     cmd = code --wait --diff $LOCAL $REMOTE
