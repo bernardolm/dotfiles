@@ -1,7 +1,7 @@
 - defaults:
     shell:
-        stdout: true
-        stderr: true
+      stderr: true
+      stdout: true
 
 - sudo:
     - shell:
@@ -9,7 +9,7 @@
         - chmod +x /usr/bin/yq
         - yq '.[2].apt' ./dotbot-config/apt.yaml | xargs -x apt install -y
 
-- apt:
+- apt: 1password
     1password-cli
     alacarte
     apt-transport-https
@@ -73,8 +73,10 @@
     gsettings-desktop-schemas
     gsmartcontrol
     gthumb
+    guake
     hibernate
     htop
+    indicator-application
     jq
     kubectl
     libvulkan-dev

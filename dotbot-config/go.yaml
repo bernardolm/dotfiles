@@ -1,6 +1,6 @@
 - defaults:
     shell:
-        stderr: true
+      stderr: true
 
 - sudo:
     - shell:
@@ -10,8 +10,7 @@
 - shell:
     - yq '.[3].go' ./dotbot-config/go.yaml | xargs -I{} -x bash -c "go install {} || true"
 
-- go:
-    github.com/cortesi/modd/cmd/modd@latest
+- go: github.com/cortesi/modd/cmd/modd@latest
     github.com/go-delve/delve/cmd/dlv@latest
     github.com/golangci/golangci-lint/cmd/golangci-lint@latest
     github.com/liudng/dogo@latest

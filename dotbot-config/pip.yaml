@@ -1,6 +1,6 @@
 - pip:
-    file: ./python/requirements.txt
     binary: /usr/bin/pip3
-    user: true # Like --user
-    stdout: false # Print the execution stdout
+    file: ./python/requirements.txt
     stderr: true # Print the execution stderr
+    stdout: false # Print the execution stdout
+    user: true # Like --user

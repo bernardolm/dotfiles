@@ -1,14 +1,14 @@
 - defaults:
     clear:
-        recursive: true
+      recursive: true
     link:
-        force: true
-        ignore-missing: true
-        relink: true
+      force: true
+      ignore-missing: true
+      relink: true
     shell:
-        stderr: true
+      stderr: true
 
-- clean: ["~"]
+- clean: ['~']
 
 - shell:
     - find ~ -xtype l -delete
@@ -18,25 +18,24 @@
 
 - link:
     ~/.config/:
-        exclude: [.config/Code]
-        glob: true
-        path: .config/*
+      exclude: [.config/Code]
+      glob: true
+      path: .config/*
     ~/.config/Code/User/:
-        create: true
-        glob: true
-        path: .config/Code/User/*
-    ~/.local/share:
-        glob: true
-        path: ~/sync/.local/share/*
+      create: true
+      glob: true
+      path: .config/Code/User/*
     ~/.config/rclone: ~/sync/.config/rclone
     ~/.curecoin: ~/sync/.curecoin
     ~/.epsonscan2: ~/sync/.epsonscan2
     ~/.ethereum: ~/sync/.ethereum
-    ~/.gcalcli_oauth: ~/sync/.gcalcli_oauth
     ~/.gcalclirc: ~/sync/.gcalclirc
     ~/.gitconfig: .gitconfig
     ~/.icons: ~/sync/.icons
     ~/.inputrc: .inputrc
+    ~/.local/share:
+      glob: true
+      path: ~/sync/.local/share/*
     ~/.local/share/fonts: ~/sync/.local/share/fonts
     ~/.musicoin: ~/sync/.musicoin
     ~/.pypirc: ~/sync/.pypirc
@@ -50,27 +49,52 @@
 - shell:
     - gconftool-2 --shutdown
     - gconftool-2 --spawn
-    - [fc-cache -f,
-        Updating font cache]
-    - [gnome-extensions disable auto-move-windows@gnome-shell-extensions.gcampax.github.com,
-        disabling unused ubuntu extensions]
-    - [gnome-extensions disable ding@rastersoft.com,
-        disabling unused ubuntu extensions]
-    - [gnome-extensions disable ubuntu-dock@ubuntu.com,
-        disabling unused ubuntu extensions]
-    - [gnome-extensions disable window-list@gnome-shell-extensions.gcampax.github.com,
-        disabling unused ubuntu extensions]
-    - [gnome-extensions disable windowsNavigator@gnome-shell-extensions.gcampax.github.com,
-        disabling unused ubuntu extensions]
-    - [gnome-extensions disable workspace-indicator@gnome-shell-extensions.gcampax.github.com,
-        disabling unused ubuntu extensions]
-    - [gsettings set org.cinnamon.desktop.wm.preferences num-workspaces 1,
-        disabling workspaces]
-    - [gsettings set org.gnome.shell enable-hot-corners true,
-        disabling hot corner]
-    - [gsettings set org.gnome.shell.extensions.dash-to-dock autohide false,
-        disabling dock]
-    - [gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false,
-        disabling dock]
-    - [gsettings set org.gnome.shell.extensions.dash-to-dock intellihide false,
-        disabling dock]
+    - [
+        cp --update --remove-destination --backup ~/sync/.gcalcli_oauth ~/.gcalcli_oauth,
+        Copying google calendar cli config file,
+      ]
+    - [fc-cache -f, Updating font cache]
+    - [
+        gnome-extensions disable auto-move-windows@gnome-shell-extensions.gcampax.github.com,
+        disabling unused ubuntu extensions,
+      ]
+    - [
+        gnome-extensions disable ding@rastersoft.com,
+        disabling unused ubuntu extensions,
+      ]
+    - [
+        gnome-extensions disable ubuntu-dock@ubuntu.com,
+        disabling unused ubuntu extensions,
+      ]
+    - [
+        gnome-extensions disable window-list@gnome-shell-extensions.gcampax.github.com,
+        disabling unused ubuntu extensions,
+      ]
+    - [
+        gnome-extensions disable windowsNavigator@gnome-shell-extensions.gcampax.github.com,
+        disabling unused ubuntu extensions,
+      ]
+    - [
+        gnome-extensions disable workspace-indicator@gnome-shell-extensions.gcampax.github.com,
+        disabling unused ubuntu extensions,
+      ]
+    - [
+        gsettings set org.cinnamon.desktop.wm.preferences num-workspaces 1,
+        disabling workspaces,
+      ]
+    - [
+        gsettings set org.gnome.shell enable-hot-corners true,
+        disabling hot corner,
+      ]
+    - [
+        gsettings set org.gnome.shell.extensions.dash-to-dock autohide false,
+        disabling dock,
+      ]
+    - [
+        gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed false,
+        disabling dock,
+      ]
+    - [
+        gsettings set org.gnome.shell.extensions.dash-to-dock intellihide false,
+        disabling dock,
+      ]

@@ -5,6 +5,7 @@ using with gnome-extensions-cli, installed with python pip:
 ```bash
 gnome-extensions-cli install `cat $DOTFILES/gnome/extentions.txt | grep -v '#'
 ```
+
 maybe
 
 ```bash

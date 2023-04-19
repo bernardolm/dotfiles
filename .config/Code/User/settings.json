@@ -168,6 +168,9 @@
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
     },
+    "yaml.schemas": {
+        "": "base.yaml",
+    },
     "bracketLens.mode": "auto",
     "breadcrumbs.enabled": true,
     "debug.inlineValues": "off",
@@ -245,9 +248,11 @@
     "window.restoreWindows": "none",
     "window.title": "${dirty}${separator}${rootName}${separator}vs",
     "window.titleSeparator": " • ",
+    "window.zoomLevel": -1,
     "workbench.colorTheme": "Ocean Space Refined Italic",
     "workbench.editor.restoreViewState": false,
     "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "newUntitledFile",
-    "window.zoomLevel": -1,
+    "yaml.format.singleQuote": true,
+    "yaml.keyOrdering": true,
 }
