@@ -1,0 +1,3 @@
+#!/usr/bin/env zsh
+
+$DEBUG_SHELL && _warn "ohmyzsh_install: installed by antigen"

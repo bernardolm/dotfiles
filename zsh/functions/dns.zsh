@@ -70,7 +70,7 @@ function dns_local_reset() {
     }
 
     function start() {
-        mkdir -p ${HOME}/.${container_name}/dnsmasq-hosts.d
+        mkdir -p $HOME/.${container_name}/dnsmasq-hosts.d
 
         docker run -d \
             --name=${container_name} \

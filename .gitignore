@@ -1,4 +1,3 @@
-**/__pycache__
 .config/autostart/gnome-*.desktop
 .pytest_cache
 *.bin
@@ -6,14 +5,13 @@
 *.tar.gz
 *.zip
 *.zsh.zwc
+**/__pycache__
 **/*.pid
 **/micro/buffers
 **/micro/plug
 *bluetooth*
 *phone.py
 *venv/
-antigen
 debian/*
-dotbot*
-
-!dotbot-config
+git/submodule/*
+to-fix.txt

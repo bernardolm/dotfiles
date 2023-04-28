@@ -1,3 +1,5 @@
+return
+
 if [ ! -f "$HOME/.local/bin/theme.sh" ]; then
 	sudo curl -Lo $HOME/.local/bin/theme.sh 'https://git.io/JM70M'
 	sudo chmod +x $HOME/.local/bin/theme.sh

@@ -1,0 +1,22 @@
+function ohmyzsh_plugins_list() {
+    local plugins
+    /bin/cat < "$DOTFILES/ohmyzsh/plugins.txt" | grep -v '#' | grep -v '/' | while read -r file ; do
+        plugins="$plugins\n$file"
+    done
+    echo -n "$plugins"
+}
+
+function ohmyzsh_docker_completions() {
+    [ ! -f "$ZSH/plugins/docker/_docker" ] && \
+        curl -fLo "$ZSH/plugins/docker/_docker" \
+        'https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker'
+}
+
+function ohmyzsh_bundles_init() {
+    find "$HOME/.antigen/bundles" -maxdepth 3 -name '*.plugin.zsh' | \
+        grep -v 'bundles/robbyrussell' | \
+        while read -r file; do
+        $DEBUG_SHELL && _debug "ohmyzsh_bundles_init: ${file}"
+        . "$file"
+    done
+}

@@ -34,5 +34,5 @@ function gnome_shell_extensions_reload() {
 }
 
 function gnome_shell_extensions_install() {
-    gnome-extensions-cli install `cat ${DOTFILES}/gnome/extentions.txt | grep -v '#'`
+    gnome-extensions-cli install `cat $DOTFILES/gnome/extentions.txt | grep -v '#'`
 }

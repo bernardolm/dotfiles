@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
+
+test -d "$ZPLUG_HOME" || . "$BASEDIR/zplug/install"
+
+source "$ZPLUG_HOME/init.zsh"
+
+zplug "dracula/zsh", as:theme

@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
 wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 \
-    -q -O ${OH_MY_POSH}
-chmod +x ${OH_MY_POSH}
+    -q -O $OH_MY_POSH
+chmod +x $OH_MY_POSH
 
 mkdir ~/.poshthemes
 wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip \

@@ -13,7 +13,7 @@ function conky_start() {
     local cmd="conky ${attrs} --config"
 
     # eval ${cmd} "$DOTFILES/.config/conky/left.conf"
-    eval "${cmd} ${DOTFILES}/.config/conky/right.conf"
+    eval "${cmd} $DOTFILES/.config/conky/right.conf"
 }
 
 function conky_instances() {
@@ -21,8 +21,7 @@ function conky_instances() {
 }
 
 function conky_restart() {
-    local instaces
-    instaces=$(conky_instances)
+    local instaces=$(conky_instances)
     # notify-send "conky (re)starting" "$(conky_instances) were running."
     conky_kill
     sleep 1

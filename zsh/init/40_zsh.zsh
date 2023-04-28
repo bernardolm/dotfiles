@@ -36,3 +36,9 @@ if [ -n "${ZSH_VERSION}" ]; then
     autoload -U bashcompinit
     bashcompinit
 fi
+
+. "$DOTFILES/antigen/start"
+# . "$DOTFILES/zplug/start"
+
+. "$DOTFILES/ohmyzsh/start"
+# . "$DOTFILES/ohmyposh/start"

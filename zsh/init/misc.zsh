@@ -2,7 +2,6 @@ $DEBUG_SHELL && localectl status
 
 (source "$DOTFILES/zsh/functions/conky.zsh" && conky_restart &)
 
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 eval "$(op completion zsh)" && compdef _op op
 eval "$(thefuck --yeah --alias)"
 
@@ -17,5 +16,3 @@ hudctl_completion+='/hudctl-completion.bash'
 command -v disable_accelerometter &>/dev/null && disable_accelerometter
 
 newgrp docker
-
-. "${DOTFILES}/ohmyposh/start"

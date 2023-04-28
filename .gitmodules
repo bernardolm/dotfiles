@@ -1,47 +1,29 @@
-[submodule "antigen"]
-	active = true
-	ignore = dirty
-	url = https://github.com/zsh-users/antigen.git
-	path = antigen
-
 [submodule "dotbot"]
 	active = true
 	ignore = dirty
 	url = https://github.com/anishathalye/dotbot.git
-	path = dotbot
+	path = git/submodule/dotbot
 
 [submodule "dotbot-golang"]
 	active = true
 	ignore = dirty
 	url = https://github.com/delicb/dotbot-golang.git
-	path = dotbot-golang
+	path = git/submodule/dotbot-golang
 
 [submodule "dotbot-pip"]
 	active = true
 	ignore = dirty
 	url = https://github.com/sobolevn/dotbot-pip.git
-	path = dotbot-pip
+	path = git/submodule/dotbot-pip
 
 [submodule "dotbot-snap"]
 	active = true
 	ignore = dirty
 	url = https://github.com/DrDynamic/dotbot-snap.git
-	path = dotbot-snap
+	path = git/submodule/dotbot-snap
 
 [submodule "dotbot-sudo"]
 	active = true
 	ignore = dirty
 	url = https://github.com/DrDynamic/dotbot-sudo.git
-	path = dotbot-sudo
-
-[submodule "bash-lib"]
-	active = true
-	ignore = dirty
-	path = bash-lib
-	url = https://github.com/cyberark/bash-lib
-
-[submodule "oyvinev_log-sh"]
-	active = true
-	ignore = dirty
-	path = oyvinev_log-sh
-	url = https://github.com/oyvinev/log.sh
+	path = git/submodule/dotbot-sudo

@@ -20,6 +20,7 @@ rupa/z
 se-jaeger/zsh-activate-py-environment
 srijanshetty/zsh-pip-completion
 thuandt/zsh-pipx
+trapd00r/File-LsColor
 trapd00r/LS_COLORS
 wbingli/zsh-wakatime
 zdharma-continuum/zsh-navigation-tools

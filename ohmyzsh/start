@@ -1,0 +1,26 @@
+#!/usr/bin/env zsh
+
+export ZSH="$HOME/.antigen/bundles/robbyrussell/oh-my-zsh"
+export ZSH_THEME=robbyrussell
+
+test -d "$ZSH" || . "$DOTFILES/ohmyzsh/install"
+
+. "$DOTFILES/ohmyzsh/functions"
+
+if [ ! -d "$ZSH" ]; then
+    $DEBUG_SHELL && _warn "Couldn't find oh-my-zsh root path with '$ZSH'"
+else
+    $DEBUG_SHELL && _info "found '$ZSH' as oh-my-zsh root path"
+
+    plugins=($(ohmyzsh_plugins_list))
+    $DEBUG_SHELL && _info "oh-my-zsh plugins='$plugins'"
+
+    source $ZSH/oh-my-zsh.sh
+
+    ohmyzsh_bundles_init
+
+    # Docker completions
+    ohmyzsh_docker_completions
+
+    chmod +x ~/.local/bin/register-python-argcomplete
+fi

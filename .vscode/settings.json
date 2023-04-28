@@ -1,8 +1,4 @@
 {
-  "files.exclude": {
-    "antigen": true,
-    "dotbot/**/*": true,
-  },
   "git.autoRepositoryDetection": false,
   "git.detectSubmodules": false,
   "git.ignoreSubmodules": true,

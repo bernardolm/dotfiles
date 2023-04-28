@@ -1,52 +1,14 @@
-function _echo() {
-    local icon
-    icon="$1"
+# avoiding load again
+[ ! -z "$DEBUG_SHELL" ] && return
 
-    shift
+export DEBUG_SHELL=$(test -z "$DEBUG_SHELL" && echo "false" || echo "$DEBUG_SHELL")
 
-    local color
-    color="$1"
+export DEBUG_SHELL=true
 
-    shift
+# export DEBUG
+# [ $DEBUG ] && set -x
 
-    test -z "${NC}" && echo "$icon $@" >&2 || echo "$icon ${color}$@${NC}" >&2
-}
-
-function _debug() {
-    _echo "" "${RED}${ON_YELLOW}" "$@"
-}
-
-function _info() {
-    _echo "💬" "$CYAN" "$@"
-}
-
-function _warn() {
-    _echo "🚧" "$YELLOW" "$@"
-}
-
-function _is_command_success() {
-    if [ $? -eq 0 ]; then
-        _echo "😉"
-    else
-        _echo "🤬"
-    fi
-}
-
-function _starting() {
-    _echo "🥚" "$PURPLE" "starting $@..."
-}
-
-function _finishing() {
-    _echo "🦖" "$PURPLE" "$@ was finished."
-}
-
-export DEBUG_SHELL
-DEBUG_SHELL=$(test -z "$DEBUG_SHELL" && echo "false" || echo $DEBUG_SHELL)
-
-# export DEBUG_SHELL=true
-
-export DEBUG
-[ $DEBUG ] && set -x
+. "$DOTFILES/zsh/functions/log.zsh"
 
 $DEBUG_SHELL && _warn "running in DEBUG mode"
 

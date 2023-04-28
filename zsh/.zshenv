@@ -9,7 +9,8 @@ export LANG=en_US.UTF-8
 export MICRO_TRUECOLOR=1
 export SYNC_DOTFILES="$HOME/sync"
 export TERM=xterm-256color
-export USER_TMP=$(mktemp -d)
+# export USER_TMP=$(mktemp -d)
+export USER_TMP=$HOME/tmp
 
 export GITHUB_ORG=$(git config --file "$SYNC_DOTFILES/.gitconfig_work" github.organization)
 export GITHUB_USER=$(git config --file "$DOTFILES/.gitconfig" github.user)
