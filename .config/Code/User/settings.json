@@ -34,6 +34,9 @@
         "editor.formatOnPaste": true,
         "editor.formatOnSave": true,
     },
+    "[shellscript]": {
+        "editor.defaultFormatter": "shakram02.bash-beautify"
+    },
     "[xml]": {
         "editor.defaultFormatter": "DotJoshJohnson.xml"
     },
@@ -235,6 +238,7 @@
     "redhat.telemetry.enabled": false,
     "scm.providerCountBadge": "auto",
     "security.workspace.trust.untrustedFiles": "open",
+    "shellcheck.disableVersionCheck": true,
     "synthwave84.brightness": 0.45,
     "synthwave84.disableGlow": false,
     "telemetry.telemetryLevel": "off",
@@ -248,11 +252,10 @@
     "window.restoreWindows": "none",
     "window.title": "${dirty}${separator}${rootName}${separator}vs",
     "window.titleSeparator": " • ",
-    "window.zoomLevel": -1,
     "workbench.colorTheme": "Ocean Space Refined Italic",
     "workbench.editor.restoreViewState": false,
     "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "newUntitledFile",
     "yaml.format.singleQuote": true,
-    "yaml.keyOrdering": true,
+    "yaml.keyOrdering": false,
 }

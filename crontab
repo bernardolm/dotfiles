@@ -1,0 +1,1 @@
+*/5 * * * * dconf dump /apps/guake/ > ~/workspaces/bernardolm/dotfiles/guake/config.dconf

@@ -1,3 +1,5 @@
+return
+
 # export STARSHIP_CONFIG="$DOTFILES/starship/tokyo-night.toml"
 export STARSHIP_CONFIG="$DOTFILES/starship/pastel-powerline.toml"
 

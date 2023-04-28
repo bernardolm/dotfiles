@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+export OH_MY_POSH_DIR=~/sync/bin
+export OH_MY_POSH=${OH_MY_POSH_DIR}/oh-my-posh
+
+test -f ${OH_MY_POSH} || . ${BASEDIR}/ohmyposh/install
+
+export PATH=${PATH}:${OH_MY_POSH_DIR}
+
+eval "$(${OH_MY_POSH} init zsh --config /home/bernardo/workspaces/bernardolm/dotfiles/ohmyposh/config.yaml)"
+# eval "$(${OH_MY_POSH} init zsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/velvet.omp.json)"
+# eval "$(${OH_MY_POSH} init zsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/quick-term.omp.json)"
+# eval "$(${OH_MY_POSH} init zsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/M365Princess.omp.json)"
+# eval "$(${OH_MY_POSH} init zsh)"

@@ -5,5 +5,6 @@
   },
   "git.autoRepositoryDetection": false,
   "git.detectSubmodules": false,
-  "git.ignoreSubmodules": true
+  "git.ignoreSubmodules": true,
+  "python.analysis.typeCheckingMode": "basic"
 }

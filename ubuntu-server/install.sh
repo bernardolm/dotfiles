@@ -1,1 +1,7 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
+
+./pre-install
+
+# make pre
+
+echo "finish"

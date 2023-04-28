@@ -130,8 +130,8 @@ function docker_install_sanitize() {
         if [[ `docker_install_check` -eq 1 ]]; then
             echo "purging existent docker ubuntu package"
             echo "\033[0;36m"
-            sudo apt-get purge '^docker' containerd runc --yes 2>/dev/null
-            sudo apt-get autoremove --purge --yes
+            sudo apt purge '^docker' containerd runc --yes 2>/dev/null
+            sudo apt autoremove --purge --yes
             echo "\033[0m"
         else
             echo "no docker install found"
@@ -149,7 +149,7 @@ function docker_install() {
     if [[ `docker_install_check` -eq 0 ]]; then
         echo "installing docker ubuntu package"
         echo "\033[0;36m"
-        sudo apt-get install --yes docker-ce docker-ce-cli containerd.io docker-compose
+        sudo apt install --yes docker-ce docker-ce-cli containerd.io docker-compose
         sleep 1
         sudo apt install -f
         sleep 1
@@ -247,7 +247,8 @@ function deit() {
 }
 
 function di() {
-    docker images $@ | docker-color-output
+    # docker images $@ | docker-color-output
+    docker images $@
 }
 
 function diip() {
@@ -255,7 +256,8 @@ function diip() {
 }
 
 function dpsa() {
-    docker ps --all --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.Status}}" $@ | docker-color-output
+    # docker ps --all --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.Status}}" $@ | docker-color-output
+    docker ps --all --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.Status}}" $@
 }
 
 function drm() {

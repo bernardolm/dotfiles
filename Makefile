@@ -1,7 +1,11 @@
-default:
+default: reset
 	@echo "starting docker to test first steps ubuntu"
-	@docker build -t=bernardolm/dotfiles .
-	@docker run --rm -v `pwd`:/opt/dotfiles --workdir=/opt/dotfiles bernardolm/dotfiles ./ubuntu/install.sh
+	@docker build --progress tty -t=dotfiles:test .
+	@docker run --rm \
+		-v /var/lib/apt/lists:/var/lib/apt/lists \
+		-v $(PWD):/opt/dotfiles \
+		dotfiles:test \
+		./pre-install
 
 reset:
 	@reset

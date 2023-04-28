@@ -10,43 +10,66 @@
 # apt get keys
 # apt upgrade
 
-# -----------------------------------------------------------------------------
+# ---------------------------------------------------------------------------
 
-apt update # maybe not
-apt install --yes curl git python3-pip ttf-mscorefonts-installer
+# apt update
+# apt --yes upgrade
+# apt install --yes \
+#     curl \
+#     git \
+#     make \
+#     python3-pip \
+#     sudo \
+#     ttf-mscorefonts-installer
 
+# export TERM=xterm-256color
+# export NO_COLOR=0
+
+pwd
+env | sort
 
 # shellcheck source=/dev/null
 source ./zsh/init/10_debug.zsh
 
 # shellcheck source=/dev/null
-HOME=$(eval echo "~$SUDO_USER") source ./zsh/init/30_env.zsh
+HOME=$(eval echo "~${SUDO_USER}") source ./zsh/init/30_env.zsh
 
-apt_sources_found=$(find /etc/apt/sources.list.d/ -name '*.list' | wc -l)
-echo "$apt_sources_found sources file found"
+# apt_sources_found=$(find /etc/apt/sources.list.d/ -name '*.list' | wc -l)
+# echo "${apt_sources_found} sources file found"
 
-if [ "$apt_sources_found" -eq 0 ]; then
-    unlink /etc/apt/sources.list.d
-    ln -sf "$SYNC_DOTFILES/etc/apt/sources.list.d" /etc/apt/sources.list.d
-    # shellcheck source=/dev/null
-    source ./zsh/apt.zsh
-    HOME=$(eval echo "~$SUDO_USER") apt_keys_recovery
-    apt update
-fi
+# # Move this do shell command into dotbot apt config
+# if [ "${apt_sources_found}" -eq 0 ]; then
+#     # check if is a link before
+#     ([ -d "/etc/apt/sources.list.d" ] || [ -L "/etc/apt/sources.list.d" ]) && _
+#         sudo mv /etc/apt/sources.list.d /etc/apt/sources.list.d.$(date +"%m/%d/%Y %H:%M")
+#     ln -sf "${SYNC_DOTFILES}/etc/apt/sources.list.d" /etc/apt/sources.list.d
+#     # shellcheck source=/dev/null
+#     source ./zsh/apt.zsh
+#     HOME=$(eval echo "~${SUDO_USER}") apt_keys_recovery
+#     apt update
+# fi
 
-cat ".gitmodules" | grep 'submodule' | while read -r item; do
+ls -lah
+
+echo "sanitizing git submodule"
+cat < .gitmodules | grep 'submodule' | while read -r item; do
     item=$(echo "${item}" | sed -E 's/.*\"(.*)\".*/\1/')
-    echo "sanitizing git submodule ${item}"
+    echo "${item}"
     if [ -z "$(ls -A ./"$item")" ]; then
         git submodule deinit --force --all "${item}" 2>/dev/null
         rm -rf "${item}" ".git/modules/${item}" 2>/dev/null
     fi
 done
 
-cat ".gitmodules" | grep 'url' | while read -r item; do
-    item=$(echo "${item}" | sed 's/ //g' | cut -d'=' -f2)
-    echo "adding git submodule ${item}"
-    git submodule add --force "${item}" 2>/dev/null
-done
+ls -lah
 
-git submodule update --init --recursive --remote
+# echo "adding git submodule"
+# cat < .gitmodules | grep 'url' | while read -r item; do
+#     item=$(echo "${item}" | sed 's/ //g' | cut -d'=' -f2)
+#     echo "${item}"
+#     git submodule add --force "${item}" 2>/dev/null
+# done
+
+# ls -lah
+
+# git submodule update --init --recursive --remote

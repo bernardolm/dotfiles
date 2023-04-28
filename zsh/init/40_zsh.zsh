@@ -31,3 +31,8 @@ unsetopt NOMATCH # if a pattern for filename generation has no matches, print an
 unsetopt NOTIFY # report the status of background jobs immediately,
 
 # Ref.: https://zsh.sourceforge.io/Doc/Release/Options.html
+
+if [ -n "${ZSH_VERSION}" ]; then
+    autoload -U bashcompinit
+    bashcompinit
+fi

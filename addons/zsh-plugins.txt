@@ -1,10 +1,12 @@
 3v1n0/zsh-bash-completions-fallback
 b4b4r07/emoji-cli
 changyuheng/zsh-interactive-cd
+chitoku-k/fzf-zsh-completions
 chrissicool/zsh-256color
 djui/alias-tips
 fcambus/ansiweather
 felixr/docker-zsh-completion
+greymd/docker-zsh-completion
 HeroCC/LS_COLORS
 johanhaleby/kubetail
 laggardkernel/zsh-thefuck

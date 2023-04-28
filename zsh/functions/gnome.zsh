@@ -1,6 +1,6 @@
 function gnome_backup() {
     local now=$(date +"%Y%m%d%H%M%S")
-    dconf dump /org/gnome/ > "$SYNC_DOTFILES/gnome/$now.txt"
+    dconf dump /org/gnome/ > "${SYNC_DOTFILES}/gnome/${now}.txt"
 }
 
 function gnome_reset() {
@@ -30,9 +30,9 @@ function gnome_sanitize() {
 
 function gnome_shell_extensions_reload() {
     active_extensions=$(gsettings get org.gnome.shell enabled-extensions)
-    gsettings set org.gnome.shell enabled-extensions "$active_extensions"
+    gsettings set org.gnome.shell enabled-extensions "${active_extensions}"
 }
 
 function gnome_shell_extensions_install() {
-    gnome-extensions-cli install `cat $DOTFILES/gnome/extentions.txt | grep -v '#'
+    gnome-extensions-cli install `cat ${DOTFILES}/gnome/extentions.txt | grep -v '#'`
 }

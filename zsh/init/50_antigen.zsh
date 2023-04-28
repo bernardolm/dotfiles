@@ -1,3 +1,5 @@
+return
+
 function antigen_start() {
     $DEBUG_SHELL && _debug "source $ANTIGEN_PATH/antigen.zsh"
     source "$ANTIGEN_PATH/antigen.zsh"
