@@ -27,7 +27,6 @@ iterate_and_load() {
     $DEBUG_SHELL && _finishing "iterate_and_load: ${msg}"
 }
 
-
 iterate_and_load "dotfiles init zsh's" \
     "$DOTFILES/zsh/init" "*.zsh" "sanitize_first_step"
 

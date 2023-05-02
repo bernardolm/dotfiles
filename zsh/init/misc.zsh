@@ -5,7 +5,8 @@ $DEBUG_SHELL && localectl status
 eval "$(op completion zsh)" && compdef _op op
 eval "$(thefuck --yeah --alias)"
 
-source "$HOME/.cargo/env"
+[ -f "$HOME/.cargo/env" ] && source "$HOME/.cargo/env"
+[ -f "$HOME/.fzf.zsh" ] && source "$HOME/.fzf.zsh"
 
 hudctl_completion='/usr/local/lib'
 hudctl_completion+='/node_modules/hudctl/completion'
