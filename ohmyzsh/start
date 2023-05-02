@@ -15,7 +15,7 @@ else
     plugins=($(ohmyzsh_plugins_list))
     $DEBUG_SHELL && _info "oh-my-zsh plugins='$plugins'"
 
-    source $ZSH/oh-my-zsh.sh
+    . $ZSH/oh-my-zsh.sh
 
     ohmyzsh_bundles_init
 

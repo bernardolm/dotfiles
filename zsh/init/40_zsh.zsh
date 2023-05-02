@@ -1,4 +1,3 @@
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border --inline-info'
 export HISTDUP=erase # Erase duplicates in the history file
 export HISTFILE="$SYNC_DOTFILES/.zsh_history" # Where to save history to disk
 export HISTSIZE="$SAVEHIST"
@@ -32,13 +31,13 @@ unsetopt NOTIFY # report the status of background jobs immediately,
 
 # Ref.: https://zsh.sourceforge.io/Doc/Release/Options.html
 
-if [ -n "${ZSH_VERSION}" ]; then
-    autoload -U bashcompinit
-    bashcompinit
-fi
-
 . "$DOTFILES/antigen/start"
 # . "$DOTFILES/zplug/start"
 
 . "$DOTFILES/ohmyzsh/start"
 # . "$DOTFILES/ohmyposh/start"
+
+if [ -n "${ZSH_VERSION}" ]; then
+    autoload -U bashcompinit
+    bashcompinit
+fi
