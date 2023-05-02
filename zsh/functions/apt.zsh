@@ -3,14 +3,24 @@ function apt_search_installed() {
 }
 
 function apt_keys_recovery() {
+    local file
+
     ## 1password
-    if [ ! -f /usr/share/keyrings/1password-archive-keyring.gpg ]; then
-        curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+    file=/etc/apt/trusted.gpg.d/1password-archive-keyring.gpg
+    if [ ! -f $file ]; then
+        curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output $file
     fi
 
     ## docker
-    if [ ! -f /etc/apt/trusted.gpg.d/docker.gpg ]; then
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+    file=/etc/apt/trusted.gpg.d/docker.gpg
+    if [ ! -f $file ]; then
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor --output $file
+    fi
+
+    ## google cloud platform
+    file=/etc/apt/trusted.gpg.d/cloud.google.gpg
+    if [ ! -f $file ]; then
+        curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor --output $file
     fi
 
     declare -a servers=(
@@ -19,6 +29,8 @@ function apt_keys_recovery() {
         "keys.gnupg.net"
         "pgp.mit.edu"
     )
+
+    [ -f /etc/apt/trusted.gpg ] && sudo rm /etc/apt/trusted.gpg
 
     sudo apt update 2>&1 | sed -nr 's/^.*NO_PUBKEY\s(\w{16}).*$/\1/p' | sort | uniq | while read -r key; do
         _starting "no pubkey recover for ${key}"
@@ -30,7 +42,6 @@ function apt_keys_recovery() {
 
         sudo apt-key export ${key} 2>/dev/null | sudo gpg --batch --yes --dearmour -o /etc/apt/trusted.gpg.d/${key}.gpg
 
-        [ -f /etc/apt/trusted.gpg ] && sudo rm /etc/apt/trusted.gpg
 
         _finishing "pubkey ${key} recover"
     done
