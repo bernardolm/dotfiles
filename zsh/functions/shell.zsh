@@ -16,7 +16,7 @@ function find_to_array() {
     done
 }
 
-local function items_counter() {
+function items_counter() {
     [ "$1" = "" ] && echo 0 || echo `echo $1 | wc -l | bc`
 }
 
@@ -62,4 +62,8 @@ function ls_2_exa() {
     args="$@"
     args=$(echo $args | sed 's/A/a/g')
     eval "exa $args"
+}
+
+function file_lines_2_inline() {
+    /bin/cat < $1 | grep -v '#' | paste -sd' '
 }
