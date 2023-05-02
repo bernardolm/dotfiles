@@ -1,37 +1,51 @@
 // Place your key bindings in this file to override the defaults
 [
     {
-        "key": "f9",
-        "command": "-editor.debug.action.toggleBreakpoint",
-        "when": "editorTextFocus"
+        "key": "ctrl+shift+=",
+        "command": "-workbench.action.zoomIn"
     },
     {
-        "key": "f9",
-        "command": "editor.action.sortLinesAscending",
-        "when": "editorTextFocus"
+        "key": "ctrl+numpad_add",
+        "command": "-workbench.action.zoomIn"
     },
-    // {
-    //     "key": "ctrl+b",
-    //     "command": "-markdown.extension.editing.toggleBold"
-    // },
-    // {
-    //     "key": "ctrl+shift+d",
-    //     "command": "editor.action.duplicateSelection"
-    // },
-    // {
-    //     "key": "ctrl+shift+d",
-    //     "command": "-workbench.view.debug"
-    // },
     {
-        "key": "ctrl+9",
+        "key": "ctrl+numpad0",
+        "command": "-workbench.action.zoomReset"
+    },
+    {
+        "key": "ctrl+numpad_subtract",
+        "command": "-workbench.action.zoomOut"
+    },
+    {
+        "key": "ctrl+shift+=",
         "command": "editor.action.fontZoomIn"
     },
     {
-        "key": "ctrl+8",
+        "key": "ctrl+shift+-",
         "command": "editor.action.fontZoomOut"
     },
     {
-        "key": "ctrl+0",
+        "key": "ctrl+shift+0",
         "command": "editor.action.fontZoomReset"
+    },
+    {
+        "key": "alt+0",
+        "command": "workbench.action.zoomReset"
+    },
+    {
+        "key": "alt+=",
+        "command": "workbench.action.zoomIn"
+    },
+    {
+        "key": "alt+-",
+        "command": "workbench.action.zoomOut"
+    },
+    {
+        "key": "ctrl+=",
+        "command": "-workbench.action.zoomIn"
+    },
+    {
+        "key": "ctrl+-",
+        "command": "-workbench.action.zoomOut"
     }
 ]

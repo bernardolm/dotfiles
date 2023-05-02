@@ -27,9 +27,9 @@
         "editor.defaultFormatter": "vscode.json-language-features",
         "editor.tabSize": 2
     },
-    "[php]": {
-        "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
-    },
+    // "[php]": {
+    //     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+    // },
     "[python]": {
         "editor.formatOnPaste": true,
         "editor.formatOnSave": true,
@@ -252,10 +252,10 @@
     "window.restoreWindows": "none",
     "window.title": "${dirty}${separator}${rootName}${separator}vs",
     "window.titleSeparator": " • ",
-    "workbench.colorTheme": "Ocean Space Refined Italic",
     "workbench.editor.restoreViewState": false,
     "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "newUntitledFile",
     "yaml.format.singleQuote": true,
     "yaml.keyOrdering": false,
+    "workbench.colorTheme": "SynthWave '84",
 }
