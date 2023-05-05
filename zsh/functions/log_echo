@@ -1,0 +1,36 @@
+#!/usr/bin/env zsh
+
+function log_echo() {
+    local icon
+    icon="$1"
+
+    shift
+
+    local color
+    color="$1"
+
+    shift
+
+    [ -n "$icon" ] && icon="$icon "
+
+    local loutput=0
+    local lcaller=0
+    local rpad=0
+    local space=""
+    local _caller=""
+    local width=$(tput cols)
+
+    $SHELL_STACK && _caller=$(caller)
+
+    local output=" ${icon}${color}$@${reset_color}"
+
+    if [[ ! $width -eq 80 ]]; then
+        loutput=$(echo "${output}" | ansi2txt | wc -L)
+        rpad=$(($width-$loutput))
+        lcaller=$(echo "${_caller}" | ansi2txt | wc -L)
+        rpad=$(($rpad-$lcaller))
+        space=${(l:$rpad:: :)}
+    fi
+
+    echo ${output}${space}${_caller}
+}

@@ -1,0 +1,28 @@
+#!/usr/bin/env zsh
+
+function caller() {
+    if [[ $BASH_VERSION ]]; then
+        local file=${BASH_SOURCE[1]} func=${FUNCNAME[1]} line=${BASH_LINENO[0]}
+    else
+        local _stack
+
+        local _file="$(tput setab 237)$(tput setaf 255)"
+        local _sep="$(tput setab 237)$(tput setaf 14)\e[1m>${reset_color}"
+
+        for f in $funcfiletrace; do
+            if [[ ! $f =~ "/log_" ]]; then
+
+                f=$(basename $f)
+                # echo "\nf="$f"\n"
+                if [[ ! -z $_stack ]]; then
+                    _stack="${_file} $f ${reset_color}${_sep}${_file}${_stack}${reset_color}"
+                else
+                    _stack="${_file} $f ${reset_color}"
+                fi
+            fi
+        done
+
+        printf "${_stack}${reset_color}"
+        # printf "${_stack}${reset_color}" > /dev/tty
+    fi
+}
