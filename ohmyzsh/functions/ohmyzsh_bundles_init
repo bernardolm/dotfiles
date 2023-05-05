@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+function ohmyzsh_bundles_init() {
+    find "$HOME/.oh-my-zsh" -maxdepth 3 -name '*.plugin.zsh' | \
+        grep -v 'bundles/robbyrussell' | \
+        while read -r file; do
+        log_debug "${file}"
+        . "$file"
+    done
+}

@@ -1,10 +1,10 @@
-local d="$WORKSPACE_USER/dircolors/.dircolors"
-test -r $d && echo "dircolors!" && eval "$(dircolors --bourne-shell $d)"
+# local d="$WORKSPACE_USER/dircolors/.dircolors"
+# test -r $d && eval "dircolors $d"
 
-source "$ANTIGEN_WORKDIR/bundles/dracula/zsh-syntax-highlighting/zsh-syntax-highlighting.sh"
+# eval dircolors <(curl -sL https://raw.githubusercontent.com/sorin-ionescu/dotfiles/master/dir_colors)
 
 # stop reading
-return
+# return
 
 if [ ! -f "$HOME/.local/bin/theme.sh" ]; then
 	sudo curl -s -Lo $HOME/.local/bin/theme.sh 'https://git.io/JM70M'
@@ -12,9 +12,9 @@ if [ ! -f "$HOME/.local/bin/theme.sh" ]; then
 fi
 
 if command -v theme.sh > /dev/null; then
-	[ -e ~/.theme_history ] && theme.sh "$(theme.sh -l|tail -n1)"
+	log_info "applying theme"
 
-	# Optional
+	[ -e ~/.theme_history ] && theme.sh "$(theme.sh -l|tail -n1)"
 
 	# Bind C-o to the last theme.
 	function last_theme() {
@@ -23,4 +23,6 @@ if command -v theme.sh > /dev/null; then
 
 	zle -N last_theme
 	bindkey '^O' last_theme
+else
+	log_warn "theme.sh not found"
 fi

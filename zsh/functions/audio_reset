@@ -1,4 +1,6 @@
-function reset_audio() {
+#!/usr/bin/env zsh
+
+function audio_reset() {
     sudo killall pulseaudio
     /bin/rm -rf ~/.config/pulse/*
     /bin/rm -rf ~/.pulse*

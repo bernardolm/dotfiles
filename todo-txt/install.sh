@@ -3,7 +3,7 @@
 source ../init/env.sh
 source ../init/functions_loader.sh
 
-_starting 'todo.txt-cli'
+log_starting 'todo.txt-cli'
 
 if [ ! -f ~/.local/bin/todo.sh ]; then
     version="2.12.0"
@@ -13,4 +13,4 @@ if [ ! -f ~/.local/bin/todo.sh ]; then
     yes | mv $tmp/todo/todo.txt_cli-$version.dirty/todo.sh ~/.local/bin/todo.sh
 fi
 
-_finishing 'todo.txt-cli'
+log_finishing 'todo.txt-cli'

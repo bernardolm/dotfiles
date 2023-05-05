@@ -3,7 +3,7 @@
 source ../init/env.sh
 source ../init/functions_loader.sh
 
-_starting 'remote folder'
+log_starting 'remote folder'
 
 function install_dropbox() {
     function is_dropbox_finish() {
@@ -13,7 +13,7 @@ function install_dropbox() {
         [ $result -gt 0 ] && true
     }
 
-    if [[ "$(command -v dropbox)" == "" ]]; then
+    if [[ "$(dropbox)" == "" ]]; then
         echo -e "\ninstalling dropbox..."
         sudo apt install --yes python3-gpg curl
         nautilus --quit
@@ -33,4 +33,4 @@ function install_dropbox() {
 
 install_dropbox
 
-_finishing 'remote folder'
+log_finishing 'remote folder'

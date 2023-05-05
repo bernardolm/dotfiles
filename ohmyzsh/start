@@ -1,26 +1,27 @@
 #!/usr/bin/env zsh
 
-export ZSH="$HOME/.antigen/bundles/robbyrussell/oh-my-zsh"
-export ZSH_THEME=robbyrussell
-
-test -d "$ZSH" || . "$DOTFILES/ohmyzsh/install"
-
-. "$DOTFILES/ohmyzsh/functions"
+fpath=( "$DOTFILES/ohmyzsh/functions" $fpath )
+autoload -Uz ${fpath[1]}/*(:t)
 
 if [ ! -d "$ZSH" ]; then
-    $DEBUG_SHELL && _warn "Couldn't find oh-my-zsh root path with '$ZSH'"
+    log_warn "Couldn't find oh-my-zsh root path with '$ZSH'"
+    . "$DOTFILES/ohmyzsh/install"
 else
-    $DEBUG_SHELL && _info "found '$ZSH' as oh-my-zsh root path"
+    log_info "found '$ZSH' as oh-my-zsh root path"
 
     plugins=($(ohmyzsh_plugins_list))
-    $DEBUG_SHELL && _info "oh-my-zsh plugins='$plugins'"
+    log_info "oh-my-zsh plugins='$plugins'"
 
     . $ZSH/oh-my-zsh.sh
 
-    ohmyzsh_bundles_init
+    # ohmyzsh_bundles_init
 
     # Docker completions
     ohmyzsh_docker_completions
 
-    chmod +x ~/.local/bin/register-python-argcomplete
+    # chmod +x ~/.local/bin/register-python-argcomplete
+
+    # local file
+    # file="$ANTIGEN_WORKDIR/bundles/dracula/zsh-syntax-highlighting/zsh-syntax-highlighting.sh"
+    # [ -f "file" ] && . "$file"
 fi

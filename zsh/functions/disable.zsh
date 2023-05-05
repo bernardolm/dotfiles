@@ -1,5 +1,5 @@
 function disable_accelerometter() {
-    command -v xinput &>/dev/null || return 1
+    xinput &>/dev/null || return 1
     xinput --list | grep Touchscreen | grep -o 'id=[0-9]\+' | cut -d= -f2 | awk '{print "xinput disable "$1"" | "/bin/sh"}'
 }
 

@@ -1,0 +1,39 @@
+function random_emoji () {
+    local SELECTED_EMOJIS=(
+        💩
+        🐦
+        🚀
+        🐞
+        🎨
+        🍕
+        🐭
+        👽
+        ☕️
+        🔬
+        💀
+        🐷
+        🐼
+        🐶
+        🐸
+        🐧
+        🐳
+        🍔
+        🍣
+        🍻
+        🔮
+        💰
+        💎
+        💾
+        💜
+        🍪
+        🌞
+        🌍
+        🐌
+        🐓
+        🍄
+    )
+
+    local index=$(($RANDOM%${#SELECTED_EMOJIS[@]}+1))
+
+    echo -n ${SELECTED_EMOJIS[$index]}
+}

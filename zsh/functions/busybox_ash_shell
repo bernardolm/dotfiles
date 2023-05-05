@@ -1,6 +1,8 @@
+#!/usr/bin/env zsh
+
 function busybox_ash_shell() {
-    IMAGE=`pwd`
-    IMAGE=`basename $IMAGE`
+    IMAGE=$(pwd)
+    IMAGE=$(basename $IMAGE)
     if [ -n "$1" ]; then
         IMAGE="$1"
     fi

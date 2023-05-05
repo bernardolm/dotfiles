@@ -1,6 +1,4 @@
-function apt_search_installed() {
-    apt list --installed "*$1*" 2>/dev/null | awk -F'/' 'NR>1{print $1}'
-}
+#!/usr/bin/env zsh
 
 function apt_keys_recovery() {
     local file
@@ -36,7 +34,7 @@ function apt_keys_recovery() {
         _starting "no pubkey recover for ${key}"
 
         for server in "${servers[@]}"; do
-            _info "trying recover key from ${server}"
+            log_info "trying recover key from ${server}"
             sudo apt-key adv --keyserver ${server} --recv-keys ${key} && break
         done
 

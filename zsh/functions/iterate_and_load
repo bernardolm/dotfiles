@@ -1,0 +1,22 @@
+#!/usr/bin/env zsh
+
+function iterate_and_load() {
+    local msg="$1"
+    local find_path="$2"
+    local find_term="$3"
+    local filter_fn="$4"
+
+    log_starting "$msg"
+
+    local cmd="find $find_path -name '$find_term' -print 2>/dev/null | $filter_fn"
+
+    log_debug "$cmd"
+
+    eval "$cmd" | while read -r script_file; do
+        log_debug "$script_file"
+        # shellcheck source=/dev/null
+        . "$script_file"
+    done
+
+    log_finishing "$msg"
+}

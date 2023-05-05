@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+function log_error() {
+    $SHELL_DEBUG || return
+    log_echo "💣" "$RED" "$@"
+}

@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+function log_is_command_success() {
+    if [ $? -eq 0 ]; then
+        log_echo "😉"
+    else
+        log_echo "🤬"
+    fi
+}

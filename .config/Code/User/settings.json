@@ -257,5 +257,7 @@
     "workbench.startupEditor": "newUntitledFile",
     "yaml.format.singleQuote": true,
     "yaml.keyOrdering": false,
-    "workbench.colorTheme": "SynthWave '84",
+    "workbench.colorTheme": "Ocean Space Refined Italic",
+    "window.zoomLevel": -1,
+    "cSpell.language": "en,en-US,en-GB,lorem,pt,pt-BR",
 }

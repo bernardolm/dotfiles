@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+log_starting 'go'
+
+local version="$(curl --silent https://go.dev/version?m=text)"
+
+log_info "installing version ${version}"
+
+URL="https://golang.org/dl/${version}.linux-amd64.tar.gz"
+TMP=$(mktemp -d)
+DEST="${TMP}/go.tar.gz"
+
+curl -L -o "${DEST}" "${URL}"
+
+ls -lah "${DEST}"
+
+sudo rm -rf "${GOROOT}"
+sudo tar -C /usr/local -xzf "${DEST}"
+
+export PATH="${PATH}:${GOROOT}/bin"
+
+go version
+
+log_finishing 'go'

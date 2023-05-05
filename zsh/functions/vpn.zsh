@@ -74,6 +74,6 @@ function vpn_add_routes() {
             echo $host";"$up_at";"$now | tee -a $new_file &>/dev/null
         fi
 
-        [ `command -v progress_bar` ] && progress_bar $count $total "$host"
+        [ `progress_bar` ] && progress_bar $count $total "$host"
     done
 }

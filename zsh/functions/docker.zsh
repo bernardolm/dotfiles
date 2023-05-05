@@ -4,7 +4,7 @@ DOCKER_IMAGES_DANGLING="$DOCKER images -q -f 'dangling=true'"
 DOCKER_IMAGES="$DOCKER images -aq"
 
 function docker_install_check() {
-    command -v docker &>/dev/null
+    docker &>/dev/null
 }
 
 function docker_running_check() {

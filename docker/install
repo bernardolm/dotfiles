@@ -1,14 +1,11 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-source ../init/env.sh
-source ../init/functions_loader.sh
+log_starting 'docker'
 
-_starting 'docker'
-
-if [ ! $(command -v docker) ]; then
+if [ ! $(docker) ]; then
     sudo apt install --yes docker-ce docker-desktop docker-ce-cli containerd.io
     [ $(/bin/cat /etc/group | grep docker | wc -l | bc) -eq 0 ] && sudo groupadd docker && newgrp docker
     [ $(getent group docker | grep $USER | wc -l | bc) -eq 0 ] && sudo usermod -aG docker $USER
 fi
 
-_finishing 'docker'
+log_finishing 'docker'

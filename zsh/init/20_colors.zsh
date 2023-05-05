@@ -1,8 +1,9 @@
+# avoiding load
 return
 
 export COLORS=()
 
-$DEBUG_SHELL && \
+$SHELL_DEBUG && \
     readlink /proc/$$/exe && \
     for color in "${COLORS[@]}"; do
         case $(readlink /proc/$$/exe) in
@@ -16,7 +17,9 @@ $DEBUG_SHELL && \
         echo " --- ${color}"
     done
 
-$DEBUG_SHELL && \
+
+
+$SHELL_DEBUG && \
     for clbg in {40..47} {100..107} 49 ; do
         #Foreground
         for clfg in {30..37} {90..97} 39 ; do
@@ -29,7 +32,8 @@ $DEBUG_SHELL && \
         done
     done
 
-$DEBUG_SHELL && \
+
+$SHELL_DEBUG && \
     for fgbg in 38 48 ; do # Foreground / Background
         for color in {0..255} ; do # Colors
             # Display the color
@@ -40,4 +44,16 @@ $DEBUG_SHELL && \
             fi
         done
         echo # New line
+    done
+
+$SHELL_DEBUG && \
+    for COLOR in {0..255}
+    do
+        for STYLE in "38;5"
+        do
+            TAG="\033[${STYLE};${COLOR}m"
+            STR="${STYLE};${COLOR}"
+            echo -ne "${TAG}${STR}${NONE}  "
+        done
+        echo
     done

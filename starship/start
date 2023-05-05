@@ -1,11 +1,11 @@
 #!/usr/bin/env zsh
 
-command -v starship || . $BASEDIR/starship/install
+starship || . $BASEDIR/starship/install
 
 # export STARSHIP_CONFIG="$DOTFILES/starship/tokyo-night.toml"
 export STARSHIP_CONFIG="$DOTFILES/starship/pastel-powerline.toml"
 
-$DEBUG_SHELL && env STARSHIP_LOG=trace starship module rust
-$DEBUG_SHELL && env STARSHIP_LOG=trace starship timings
+$SHELL_DEBUG && env STARSHIP_LOG=trace starship module rust
+$SHELL_DEBUG && env STARSHIP_LOG=trace starship timings
 
 eval "$(starship init zsh)"

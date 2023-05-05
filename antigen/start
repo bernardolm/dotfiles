@@ -1,0 +1,43 @@
+#!/usr/bin/env zsh
+
+fpath=( "$DOTFILES/antigen/functions" $fpath )
+autoload -Uz ${fpath[1]}/*(:t)
+
+export ANTIGEN_PATH="$USER_TMP/antigen.zsh"
+
+# . "$DOTFILES/antigen/functions"
+
+$SHELL_DEBUG && antigen_purge
+
+test -d "$ANTIGEN_PATH" || . "$DOTFILES/antigen/install"
+
+export ANTIGEN_WORKDIR="$HOME/.antigen"
+export ZSH="$ANTIGEN_WORKDIR/bundles/robbyrussell/oh-my-zsh"
+
+# export _ANTIGEN_INTERACTIVE=true
+# export ANTIGEN_CACHE=false
+# export _PARALLEL_BUNDLE=false
+
+if [ ! -d "$ANTIGEN_WORKDIR" ]; then
+    antigen_setup
+else
+    antigen_start
+fi
+
+iterate_and_load "dotfiles init zsh's" \
+    "$DOTFILES/zsh/init" "*.zsh" "sanitize_first_step"
+
+iterate_and_load "dotfiles zsh's" \
+    "$DOTFILES" "*.zsh" "sanitize_second_step"
+
+iterate_and_load "dotfiles aliases" \
+    "$DOTFILES" "aliases" "sanitize_second_step"
+
+iterate_and_load "sync path init zsh's" \
+    "$SYNC_DOTFILES/zsh/init" "*.zsh" "sanitize_first_step"
+
+iterate_and_load "sync path zsh's" \
+    "$SYNC_DOTFILES" "*.zsh" "sanitize_second_step"
+
+iterate_and_load "sync path aliases" \
+    "$SYNC_DOTFILES" "aliases" "sanitize_second_step"

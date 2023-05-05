@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+. "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+
+autoload -Uz promptinit
+promptinit
+
+# prompt bigfade red white grey white
+# prompt fade magenta
+# prompt fire
+# prompt steeef
+prompt off
+prompt fire red magenta blue white white white

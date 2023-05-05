@@ -47,5 +47,20 @@
     {
         "key": "ctrl+-",
         "command": "-workbench.action.zoomOut"
+    },
+    {
+        "key": "ctrl+shift+d",
+        "command": "editor.action.duplicateSelection",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "f9",
+        "command": "editor.action.sortLinesAscending",
+        "when": "editorTextFocus"
+    },
+    {
+        "key": "ctrl+d",
+        "command": "editor.action.addSelectionToNextFindMatch",
+        "when": "editorTextFocus"
     }
 ]

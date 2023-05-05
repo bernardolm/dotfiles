@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
-command -v brew || . $BASEDIR/homebrew/install
+brew || . $BASEDIR/homebrew/install
 
 eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"

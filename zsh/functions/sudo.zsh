@@ -4,7 +4,7 @@
 # 		"$@"
 # 	else
 # 		if ! command sudo --non-interactive true 2>/dev/null; then
-# 			_warn "root privileges are required, please enter your password below. pay attention for what you doing!"
+# 			log_warn "root privileges are required, please enter your password below. pay attention for what you doing!"
 # 			command sudo --validate
 # 		fi
 # 		command sudo "$@"
