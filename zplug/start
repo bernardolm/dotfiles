@@ -2,7 +2,7 @@
 
 export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
 
-test -d "$ZPLUG_HOME" || . "$BASEDIR/zplug/install"
+test -d "$ZPLUG_HOME" || . "$DOTFILES/zplug/install"
 
 source "$ZPLUG_HOME/init.zsh"
 

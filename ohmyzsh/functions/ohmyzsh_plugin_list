@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-function ohmyzsh_external_plugins_list() {
+function ohmyzsh_plugin_list() {
     local plugins
     /bin/cat < "$DOTFILES/ohmyzsh/plugins.txt" | grep -v '#' | while read -r file ; do
         plugins="$plugins\n$file"

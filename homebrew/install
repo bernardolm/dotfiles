@@ -1,3 +1,5 @@
 #!/usr/bin/env zsh
 
+command -v brew >/dev/null && return
+
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"

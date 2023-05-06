@@ -1,3 +1,4 @@
+# alias less='cless && cless || less'
 # alias ls='ls_2_exa'
 # alias nano='micro'
 # alias rm='gio trash'
@@ -21,7 +22,6 @@ alias gotop='gotop-cjbassi'
 alias gsl='git stash list'
 alias gt='go test ./...'
 alias h='hudctl'
-alias less='cless && cless || less'
 alias ls='lsd -A -l'
 alias n='nautilus .'
 alias nano="nano --tabstospaces --trimblanks --tabsize=4 --atblanks --breaklonglines --constantshow --rebinddelete --emptyline --showcursor --autoindent --linenumbers --mouse --indicator --saveonexit --minibar"

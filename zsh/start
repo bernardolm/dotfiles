@@ -1,0 +1,49 @@
+#!/usr/bin/env zsh
+
+# profiling shell
+# Ref.: https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
+[ ! -d "$SHELL_SESSION_PATH" ] && mkdir -p "$SHELL_SESSION_PATH"
+if [[ "$SHELL_PROFILE" == "true" ]]; then
+    zmodload zsh/zprof
+    exec 3>&2 2>"$SHELL_SESSION_PATH/${NOW}.log"
+    setopt xtrace prompt_subst
+fi
+
+. $DOTFILES/zsh/config/setopt
+. $DOTFILES/zsh/config/unsetopt
+
+autoload -Uz +X bashcompinit; bashcompinit
+autoload -Uz +X colors; colors
+autoload -Uz +X compinit; compinit # Initializes the shell’s auto-completion functionality
+autoload -Uz +X promptinit; promptinit
+
+fpath=( "$DOTFILES/zsh/functions" $fpath )
+autoload -Uz ${fpath[1]}/*(:t)
+
+iterate_and_load "dotfiles zsh init" "$DOTFILES/zsh/init" "*.zsh" "sort"
+# iterate_and_load "dotfiles zsh functions" "$DOTFILES/zsh/functions" "*.zsh" "sort"
+iterate_and_load "dotfiles aliases" "$DOTFILES" "aliases" "sort"
+iterate_and_load "sync zsh init" "$SYNC_DOTFILES/zsh/init" "*.zsh" "sort"
+# iterate_and_load "sync zsh functions" "$SYNC_DOTFILES/zsh/functions" "*.zsh" "sort"
+iterate_and_load "sync path aliases" "$SYNC_DOTFILES" "aliases" "sort"
+
+local _zsh_plugin_list=($(zsh_plugin_list))
+log_warn "zsh plugin list: $(echo $_zsh_plugin_list | tr '\n' ',')"
+
+for p in $_zsh_plugin_list; do
+    [ ! -d "$ZSH/plugins/$p" ] && \
+        log_info "cloning $p" && \
+        git clone --quiet "https://github.com/$p.git" "$ZSH/plugins/$p"
+    find "$ZSH/plugins/$p" -maxdepth 1 -name "*.zsh" | while read -r f; do
+        . "$f"
+    done
+done
+
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+# profiling shell
+if [[ "$SHELL_PROFILE" == "true" ]]; then
+    exec 2>&3 3>&-
+    unsetopt xtrace
+    zprof > "$SHELL_SESSION_PATH/${NOW}.prf"
+fi

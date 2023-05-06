@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-starship || . $BASEDIR/starship/install
+starship || . $DOTFILES/starship/install
 
 # export STARSHIP_CONFIG="$DOTFILES/starship/tokyo-night.toml"
 export STARSHIP_CONFIG="$DOTFILES/starship/pastel-powerline.toml"

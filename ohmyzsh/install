@@ -1,14 +1,9 @@
 #!/usr/bin/env zsh
 
+[ -d "$ZSH" ] && return
+
+log_warn "Couldn't find oh-my-zsh root path with '$ZSH'"
+
 # log_warn "ohmyzsh_install: installed by plugin manager"
-# sh -c "$(KEEP_ZSHRC=yes RUNZSH=no \
-#     curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
-ohmyzsh_external_plugins_list
-
-# for f in $(ohmyzsh_external_plugins_list); do
-    # print $f
-# done
-
-# ~/.oh-my-zsh/custom/plugins/zshnotes
-# ~/.oh-my-zsh/custom/plugins/zshnotes
+sh -c "$(KEEP_ZSHRC=yes RUNZSH=no \
+    curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"

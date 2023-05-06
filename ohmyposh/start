@@ -3,7 +3,7 @@
 export OH_MY_POSH_DIR=~/sync/bin
 export OH_MY_POSH=${OH_MY_POSH_DIR}/oh-my-posh
 
-test -f $OH_MY_POSH || . $BASEDIR/ohmyposh/install
+test -f $OH_MY_POSH || . $DOTFILES/ohmyposh/install
 
 export PATH=${PATH}:${OH_MY_POSH_DIR}
 

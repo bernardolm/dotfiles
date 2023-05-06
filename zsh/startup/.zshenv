@@ -3,13 +3,15 @@ export EDITOR=nano
 export EMOJI_CLI_KEYBIND="^e"
 export GOROOT="/usr/local/go"
 export GPG_TTY="$(tty)"
+export HISTDUP=erase # Erase duplicates in the history file
 export LANG="en_US.UTF-8"
 export MICRO_TRUECOLOR=1
 export NOW="$(date '+%H-%M-%S-%N')"
 export PAGER=less
-export SHELL_DEBUG=true
+export SAVEHIST=999999
+export SHELL_DEBUG=false
 export SHELL_PROFILE=false
-export SHELL_STACK=true
+export SHELL_STACK=false
 export TERM="xterm-256color"
 export TODAY="$(date '+%F')"
 export VISUAL=nano
@@ -25,13 +27,17 @@ export FZF_DEFAULT_OPTS='--height=50% --layout=reverse --border --inline-info --
 
 export DOTFILES="$HOME/workspaces/bernardolm/dotfiles"
 export GOPATH="$HOME/gopath"
+export OHMYZSH="$HOME/.oh-my-zsh"
 export SYNC_DOTFILES="$HOME/sync"
 export USER_TMP="$HOME/tmp"
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
+export ZSH="$HOME/.zsh"
 
+export HISTFILE="$SYNC_DOTFILES/.zsh_history" # Where to save history to disk
 export TODO_DIR="$DOTFILES/todo-txt"
 
 export DONE_FILE="$SYNC_DOTFILES/todo-txt/done.txt"
+export HISTSIZE="$SAVEHIST"
 export REPORT_FILE="$SYNC_DOTFILES/todo-txt/report.txt"
 export SHELL_SESSION_PATH="$USER_TMP/shell_session/$TODAY"
 export TODO_ACTIONS_DIR="$TODO_DIR/.todo.actions.d"
@@ -47,6 +53,7 @@ export WORKSPACE_ORG="$HOME/workspaces/$GITHUB_ORG"
 export WORKSPACE_USER="$HOME/workspaces/$GITHUB_USER"
 
 export PATH="$PATH:/bin"
+export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
 export PATH="$PATH:/snap/bin/"
 export PATH="$PATH:/usr/bin"
 export PATH="$PATH:/usr/local/bin"

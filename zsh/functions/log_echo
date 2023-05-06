@@ -18,15 +18,20 @@ function log_echo() {
     local rpad=0
     local space=""
     local _caller=""
-    local width=$(tput cols)
+    local cols=$(tput cols)
 
     $SHELL_STACK && _caller=$(caller)
 
     local output=" ${icon}${color}$@${reset_color}"
 
-    if [[ ! $width -eq 80 ]]; then
+    if [[ $cols -ge 80 ]]; then
         loutput=$(echo "${output}" | ansi2txt | wc -L)
-        rpad=$(($width-$loutput))
+
+        if [[ $loutput -gt $cols ]]; then
+            loutput=$(($loutput-$cols))
+        fi
+
+        rpad=$(($cols-$loutput))
         lcaller=$(echo "${_caller}" | ansi2txt | wc -L)
         rpad=$(($rpad-$lcaller))
         space=${(l:$rpad:: :)}

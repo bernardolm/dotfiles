@@ -3,25 +3,23 @@
 fpath=( "$DOTFILES/ohmyzsh/functions" $fpath )
 autoload -Uz ${fpath[1]}/*(:t)
 
-if [ ! -d "$ZSH" ]; then
-    log_warn "Couldn't find oh-my-zsh root path with '$ZSH'"
-    . "$DOTFILES/ohmyzsh/install"
-else
-    log_info "found '$ZSH' as oh-my-zsh root path"
+. "$DOTFILES/ohmyzsh/install"
 
-    plugins=($(ohmyzsh_plugins_list))
-    log_info "oh-my-zsh plugins='$plugins'"
+log_info "found '$ZSH' as oh-my-zsh root path"
 
-    . $ZSH/oh-my-zsh.sh
+plugins=($(ohmyzsh_plugins_list))
+log_info "oh-my-zsh plugins='$plugins'"
 
-    # ohmyzsh_bundles_init
+. $ZSH/oh-my-zsh.sh
 
-    # Docker completions
-    ohmyzsh_docker_completions
+# ohmyzsh_bundles_init
+ohmyzsh_plugin_list
 
-    # chmod +x ~/.local/bin/register-python-argcomplete
+# Docker completions
+ohmyzsh_docker_completions
 
-    # local file
-    # file="$ANTIGEN_WORKDIR/bundles/dracula/zsh-syntax-highlighting/zsh-syntax-highlighting.sh"
-    # [ -f "file" ] && . "$file"
-fi
+# chmod +x ~/.local/bin/register-python-argcomplete
+
+# local file
+# file="$ANTIGEN_WORKDIR/bundles/dracula/zsh-syntax-highlighting/zsh-syntax-highlighting.sh"
+# [ -f "file" ] && . "$file"
