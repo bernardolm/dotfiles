@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+function todo_conky() {
+    todo.sh -d "$TODO_DIR/conky.cfg" -@ -c -P $@ | todotxt_hide_footer | todotxt_hide_create_date | todotxt_hide_project_and_context_symbols
+}

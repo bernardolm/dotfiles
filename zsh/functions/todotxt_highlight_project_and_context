@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+function todotxt_highlight_project_and_context() {
+    local line
+    while IFS= read -r line; do
+        echo "$line" | sed -E 's/[@\+](\w)/🏷 \1/g'
+    done
+}

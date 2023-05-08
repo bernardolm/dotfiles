@@ -1,8 +1,8 @@
-return
+# return
 
 $SHELL_DEBUG && localectl status
 
-(. "$DOTFILES/zsh/functions/conky.zsh" && conky_restart &)
+(conky_restart &)
 
 eval "$(op completion zsh)" && compdef _op op
 eval "$(thefuck --yeah --alias)"

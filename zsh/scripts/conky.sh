@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-base_path="$(dirname $0)"
-source $base_path/init/30_env.zsh
-source $base_path/init/70_todotxt.zsh
-source $base_path/todotxt.zsh
+fpath=( "$DOTFILES/zsh/functions" $fpath )
+autoload -Uz "${fpath[1]}"/*(:t)
 todo_conky $@
