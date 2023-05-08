@@ -34,5 +34,4 @@ thefuck
 timer
 ubuntu
 vscode
-zsh-autosuggestions
 zsh-navigation-tools
