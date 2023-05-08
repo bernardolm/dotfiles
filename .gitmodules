@@ -27,3 +27,6 @@
 	ignore = dirty
 	url = https://github.com/DrDynamic/dotbot-sudo.git
 	path = git/submodule/dotbot-sudo
+[submodule "git/submodule/dotbot-brew"]
+	path = git/submodule/dotbot-brew
+	url = https://github.com/d12frosted/dotbot-brew.git
