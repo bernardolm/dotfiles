@@ -10,9 +10,10 @@ for f in $files; do
     ln -s "$HOME/workspaces/bernardolm/dotfiles/zsh/startup/$f" "$HOME/$f"
 done
 
-log_warn "zsh plugin list: installing $_zsh_plugins_list"
-
 [ ! -d "$ZSH_HOME" ] && mkdir -p -m u=rwx,go=rx "$ZSH_HOME/plugins"
+
+local _zsh_plugins_list=($(zsh_plugins_list))
+log_warn "zsh plugins list: cloning $_zsh_plugins_list"
 
 for p in $_zsh_plugins_list; do
     [ ! -d "$ZSH_HOME/plugins/$p" ] && \

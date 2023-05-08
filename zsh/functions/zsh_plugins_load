@@ -2,7 +2,7 @@
 
 function zsh_plugins_load() {
     find "$ZSH_HOME/plugins" -mindepth 3 -maxdepth 3 -name "*plugin.zsh" | while read -r p; do
-        log_info "loading $p"
+        log_info "loading zsh plugin $(basename ${p})"
         . "$p"
     done
 }

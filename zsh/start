@@ -3,8 +3,6 @@
 fpath=( "$DOTFILES/zsh/functions" "$SYNC_DOTFILES/zsh/functions" $fpath )
 autoload -Uz "${fpath[1]}"/*(:t)
 
-local _zsh_plugins_list=($(zsh_plugins_list))
-
 . $DOTFILES/zsh/install
 . $DOTFILES/zsh/config/setopt
 . $DOTFILES/zsh/config/unsetopt
