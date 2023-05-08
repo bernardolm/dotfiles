@@ -5,10 +5,10 @@ autoload -Uz ${fpath[1]}/*(:t)
 
 . "$DOTFILES/ohmyzsh/install"
 
-. $ZSH/oh-my-zsh.sh
-
 plugins=($(ohmyzsh_plugins_list))
+
 log_info "oh-my-zsh plugins to load '$plugins'"
+. $ZSH/oh-my-zsh.sh
 
 # Downloading docker completions
 ohmyzsh_docker_completions
