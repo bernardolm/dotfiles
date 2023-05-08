@@ -10,11 +10,11 @@ for f in $files; do
     ln -s "$HOME/workspaces/bernardolm/dotfiles/zsh/startup/$f" "$HOME/$f"
 done
 
-log_warn "zsh plugin list: installing $(echo $_zsh_plugin_list | tr '\n' ',')"
+log_warn "zsh plugin list: installing $_zsh_plugins_list"
 
 [ ! -d "$ZSH_HOME" ] && mkdir -p -m u=rwx,go=rx "$ZSH_HOME/plugins"
 
-for p in $_zsh_plugin_list; do
+for p in $_zsh_plugins_list; do
     [ ! -d "$ZSH_HOME/plugins/$p" ] && \
         log_info "cloning $p" && \
         git clone --quiet "https://github.com/$p.git" "$ZSH_HOME/plugins/$p"

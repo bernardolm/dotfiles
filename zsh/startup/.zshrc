@@ -14,6 +14,15 @@ fi
 
 . $DOTFILES/zsh/start
 
+# . "$DOTFILES/antigen/start"
+# . "$DOTFILES/zplug/start"
+# . "$DOTFILES/pretzo/start"
+
+. "$DOTFILES/ohmyzsh/start"
+# . "$DOTFILES/ohmyposh/start"
+
+zsh_plugins_load
+
 # profiling shell
 if [[ "$SHELL_PROFILE" == "true" ]]; then
     exec 2>&3 3>&-

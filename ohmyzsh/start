@@ -5,21 +5,12 @@ autoload -Uz ${fpath[1]}/*(:t)
 
 . "$DOTFILES/ohmyzsh/install"
 
-log_info "found '$ZSH' as oh-my-zsh root path"
-
-plugins=($(ohmyzsh_plugins_list))
-log_info "oh-my-zsh plugins='$plugins'"
-
 . $ZSH/oh-my-zsh.sh
 
-# ohmyzsh_bundles_init
-ohmyzsh_plugin_list
+plugins=($(ohmyzsh_plugins_list))
+log_info "oh-my-zsh plugins to load '$plugins'"
 
-# Docker completions
+# Downloading docker completions
 ohmyzsh_docker_completions
 
-# chmod +x ~/.local/bin/register-python-argcomplete
-
-# local file
-# file="$ANTIGEN_WORKDIR/bundles/dracula/zsh-syntax-highlighting/zsh-syntax-highlighting.sh"
-# [ -f "file" ] && . "$file"
+chmod +x ~/.local/bin/register-python-argcomplete

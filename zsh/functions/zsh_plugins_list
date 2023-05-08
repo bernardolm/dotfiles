@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-function zsh_plugin_list() {
+function zsh_plugins_list() {
     local plugins
     /bin/cat < "$DOTFILES/zsh/plugins.txt" | grep -v '#' | while read -r file ; do
         plugins="$plugins\n$file"
