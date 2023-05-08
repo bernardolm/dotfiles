@@ -27,12 +27,14 @@ export FZF_DEFAULT_OPTS='--height=50% --layout=reverse --border --inline-info --
 
 export DOTFILES="$HOME/workspaces/bernardolm/dotfiles"
 export GOPATH="$HOME/gopath"
+export OHMYPOSH_HOME=$HOME/.oh-my-posh
 export SYNC_DOTFILES="$HOME/sync"
 export USER_TMP="$HOME/tmp"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
 export ZSH_HOME="$HOME/.zsh"
 export ZSH="$HOME/.oh-my-zsh"
 
+export OHMYPOSH=$SYNC_DOTFILES/bin/oh-my-posh
 export HISTFILE="$SYNC_DOTFILES/.zsh_history" # Where to save history to disk
 export TODO_DIR="$DOTFILES/todo-txt"
 

@@ -19,7 +19,7 @@ fi
 # . "$DOTFILES/pretzo/start"
 
 . "$DOTFILES/ohmyzsh/start"
-# . "$DOTFILES/ohmyposh/start"
+. "$DOTFILES/ohmyposh/start"
 
 zsh_plugins_load
 

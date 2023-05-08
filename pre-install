@@ -4,6 +4,8 @@
 # This file is intended to be extremely lean and simple.
 # Containing only what is really unavoidable to be run manually
 # so that the following tools can work.
+# This was written with a bash script because it is linux native shell
+# and may be executed right after installing the OS.
 
 # install curl git
 # link apt sources
