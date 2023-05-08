@@ -2,14 +2,20 @@
 
 command -v zsh >/dev/null || sudo apt install zsh
 
-# rm -rf "$ZSH"
-
-[ ! -d "$ZSH" ] && mkdir -p -m u=rwx,go=rx "$ZSH/plugins"
-
 find ~ -maxdepth 1 -name "*.bkp" -delete
 
 local files=('.zlogin' '.zlogout' '.zprofile' '.zshenv' '.zshrc')
 for f in $files; do
     [ -e "$HOME/$f" ] && mv "$HOME/$f" "$HOME/$f.$TODAY.$NOW.bkp"
     ln -s "$HOME/workspaces/bernardolm/dotfiles/zsh/startup/$f" "$HOME/$f"
+done
+
+log_warn "zsh plugin list: installing $(echo $_zsh_plugin_list | tr '\n' ',')"
+
+[ ! -d "$ZSH_HOME" ] && mkdir -p -m u=rwx,go=rx "$ZSH_HOME/plugins"
+
+for p in $_zsh_plugin_list; do
+    [ ! -d "$ZSH_HOME/plugins/$p" ] && \
+        log_info "cloning $p" && \
+        git clone --quiet "https://github.com/$p.git" "$ZSH_HOME/plugins/$p"
 done
