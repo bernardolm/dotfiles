@@ -1,4 +1,5 @@
 export CLICOLOR=true
+export DOCKER=$(which docker)
 export EDITOR=nano
 export EMOJI_CLI_KEYBIND="^e"
 export GOROOT="/usr/local/go"

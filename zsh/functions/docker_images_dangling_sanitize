@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+function docker_images_dangling_sanitize() {
+    echo "removing dangling (untagged) docker images"
+    docker_install_check || return
+    docker_images_dangling | while read -r id; do
+        echo "removing $id"
+        # docker_image_remove "${id}" || continue
+    done
+}

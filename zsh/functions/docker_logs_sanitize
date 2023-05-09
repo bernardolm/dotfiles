@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+function docker_logs_sanitize() {
+    echo "removing docker logs"
+    docker_install_check || return
+    docker_containers_list | while read -r id; do
+        echo "catching $id log path"
+        file=$($DOCKER inspect --format="{{.LogPath}}" $id)
+        echo "container $id log file in $file, truncating"
+        sudo sh -c "truncate -s 0 $file"
+        echo "done to container $id"
+    done
+}

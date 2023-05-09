@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+function docker_install_config_files_sanitize() {
+    echo "removing docker install files"
+    /bin/rm -rf ~/.docker
+    sudo /bin/rm -rf /etc/apparmor.d/docker
+    sudo /bin/rm -rf /etc/docker
+    sudo /bin/rm -rf /etc/docker/daemon.json
+    sudo /bin/rm -rf /etc/NetworkManager/conf.d/01_docker
+    sudo /bin/rm -rf /etc/NetworkManager/dnsmasq.d/01_docker
+    # sudo /bin/rm -rf /run/docker
+    sudo /bin/rm -rf /usr/share/code/resources/app/extensions/docker
+    sudo /bin/rm -rf /var/lib/docker
+    sudo /bin/rm -rf /var/run/docker.sock
+}

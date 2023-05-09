@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+function docker_local_ip_sanitize() {
+    echo "reseting docker network config"
+    current_docker0_ip=$(docker_network_ip)
+    if [[ "$current_docker0_ip" != "" ]]; then
+        echo "docker0 network found in IP $current_docker0_ip"
+        sudo ip addr del dev docker0 $current_docker0_ip/24
+        sudo ip link delete docker0
+    fi
+}

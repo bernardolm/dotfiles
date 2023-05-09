@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+function docker_content_sanitize() {
+    echo "removing docker content"
+    docker_install_check || return
+    docker_containers_stop
+    docker_containers_sanitize
+    docker_images_untagged_sanitize
+    docker_images_sanitize
+}

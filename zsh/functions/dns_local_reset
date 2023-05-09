@@ -20,13 +20,13 @@ function dns_local_reset() {
     }
 
     function remove() {
-        docker stop $container_name
+        docker_container_stop$container_name
         docker rm $container_name
     }
 
     function remove_all() {
         running | while read -r container_id; do
-            docker stop ${container_id} 2>/dev/null
+            docker_container_stop${container_id} 2>/dev/null
             docker rm ${container_id} 2>/dev/null
         done
     }

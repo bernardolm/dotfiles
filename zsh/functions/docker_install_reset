@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+function docker_install_reset() {
+    echo "reseting docker"
+    # docker_install_sanitize no-purge
+    docker_install_sanitize
+    install_docker
+    install_dockerdns
+}
