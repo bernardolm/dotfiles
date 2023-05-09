@@ -1,9 +1,4 @@
-function dns_systemd_stop() {
-    if [ $(sudo systemctl status systemd-resolved | grep 'Active: active' | wc -l | bc) -gt 0 ]; then
-        sudo systemctl stop systemd-resolved
-        sudo systemctl disable systemd-resolved
-    fi
-}
+#!/usr/bin/env zsh
 
 function dns_local_reset() {
     local container_name="ns1"
