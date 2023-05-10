@@ -9,29 +9,29 @@ function dns_local_reset() {
     local gateway_ip=$(ip route show | grep -i 'default via' | awk '{print $3 }' | head -1)
 
     function running() {
+        echo "\n> Listing docker containers using image $image_name"
         docker ps -a -q --filter "ancestor=${image_name}:latest"
     }
 
     function kill_53_port_user() {
+        echo "\n> killing process using port 53"
         sudo lsof -t -i:53 | while read -r pid; do
             sudo kill -9 "$pid"
         done
         sudo killall -HUP dnsmasq 2>/dev/null
     }
 
-    function remove() {
-        docker stop "$container_name" &>/dev/null
-        docker rm "$container_name" &>/dev/null
-    }
-
     function remove_all() {
-        running | while read -r container_id; do
+        echo "\n> Removing docker containers"
+        running | tail -n +3 | while read -r container_id; do
+            echo "$container_id"
             docker stop "$container_id" &>/dev/null
             docker rm "$container_id" &>/dev/null
         done
     }
 
     function build() {
+        echo "\n> Building $image_name docker image"
         docker build \
             --quiet \
             --force-rm \
@@ -40,33 +40,41 @@ function dns_local_reset() {
             "$root_path"
     }
 
+    function cat_resolv_conf() {
+        /bin/cat /etc/resolv.conf | grep -v -e '^#' | grep -v -e '^\s*$' | grep --color=never 'nameserver'
+    }
+
     function fallback() {
+        echo "\n> Configuring DNS resolver fallback"
         local has_gateway_ip=$(cat /etc/resolv.conf | grep -c "$gateway_ip")
 
-        echo "\nCurrent resolv.conf\n"
-        cat /etc/resolv.conf
-        sleep 1
+        echo "  Your current resolv.conf has\033[1;36m"
+        cat_resolv_conf
+        echo "\033[0m"
 
         if [[ "$has_gateway_ip" == "0" ]]; then
             local to_add="nameserver $gateway_ip\t# Current DNS from your router gateway"
             echo "$to_add" | sudo tee -a /etc/resolv.conf &>/dev/null
 
-            echo "\nFixed resolv.conf\n"
-            cat /etc/resolv.conf
+            echo "  Your fixed resolv.conf is\033[1;36m"
+            cat_resolv_conf
+            echo "\033[0m"
         fi
     }
 
     function test() {
-        sleep 1
-        dig "$container_name.$domain" | grep "$container_name.$domain"
-        dig www.google.com | grep www.google.com
-        dig spinnaker.hucloud.com.br | grep spinnaker.hucloud.com.br
-        echo ""
+        echo "\n> Testing container name"
+        dig "$container_name.$domain" | grep --color=never "$container_name.$domain"
+        echo "\n> Testing some internet name"
+        dig 'www.google.com' | grep --color=never 'www.google.com'
+        echo "\n> Testing some local network name"
+        dig 'spinnaker.hucloud.com.br' | grep --color=never 'spinnaker.hucloud.com.br'
     }
 
     function start() {
         mkdir -p "$HOME/.$container_name/dnsmasq-hosts.d"
 
+        echo "\n> Starting docker container $container_name"
         docker run -d \
             --name="$container_name" \
             --restart=always \
@@ -78,18 +86,21 @@ function dns_local_reset() {
             -v /var/run/docker.sock:/var/run/docker.sock:ro \
             "$image_name"
 
+        echo -n "  "
         docker logs -n-1 "$container_name"
     }
 
     reset
-    echo "Reset local DNS at $(date)\n"
+
+    echo "> Starting local DNS config at $(date)"
+    running
     remove_all
     build
-    dns_systemd_stop
     start
     fallback
-    echo "\nLocal DNS started at $(date), now testing with dig...\n"
+    sleep 1
     test
+    echo "\n> Local DNS config finished"
 
     # grep -v ${gateway_ip} /etc/resolv.conf | sudo tee /etc/resolv.conf
 }
