@@ -41,6 +41,6 @@ function apt_keys_recovery() {
         sudo apt-key export ${key} 2>/dev/null | sudo gpg --batch --yes --dearmour -o /etc/apt/trusted.gpg.d/${key}.gpg
 
 
-        _finishing "pubkey ${key} recover"
+        log_finishing "pubkey ${key} recover"
     done
 }

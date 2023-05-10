@@ -47,12 +47,6 @@ function networks_etup_tunnel() {
     add_vpn_routes
 }
 
-function vpn_hu() {
-    figlet "VPN" -f /usr/share/figlet/slant.flf
-    # networks_etup_tunnel &
-    start_vpn
-}
-
 function network_fix_wifi_wpa_ubuntu_22_04() {
     if [ ! -f /etc/apt/sources.list.d/impish.list ]; then
         sudo /bin/cat <<'EOF' | sudo tee /etc/apt/sources.list.d/impish.list

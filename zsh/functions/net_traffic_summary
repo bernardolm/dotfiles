@@ -1,0 +1,21 @@
+#!/usr/bin/env zsh
+
+function net_traffic_summary() {
+    local interfaces=($1)
+
+    if [ ${#interfaces[@]} -eq 0 ]; then
+        interfaces=($(ifconfig -s | grep -v Iface | awk -F ' ' '{print $1}'))
+    fi
+
+    for i in $interfaces; do
+        echo "$i:"
+        local line=$(/bin/cat /proc/net/dev | grep $i)
+        echo $line | awk '/^\s*.*:/ {
+            RX=$2/1024/1024
+            TX=$10/1024/1024
+            TOTAL=RX+TX
+            print "RX:", RX, "MiB\nTX:", TX, "MiB\nTotal:", TOTAL, "MiB"
+        }'
+        echo '---'
+    done
+}
