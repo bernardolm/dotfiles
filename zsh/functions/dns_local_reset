@@ -9,7 +9,7 @@ function dns_local_reset() {
     local gateway_ip=$(ip route show | grep -i 'default via' | awk '{print $3 }' | head -1)
 
     function running() {
-        docker ps -a -q --filter "ancestor=$image_name:latest"
+        docker ps -a -q --filter "ancestor=${image_name}:latest"
     }
 
     function kill_53_port_user() {
@@ -20,14 +20,14 @@ function dns_local_reset() {
     }
 
     function remove() {
-        docker stop "$container_name"
-        docker rm "$container_name"
+        docker stop "$container_name" &>/dev/null
+        docker rm "$container_name" &>/dev/null
     }
 
     function remove_all() {
         running | while read -r container_id; do
-            docker stop "$container_id" 2>/dev/null
-            docker rm "$container_id" 2>/dev/null
+            docker stop "$container_id" &>/dev/null
+            docker rm "$container_id" &>/dev/null
         done
     }
 
@@ -81,7 +81,7 @@ function dns_local_reset() {
     }
 
     reset
-    echo "\nReset local DNS at $(date)\n"
+    echo "Reset local DNS at $(date)\n"
     remove_all
     build
     dns_systemd_stop
