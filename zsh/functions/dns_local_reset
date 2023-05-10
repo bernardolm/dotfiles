@@ -5,7 +5,7 @@ function dns_local_reset() {
     local domain="hud"
     local image_name="ruudud/devdns"
     local naming="unsafe"
-    local root_path="${WORKSPACE_USER}/devdns"
+    local root_path="${WORKSPACE_USER:-$HOME}/devdns"
     local gateway_ip=$(ip route show | grep -i 'default via'| awk '{print $3 }' | head -1)
 
     function running() {
