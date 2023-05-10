@@ -43,7 +43,7 @@ function dns_local_reset() {
     function fallback() {
         local has_gateway_ip=$(cat /etc/resolv.conf | grep -c ${gateway_ip})
 
-        echo "\n${MINTGREEN_BG}${FOREST}Current resolv.conf${NC}\n"
+        echo "\nCurrent resolv.conf\n"
         cat /etc/resolv.conf
         sleep 1
 
@@ -51,7 +51,7 @@ function dns_local_reset() {
             local to_add="nameserver ${gateway_ip}\t# Current DNS from your router gateway"
             echo "${to_add}" | sudo tee -a /etc/resolv.conf &>/dev/null
 
-            echo "\n${MINTGREEN_BG}${FOREST}Fixed resolv.conf${NC}\n"
+            echo "\nFixed resolv.conf\n"
             cat /etc/resolv.conf
         fi
     }
@@ -61,7 +61,7 @@ function dns_local_reset() {
         sleep 1
         dig ${container_name}.${domain} | grep ${container_name}.${domain}
         dig www.google.com | grep www.google.com
-        echo "${NC}"
+        echo ""
     }
 
     function start() {
@@ -82,13 +82,13 @@ function dns_local_reset() {
     }
 
     reset
-    echo "\n${MINTGREEN_BG}${FOREST}Reset local DNS at $(date)${NC}\n"
+    echo "\nReset local DNS at $(date)\n"
     remove_all
     build
     dns_systemd_stop
     start
     fallback
-    echo "\n${MINTGREEN_BG}${FOREST}Local DNS started at $(date), now testing with dig...${NC}\n"
+    echo "\nLocal DNS started at $(date), now testing with dig...\n"
     test
 
     # grep -v ${gateway_ip} /etc/resolv.conf | sudo tee /etc/resolv.conf
