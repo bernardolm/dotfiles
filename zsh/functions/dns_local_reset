@@ -60,6 +60,7 @@ function dns_local_reset() {
         sleep 1
         dig "$container_name.$domain" | grep "$container_name.$domain"
         dig www.google.com | grep www.google.com
+        dig spinnaker.hucloud.com.br | grep spinnaker.hucloud.com.br
         echo ""
     }
 
