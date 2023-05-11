@@ -109,9 +109,13 @@ function dns_local_setup() {
         docker logs -n-1 "$container_name"
     }
 
-    reset
+    function check_required_stuff() {
+        command -v curl || (echo "> curl package is required, will be installed"; sudo apt install curl --yes)
+    }
 
     echo "> Starting local DNS setup"
+    reset
+    check_required_stuff
     local_dns_instances_running
     remove_local_dns_instances
     build_local_dns_image
