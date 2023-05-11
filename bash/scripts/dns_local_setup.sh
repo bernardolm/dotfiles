@@ -34,7 +34,6 @@ function dns_local_setup() {
     }
 
     function local_dns_instances_running() {
-        printf "> Listing docker containers using image %s.\n" "$image_name"
         docker ps -a -q --filter "ancestor=${image_name}:latest"
     }
 
@@ -47,8 +46,8 @@ function dns_local_setup() {
     }
 
     function remove_local_dns_instances() {
-        printf "> Removing DNS docker containers.\n"
-        local_dns_instances_running | tail -n +3 | while read -r container_id; do
+        printf "> Removing docker containers using %s image if exists.\n" "$image_name"
+        local_dns_instances_running | while read -r container_id; do
             printf "%s" "$container_id"
             docker stop "$container_id" 2>/dev/null
             docker rm "$container_id" 2>/dev/null
@@ -58,7 +57,6 @@ function dns_local_setup() {
     function build_local_dns_image() {
         printf "> Building %s docker image.\n" "$image_name"
         docker build \
-            --quiet \
             --force-rm \
             -f "$path_to_clone/Dockerfile" \
             -t "$image_name" \
@@ -138,7 +136,7 @@ function dns_local_setup() {
         printf "  And is important check https://docs.docker.com/engine/install/linux-postinstall/#manage-docker-as-a-non-root-user too.\n"
         printf "  Now calling install script from official docker site.\n\n"
         curl -fsSL "https://get.docker.com" -o /tmp/get-docker.sh || return 1
-        sudo sh /tmp/get-docker.sh || return 1
+        sudo sh /tmp/get-docker.sh &>/dev/null || return 1
     }
 
     function setup_docker() {
@@ -146,7 +144,7 @@ function dns_local_setup() {
         getent group docker &>/dev/null || sudo groupadd docker &>/dev/null || return 1
         sudo usermod -aG docker "$USER" || return 1
         newgrp docker || return 1
-        sudo apt-get install -y uidmap &>/dev/null && dockerd-rootless-setuptool.sh install 1>/dev/null || return 1
+        sudo apt-get install -y uidmap &>/dev/null && dockerd-rootless-setuptool.sh install &>/dev/null || return 1
     }
 
     function check_dependencies() {
@@ -176,20 +174,19 @@ function dns_local_setup() {
         printf "  All dependencies OK.\n"
     }
 
-    function check_user_workspace() {
+    function ensure_workdir() {
         if [ ! -d "$path_to_clone" ]; then
             mkdir -p "$path_to_clone"
         fi
     }
 
-    # reset
     printf "> Starting DNS setup.\n"
     sudo_advice
     check_dependencies || return
-    # check_user_workspace || return
-    # local_dns_instances_running
-    # remove_local_dns_instances
-    # build_local_dns_image
+    ensure_workdir || return
+    local_dns_instances_running
+    remove_local_dns_instances
+    build_local_dns_image
     # start_local_dns
     # add_fallback_dns
     # sleep 1
