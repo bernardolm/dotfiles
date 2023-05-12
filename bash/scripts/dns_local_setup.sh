@@ -120,6 +120,9 @@ function dns_local_setup() {
             -v /etc/resolv.conf:/mnt/resolv.conf \
             -v /var/run/docker.sock:/var/run/docker.sock \
             "$image_name"
+
+        printf "  Your changed resolv.conf has:\n"
+        show_resolv_conf "$(cat /etc/resolv.conf)"
     }
 
     function install_docker () {
