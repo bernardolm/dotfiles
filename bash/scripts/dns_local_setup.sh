@@ -61,7 +61,7 @@ function dns_local_setup() {
     }
 
     function add_fallback_dns() {
-        printf "> Configuring DNS resolver fallback\n"
+        printf "> Configuring DNS resolver fallback.\n"
         local resolv_conf
         resolv_conf=$(cat < /etc/resolv.conf | grep --color=never -v 'devdns:')
 
