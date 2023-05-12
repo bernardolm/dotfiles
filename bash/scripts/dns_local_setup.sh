@@ -61,7 +61,7 @@ function dns_local_setup() {
     }
 
     function turning_dns_default_to_new_containers() {
-        printf "\n\nDOCKER_OPTS=\"--dns %s --dns-search %s\"\t# devdns: default DNS for new containers\n\n" "devdns_ip" "$domain" | sudo tee -a /etc/default/docker
+        printf "\n\nDOCKER_OPTS=\"--dns %s --dns-search %s\"\t# devdns: default DNS for new containers\n\n" "devdns_ip" "$domain" | sudo tee -a /etc/default/docker 1>/dev/null
     }
 
     function add_fallback_dns() {
@@ -240,7 +240,7 @@ function dns_local_setup() {
     }
 
     function expose_privileged_port_53() {
-        printf "> Setting privileges to use port 53.\n"
+        printf "  Setting privileges to use port 53.\n"
         sudo sed -i.bak '/ip_unprivileged_port_start\=53/d' /etc/sysctl.conf
         printf "net.ipv4.ip_unprivileged_port_start=53" | sudo tee -a /etc/sysctl.conf 1>/dev/null
         sudo sysctl --system &>/dev/null
