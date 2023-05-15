@@ -18,6 +18,12 @@
 # location to serve it by http on port 8000.
 # wget -q -O - http://192.168.1.2:8000/dns_local_setup.sh | bash
 #
+# TO DO:
+#
+# [ ] Realod on network change
+# [ ] Load custom fallbacks as a list
+# [ ] ...
+#
 
 function dns_local_setup() {
     function local_dns_instances_running() {
@@ -77,7 +83,7 @@ function dns_local_setup() {
 
     function test_host() {
         printf "  %s: %s..." "$1" "$2"
-        if [ "$(nslookup $2 | grep -c NXDOMAIN)" != "0" ]; then
+        if [ "$(nslookup "$2" | grep -c NXDOMAIN)" != "0" ]; then
             printf " FAILED.\n"
             return 1
         fi
@@ -118,7 +124,7 @@ function dns_local_setup() {
 
     function setup_docker() {
         ${super} addgroup --system docker || true
-        ${super} usermod -G docker $USER || true
+        ${super} usermod -G docker "$USER" || true
         newgrp docker || true
     }
 
@@ -164,7 +170,7 @@ function dns_local_setup() {
         app="$2"
         cmd="$1"
         if [ "$cmd" == "purge" ] && \
-            [ "$(apt list --installed &>/dev/null | grep -c $app)" == "0" ]; then
+            [ "$(apt list --installed 2>/dev/null | grep -c "$app")" == "0" ]; then
             return
         fi
         ${super} apt-get "$cmd" --yes "$app" &>/dev/null || exit 1
