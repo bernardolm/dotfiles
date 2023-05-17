@@ -1,13 +1,5 @@
 #!/usr/bin/env zsh
 
-local base_path="$(dirname $0)"
-
-source $base_path/init/30_env.zsh
-
-find "$SYNC_DOTFILES/zsh/init" -name '*.zsh' | while read -r file; do
-    source "$file"
-done
-
 local calendars=""
 
 for item in "${GCALCLI_CALENDARS[@]}"; do
@@ -23,7 +15,7 @@ if [ ! -z $DEBUG ]; then
     local tmp_file="/tmp/gcalcli.cache"
 
     if [ ! -f "$tmp_file" ]; then
-        ~/workspaces/bernardolm/dotfiles/zsh/gcalcli.sh > "$tmp_file"
+        $DOTFILES/zsh/scripts/gcalcli.sh > "$tmp_file"
     fi
 
     agenda_cmd+=" cat $tmp_file "
@@ -37,16 +29,16 @@ fi
 
 agenda_cmd+=" | awk -F'\t' '{ printf ( \"%s\t%s %s\t%s\n\", \$1, \$2, \$4, \$5 ) }' "
 agenda_cmd+=" | sed 's/00:00 00:00/\\t/g' "
-agenda_cmd+=" | sed -e 's/ ️\s*/ /g' "
-agenda_cmd+=" | sed -e 's/ \s*/ /g' "
-agenda_cmd+=" | sed -e 's/ ️\s*/ /g' "
-agenda_cmd+=" | sed -e 's/🎂\s*/[bd] /g' "
-agenda_cmd+=" | sed -e 's/🏖\s*/[vct] /g' "
-agenda_cmd+=" | sed -e 's/🏖️\s*/[vct]/g' "
-agenda_cmd+=" | sed -e 's/💼\s*/[wbd] /g' "
-agenda_cmd+=" | sed -e 's/📅\s*/[evt] /g' "
-agenda_cmd+=" | sed -e 's/🩴\s*/[dof] /g' "
-agenda_cmd+=" | sed 's/🗺️//g' "
+agenda_cmd+=" | sed -e 's/\xf0\x9f\x8e\x82/[bd]/g' "
+agenda_cmd+=" | sed -e 's/\xf0\x9f\x8f\x96/[vct]/g' "
+agenda_cmd+=" | sed -e 's/\xf0\x9f\x8f\x96\xef\xb8\x8f/[vct]/g' "
+agenda_cmd+=" | sed -e 's/\xf0\x9f\x92\xbc/[wbd]/g' "
+agenda_cmd+=" | sed -e 's/\xf0\x9f\x93\x85/[evt]/g' "
+agenda_cmd+=" | sed -e 's/\xf0\x9f\x93\x86/[evt]/g' "
+agenda_cmd+=" | sed -e 's/\xf0\x9f\x94\xae//g' "
+agenda_cmd+=" | sed -e 's/\xf0\x9f\x97\xba\xef\xb8\x8f//g' "
+agenda_cmd+=" | sed -e 's/\xf0\x9f\x98\xb7/[sick]/g' "
+agenda_cmd+=" | sed -e 's/\xf0\x9f\xa9\xb4/[off]/g' "
 
 test -z $DEBUG || echo " $agenda_cmd "
 eval " $agenda_cmd " 2>/dev/null
