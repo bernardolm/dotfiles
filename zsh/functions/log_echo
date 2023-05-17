@@ -22,7 +22,7 @@ function log_echo() {
 
     $SHELL_STACK && _caller=$(caller)
 
-    local output=" ${icon}${color}$@${reset_color}"
+    local output="${icon}${color}$@${reset_color}"
 
     if [[ $cols -ge 80 ]]; then
         loutput=$(echo "${output}" | ansi2txt | wc -L)

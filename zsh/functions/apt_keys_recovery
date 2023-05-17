@@ -1,23 +1,30 @@
 #!/usr/bin/env zsh
 
 function apt_keys_recovery() {
+    SHELL_DEBUG=true
+
+    log_starting "recovering gpg keys absent"
+
     local file
 
     ## 1password
     file=/etc/apt/trusted.gpg.d/1password-archive-keyring.gpg
     if [ ! -f $file ]; then
+        log_info "1password"
         curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output $file
     fi
 
     ## docker
     file=/etc/apt/trusted.gpg.d/docker.gpg
     if [ ! -f $file ]; then
+        log_info "docker"
         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor --output $file
     fi
 
     ## google cloud platform
     file=/etc/apt/trusted.gpg.d/cloud.google.gpg
     if [ ! -f $file ]; then
+        log_info "google cloud"
         curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor --output $file
     fi
 
@@ -28,19 +35,22 @@ function apt_keys_recovery() {
         "pgp.mit.edu"
     )
 
-    [ -f /etc/apt/trusted.gpg ] && sudo rm /etc/apt/trusted.gpg
+    [ -f /etc/apt/trusted.gpg ] && sudo /bin/rm /etc/apt/trusted.gpg
 
-    sudo apt update 2>&1 | sed -nr 's/^.*NO_PUBKEY\s(\w{16}).*$/\1/p' | sort | uniq | while read -r key; do
-        _starting "no pubkey recover for ${key}"
+    sudo apt update 2>/dev/null | sed -nr 's/^.*NO_PUBKEY\s(\w{16}).*$/\1/p' | sort | uniq | while read -r key; do
+        log_info "${key}: no pubkey found"
 
         for server in "${servers[@]}"; do
-            log_info "trying recover key from ${server}"
-            sudo apt-key adv --keyserver ${server} --recv-keys ${key} && break
+            log_info "${key}: trying recover key from ${server}"
+            sudo apt-key adv --keyserver ${server} --recv-keys ${key} &>/dev/null && log_info "${key}: OK" && break || log_error "${key}: failed"
         done
 
         sudo apt-key export ${key} 2>/dev/null | sudo gpg --batch --yes --dearmour -o /etc/apt/trusted.gpg.d/${key}.gpg
 
-
-        log_finishing "pubkey ${key} recover"
+        log_info "${key}: done"
     done
+
+    log_finishing "gpg keys absent recovered"
+
+    SHELL_DEBUG=false
 }
