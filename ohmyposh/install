@@ -1,15 +1,20 @@
 #!/usr/bin/env zsh
 
-test -f $OHMYPOSH && return
+# test -f $OHMYPOSH && return
 
-curl -C - -L -s -o $OHMYPOSH https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64
-chmod +x $OHMYPOSH
+curl -C - -L -s -o $OHMYPOSH https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 && \
+    chmod +x $OHMYPOSH
 
-[ ! -d "$OHMYPOSH_HOME" ] && mkdir -p "$OHMYPOSH_HOME/.poshthemes"
+function install_themes() {
+    log_debugging "installing oh my gosh"
+    curl -C - -L -s \
+            -o $OHMYPOSH_HOME/.poshthemes/themes.zip \
+            https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip
+    unzip -q $OHMYPOSH_HOME/.poshthemes/themes.zip -d $OHMYPOSH_HOME/.poshthemes
+    chmod u+rw $OHMYPOSH_HOME/.poshthemes/*.omp.*
+    /bin/rm $OHMYPOSH_HOME/.poshthemes/themes.zip
+}
 
-curl -C - -L -s \
-    -o $OHMYPOSH_HOME/.poshthemes/themes.zip \
-    https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip
-unzip -q $OHMYPOSH_HOME/.poshthemes/themes.zip -d $OHMYPOSH_HOME/.poshthemes
-chmod u+rw $OHMYPOSH_HOME/.poshthemes/*.omp.*
-/bin/rm $OHMYPOSH_HOME/.poshthemes/themes.zip
+/bin/rm -rf "$OHMYPOSH_HOME/.poshthemes"
+
+[ ! -d "$OHMYPOSH_HOME" ] && mkdir -p "$OHMYPOSH_HOME/.poshthemes" && install_themes

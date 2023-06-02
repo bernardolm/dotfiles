@@ -61,13 +61,13 @@
     defaultBranch = main
 
 [commit]
-	gpgsign = true
+    gpgsign = true
 
 [branch]
     sort = -committerdate
 
 [safe]
-	directory = ~/workspaces/bernardolm/dotfiles/dotbot
+    directory = ~/workspaces/bernardolm/dotfiles/dotbot
 
 [include]
     path = ~/sync/.gitconfig_work

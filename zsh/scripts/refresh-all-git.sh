@@ -15,6 +15,7 @@ TEMP_PATH=~/tmp/git-update/${NOW}
 # Cyan         0;36     Light Cyan    1;36
 # Light Gray   0;37     White         1;37
 
+setopt ksh_arrays
 COLORIZE[0]="\033[0;31m"
 COLORIZE[1]="\033[0;32m"
 COLORIZE[2]="\033[0;33m"
@@ -60,8 +61,8 @@ update_repo() {
         echo -e "fetching ${REPO_NAME}" >>${THIS_LOG} 2>&1
         git stash >>${THIS_LOG} 2>&1
         git fetch --all --prune >>${THIS_LOG} 2>&1
-        git checkout master >>${THIS_LOG} 2>&1
-        git pull origin master >>${THIS_LOG} 2>&1
+        git checkout master >>${THIS_LOG} 2>&1 || git checkout main >>${THIS_LOG} 2>&1
+        git pull origin master >>${THIS_LOG} 2>&1 || git pull origin main >>${THIS_LOG} 2>&1
         echo -e "\n\n" >>${THIS_LOG} 2>&1
 
         if [[ $(cat ${THIS_LOG} | grep -c "Repository not found") > 0 ]]; then
@@ -94,7 +95,7 @@ iter_paths() {
 iter_paths "find $WORKSPACE_ORG -mindepth 1 -maxdepth 1 -type d"
 iter_paths "find $WORKSPACE_USER -mindepth 1 -maxdepth 1 -type d"
 
-iter_paths "find $GOPATH/src/github.com/$GITHUB_ORG -mindepth 1 -maxdepth 1 -type d"
-iter_paths "find $GOPATH/src/github.com/$GITHUB_USER -mindepth 1 -maxdepth 1 -type d"
+# iter_paths "find $GOPATH/src/github.com/$GITHUB_ORG -mindepth 1 -maxdepth 1 -type d"
+# iter_paths "find $GOPATH/src/github.com/$GITHUB_USER -mindepth 1 -maxdepth 1 -type d"
 
 sleep $((WAIT_FOR + (15 * 60))) && /bin/rm -rf $TEMP_PATH

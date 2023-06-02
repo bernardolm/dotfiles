@@ -21,7 +21,7 @@
     "[json]": {
         "editor.defaultFormatter": "vscode.json-language-features",
         "editor.tabSize": 2,
-        "editor.formatOnPaste": true
+        "editor.formatOnPaste": true,
     },
     "[jsonc]": {
         "editor.defaultFormatter": "vscode.json-language-features",
