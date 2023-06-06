@@ -57,16 +57,16 @@ with open(
 
         contributors = req.json()
 
-        for cont in contributors:
-            if cont['author']['login'] == GITHUB_USER:
-                weeks = cont['weeks']
+        for contributor in contributors:
+            if contributor['author']['login'] == GITHUB_USER:
+                weeks = contributor['weeks']
 
                 repo_additions, repo_deletions, repo_commits = 0, 0, 0
 
                 for week in weeks:
-                    repo_additions = repo_additions + int(week['a'])
-                    repo_deletions = repo_deletions + int(week['d'])
-                    repo_commits = repo_commits + int(week['c'])
+                    repo_additions += int(week['a'])
+                    repo_deletions += int(week['d'])
+                    repo_commits += int(week['c'])
 
                 to_log = f"repo={repo.full_name}\n" \
                     f"repo_additions={repo_additions}, " \
@@ -86,9 +86,9 @@ with open(
                 print(to_log)
                 file.write(to_log)
 
-                total_additions = total_additions + repo_additions
-                total_deletions = total_deletions + repo_deletions
-                total_commits = total_commits + repo_commits
+                total_additions += repo_additions
+                total_deletions += repo_deletions
+                total_commits += repo_commits
 
                 break
 
