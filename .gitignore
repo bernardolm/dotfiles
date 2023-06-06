@@ -3,7 +3,7 @@
 *.bin
 *.deb
 *.log
-*.sqlite
+*.sqlite*
 *.tar.gz
 *.zip
 *.zsh.zwc

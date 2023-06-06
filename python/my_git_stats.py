@@ -12,7 +12,7 @@ PER_PAGE = 100
 
 
 expire_after = expire_after = timedelta(hours=12)
-requests_cache.install_cache('demo_cache', expire_after=360)
+requests_cache.install_cache('demo_cache', expire_after=expire_after)
 
 
 g = Github(
@@ -91,6 +91,7 @@ with open(file=f"my-git-stats.{now}.log", mode="a", encoding="utf-8") as file:
         f"total_commits={total_commits}, \n" \
         f"final repo_position={repo_position}, \n"
 
+    print(to_log)
     file.write(to_log)
 
 file.close()

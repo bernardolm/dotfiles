@@ -4,7 +4,6 @@ colorama
 colorz
 flake8
 gcalcli
-github
 glances
 gnome-extensions-cli
 ipdb
@@ -14,6 +13,7 @@ pipx
 powerline-status
 psutil
 pycodestyle
+PyGithub
 pygments
 pylint
 pyopenssl
