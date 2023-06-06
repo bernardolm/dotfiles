@@ -5,8 +5,8 @@
 
 # profiling shell
 # Ref.: https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
-[ ! -d "$SHELL_SESSION_PATH" ] && mkdir -p "$SHELL_SESSION_PATH"
 if [[ "$SHELL_PROFILE" == "true" ]]; then
+    [ ! -d "$SHELL_SESSION_PATH" ] && mkdir -p "$SHELL_SESSION_PATH"
     zmodload zsh/zprof
     exec 3>&2 2>"$SHELL_SESSION_PATH/${NOW}.log"
     setopt xtrace prompt_subst
