@@ -2,6 +2,8 @@
 .pytest_cache
 *.bin
 *.deb
+*.log
+*.sqlite
 *.tar.gz
 *.zip
 *.zsh.zwc
