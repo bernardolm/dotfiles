@@ -4,6 +4,7 @@ colorama
 colorz
 flake8
 gcalcli
+github
 glances
 gnome-extensions-cli
 ipdb
@@ -19,6 +20,8 @@ pyopenssl
 pytest
 python-slugify
 pywal
+requests
+requests_cache
 supervisor
 tasmotizer
 thefuck
