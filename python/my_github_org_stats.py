@@ -8,11 +8,12 @@ from github import Github
 GITHUB_ORG = environ.get("GITHUB_ORG", "")
 GITHUB_TOKEN = environ.get("GITHUB_TOKEN", "")
 GITHUB_USER = environ.get("GITHUB_USER", "")
+HOME = environ.get("HOME", "")
 PER_PAGE = 100
 
 
 expire_after = expire_after = timedelta(hours=12)
-requests_cache.install_cache('demo_cache', expire_after=expire_after)
+requests_cache.install_cache(f'{HOME}/demo_cache', expire_after=expire_after)
 
 
 gh = Github(
@@ -26,11 +27,9 @@ total_additions, total_deletions, total_commits, repo_position = 0, 0, 0, 0
 
 now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
+file_path = f"{HOME}/my_github_org_stats_{GITHUB_ORG}_{GITHUB_USER}_{now}.log"
 
-with open(
-        file=f"my-git-stats_{GITHUB_ORG}_{GITHUB_USER}_{now}.log", mode="a",
-        encoding="utf-8") as file:
-
+with open(file=file_path, mode="a", encoding="utf-8") as file:
     to_log = f"{org.get_repos().totalCount} repos found " \
         f"in {GITHUB_ORG} at {now}\n\n"
     print(to_log)
