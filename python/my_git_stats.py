@@ -15,22 +15,27 @@ expire_after = expire_after = timedelta(hours=12)
 requests_cache.install_cache('demo_cache', expire_after=expire_after)
 
 
-g = Github(
+gh = Github(
     login_or_token=GITHUB_TOKEN,
     per_page=PER_PAGE
 )
 
-org = g.get_organization(GITHUB_ORG)
+org = gh.get_organization(GITHUB_ORG)
 
 total_additions, total_deletions, total_commits, repo_position = 0, 0, 0, 0
 
 now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-print(f"{org.get_repos().totalCount} repos found in {GITHUB_ORG} at {now}")
 
 with open(
         file=f"my-git-stats_{GITHUB_ORG}_{GITHUB_USER}_{now}.log", mode="a",
         encoding="utf-8") as file:
+
+    to_log = f"{org.get_repos().totalCount} repos found " \
+        "in {GITHUB_ORG} at {now}\n\n"
+    print(to_log)
+    file.write(to_log)
+
     for repo in org.get_repos():
         repo_position += 1
 
@@ -58,10 +63,10 @@ with open(
 
                 repo_additions, repo_deletions, repo_commits = 0, 0, 0
 
-                for w in weeks:
-                    repo_additions = repo_additions + int(w['a'])
-                    repo_deletions = repo_deletions + int(w['d'])
-                    repo_commits = repo_commits + int(w['c'])
+                for week in weeks:
+                    repo_additions = repo_additions + int(week['a'])
+                    repo_deletions = repo_deletions + int(week['d'])
+                    repo_commits = repo_commits + int(week['c'])
 
                 to_log = f"repo={repo.full_name}\n" \
                     f"repo_additions={repo_additions}, " \
