@@ -32,7 +32,7 @@ with open(
         encoding="utf-8") as file:
 
     to_log = f"{org.get_repos().totalCount} repos found " \
-        "in {GITHUB_ORG} at {now}\n\n"
+        f"in {GITHUB_ORG} at {now}\n\n"
     print(to_log)
     file.write(to_log)
 
