@@ -30,6 +30,9 @@
     // "[php]": {
     //     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
     // },
+    "[markdown]": {
+        "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+    },
     "[python]": {
         "editor.formatOnPaste": true,
         "editor.formatOnSave": true,
