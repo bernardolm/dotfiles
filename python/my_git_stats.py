@@ -93,10 +93,10 @@ with open(
                 break
 
     to_log = f"totals:\n" \
-        f"total_additions={total_additions}, \n" \
-        f"total_deletions={total_deletions}, \n" \
-        f"total_commits={total_commits}, \n" \
-        f"final repo_position={repo_position}, \n"
+        f"total_additions={total_additions} \n" \
+        f"total_deletions={total_deletions} \n" \
+        f"total_commits={total_commits} \n" \
+        f"final repo_position={repo_position} \n"
 
     print(to_log)
     file.write(to_log)
