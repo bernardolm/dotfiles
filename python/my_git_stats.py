@@ -63,7 +63,7 @@ with open(
                     repo_deletions = repo_deletions + int(w['d'])
                     repo_commits = repo_commits + int(w['c'])
 
-                to_log = f"url={url}\n" \
+                to_log = f"repo={repo.full_name}\n" \
                     f"repo_additions={repo_additions}, " \
                     f"total_additions={total_additions}, " \
                     f"then {total_additions}+{repo_additions}=" \
