@@ -28,7 +28,9 @@ now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
 print(f"{org.get_repos().totalCount} repos found in {GITHUB_ORG} at {now}")
 
-with open(file=f"my-git-stats.{now}.log", mode="a", encoding="utf-8") as file:
+with open(
+        file=f"my-git-stats_{GITHUB_ORG}_{GITHUB_USER}_{now}.log", mode="a",
+        encoding="utf-8") as file:
     for repo in org.get_repos():
         repo_position += 1
 
