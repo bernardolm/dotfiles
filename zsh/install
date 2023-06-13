@@ -1,14 +1,14 @@
 #!/usr/bin/env zsh
 
-command -v zsh >/dev/null || sudo apt install zsh
+command -v zsh >/dev/null || sudo apt-get install zsh
 
-# find ~ -maxdepth 1 -name "*.bkp" -delete
+find ~ -maxdepth 1 -name "*.bkp" -delete
 
-# local files=('.zlogin' '.zlogout' '.zprofile' '.zshenv' '.zshrc')
-# for f in $files; do
-#     [ -e "$HOME/$f" ] && mv "$HOME/$f" "$HOME/$f.$TODAY.$NOW.bkp"
-#     ln -s "$HOME/workspaces/bernardolm/dotfiles/zsh/startup/$f" "$HOME/$f"
-# done
+local files=('.zlogin' '.zlogout' '.zprofile' '.zshenv' '.zshrc')
+for f in $files; do
+    [ -e "$HOME/$f" ] && mv "$HOME/$f" "$HOME/$f.$TODAY.$NOW.bkp"
+    ln -s "$HOME/workspaces/bernardolm/dotfiles/zsh/startup/$f" "$HOME/$f"
+done
 
 [ ! -d "$ZSH_HOME" ] && mkdir -p -m u=rwx,go=rx "$ZSH_HOME/plugins"
 
