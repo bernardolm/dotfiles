@@ -4,8 +4,8 @@ $SHELL_DEBUG && localectl status
 
 (conky_restart &)
 
-eval "$(op completion zsh)" && compdef _op op
-eval "$(thefuck --yeah --alias)"
+command -v op >/dev/null && eval "$(op completion zsh)" && compdef _op op
+command -v thefuck >/dev/null && eval "$(thefuck --yeah --alias)"
 
 [ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
 [ -f "$HOME/.fzf.zsh" ] && . "$HOME/.fzf.zsh"
@@ -18,4 +18,4 @@ hudctl_completion+='/hudctl-completion.bash'
 
 disable_accelerometter &>/dev/null && disable_accelerometter
 
-newgrp docker
+[ $(cat /etc/group | grep -c docker) -gt 0 ] && newgrp docker
