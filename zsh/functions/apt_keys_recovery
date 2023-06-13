@@ -8,24 +8,34 @@ function apt_keys_recovery() {
     local file
 
     ## 1password
-    file=/etc/apt/trusted.gpg.d/1password-archive-keyring.gpg
+    file=/usr/share/keyrings/1password-archive-keyring.gpg
     if [ ! -f $file ]; then
         log_info "1password"
-        curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo gpg --dearmor --output $file
+        curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo \
+            gpg --dearmor --output $file
+
+        sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
+        curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo \
+            tee /etc/debsig/policies/AC2D62742012EA22/1password.pol 2>/dev/null
+        sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
+        curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo \
+            gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
     fi
 
     ## docker
     file=/etc/apt/trusted.gpg.d/docker.gpg
     if [ ! -f $file ]; then
         log_info "docker"
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor --output $file
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo \
+            gpg --dearmor --output $file
     fi
 
     ## google cloud platform
     file=/etc/apt/trusted.gpg.d/cloud.google.gpg
     if [ ! -f $file ]; then
         log_info "google cloud"
-        curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo gpg --dearmor --output $file
+        curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo \
+            gpg --dearmor --output $file
     fi
 
     declare -a servers=(
