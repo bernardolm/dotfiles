@@ -7,29 +7,17 @@
 # This was written with a bash script because it is linux native shell
 # and may be executed right after installing the OS.
 
-# install curl git
-# link apt sources
-# apt get keys
-# apt upgrade
-
 # ---------------------------------------------------------------------------
 
 reset
 
-set -e
-
-export TERM=xterm-256color
-export NO_COLOR=0
-
-# shellcheck source=/dev/null
-HOME=$(eval echo "~${SUDO_USER}") source ./zsh/startup/.zshenv ./zsh/functions/log_starting
-
-sources_list_bkp_path="/etc/apt/sources.list.d-${TODAY}-${NOW}"
-
-alias lsa='ls -lah'
+function log_echo() { echo "$@"; }
+function log_finishing() { echo "$@"; }
+function log_info() { echo "$@"; }
+function log_starting() { echo "$@"; }
 
 function exit_defer() {
-    echo 'finish'
+    echo 'exiting pre-install'
     set +e
     exit 0
 }
@@ -42,30 +30,18 @@ function err_defer() {
     exit 1
 }
 
-function apt_init() {
-    sudo apt-get update
-    sudo apt-get --yes upgrade
-    sudo apt-get install --yes \
-        curl \
-        git \
-        make \
-        python3-pip \
-        sudo \
-        ttf-mscorefonts-installer
-}
-
 function apt_sources_count_list_files() {
     apt_sources_found=$(find /etc/apt/sources.list.d/ -name '*.list' 2>/dev/null | wc -l || 0)
     echo "${apt_sources_found} sources file found"
 }
 
 function apt_sources_link() {
-    echo 'apt updating, upgrading and installing basic packages'
+    echo 'apt-get updating, upgrading and installing basic packages'
 
     apt_sources_count_list_files
 
     if [ "${apt_sources_found}" -eq 0 ]; then
-        echo 'moving apt sources and linking my own list files'
+        echo 'moving apt-get sources and linking my own list files'
         # check if is a link before
         if [ -d "/etc/apt/sources.list.d" ] || [ -L "/etc/apt/sources.list.d" ]; then
             echo 'sources list path not exist or is a sym link. backup it.'
@@ -76,41 +52,74 @@ function apt_sources_link() {
         sudo ln -sf "${SYNC_DOTFILES}/etc/apt/sources.list.d" /etc/apt/sources.list.d
 
         # shellcheck source=/dev/null
-        source ./zsh/functions/apt_keys_recovery
+        source "${DOTFILES}/zsh/functions/apt_keys_recovery"
         HOME=$(eval echo "~${SUDO_USER}") apt_keys_recovery
-        sudo apt update
+        sudo apt-get update
     fi
 }
+
+function apt_setup() {
+    sudo apt-get update
+    sudo apt-get --yes upgrade
+    sudo apt-get install --yes \
+        curl \
+        git \
+        make \
+        python3-pip \
+        sudo \
+        ttf-mscorefonts-installer
+
+    apt_sources_link
+}
+
+function git_modules_setup() {
+    git config --global --add safe.directory "*"
+
+    [ ! -d "$DOTFILES/git/modules" ] && mkdir -p "$DOTFILES/git/modules"
+
+    git config --file ".gitmodules" --list | tr ' ' '\n'
+
+    echo "sanitizing git submodules"
+    cat < .gitmodules | grep '\[submodule' | while read -r item; do
+        name=$(echo "$item" | sed -E 's/.*"(.*)".*/\1/g')
+        label=$(echo "$name" | xargs basename)
+        path=$(git config --file ".gitmodules" --get "submodule.${name}.path")
+        url=$(git config --file ".gitmodules" --get "submodule.${name}.url")
+
+        echo "    submodule ${label} in ${path} by ${url}"
+
+        if [ -d "${path}" ]; then
+            echo "    updating..."
+            git submodule update --init "${path}"
+        else
+            echo "    adding..."
+            git submodule add --force "${url}" "${path}"
+        fi
+        echo -e "    done\n    ---"
+    done
+}
+
+echo "starting pre-install"
+
+set -e
+
+export TERM=xterm-256color
+export NO_COLOR=0
+
+BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=/dev/null
+HOME=$(eval echo "~${SUDO_USER}") source "${BASEDIR}/zsh/startup/.zshenv"
+
+sources_list_bkp_path="/etc/apt/sources.list.d-${TODAY}-${NOW}"
+
+alias lsa='ls -lah'
 
 trap exit_defer EXIT
 trap err_defer ERR
 
-# apt_init
+apt_setup
 
-# Move this do shell command into dotbot apt config
-# apt_sources_link
+git_modules_setup
 
-echo "sanitizing git submodules"
-cat < .gitmodules | grep '\[submodule' | while read -r item; do
-    name=$(echo "$item" | sed -E 's/.*"(.*)".*/\1/g')
-    path=$(git config --file ".gitmodules" --get "submodule.${name}.path")
-    url=$(git config --file ".gitmodules" --get "submodule.${name}.url")
-
-    echo "    submodule ${name} in ${path} by ${url}"
-
-    if [ -d "${path}" ]; then
-        echo "    ${path} not empty, purging it."
-
-        git submodule deinit --force "${path}" 1>/dev/null || true
-
-        /bin/rm -rf "${path}"
-        /bin/rm -rf ".${path}"
-    fi
-
-    echo "    adding submodule ${name}"
-    git submodule add --force "${url}" "${path}" 1>/dev/null
-
-    echo -e "    done\n    ---"
-done
-
-# git submodule update --init --recursive --remote
+echo "pre-install finished"
