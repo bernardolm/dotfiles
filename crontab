@@ -1,1 +1,3 @@
-*/5 * * * * dconf dump /apps/guake/ > ~/workspaces/bernardolm/dotfiles/guake/config.dconf
+*/5 * * * *	dconf dump /apps/guake/ > ~/workspaces/bernardolm/dotfiles/guake/config.dconf
+
+*/15 * * * *	/home/bernardo/sync/zsh/scripts/sync-local-home-with-external-hd.sh
