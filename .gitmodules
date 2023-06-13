@@ -1,32 +1,35 @@
-[submodule "dotbot"]
-	active = true
-	ignore = dirty
-	url = https://github.com/anishathalye/dotbot.git
-	path = git/submodule/dotbot
+[submodule "git/modules/dotbot"]
+    active = true
+    ignore = dirty
+    path = git/modules/dotbot
+    url = https://github.com/anishathalye/dotbot.git
 
-[submodule "dotbot-golang"]
-	active = true
-	ignore = dirty
-	url = https://github.com/delicb/dotbot-golang.git
-	path = git/submodule/dotbot-golang
+[submodule "git/modules/dotbot-golang"]
+    active = true
+    ignore = dirty
+    path = git/modules/dotbot-golang
+    url = https://github.com/delicb/dotbot-golang.git
 
-[submodule "dotbot-pip"]
-	active = true
-	ignore = dirty
-	url = https://github.com/sobolevn/dotbot-pip.git
-	path = git/submodule/dotbot-pip
+[submodule "git/modules/dotbot-pip"]
+    active = true
+    ignore = dirty
+    path = git/modules/dotbot-pip
+    url = https://github.com/sobolevn/dotbot-pip.git
 
-[submodule "dotbot-snap"]
-	active = true
-	ignore = dirty
-	url = https://github.com/DrDynamic/dotbot-snap.git
-	path = git/submodule/dotbot-snap
+[submodule "git/modules/dotbot-snap"]
+    active = true
+    ignore = dirty
+    path = git/modules/dotbot-snap
+    url = https://github.com/DrDynamic/dotbot-snap.git
 
-[submodule "dotbot-sudo"]
-	active = true
-	ignore = dirty
-	url = https://github.com/DrDynamic/dotbot-sudo.git
-	path = git/submodule/dotbot-sudo
-[submodule "git/submodule/dotbot-brew"]
-	path = git/submodule/dotbot-brew
-	url = https://github.com/d12frosted/dotbot-brew.git
+[submodule "git/modules/dotbot-sudo"]
+    active = true
+    ignore = dirty
+    path = git/modules/dotbot-sudo
+    url = https://github.com/DrDynamic/dotbot-sudo.git
+
+[submodule "git/modules/dotbot-brew"]
+    active = true
+    ignore = dirty
+    path = git/modules/dotbot-brew
+    url = https://github.com/d12frosted/dotbot-brew.git
