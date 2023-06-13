@@ -6,9 +6,9 @@ function docker_install() {
     if [[ `docker_install_check` -eq 0 ]]; then
         echo "installing docker ubuntu package"
         echo "\033[0;36m"
-        sudo apt install --yes docker-ce docker-ce-cli containerd.io docker-compose
+        sudo apt-get install --yes docker-ce docker-ce-cli containerd.io docker-compose
         sleep 1
-        sudo apt install -f
+        sudo apt-get install -f
         sleep 1
         echo "\033[0m"
     fi

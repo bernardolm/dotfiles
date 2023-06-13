@@ -55,8 +55,8 @@ deb http://archive.ubuntu.com/ubuntu/impish-updates main restricted universe mul
 deb http://archive.ubuntu.com/ubuntu/impish-security main restricted universe multiverse
 EOF
     ; fi
-    sudo apt update
-    sudo apt -y --allow-downgrades --allow-change-held-packages install wpasupplicant=2:2.9.0-21build1
+    sudo apt-get update
+    sudo apt-get -y --allow-downgrades --allow-change-held-packages install wpasupplicant=2:2.9.0-21build1
     sudo apt-mark hold wpasupplicant
     echo -n "Warning! \\n\\tYou need to forget your known Wi-Fi networks with WPA and reconnect.\\n"
 }

@@ -170,7 +170,7 @@ function dns_local_setup() {
         app="$2"
         cmd="$1"
         if [ "$cmd" == "purge" ] && \
-            [ "$(apt list --installed 2>/dev/null | grep -c "$app")" == "0" ]; then
+            [ "$(apt-get list --installed 2>/dev/null | grep -c "$app")" == "0" ]; then
             return
         fi
         ${super} apt-get "$cmd" --yes "$app" &>/dev/null || exit 1
@@ -255,7 +255,7 @@ function dns_local_setup() {
     }
 
     function sudo_advice() {
-        if apt install build-essential &>/dev/null; then
+        if apt-get install build-essential &>/dev/null; then
             return
         fi
 

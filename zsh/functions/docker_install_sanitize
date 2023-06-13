@@ -24,8 +24,8 @@ function docker_install_sanitize() {
         if [[ $(docker_install_check) -eq 1 ]]; then
             echo "purging existent docker ubuntu package"
             echo "\033[0;36m"
-            sudo apt purge '^docker' containerd runc --yes 2>/dev/null
-            sudo apt autoremove --purge --yes
+            sudo apt-get purge '^docker' containerd runc --yes 2>/dev/null
+            sudo apt-get autoremove --purge --yes
             echo "\033[0m"
         else
             echo "no docker install found"

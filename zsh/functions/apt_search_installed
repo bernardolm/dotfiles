@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function apt_search_installed() {
-    apt list --installed "*$1*" 2>/dev/null | awk -F'/' 'NR>1{print $1}'
+    apt-get list --installed "*$1*" 2>/dev/null | awk -F'/' 'NR>1{print $1}'
 }
