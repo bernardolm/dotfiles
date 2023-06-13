@@ -26,10 +26,10 @@ export FZF_DEFAULT_OPTS='--height=50% --layout=reverse --border --inline-info --
 # export TYPEWRITTEN_PROMPT_LAYOUT="half_pure"
 # export TYPEWRITTEN_SYMBOL="λ "
 
-export DOTFILES="$HOME/workspaces/bernardolm/dotfiles"
+export DOTFILES="${DOTFILES:=$HOME/workspaces/bernardolm/dotfiles}"
 export GOPATH="$HOME/gopath"
 export OHMYPOSH_HOME=$HOME/.oh-my-posh
-export SYNC_DOTFILES="$HOME/sync"
+export SYNC_DOTFILES="${SYNC_DOTFILES:=$HOME/sync}"
 export USER_TMP="$HOME/tmp"
 export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
 export ZSH_HOME="$HOME/.zsh"
