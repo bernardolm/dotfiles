@@ -16,6 +16,7 @@
 
 [pull]
     default = matching
+	rebase = true
 
 [url "git@github.com:"]
     insteadOf = "gh:"
