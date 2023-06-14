@@ -36,7 +36,7 @@ export ZSH_HOME="${HOME}/.zsh"
 export ZSH="${HOME}/.oh-my-zsh"
 
 export OHMYPOSH="${OHMYPOSH_HOME}/bin/oh-my-posh"
-export HISTFILE="${SYNC_DOTFILES}/.zsh_history" # Where to save history to disk
+export HISTFILE="${SYNC_DOTFILES}/zsh/.zsh_history" # Where to save history to disk
 export TODO_DIR="${DOTFILES}/todo-txt"
 
 export DONE_FILE="${SYNC_DOTFILES}/todo-txt/done.txt"
