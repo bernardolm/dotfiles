@@ -10,7 +10,6 @@ common-aliases
 cp
 docker
 docker-compose
-dotenv
 extract
 git
 git-flow
