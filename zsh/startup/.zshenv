@@ -26,46 +26,46 @@ export FZF_DEFAULT_OPTS='--height=50% --layout=reverse --border --inline-info --
 # export TYPEWRITTEN_PROMPT_LAYOUT="half_pure"
 # export TYPEWRITTEN_SYMBOL="λ "
 
-export DOTFILES="${DOTFILES:=$HOME/workspaces/bernardolm/dotfiles}"
-export GOPATH="$HOME/gopath"
-export OHMYPOSH_HOME=$HOME/.oh-my-posh
-export SYNC_DOTFILES="${SYNC_DOTFILES:=$HOME/sync}"
-export USER_TMP="$HOME/tmp"
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-$HOME/.cache}/ohmyzsh"
-export ZSH_HOME="$HOME/.zsh"
-export ZSH="$HOME/.oh-my-zsh"
+export DOTFILES="${DOTFILES:=${HOME}/workspaces/bernardolm/dotfiles}"
+export GOPATH="${HOME}/gopath"
+export OHMYPOSH_HOME="${HOME}/.oh-my-posh"
+export SYNC_DOTFILES="${SYNC_DOTFILES:=${HOME}/sync}"
+export USER_TMP="${HOME}/tmp"
+export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/ohmyzsh"
+export ZSH_HOME="${HOME}/.zsh"
+export ZSH="${HOME}/.oh-my-zsh"
 
-export OHMYPOSH=$SYNC_DOTFILES/bin/oh-my-posh
-export HISTFILE="$SYNC_DOTFILES/.zsh_history" # Where to save history to disk
-export TODO_DIR="$DOTFILES/todo-txt"
+export OHMYPOSH="${OHMYPOSH_HOME}/bin/oh-my-posh"
+export HISTFILE="${SYNC_DOTFILES}/.zsh_history" # Where to save history to disk
+export TODO_DIR="${DOTFILES}/todo-txt"
 
-export DONE_FILE="$SYNC_DOTFILES/todo-txt/done.txt"
-export HISTSIZE="$SAVEHIST"
-export REPORT_FILE="$SYNC_DOTFILES/todo-txt/report.txt"
-export SHELL_SESSION_PATH="$USER_TMP/shell_session/$TODAY"
-export TODO_ACTIONS_DIR="$TODO_DIR/.todo.actions.d"
-export TODO_FILE="$SYNC_DOTFILES/todo-txt/todo.txt"
-export TODOTXT_CFG_FILE="$TODO_DIR/zsh.cfg"
+export DONE_FILE="${SYNC_DOTFILES}/todo-txt/done.txt"
+export HISTSIZE="${SAVEHIST}"
+export REPORT_FILE="${SYNC_DOTFILES}/todo-txt/report.txt"
+export SHELL_SESSION_PATH="${USER_TMP}/shell_session/${TODAY}"
+export TODO_ACTIONS_DIR="${TODO_DIR}/.todo.actions.d"
+export TODO_FILE="${SYNC_DOTFILES}/todo-txt/todo.txt"
+export TODOTXT_CFG_FILE="${TODO_DIR}/zsh.cfg"
 
 export GITHUB_ORG=$(git config --file \
-    "$SYNC_DOTFILES/.gitconfig_work" github.organization)
+    "${SYNC_DOTFILES}/.gitconfig_work" github.organization)
 export GITHUB_USER=$(git config --file \
-    "$DOTFILES/.gitconfig" github.user)
+    "${DOTFILES}/.gitconfig" github.user)
 
-export WORKSPACE_ORG="$HOME/workspaces/$GITHUB_ORG"
-export WORKSPACE_USER="$HOME/workspaces/$GITHUB_USER"
+export WORKSPACE_ORG="${HOME}/workspaces/${GITHUB_ORG}"
+export WORKSPACE_USER="${HOME}/workspaces/${GITHUB_USER}"
 
-export PATH="$PATH:/bin"
-export PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
-export PATH="$PATH:/snap/bin/"
-export PATH="$PATH:/usr/bin"
-export PATH="$PATH:/usr/local/bin"
-export PATH="$PATH:/usr/local/go/bin"
-export PATH="$PATH:/usr/local/java/jre/bin"
-export PATH="$PATH:$DOTFILES/bin"
-export PATH="$PATH:$GOPATH/bin"
-export PATH="$PATH:$GOROOT/bin"
-export PATH="$PATH:$HOME/.cargo/bin"
-export PATH="$PATH:$HOME/.local/bin"
-export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$SYNC_DOTFILES/bin"
+export PATH="${PATH}:/bin"
+export PATH="${PATH}:/home/linuxbrew/.linuxbrew/bin"
+export PATH="${PATH}:/snap/bin/"
+export PATH="${PATH}:/usr/bin"
+export PATH="${PATH}:/usr/local/bin"
+export PATH="${PATH}:/usr/local/go/bin"
+export PATH="${PATH}:/usr/local/java/jre/bin"
+export PATH="${PATH}:${DOTFILES}/bin"
+export PATH="${PATH}:${GOPATH}/bin"
+export PATH="${PATH}:${GOROOT}/bin"
+export PATH="${PATH}:${HOME}/.cargo/bin"
+export PATH="${PATH}:${HOME}/.local/bin"
+export PATH="${PATH}:${HOME}/bin"
+export PATH="${PATH}:${SYNC_DOTFILES}/bin"
