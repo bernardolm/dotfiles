@@ -14,24 +14,13 @@
       - [dpkg --get-selections | grep hold | xargs -x apt-get autoremove]
 
 - apt:
-    bat
-    exa
-    flatpak
-    fonts-recommended
-    gh
-    gnome-screensaver
-    gnome-shell-extensions
-    gnome-software-plugin-flatpak
-    gthumb
-    network-manager-fortisslvpn-gnome
-    openssh-server
-    python3-all-dev
     1password
     1password-cli
     alacarte
     apt-transport-https
     aspell-fr
     baobab
+    bat
     bleachbit
     bluemon
     bluez
@@ -51,9 +40,11 @@
     docker-ce
     docker-ce-cli
     docker-compose-plugin
+    exa
     fd-find
     figlet
     flashplugin-installer
+    flatpak
     fontconfig
     fonts-arundina
     fonts-dejavu
@@ -64,6 +55,7 @@
     fonts-noto-color-emoji
     fonts-noto-mono
     fonts-powerline
+    fonts-recommended
     fonts-symbola
     fonts-twemoji-svginot
     fritzing
@@ -72,9 +64,13 @@
     gconf2
     gdebi
     gettext
+    gh
     git
     gnome-calendar
+    gnome-screensaver
     gnome-screenshot
+    gnome-shell-extensions
+    gnome-software-plugin-flatpak
     gnome-tweak-tool
     gnome-tweaks
     gnupg
@@ -84,6 +80,7 @@
     graphviz
     gsettings-desktop-schemas
     gsmartcontrol
+    gthumb
     guake
     hibernate
     htop
@@ -91,6 +88,7 @@
     jq
     libvulkan-dev
     libvulkan1
+    libxcb-glx0
     llvm-7
     llvm-7-dev
     make
@@ -98,9 +96,12 @@
     meld
     nautilus-dropbox
     net-tools
+    network-manager-fortisslvpn-gnome
     nmap
+    openssh-server
     pm-utils
     python3
+    python3-all-dev
     python3-argcomplete
     python3-cairo
     python3-dbus
@@ -123,6 +124,8 @@
     stacer
     sublime-text
     sudo
+    symlinks
+    todotxt-cli
     traceroute
     trash-cli
     ttf-ancient-fonts-symbola

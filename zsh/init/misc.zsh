@@ -21,3 +21,25 @@ disable_accelerometter &>/dev/null && disable_accelerometter
 [ $(cat /etc/group | grep -c docker) -gt 0 ] && newgrp docker
 
 chrome_bookmarks_backup
+
+[ ! -f ~/.local/bin/dropbox.py ] && \
+    curl -sL https://linux.dropbox.com/packages/dropbox.py -o ~/.local/bin/dropbox.py
+
+[ ! -f ~/.local/bin/gnome-shell-extension-installer ] && \
+    curl -sL https://raw.githubusercontent.com/brunelli/gnome-shell-extension-installer/master/gnome-shell-extension-installer \
+    -o ~/.local/bin/gnome-shell-extension-installer && \
+    chmod +x ~/.local/bin/gnome-shell-extension-installer
+
+[ ! -f ~/.local/bin/go-redis-migrate ] && \
+    curl -sL https://github.com/obukhov/go-redis-migrate/releases/download/v2.0/go-redis-migrate-v2-linux \
+    -o ~/.local/bin/go-redis-migrate && \
+    chmod +x ~/.local/bin/go-redis-migrate
+
+[ ! -f ~/.local/bin/slugify ] && \
+    curl -sL https://raw.githubusercontent.com/benlinton/slugify/master/slugify \
+    -o ~/.local/bin/slugify && \
+    chmod +x ~/.local/bin/slugify
+
+[ ! -f ~/.local/bin/theme.sh ] && \
+    curl -sL https://git.io/JM70M -o ~/.local/bin/theme.sh && \
+    chmod +x ~/.local/bin/theme.sh

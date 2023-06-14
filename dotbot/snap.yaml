@@ -17,6 +17,7 @@
     - gtk-common-themes
     - gtk2-common-themes
     - hunspell-dictionaries-1-7-2004
+    - lsd
     - mqtt-explorer
     - postman
     - redis-desktop-manager
