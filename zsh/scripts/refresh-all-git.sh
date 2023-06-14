@@ -61,8 +61,8 @@ update_repo() {
         echo -e "fetching ${REPO_NAME}" >>${THIS_LOG} 2>&1
         git stash >>${THIS_LOG} 2>&1
         git fetch --all --prune >>${THIS_LOG} 2>&1
-        git checkout master >>${THIS_LOG} 2>&1 || git checkout main >>${THIS_LOG} 2>&1
-        git pull origin master >>${THIS_LOG} 2>&1 || git pull origin main >>${THIS_LOG} 2>&1
+        (git checkout master || git checkout main) >>${THIS_LOG} 2>&1
+        (git pull origin master || git pull origin main) >>${THIS_LOG} 2>&1
         echo -e "\n\n" >>${THIS_LOG} 2>&1
 
         if [[ $(cat ${THIS_LOG} | grep -c "Repository not found") > 0 ]]; then
