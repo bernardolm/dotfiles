@@ -3,6 +3,7 @@
 command -v zsh >/dev/null || sudo apt-get install zsh
 
 find ~ -maxdepth 1 -name "*.bkp" -delete
+find ~ -name '.zcompdump*' -delete
 
 local files=('.zlogin' '.zlogout' '.zprofile' '.zshenv' '.zshrc')
 for f in $files; do
