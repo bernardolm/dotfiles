@@ -10,6 +10,7 @@ GITHUB_TOKEN = environ.get("GITHUB_TOKEN", "")
 GITHUB_USER = environ.get("GITHUB_USER", "")
 HOME = environ.get("HOME", "")
 PER_PAGE = 100
+TIMEOUT = 60
 
 
 expire_after = expire_after = timedelta(hours=12)
@@ -18,10 +19,12 @@ requests_cache.install_cache(f'{HOME}/demo_cache', expire_after=expire_after)
 
 gh = Github(
     login_or_token=GITHUB_TOKEN,
-    per_page=PER_PAGE
+    per_page=PER_PAGE,
+    timeout=TIMEOUT,
 )
 
 org = gh.get_organization(GITHUB_ORG)
+
 
 total_additions, total_deletions, total_commits, repo_position = 0, 0, 0, 0
 
@@ -43,7 +46,7 @@ with open(file=file_path, mode="a", encoding="utf-8") as file:
 
         req = requests.get(
             url=url,
-            timeout=60,
+            timeout=TIMEOUT,
             headers={
                 "Accept": "application/vnd.github+json",
                 "Authorization": f"Bearer {GITHUB_TOKEN}",
