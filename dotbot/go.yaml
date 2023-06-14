@@ -1,0 +1,27 @@
+- defaults:
+    shell:
+      stderr: true
+      stdout: true
+
+- sudo:
+    - shell:
+        - [test -f /usr/bin/yq || wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && chmod +x /usr/bin/yq]
+
+- shell:
+    - >
+      for pkg in $(cat dotbot/go.yaml | grep -v '\s+#' | yq '.[3].go'); do
+        echo $pkg;
+        go install $pkg 1>/dev/null;
+      done;
+
+- go:
+    github.com/cortesi/modd/cmd/modd@latest
+    github.com/go-delve/delve/cmd/dlv@latest
+    github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+    github.com/liudng/dogo@latest
+    github.com/tsenart/vegeta@latest
+    golang.org/x/lint/golint@latest
+    golang.org/x/tools/cmd/goimports@latest
+    golang.org/x/tools/cmd/gorename@latest
+    golang.org/x/tools/cmd/guru@latest
+    golang.org/x/tools/gopls@latest

@@ -32,11 +32,10 @@ apt:
 		--except apt
 
 golang:
-	bash ./go/install.sh
-	./install -vv \
-		-c ${PWD}/dotbot/go.yaml \
-		--except go \
-		-p ${PWD}/git/modules/dotbot-sudo/sudo.py
+	./go/install
+	eval ${DOTBOT_CMD} -c dotbot/go.yaml \
+		-p git/modules/dotbot-sudo/sudo.py \
+		--except go
 
 pip:
 	./install -vv \

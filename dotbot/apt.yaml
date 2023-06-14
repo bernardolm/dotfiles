@@ -9,9 +9,9 @@
       - >
         for pkg in $(cat dotbot/apt.yaml | grep -v '\s+#' | yq '.[2].apt'); do
           echo $pkg;
-          sudo apt-get install --yes --purge --reinstall $pkg 1>/dev/null;
+          apt-get install --yes --purge --reinstall $pkg 1>/dev/null;
         done;
-      - [dpkg --get-selections | grep hold | xargs -x sudo apt-get autoremove]
+      - [dpkg --get-selections | grep hold | xargs -x apt-get autoremove]
 
 - apt:
     bat
