@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+. "${DOTFILES}/dropbox/install"
+
+python3 "${SYNC_DOTFILES}/bin/dropbox.py" start

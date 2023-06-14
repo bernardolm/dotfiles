@@ -19,3 +19,5 @@ hudctl_completion+='/hudctl-completion.bash'
 disable_accelerometter &>/dev/null && disable_accelerometter
 
 [ $(cat /etc/group | grep -c docker) -gt 0 ] && newgrp docker
+
+chrome_bookmarks_backup

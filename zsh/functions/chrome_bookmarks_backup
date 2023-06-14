@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+function chrome_bookmarks_backup() {
+    [ ! -d "${SYNC_DOTFILES}/chrome/bookmarks" ] && \
+        mkdir -p "${SYNC_DOTFILES}/chrome/bookmarks"
+    find ~/.config/google-chrome -name '*Bookmarks*' | while read -r item; do
+        slug=$(echo "$item" | sed -e 's/[ \/.]/_/g')
+        cp "$item" "${SYNC_DOTFILES}/chrome/bookmarks/${slug}_${NOW}"
+    done
+}

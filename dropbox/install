@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+return # installing by sudo apt install nautilus-dropbox
+
+[ -d "~/.dropbox-dist" ] && return
+
+cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf - ; ~/.dropbox-dist/dropboxd
