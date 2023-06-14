@@ -38,9 +38,8 @@ golang:
 		--except go
 
 pip:
-	./install -vv \
-		-c ${PWD}/dotbot/pip.yaml \
-		-p ${PWD}/git/modules/dotbot-pip/pip.py
+	eval ${DOTBOT_CMD} -c dotbot/pip.yaml \
+		-p git/modules/dotbot-pip/pip.py
 
 snap:
 	./install -vv \
