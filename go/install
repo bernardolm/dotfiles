@@ -1,16 +1,18 @@
 #!/usr/bin/env zsh
 
-log_starting 'go'
+log_starting 'go' 2>/dev/null
 
-local version="$(curl --silent https://go.dev/version?m=text)"
+command -v go &>/dev/null && echo "go is installed" && exit 0
 
-log_info "installing version ${version}"
+local version="$(curl -s 'https://go.dev/VERSION?m=text')" # VERSION is UPCASE!
+
+log_info "installing version ${version}" 2>/dev/null
 
 URL="https://golang.org/dl/${version}.linux-amd64.tar.gz"
 TMP=$(mktemp -d)
 DEST="${TMP}/go.tar.gz"
 
-curl -L -o "${DEST}" "${URL}"
+curl -sL -o "${DEST}" "${URL}"
 
 ls -lah "${DEST}"
 
@@ -21,4 +23,4 @@ export PATH="${PATH}:${GOROOT}/bin"
 
 go version
 
-log_finishing 'go'
+log_finishing 'go' 2>/dev/null
