@@ -68,4 +68,4 @@
     sort = -committerdate
 
 [include]
-    path = ~/sync/.gitconfig_work
+    path = ~/sync/git/.gitconfig_work

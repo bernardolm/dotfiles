@@ -88,5 +88,3 @@ include "~/.nano/xresources.nanorc"
 include "~/.nano/yaml.nanorc"
 include "~/.nano/yum.nanorc"
 include "~/.nano/zsh.nanorc"
-
-set backupdir "~/sync/misc/nano-backups"
