@@ -15,7 +15,7 @@ default: reset
 		-v ${PWD}:/opt/dotfiles \
 		-v ${HOME}/sync:/opt/sync \
 		-w /opt/dotfiles \
-		dotfiles:test /bin/bash
+		dotfiles:test
 
 reset:
 	@reset
@@ -42,9 +42,8 @@ pip:
 		-p git/modules/dotbot-pip/pip.py
 
 snap:
-	./install -vv \
-		-c ${PWD}/dotbot/snap.yaml \
-		-p ${PWD}/git/modules/dotbot-snap/snap.py
+	eval ${DOTBOT_CMD} -c dotbot/snap.yaml \
+		-p git/modules/dotbot-snap/snap.py
 
 post:
 	./install -vv \
@@ -52,6 +51,3 @@ post:
 		-p ${PWD}/git/modules/dotbot-sudo/sudo.py
 
 setup: reset pre base apt golang pip snap post
-
-
-# ./git/modules/dotbot/bin/dotbot --base-directory ./git/modules/dotbot --config-file ./dotbot/apt.yaml -p ./git/modules/dotbot-sudo/sudo.py

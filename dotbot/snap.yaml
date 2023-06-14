@@ -1,0 +1,34 @@
+- defaults:
+    snap:
+        classic: false # default
+
+- snap:
+    - bare
+    - beekeeper-studio
+    - core
+    - core18
+    - core20
+    - core22
+    - dbeaver-ce
+    - firefox
+    - gnome-3-28-1804
+    - gnome-3-34-1804
+    - gnome-3-38-2004
+    - gtk-common-themes
+    - gtk2-common-themes
+    - hunspell-dictionaries-1-7-2004
+    - mqtt-explorer
+    - postman
+    - redis-desktop-manager
+    - snap-store
+    - snapd
+    - snapd-desktop-integration
+    - spotify
+    - sweethome3d-homedesign
+    - yq
+    - code:
+        classic: true
+    - google-cloud-sdk:
+        classic: true
+    - nvim:
+        classic: true
