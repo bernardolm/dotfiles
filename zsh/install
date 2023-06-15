@@ -7,17 +7,17 @@ find ~ -name '.zcompdump*' -delete
 
 local files=('.zlogin' '.zlogout' '.zprofile' '.zshenv' '.zshrc')
 for f in $files; do
-    [ -e "$HOME/$f" ] && mv "$HOME/$f" "$HOME/$f.$TODAY.$NOW.bkp"
-    ln -s "$HOME/workspaces/bernardolm/dotfiles/zsh/startup/$f" "$HOME/$f"
+    [ -e "${HOME}/${f}" ] && mv "${HOME}/${f}" "${HOME}/${f}_${TIMESTAMP}.bkp"
+    ln -s "${DOTFILES}/zsh/startup/${f}" "${HOME}/${f}"
 done
 
-[ ! -d "$ZSH_HOME" ] && mkdir -p -m u=rwx,go=rx "$ZSH_HOME/plugins"
+[ ! -d "$ZSH_HOME" ] && mkdir -p -m u=rwx,go=rx "${ZSH_HOME}/plugins"
 
 local _zsh_plugins_list=($(zsh_plugins_list))
 log_warn "zsh plugins list: cloning $_zsh_plugins_list"
 
 for p in $_zsh_plugins_list; do
-    [ ! -d "$ZSH_HOME/plugins/$p" ] && \
-        log_info "cloning $p" && \
-        git clone --quiet "https://github.com/$p.git" "$ZSH_HOME/plugins/$p"
+    [ ! -d "${ZSH_HOME}/plugins/${p}" ] && \
+        log_info "cloning ${p}" && \
+        git clone --quiet "https://github.com/${p}.git" "${ZSH_HOME}/plugins/${p}"
 done

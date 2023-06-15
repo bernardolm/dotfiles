@@ -261,6 +261,6 @@
     "yaml.format.singleQuote": true,
     "yaml.keyOrdering": false,
     "workbench.colorTheme": "SynthWave '84",
-    "window.zoomLevel": -1,
     "git.openRepositoryInParentFolders": "never",
+    "window.zoomLevel": -1,
 }

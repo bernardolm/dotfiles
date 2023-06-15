@@ -65,8 +65,9 @@ function apt_setup() {
         curl \
         git \
         make \
+        nano \
         python3-pip \
-        sudo \
+        xclip \
         ttf-mscorefonts-installer
 
     apt_sources_link
@@ -111,7 +112,7 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=/dev/null
 HOME=$(eval echo "~${SUDO_USER}") source "${BASEDIR}/zsh/startup/.zshenv"
 
-sources_list_bkp_path="/etc/apt/sources.list.d-${TODAY}-${NOW}"
+sources_list_bkp_path="/etc/apt/sources.list.d-${TIMESTAMP}"
 
 alias lsa='ls -lah'
 

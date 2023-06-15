@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
-# rm -rf "${HOME}/.zsh"
-# rm -rf "${HOME}/.oh-my-zsh"
-# rm -rf "${HOME}/.oh-my-posh"
+rm -rf "${HOME}/.zsh"
+rm -rf "${HOME}/.oh-my-zsh"
+rm -rf "${HOME}/.oh-my-posh"
 
 # profiling shell
 # Ref.: https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
