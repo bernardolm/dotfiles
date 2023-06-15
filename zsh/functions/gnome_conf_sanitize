@@ -1,0 +1,23 @@
+#!/usr/bin/env zsh
+
+function gnome_conf_sanitize() {
+    old_gnome_config="${HOME}/tmp/old-gnome-config/${TODAY}/${NOW}/"
+
+    mkdir -p "$old_gnome_config"
+
+    paths=(
+        "${HOME}/.cache"
+        "${HOME}/.config/dconf/*"
+        "${HOME}/.dbus"
+        "${HOME}/.dmrc"
+        "${HOME}/.gconf*"
+        "${HOME}/.gnome*"
+        "${HOME}/.metacity"
+        "${HOME}/.mission-control"
+        "${HOME}/.thumbnails"
+    )
+
+    for item in "${paths[@]}"; do
+        [ -d "$item" ] && echo mv -f "$item" "$old_gnome_config"
+    done
+}

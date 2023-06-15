@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+function gnome_dconf_restore() {
+    local file=$(last_backup_version gnome txt)
+    gnome_reset
+    dconf load /org/gnome/ <"$file"
+}
