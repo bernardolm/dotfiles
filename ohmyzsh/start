@@ -12,5 +12,3 @@ log_info "oh-my-zsh plugins to load '$plugins'"
 
 # Downloading docker completions
 ohmyzsh_docker_completions
-
-chmod +x ~/.local/bin/register-python-argcomplete

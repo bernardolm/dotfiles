@@ -38,6 +38,7 @@ alias nautilus-speed-up='sudo rm -rf $HOME/.local/share/gvfs-metadata && sudo pk
 alias new-guid='uuidgen | tr "[A-Z]" "[a-z]"'
 alias path='echo -e ${PATH//:/\\n}'
 alias python='python3'
+alias register-python-argcomplete='register-python-argcomplete3'
 alias reload='exec ${SHELL} -l'
 alias remove-x='chmod -R -x+X .'
 alias s='screen'
