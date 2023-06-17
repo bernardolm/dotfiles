@@ -2,7 +2,7 @@
 
 function ohmyzsh_plugins_list() {
     local plugins
-    /bin/cat < "$DOTFILES/ohmyzsh/plugins.txt" | grep -v '#' | while read -r file ; do
+    /bin/cat < "${DOTFILES}/ohmyzsh/plugins.txt" | grep -v '#' | while read -r file ; do
         plugins="$plugins\n$file"
     done
     echo -n "$plugins"

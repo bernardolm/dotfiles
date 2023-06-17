@@ -1,14 +1,17 @@
 #!/usr/bin/env zsh
 
-fpath=( "$DOTFILES/ohmyzsh/functions" $fpath )
+fpath=( "${DOTFILES}/ohmyzsh/functions" $fpath )
 autoload -Uz ${fpath[1]}/*(:t)
 
-. "$DOTFILES/ohmyzsh/install"
+. "${DOTFILES}/ohmyzsh/install"
 
 plugins=($(ohmyzsh_plugins_list))
+$SHELL_DEBUG && echo "oh-my-zsh plugins to load: '$plugins'"
 
-log_info "oh-my-zsh plugins to load '$plugins'"
-. $ZSH/oh-my-zsh.sh
+zstyle ':omz:lib:directories' aliases no
+zstyle ':omz:lib:theme-and-appearance' aliases no
+
+. "${ZSH}/oh-my-zsh.sh"
 
 # Downloading docker completions
 ohmyzsh_docker_completions

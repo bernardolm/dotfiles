@@ -1,8 +1,19 @@
 #!/usr/bin/env zsh
 
 function zsh_plugins_load() {
-    find "$ZSH_HOME/plugins" -mindepth 3 -maxdepth 3 -name "*plugin.zsh" | while read -r p; do
-        log_info "loading zsh plugin $(basename ${p})"
-        . "$p"
+    plugins_path="${ZSH_HOME}/plugins"
+
+    for p in ${plugins_path}/*/*; do
+        name=$(basename $p)
+        $SHELL_DEBUG && echo -n "loading zsh plugin ${name}... "
+        found=false
+        find ${p} \
+            -name '*.plugin.zsh' -or \
+            -name "${name}.sh" -or \
+            -name 'lscolors.sh' | while read -r item; do
+                found=true
+                (. "$item" && ($SHELL_DEBUG && echo "done")) || ($SHELL_DEBUG && echo "failed")
+            done
+        [ ! $found ] && ($SHELL_DEBUG && echo "not found script to load")
     done
 }

@@ -1,23 +1,21 @@
 #!/usr/bin/env zsh
 
-command -v zsh >/dev/null || sudo apt-get install zsh
+command -v zsh >/dev/null || (echo 'you needs to install zsh before' && return)
 
-find ~ -maxdepth 1 -name "*.bkp" -delete
+# find ~ -maxdepth 1 -name "*.bkp" -delete
 find ~ -name '.zcompdump*' -delete
 
 local files=('.zlogin' '.zlogout' '.zprofile' '.zshenv' '.zshrc')
 for f in $files; do
-    [ -e "${HOME}/${f}" ] && mv "${HOME}/${f}" "${HOME}/${f}_${TIMESTAMP}.bkp"
-    ln -s "${DOTFILES}/zsh/startup/${f}" "${HOME}/${f}"
+    dest_path="${HOME}/${f}"
+    # [ -e "$dest_path" ] && mv "$dest_path" "${dest_path}_${TIMESTAMP}.bkp"
+    ln -sf "${DOTFILES}/zsh/startup/${f}" "$dest_path"
 done
 
-[ ! -d "$ZSH_HOME" ] && mkdir -p -m u=rwx,go=rx "${ZSH_HOME}/plugins"
+zsh_plugins_install
 
-local _zsh_plugins_list=($(zsh_plugins_list))
-log_warn "zsh plugins list: cloning $_zsh_plugins_list"
-
-for p in $_zsh_plugins_list; do
-    [ ! -d "${ZSH_HOME}/plugins/${p}" ] && \
-        log_info "cloning ${p}" && \
-        git clone --quiet "https://github.com/${p}.git" "${ZSH_HOME}/plugins/${p}"
-done
+if [ -d $ZSH_HOME/plugins/dracula/zsh ]; then
+    [ ! -d $ZSH/themes/lib ] && mkdir -p $ZSH/themes/lib
+    ln -sf $ZSH_HOME/plugins/dracula/zsh/lib/async.zsh $ZSH/themes/lib/async.zsh
+    ln -sf $ZSH_HOME/plugins/dracula/zsh/dracula.zsh-theme $ZSH/themes/dracula.zsh-theme
+fi

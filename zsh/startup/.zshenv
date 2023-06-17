@@ -9,6 +9,7 @@ export LANG="en_US.UTF-8"
 export MICRO_TRUECOLOR=1
 export NOW="$(date '+%H-%M-%S-%N')"
 export PAGER=less
+export POSH_THEME=M365Princess
 export SAVEHIST=999999
 export SHELL_DEBUG=false
 export SHELL_PROFILE=false
@@ -16,27 +17,18 @@ export SHELL_STACK=false
 export TERM="xterm-256color"
 export TODAY="$(date '+%F')"
 export VISUAL=nano
-export ZSH_THEME=robbyrussell
+# export ZSH_THEME=flazz
+export ZSH_THEME=dracula
 export ZSH_WAKATIME_PROJECT_DETECTION=true
-
-export FZF_DEFAULT_OPTS='--height=50% --layout=reverse --border --inline-info --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4'
-
-# export DRACULA_TYPEWRITTEN_COLOR_MAPPINGS="primary:#d5ccff;secondary:#9580ff;info_neutral_1:#d0ffcc;info_neutral_2:#ffffcc;info_special:#ff9580;info_negative:#ff5555;notice:#ffff80;accent:#d5ccff"
-# export TYPEWRITTEN_COLOR_MAPPINGS="${DRACULA_TYPEWRITTEN_COLOR_MAPPINGS}"
-# export TYPEWRITTEN_PROMPT_LAYOUT="half_pure"
-# export TYPEWRITTEN_SYMBOL="λ "
 
 export DOTFILES="${DOTFILES:=${HOME}/workspaces/bernardolm/dotfiles}"
 export GOPATH="${HOME}/gopath"
-export OHMYPOSH_HOME="${HOME}/.oh-my-posh"
 export SYNC_DOTFILES="${SYNC_DOTFILES:=${HOME}/sync}"
 export TIMESTAMP="${TODAY}_${NOW}"
 export USER_TMP="${HOME}/tmp"
-export ZSH_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/ohmyzsh"
 export ZSH_HOME="${HOME}/.zsh"
 export ZSH="${HOME}/.oh-my-zsh"
 
-export OHMYPOSH="${OHMYPOSH_HOME}/bin/oh-my-posh"
 export HISTFILE="${SYNC_DOTFILES}/zsh/.zsh_history" # Where to save history to disk
 export TODO_DIR="${DOTFILES}/todo-txt"
 

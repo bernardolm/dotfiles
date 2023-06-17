@@ -58,11 +58,7 @@ function files_count() {
     find "$1" -type f 2> /dev/null | wc -l | bc
 }
 
-function ls_2_exa() {
-    args="$@"
-    args=$(echo $args | sed 's/A/a/g')
-    eval "exa $args"
-}
+
 
 function file_lines_2_inline() {
     /bin/cat < $1 | grep -v '#' | paste -sd' '

@@ -1,22 +1,7 @@
 #!/usr/bin/env zsh
 
-# test -f $OHMYPOSH && return
+OHMYPOSH="${HOME}/.local/bin"
+OHMYPOSH_BIN="${OHMYPOSH}/oh-my-posh"
 
-[ ! -d "${OHMYPOSH_HOME}/bin" ] && mkdir -p "${OHMYPOSH_HOME}/bin"
-
-curl -C - -L -s -o "$OHMYPOSH" https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 && \
-    chmod +x "$OHMYPOSH"
-
-function install_themes() {
-    log_debug "installing oh my gosh"
-    curl -C - -L -s \
-            -o "${OHMYPOSH_HOME}/.poshthemes/themes.zip" \
-            https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/themes.zip
-    unzip -q "${OHMYPOSH_HOME}/.poshthemes/themes.zip" -d "${OHMYPOSH_HOME}/.poshthemes"
-    chmod u+rw "${OHMYPOSH_HOME}/.poshthemes/*.omp.*"
-    /bin/rm "${OHMYPOSH_HOME}/.poshthemes/themes.zip"
-}
-
-/bin/rm -rf "${OHMYPOSH_HOME}/.poshthemes"
-
-[ ! -d "$OHMYPOSH_HOME" ] && mkdir -p "${OHMYPOSH_HOME}/.poshthemes" && install_themes
+[[ ! -f $OHMYPOSH_BIN ]] && \
+    curl -s https://ohmyposh.dev/install.sh | bash -s -- -d "${OHMYPOSH}"

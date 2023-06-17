@@ -34,3 +34,4 @@ timer
 ubuntu
 vscode
 zsh-navigation-tools
+zsh-syntax-highlighting

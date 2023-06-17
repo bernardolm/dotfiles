@@ -66,9 +66,11 @@ function apt_setup() {
         git \
         make \
         nano \
+        python3-argcomplete \
         python3-pip \
-        xclip \
-        ttf-mscorefonts-installer
+        xclip
+
+    sudo ln -sf /usr/bin/register-python-argcomplete3 /usr/bin/register-python-argcomplete
 
     apt_sources_link
 }
@@ -76,7 +78,7 @@ function apt_setup() {
 function git_modules_setup() {
     git config --global --add safe.directory "*"
 
-    [ ! -d "$DOTFILES/git/modules" ] && mkdir -p "$DOTFILES/git/modules"
+    [ ! -d "${DOTFILES}/git/modules" ] && mkdir -p "${DOTFILES}/git/modules"
 
     git config --file ".gitmodules" --list | tr ' ' '\n'
 

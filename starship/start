@@ -2,8 +2,8 @@
 
 starship || . $DOTFILES/starship/install
 
-# export STARSHIP_CONFIG="$DOTFILES/starship/tokyo-night.toml"
-export STARSHIP_CONFIG="$DOTFILES/starship/pastel-powerline.toml"
+# export STARSHIP_CONFIG="${DOTFILES}/starship/tokyo-night.toml"
+export STARSHIP_CONFIG="${DOTFILES}/starship/pastel-powerline.toml"
 
 $SHELL_DEBUG && env STARSHIP_LOG=trace starship module rust
 $SHELL_DEBUG && env STARSHIP_LOG=trace starship timings

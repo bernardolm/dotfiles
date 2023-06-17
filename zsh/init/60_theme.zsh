@@ -8,7 +8,7 @@
 
 if [ ! -f "$HOME/.local/bin/theme.sh" ]; then
 	sudo curl -s -Lo $HOME/.local/bin/theme.sh 'https://git.io/JM70M'
-	sudo chmod +x $HOME/.local/bin/theme.sh
+	sudo chmod u+x $HOME/.local/bin/theme.sh
 fi
 
 if command -v theme.sh > /dev/null; then

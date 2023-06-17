@@ -2,4 +2,9 @@
 
 [ -d "$ZSH" ] && return
 
-curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | KEEP_ZSHRC=yes RUNZSH=no sh --
+curl -fsSL "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | KEEP_ZSHRC=yes RUNZSH=no CHSH=yes sh --
+
+if [ ! -f "${ZSH}/custom/plugins/zsh-syntax-highlighting" ]; then
+    ln -sf "${ZSH_HOME}/plugins/zsh-users/zsh-syntax-highlighting" \
+        "${ZSH}/custom/plugins/zsh-syntax-highlighting"
+fi

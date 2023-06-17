@@ -1,8 +1,10 @@
 #!/usr/bin/env zsh
 
-rm -rf "${HOME}/.zsh"
-rm -rf "${HOME}/.oh-my-zsh"
-rm -rf "${HOME}/.oh-my-posh"
+# rm -rf "${HOME}/.zsh"
+# rm -rf "${HOME}/.oh-my-zsh"
+# rm -rf "${HOME}/.oh-my-posh"
+
+. "${DOTFILES}/zsh/install-tools.sh"
 
 # profiling shell
 # Ref.: https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
@@ -14,17 +16,15 @@ if [[ "$SHELL_PROFILE" == "true" ]]; then
 fi
 
 . "${DOTFILES}/zsh/start"
-
-# . "${DOTFILES}/antigen/start"
-# . "${DOTFILES}/zplug/start"
-# . "${DOTFILES}/pretzo/start"
-
 . "${DOTFILES}/ohmyzsh/start"
-. "${DOTFILES}/ohmyposh/start"
 
-# . "${DOTFILES}/dropbox/start"
+# # . "${DOTFILES}/antigen/start"
+# # . "${DOTFILES}/zplug/start"
+# # . "${DOTFILES}/pretzo/start"
 
-zsh_plugins_load
+# . "${DOTFILES}/ohmyposh/start"
+
+# # . "${DOTFILES}/dropbox/start"
 
 # profiling shell
 if [[ "$SHELL_PROFILE" == "true" ]]; then

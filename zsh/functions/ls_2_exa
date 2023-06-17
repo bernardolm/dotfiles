@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+function ls_2_exa() {
+    args="$@"
+    args=$(echo $args | sed 's/A/a/g')
+    eval "exa $args"
+}

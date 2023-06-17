@@ -1,13 +1,6 @@
 #!/usr/bin/env zsh
 
-. $DOTFILES/ohmyposh/install
+. "${DOTFILES}/ohmyposh/install"
 
-# eval "$($OHMYPOSH init zsh)"
-
-# eval "$($OHMYPOSH init zsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/dracula.omp.json)"
-
-# eval "$($OHMYPOSH init zsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/velvet.omp.json)"
-
-eval "$($OHMYPOSH init zsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/quick-term.omp.json)"
-
-# eval "$($OHMYPOSH init zsh --config https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/M365Princess.omp.json)"
+eval "$(oh-my-posh init zsh \
+    --config /home/bernardo/.cache/oh-my-posh/themes/${POSH_THEME}.omp.json)"
