@@ -1,5 +1,3 @@
-# return
-
 $SHELL_DEBUG && localectl status
 
 (conky_restart &)
@@ -16,7 +14,9 @@ hudctl_completion='/usr/local/lib/node_modules/hudctl/completion/hudctl-completi
 
 disable_accelerometter &>/dev/null && disable_accelerometter
 
-[ $(cat /etc/group | grep -c docker) -gt 0 ] && newgrp docker
+[ $(cat /etc/group | grep -c docker) -gt 0 ] && \
+    echo "enter sudo pass to update user groups" && \
+    newgrp docker
 
 chrome_bookmarks_backup
 
