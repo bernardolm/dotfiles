@@ -5,13 +5,13 @@
 
 - sudo:
     - shell:
-      - [test -f /usr/bin/yq || wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq && chmod u+x /usr/bin/yq]
       # - >
       #   for pkg in $(cat dotbot/apt.yaml | grep -v '\s+#' | yq '.[2].apt'); do
       #     echo $pkg;
       #     apt-get install --yes --purge --reinstall $pkg 1>/dev/null;
       #   done;
-      - sudo apt install $(cat dotbot/apt.yaml | grep -v '\s+#' | yq '.[2].apt')
+      - apt-get install --no-install-recommends --yes $(cat dotbot/apt.yaml | grep -v '\s+#' | yq '.[2].apt')
+      - [apt-get install --no-install-recommends --yes ttf-mscorefonts-installer]
       - [dpkg --get-selections | grep hold | xargs -x apt-get autoremove]
 
 - apt:
@@ -133,7 +133,6 @@
     ttf-bitstream-vera
     ttf-dejavu
     ttf-dejavu-extra
-    ttf-mscorefonts-installer
     tweak
     ubuntu-advantage-tools
     ubuntu-restricted-extras
@@ -145,3 +144,15 @@
     yaru-theme-gnome-shell
     zsh
     zshdb
+
+- apt_esm:
+    libavfilter7
+    libswscale5
+    libavformat58
+    libavcodec-extra58
+    libswresample3
+    libpostproc55
+    libavutil56
+    libavcodec-extra
+    libjs-jquery-ui
+    libavcodec58
