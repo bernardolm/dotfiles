@@ -44,8 +44,7 @@ snap:
 		-p git/modules/dotbot-snap/snap.py
 
 post:
-	./install -vv \
-		-c ${PWD}/dotbot/post.yaml \
-		-p ${PWD}/git/modules/dotbot-sudo/sudo.py
+	eval ${DOTBOT_CMD} -c dotbot/post.yaml \
+		-p git/modules/dotbot-sudo/sudo.py
 
 setup: reset pre base apt pip snap golang post
