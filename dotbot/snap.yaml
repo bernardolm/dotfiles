@@ -27,6 +27,8 @@
     - spotify
     - sweethome3d-homedesign
     - yq
+    - go:
+        classic: true
     - code:
         classic: true
     - google-cloud-sdk:
