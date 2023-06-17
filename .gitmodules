@@ -20,7 +20,7 @@
     active = true
     ignore = dirty
 	path = git/modules/dotbot-snap
-	url = https://github.com/DrDynamic/dotbot-snap.git
+	url = https://github.com/bernardolm/dotbot-snap.git
 
 [submodule "git/modules/dotbot-sudo"]
     active = true
