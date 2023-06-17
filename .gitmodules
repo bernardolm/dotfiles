@@ -4,12 +4,6 @@
 	path = git/modules/dotbot
 	url = https://github.com/anishathalye/dotbot.git
 
-[submodule "git/modules/dotbot-golang"]
-    active = true
-    ignore = dirty
-	path = git/modules/dotbot-golang
-	url = https://github.com/delicb/dotbot-golang.git
-
 [submodule "git/modules/dotbot-pip"]
     active = true
     ignore = dirty
