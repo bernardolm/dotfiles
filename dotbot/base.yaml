@@ -41,8 +41,6 @@
     ~/ProgramasRFB: ~/sync/misc/apps/ProgramasRFB
 
 - shell:
-    - gconftool-2 --shutdown
-    - gconftool-2 --spawn
     - [
         cp --update --remove-destination --backup ~/sync/.gcalcli/oauth ~/.gcalcli_oauth,
         Copying google calendar cli config file,

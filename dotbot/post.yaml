@@ -1,9 +1,11 @@
 - sudo:
-    - shell:
-        - [chsh -s $(which zsh), Making zsh the default shell]
-        - [echo "fs.file-max=131072" >> /etc/sysctl.conf]
-        - [echo "vm.max_map_count=524288" >> /etc/sysctl.conf]
-        - [echo "vm.swappiness=25" >> /etc/sysctl.conf]
-        - [dpkg --add-architecture i386]
-        - [ulimit -n 131072 || true]
-        - [ulimit -u 8192 || true]
+  - shell:
+    - [gconftool-2 --shutdown]
+    - [gconftool-2 --spawn]
+    - [chsh -s $(which zsh), Making zsh the default shell]
+    - [echo "fs.file-max=131072" >> /etc/sysctl.conf]
+    - [echo "vm.max_map_count=524288" >> /etc/sysctl.conf]
+    - [echo "vm.swappiness=25" >> /etc/sysctl.conf]
+    - [dpkg --add-architecture i386]
+    - [ulimit -n 131072 || true]
+    - [ulimit -u 8192 || true]
