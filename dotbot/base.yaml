@@ -38,7 +38,6 @@
     ~/.screenrc: .screenrc
     ~/.themes: ~/sync/.themes
     ~/.wakatime.cfg: ~/sync/.wakatime.cfg
-    ~/ProgramasRFB: ~/sync/misc/apps/ProgramasRFB
 
 - shell:
     - [
