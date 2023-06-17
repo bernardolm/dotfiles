@@ -29,12 +29,10 @@ base:
 apt:
 	eval ${DOTBOT_CMD} -c dotbot/apt.yaml \
 		-p git/modules/dotbot-sudo/sudo.py \
-		--except apt
+		--except apt,apt_esm
 
 golang:
-	./go/install
 	eval ${DOTBOT_CMD} -c dotbot/go.yaml \
-		-p git/modules/dotbot-sudo/sudo.py \
 		--except go
 
 pip:
@@ -50,4 +48,4 @@ post:
 		-c ${PWD}/dotbot/post.yaml \
 		-p ${PWD}/git/modules/dotbot-sudo/sudo.py
 
-setup: reset pre base apt golang pip snap post
+setup: reset pre base apt pip snap golang post
