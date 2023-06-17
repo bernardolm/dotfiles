@@ -40,10 +40,12 @@ export TODO_ACTIONS_DIR="${TODO_DIR}/.todo.actions.d"
 export TODO_FILE="${SYNC_DOTFILES}/todo-txt/todo.txt"
 export TODOTXT_CFG_FILE="${TODO_DIR}/zsh.cfg"
 
-export GITHUB_ORG=$(git config --file \
-    "${SYNC_DOTFILES}/git/.gitconfig_work" github.organization)
-export GITHUB_USER=$(git config --file \
-    "${DOTFILES}/.gitconfig" github.user)
+if "$(command -v git &>/dev/null)"; then
+    export GITHUB_ORG=$(git config --file \
+        "${SYNC_DOTFILES}/git/.gitconfig_work" github.organization)
+    export GITHUB_USER=$(git config --file \
+        "${DOTFILES}/.gitconfig" github.user)
+fi
 
 export WORKSPACE_ORG="${HOME}/workspaces/${GITHUB_ORG}"
 export WORKSPACE_USER="${HOME}/workspaces/${GITHUB_USER}"
