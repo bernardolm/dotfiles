@@ -8,29 +8,35 @@ function apt_keys_recovery() {
     local file
 
     ## 1password
-    file=/usr/share/keyrings/1password-archive-keyring.gpg
-    if [ ! -f $file ]; then
+    function 1password() {
         log_info "1password"
-        sudo mkdir -p /usr/share/keyrings/
 
-        curl -sS https://downloads.1password.com/linux/keys/1password.asc | sudo \
-            gpg --dearmor --output $file
+        curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
+            sudo gpg --yes --dearmor --output /usr/share/keyrings/1password-archive-keyring.gpg
+
+        [ -f /etc/apt/sources.list.d/1password.list ] && sudo rm -f /etc/apt/sources.list.d/1password.list
+
+        echo -n 'deb [arch=amd64 signed-by=/usr/share/keyrings/1password-archive-keyring.gpg]' \
+            'https://downloads.1password.com/linux/debian/amd64 stable main' | \
+            sudo tee /etc/apt/sources.list.d/1password.list &>/dev/null
 
         sudo mkdir -p /etc/debsig/policies/AC2D62742012EA22/
-        curl -sSL https://downloads.1password.com/linux/debian/debsig/1password.pol | sudo \
-            tee /etc/debsig/policies/AC2D62742012EA22/1password.pol &>/dev/null
+
+        curl -sS https://downloads.1password.com/linux/debian/debsig/1password.pol | \
+            sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol &>/dev/null
 
         sudo mkdir -p /usr/share/debsig/keyrings/AC2D62742012EA22
-        curl -sSL https://downloads.1password.com/linux/keys/1password.asc | sudo \
-            gpg --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
-    fi
+
+        curl -sS https://downloads.1password.com/linux/keys/1password.asc | \
+            sudo gpg --yes --dearmor --output /usr/share/debsig/keyrings/AC2D62742012EA22/debsig.gpg
+    }
 
     ## docker
     file=/etc/apt/trusted.gpg.d/docker.gpg
     if [ ! -f $file ]; then
         log_info "docker"
         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo \
-            gpg --dearmor --output $file
+            gpg --yes --dearmor --output $file
     fi
 
     ## google cloud platform
@@ -38,7 +44,7 @@ function apt_keys_recovery() {
     if [ ! -f $file ]; then
         log_info "google cloud"
         curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo \
-            gpg --dearmor --output $file
+            gpg --yes --dearmor --output $file
     fi
 
     declare -a servers=(
@@ -53,12 +59,16 @@ function apt_keys_recovery() {
     sudo apt-get update 2>/dev/null | sed -nr 's/^.*NO_PUBKEY\s(\w{16}).*$/\1/p' | sort | uniq | while read -r key; do
         log_info "${key}: no pubkey found"
 
-        for server in "${servers[@]}"; do
-            log_info "${key}: trying recover key from ${server}"
-            sudo apt-key adv --keyserver ${server} --recv-keys ${key} &>/dev/null && log_info "${key}: OK" && break || log_error "${key}: failed"
-        done
+        if [ "$key" == "AC2D62742012EA22" ]; then
+            1password
+        else
+            for server in "${servers[@]}"; do
+                log_info "${key}: trying recover key from ${server}"
+                sudo apt-key adv --keyserver ${server} --recv-keys ${key} &>/dev/null && log_info "${key}: OK" && break || log_error "${key}: failed"
+            done
 
-        sudo apt-key export ${key} 2>/dev/null | sudo gpg --batch --yes --dearmour -o /etc/apt/trusted.gpg.d/${key}.gpg
+            sudo apt-key export ${key} 2>/dev/null | sudo gpg --batch --yes --dearmour -o /etc/apt/trusted.gpg.d/${key}.gpg
+        fi
 
         log_info "${key}: done"
     done
