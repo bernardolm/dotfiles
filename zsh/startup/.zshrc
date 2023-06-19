@@ -18,13 +18,13 @@ fi
 . "${DOTFILES}/zsh/start"
 . "${DOTFILES}/ohmyzsh/start"
 
-# # . "${DOTFILES}/antigen/start"
-# # . "${DOTFILES}/zplug/start"
-# # . "${DOTFILES}/pretzo/start"
+# . "${DOTFILES}/antigen/start"
+# . "${DOTFILES}/zplug/start"
+# . "${DOTFILES}/pretzo/start"
 
 # . "${DOTFILES}/ohmyposh/start"
-
-# # . "${DOTFILES}/dropbox/start"
+. "${DOTFILES}/starship/start"
+# . "${DOTFILES}/dropbox/start"
 
 # profiling shell
 if [[ "$SHELL_PROFILE" == "true" ]]; then

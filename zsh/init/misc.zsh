@@ -29,3 +29,5 @@ echo '{"x":'$(gsettings get org.gnome.shell enabled-extensions)'}' | \
     tr "'" '"' | \
     jq '.x[]' | \
     tee "${SYNC_DOTFILES}/gnome_shell_extensions/${TIMESTAMP}.bkp" &>/dev/null
+
+weather_by_lat_lon

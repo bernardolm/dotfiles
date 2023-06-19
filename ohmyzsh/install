@@ -1,10 +1,18 @@
 #!/usr/bin/env zsh
 
-[ -d "$ZSH" ] && return
+if ! [ -f "${ZSH}/oh-my-zsh.sh" ]; then
+    $SHELL_DEBUG && echo "installing (downloading) oh-my-zsh"
+    curl -fsSL "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | KEEP_ZSHRC=yes RUNZSH=no CHSH=yes sh --
+fi
 
-curl -fsSL "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | KEEP_ZSHRC=yes RUNZSH=no CHSH=yes sh --
-
-if [ ! -f "${ZSH}/custom/plugins/zsh-syntax-highlighting" ]; then
+if ! [ -L "${ZSH}/custom/plugins/zsh-syntax-highlighting" ]; then
+    $SHELL_DEBUG && echo "linking zsh-syntax-highlighting"
     ln -sf "${ZSH_HOME}/plugins/zsh-users/zsh-syntax-highlighting" \
         "${ZSH}/custom/plugins/zsh-syntax-highlighting"
+fi
+
+if ! [ -L "${ZSH}/custom/plugins/zsh-autosuggestions" ]; then
+    $SHELL_DEBUG && echo "linking zsh-autosuggestions"
+    ln -sf "${ZSH_HOME}/plugins/zsh-users/zsh-autosuggestions" \
+        "${ZSH}/custom/plugins/zsh-autosuggestions"
 fi
