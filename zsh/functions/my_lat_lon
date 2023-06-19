@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+function my_lat_lon() {
+    echo $(curl -s ipinfo.io | jq -rM '.loc')
+}

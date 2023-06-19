@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+function find_text_here() {
+    rg -i $1 2> /dev/null
+}
