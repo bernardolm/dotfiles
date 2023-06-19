@@ -5,17 +5,18 @@
 
 - sudo:
     - shell:
-      # - >
-      #   for pkg in $(cat dotbot/apt.yaml | grep -v '\s+#' | yq '.[2].apt'); do
-      #     echo $pkg;
-      #     apt-get install --yes --purge --reinstall $pkg 1>/dev/null;
-      #   done;
-      - apt-get install --no-install-recommends --yes $(cat dotbot/apt.yaml | grep -v '\s+#' | yq '.[2].apt')
-      - [apt-get install --no-install-recommends --yes ttf-mscorefonts-installer]
-      - [dpkg --get-selections | grep hold | xargs -x apt-get autoremove]
+        # - >
+        #   for pkg in $(cat dotbot/apt.yaml | grep -v '\s+#' | yq '.[2].apt'); do
+        #     echo $pkg;
+        #     apt-get install --yes --purge --reinstall $pkg 1>/dev/null;
+        #   done;
+        - apt-get install --no-install-recommends --yes $(cat dotbot/apt.yaml | grep -v '\s+#' | yq '.[2].apt')
+        - [
+            apt-get install --no-install-recommends --yes ttf-mscorefonts-installer,
+          ]
+        - [dpkg --get-selections | grep hold | xargs -x apt-get autoremove]
 
-- apt:
-    1password
+- apt: 1password
     1password-cli
     alacarte
     apt-transport-https
@@ -47,18 +48,9 @@
     flashplugin-installer
     flatpak
     fontconfig
-    fonts-arundina
-    fonts-dejavu
-    fonts-dejavu-extra
     fonts-emojione
-    fonts-font-awesome
-    fonts-hack
     fonts-noto-color-emoji
-    fonts-noto-mono
-    fonts-powerline
-    fonts-recommended
     fonts-symbola
-    fonts-twemoji-svginot
     fritzing
     gawk
     gconf-editor
@@ -85,8 +77,8 @@
     guake
     hibernate
     htop
+    ibus-table-emoji
     indicator-application
-    jq
     libvulkan-dev
     libvulkan1
     libxcb-glx0
@@ -126,13 +118,11 @@
     sublime-text
     sudo
     symlinks
+    thunderbird
     todotxt-cli
     traceroute
     trash-cli
     ttf-ancient-fonts-symbola
-    ttf-bitstream-vera
-    ttf-dejavu
-    ttf-dejavu-extra
     tweak
     ubuntu-advantage-tools
     ubuntu-restricted-extras
@@ -145,8 +135,7 @@
     zsh
     zshdb
 
-- apt_esm:
-    libavfilter7
+- apt_esm: libavfilter7
     libswscale5
     libavformat58
     libavcodec-extra58
