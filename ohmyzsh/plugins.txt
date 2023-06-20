@@ -1,6 +1,10 @@
+# aws
 # fzf
+# heroku
+# kubectl
+# rsync
+1password
 aliases
-aws
 battery
 bgnotify
 colored-man-pages
@@ -10,21 +14,22 @@ common-aliases
 cp
 docker
 docker-compose
+emoji
+emoji-clock
 extract
+gh
 git
 git-flow
 github
 golang
-heroku
+gpg-agent
 history
-kubectl
 lein
 magic-enter
 man
 nmap
 pip
 python
-rsync
 screen
 ssh-agent
 sublime
