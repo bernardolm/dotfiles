@@ -31,7 +31,3 @@
     curl -sL 'https://raw.githubusercontent.com/molovo/revolver/master/revolver' \
         -o ~/.local/bin/revolver && \
     chmod u+x ~/.local/bin/revolver
-
-[ ! -f ~/.config/fontconfig/conf.d/10-powerline-symbols.conf ] && \
-    curl -sL 'https://github.com/powerline/powerline/raw/master/font/10-powerline-symbols.conf' \
-        -o ~/.config/fontconfig/conf.d/10-powerline-symbols.conf

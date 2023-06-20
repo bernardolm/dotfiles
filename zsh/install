@@ -13,9 +13,3 @@ for f in $files; do
 done
 
 zsh_plugins_install
-
-if [ -d $ZSH_HOME/plugins/dracula/zsh ]; then
-    [ ! -d $ZSH/themes/lib ] && mkdir -p $ZSH/themes/lib
-    ln -sf $ZSH_HOME/plugins/dracula/zsh/lib/async.zsh $ZSH/themes/lib/async.zsh
-    ln -sf $ZSH_HOME/plugins/dracula/zsh/dracula.zsh-theme $ZSH/themes/dracula.zsh-theme
-fi
