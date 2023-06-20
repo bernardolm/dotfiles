@@ -18,9 +18,9 @@ function zsh_plugins_load() {
                 if [[ "$item" =~ '.*zsh-theme' ]]; then
                     log_debug "linking theme"
                     file=$(basename $item)
-                    echo ln -sf "$item" "${ZSH}/custom/themes/${file}"
+                    ln -sf "$item" "${ZSH}/custom/themes/${file}"
                     if [[ "$file" =~ "dracula" ]]; then
-                        echo ln -sf \
+                        ln -sf \
                             "$ZSH_HOME/plugins/dracula/zsh/lib/async.zsh" \
                             "$ZSH/custom/themes/lib/async.zsh"
                     fi

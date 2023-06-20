@@ -17,7 +17,7 @@ fi
 
 . "${DOTFILES}/zsh/start"
 . "${DOTFILES}/ohmyzsh/start"
-. "${DOTFILES}/starship/start"
+# . "${DOTFILES}/starship/start"
 
 # . "${DOTFILES}/antigen/start"
 # . "${DOTFILES}/dropbox/start"
