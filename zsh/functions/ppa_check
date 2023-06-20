@@ -1,3 +1,5 @@
+
+
 function ppa_check() {
     for f in /etc/apt/sources.list.d/*.list; do
         grep -Po "(?<=^deb\s).*?(?=#|$)" "$f" | while read -r ENTRY; do
@@ -11,9 +13,11 @@ function ppa_check() {
                 echo "PPA: ppa:$USER/$PPA"
                 echo "FILENAME: $f"
                 echo "$packageCount package(s) installed"
-                if [ "$packageCount" -eq 0 ] && [ "$1" == "--delete" ]; then
-                    # sudo rm "$f" && echo "$f deleted"
-                fi
+
+                # if [ "$packageCount" -eq 0 ] && [ "$1" == "--delete" ]; then
+                #    sudo rm "$f" && echo "$f deleted"
+                #fi
+
                 echo
             else
                 USER=$(cut -d/ -f3 <<<"$ENTRY")
@@ -22,9 +26,9 @@ function ppa_check() {
                 echo "REPOSITORY: $USER/$PPA"
                 echo "FILENAME: $f"
                 echo "$packageCount package(s) installed"
-                if [ "$packageCount" -eq 0 ] && [ "$1" == "--delete" ]; then
-                    # sudo rm "$f" && echo "$f deleted"
-                fi
+                # if [ "$packageCount" -eq 0 ] && [ "$1" == "--delete" ]; then
+                #     sudo rm "$f" && echo "$f deleted"
+                # fi
                 echo
             fi
         done

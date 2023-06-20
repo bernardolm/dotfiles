@@ -1,3 +1,6 @@
+
+
+
 function spinnaker_config_to_env() {
     jq -r '.[] | "\(.name)=\(.value)"' $1 | sort
 }

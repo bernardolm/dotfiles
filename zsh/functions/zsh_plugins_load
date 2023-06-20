@@ -4,16 +4,30 @@ function zsh_plugins_load() {
     plugins_path="${ZSH_HOME}/plugins"
 
     for p in ${plugins_path}/*/*; do
-        name=$(basename $p)
-        $SHELL_DEBUG && echo -n "loading zsh plugin ${name}... "
+        name=$(basename "${p}")
+        log_debug "zsh plugin '${name}': "
         found=false
         find ${p} \
             -name '*.plugin.zsh' -or \
             -name "${name}.sh" -or \
-            -name 'lscolors.sh' | while read -r item; do
+            -name 'lscolors.sh' -or \
+            -name '*.zsh-theme' | while read -r item; do
                 found=true
-                (. "$item" && ($SHELL_DEBUG && echo "done")) || ($SHELL_DEBUG && echo "failed")
+                log_debug "loading... "
+
+                if [[ "$item" =~ '.*zsh-theme' ]]; then
+                    log_debug "linking theme"
+                    file=$(basename $item)
+                    echo ln -sf "$item" "${ZSH}/custom/themes/${file}"
+                    if [[ "$file" =~ "dracula" ]]; then
+                        echo ln -sf \
+                            "$ZSH_HOME/plugins/dracula/zsh/lib/async.zsh" \
+                            "$ZSH/custom/themes/lib/async.zsh"
+                    fi
+                else
+                    (. "$item" && log_debug "done") || (log_debug "failed")
+                fi
             done
-        [ ! $found ] && ($SHELL_DEBUG && echo "not found script to load")
+        $found || log_debug "not found script to load"
     done
 }

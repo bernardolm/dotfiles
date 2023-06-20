@@ -1,4 +1,6 @@
-function random_emoji () {
+#!/usr/bin/env zsh
+
+function emoji_random () {
     local SELECTED_EMOJIS=(
         💩
         🐦

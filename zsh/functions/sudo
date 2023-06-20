@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 # function sudo() {
 # 	# shellcheck disable=SC2312
 # 	if [ "$(id -u)" -eq 0 ]; then
@@ -21,7 +23,7 @@ function sudo() {
 		# like 'sudo sleep 5s'. Modify to taste.
 
 		(
-				sleep .2s
+				# sleep .2s
 				ps -p "$pid" > /dev/null && INHIBIT_THEME_HIST=1 theme.sh red-alert
 		) &
 

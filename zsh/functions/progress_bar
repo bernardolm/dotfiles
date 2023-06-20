@@ -1,3 +1,5 @@
+
+
 function progress_bar() {
     local bar_size=300
     local bar=""

@@ -1,3 +1,6 @@
+
+
+
 function google_drive_sync() {
     echo -e "running google drive worker..."
     notify-send "google drive worker" "running..."

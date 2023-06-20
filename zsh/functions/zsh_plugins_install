@@ -1,20 +1,24 @@
 #!/usr/bin/env zsh
 
 function zsh_plugins_install() {
+    SHELL_DEBUG=false
+
     local _zsh_plugins_list=($(zsh_plugins_list))
 
     [ ! -d "${ZSH_HOME}/plugins" ] && mkdir -p -m u=rwx,go=rx "${ZSH_HOME}/plugins"
 
     for p in $_zsh_plugins_list; do
-        $SHELL_DEBUG && echo -n "zsh plugin '${p}': "
+        log_debug "zsh plugin '${p}': "
         plugin_path="${ZSH_HOME}/plugins/${p}"
 
         if [ ! -d "$plugin_path" ]; then
-            $SHELL_DEBUG && echo -n "installing... "
+            log_debug "installing... "
             git clone --quiet "https://github.com/${p}.git" "$plugin_path"
         else
-            $SHELL_DEBUG && echo -n "already installed, "
+            log_debug "already installed, "
         fi
-        $SHELL_DEBUG && echo "done"
+        log_debug "done"
     done
+
+    SHELL_DEBUG=true
 }
