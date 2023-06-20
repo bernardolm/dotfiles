@@ -36,7 +36,7 @@ window-tabbar=true
 window-width=100
 
 [keybindings/global]
-show-hide='<Primary>apostrophe'
+show-hide='<Alt>w'
 
 [style/background]
 transparency=89
