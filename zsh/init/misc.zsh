@@ -14,10 +14,10 @@ hudctl_completion='/usr/local/lib/node_modules/hudctl/completion/hudctl-completi
 
 disable_accelerometter &>/dev/null && disable_accelerometter
 
-if [ command -v docker &>/dev/null ] && [ $(cat /etc/group | grep -c docker) -gt 0 ]; then
-    echo "if it asks for a password\nit's because your user\ndoesn't belong to the docker group yet."
+if command -v docker &>/dev/null && [ $(cat /etc/group | grep -c docker) -eq 0 ]; then
+    echo "calling docker, if it asks for a password it's because your user doesn't belong to the docker group yet."
     echo "you needs to run '${DOTFILES}/docker/install' first."
-    newgrp docker
+    . "${DOTFILES}/docker/install"
 fi
 
 chrome_bookmarks_backup

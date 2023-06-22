@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 source ~/.zshrc
 
-NOW=$(date +"%Y%m%d%H%M%S")
+NOW=$(date +"%Y%m%d-%H%M%S")
 
 mkdir -p ~/tmp/git-update/${NOW}
 TEMP_PATH=~/tmp/git-update/${NOW}
@@ -59,10 +59,10 @@ update_repo() {
         sleep $WAIT_FOR
 
         echo -e "fetching ${REPO_NAME}" >>${THIS_LOG} 2>&1
-        git stash >>${THIS_LOG} 2>&1
+        # git stash >>${THIS_LOG} 2>&1
         git fetch --all --prune >>${THIS_LOG} 2>&1
-        (git checkout master || git checkout main) >>${THIS_LOG} 2>&1
-        (git pull origin master || git pull origin main) >>${THIS_LOG} 2>&1
+        # (git checkout master || git checkout main) >>${THIS_LOG} 2>&1
+        # (git pull origin master || git pull origin main) >>${THIS_LOG} 2>&1
         echo -e "\n\n" >>${THIS_LOG} 2>&1
 
         if [[ $(cat ${THIS_LOG} | grep -c "Repository not found") > 0 ]]; then
@@ -87,15 +87,15 @@ iter_paths() {
             continue
         fi
 
-        WAIT_FOR=$((WAIT_FOR + 1))
+        WAIT_FOR=$((WAIT_FOR + 2))
         update_repo $f $WAIT_FOR &
     done
 }
 
-iter_paths "find $WORKSPACE_ORG -mindepth 1 -maxdepth 1 -type d"
-iter_paths "find $WORKSPACE_USER -mindepth 1 -maxdepth 1 -type d"
+iter_paths "find ${WORKSPACE_ORG} -mindepth 1 -maxdepth 1 -type d"
+iter_paths "find ${WORKSPACE_USER} -mindepth 1 -maxdepth 1 -type d"
 
 # iter_paths "find $GOPATH/src/github.com/$GITHUB_ORG -mindepth 1 -maxdepth 1 -type d"
 # iter_paths "find $GOPATH/src/github.com/$GITHUB_USER -mindepth 1 -maxdepth 1 -type d"
 
-sleep $((WAIT_FOR + (15 * 60))) && /bin/rm -rf $TEMP_PATH
+# sleep $((WAIT_FOR + (15 * 60))) && /bin/rm -rf $TEMP_PATH
