@@ -2,9 +2,8 @@
 
 log_starting 'docker'
 
-if [ ! ${DOCKER} ]; then
-    [ $(/bin/cat /etc/group | grep docker | wc -l | bc) -eq 0 ] && sudo groupadd docker && newgrp docker
-    [ $(getent group docker | grep $USER | wc -l | bc) -eq 0 ] && sudo usermod -aG docker $USER
-fi
+sudo groupadd docker && newgrp docker
+sudo usermod -aG docker $USER
+newgrp docker
 
 log_finishing 'docker'
