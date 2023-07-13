@@ -15,3 +15,7 @@ for f in $files; do
 done
 
 # zsh_plugins_install
+
+[ ! -f "$ZSH/plugins/docker/_docker" ] && \
+    curl -sL 'https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker' \
+    -o "$ZSH/plugins/docker/_docker"

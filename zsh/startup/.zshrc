@@ -17,14 +17,13 @@ fi
 . "${DOTFILES}/ubuntu/install"
 
 . "${DOTFILES}/zsh/start"
-# . "${DOTFILES}/ohmyzsh/start"
-# . "${DOTFILES}/starship/start"
-
 # . "${DOTFILES}/antigen/start"
-# . "${DOTFILES}/dropbox/start"
-# . "${DOTFILES}/ohmyposh/start"
-# . "${DOTFILES}/pretzo/start"
 . "${DOTFILES}/zplug/start"
+. "${DOTFILES}/ohmyzsh/start"
+# . "${DOTFILES}/ohmyposh/start"
+. "${DOTFILES}/starship/start"
+
+# . "${DOTFILES}/dropbox/start"
 
 # profiling shell
 if [[ "$SHELL_PROFILE" == "true" ]]; then
