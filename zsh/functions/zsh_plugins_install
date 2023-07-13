@@ -6,19 +6,19 @@ function zsh_plugins_install() {
 
     local _zsh_plugins_list=($(zsh_plugins_list))
 
-    [ ! -d "${ZSH_HOME}/plugins" ] && mkdir -p -m u=rwx,go=rx "${ZSH_HOME}/plugins"
+    [ ! -d "${ZSH_CUSTOM}/plugins" ] && mkdir -p -m u=rwx,go=rx "${ZSH_CUSTOM}/plugins"
 
     for p in $_zsh_plugins_list; do
-        log_debug "zsh plugin '${p}': "
-        plugin_path="${ZSH_HOME}/plugins/${p}"
+        output="installing zsh plugin '${p}' "
+        plugin_path="${ZSH_CUSTOM}/plugins/${p}"
 
         if [ ! -d "$plugin_path" ]; then
-            log_debug "installing... "
             git clone --quiet "https://github.com/${p}.git" "$plugin_path"
+            output+="done"
         else
-            log_debug "already installed, "
+            output+="already installed"
         fi
-        log_debug "done"
+        log_info "$output"
     done
 
     # SHELL_DEBUG=$current_shell_debug
