@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-
-function ohmyzsh_docker_completions() {
-    [ ! -f "$ZSH/plugins/docker/_docker" ] && \
-        curl -sL 'https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker' \
-        -o "$ZSH/plugins/docker/_docker"
-}

@@ -38,6 +38,4 @@ thefuck
 timer
 ubuntu
 vscode
-zsh-autosuggestions
 zsh-navigation-tools
-zsh-syntax-highlighting
