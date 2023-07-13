@@ -1,9 +1,19 @@
 #!/usr/bin/env zsh
 
-export ZPLUG_HOME=/home/linuxbrew/.linuxbrew/opt/zplug
+. "${DOTFILES}/zplug/install"
 
-test -d "$ZPLUG_HOME" || . "${DOTFILES}/zplug/install"
+local plugins_list=($(zsh_plugins_list))
 
-source "$ZPLUG_HOME/init.zsh"
+for p in $plugins_list; do
+    zplug "$p"
+done
 
 zplug "dracula/zsh", as:theme
+zplug "dracula/zsh-syntax-highlighting"
+zplug "zsh-users/zsh-syntax-highlighting", defer:2
+
+if ! zplug check; then
+    zplug install 1>/dev/null
+fi
+
+zplug load

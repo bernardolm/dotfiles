@@ -1,9 +1,13 @@
 #!/usr/bin/env zsh
 
-brew install zplug
+if ! [[ -d "${HOME}/.zplug" ]]; then
+    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+fi
 
-# curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-
-zplug "molovo/revolver", \
-  as:command, \
-  use:revolver
+while true; do
+    if [ -f "${ZPLUG_HOME}/init.zsh" ]; then
+        source "${ZPLUG_HOME}/init.zsh"
+        break
+    fi
+    sleep 1
+done
