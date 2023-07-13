@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-command -v starship &>/dev/null || . "${DOTFILES}/starship/install"
+. "${DOTFILES}/starship/install"
 
 # export STARSHIP_CONFIG="${DOTFILES}/starship/theme/tokyo-night.toml"
 export STARSHIP_CONFIG="${DOTFILES}/starship/theme/pastel-powerline.toml"
