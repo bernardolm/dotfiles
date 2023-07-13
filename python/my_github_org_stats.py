@@ -13,8 +13,9 @@ PER_PAGE = 100
 TIMEOUT = 60
 
 
-expire_after = expire_after = timedelta(hours=12)
-requests_cache.install_cache(f'{HOME}/demo_cache', expire_after=expire_after)
+expire_after = expire_after = timedelta(days=365)
+requests_cache.install_cache(
+    f'{HOME}/my_github_org_stats', expire_after=expire_after)
 
 
 gh = Github(
