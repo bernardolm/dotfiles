@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# source ../init/env.sh
-# source ../init/functions_loader.sh
-
 log_starting 'setting ssh'
 
 if [ ! -f ~/.ssh/id_ed25519 ]; then

@@ -1,10 +1,9 @@
 #!/usr/bin/env zsh
 
-# rm -rf "${HOME}/.zsh"
-# rm -rf "${HOME}/.oh-my-zsh"
-# rm -rf "${HOME}/.oh-my-posh"
-
-. "${DOTFILES}/zsh/install-tools.sh"
+# /bin/rm -rf "${HOME}/.zsh"
+# /bin/rm -rf "${HOME}/.oh-my-zsh"
+# /bin/rm -rf "${HOME}/.oh-my-posh"
+# /bin/rm -rf "${HOME}/.zplug"
 
 # profiling shell
 # Ref.: https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
@@ -15,15 +14,17 @@ if [[ "$SHELL_PROFILE" == "true" ]]; then
     setopt xtrace prompt_subst
 fi
 
+. "${DOTFILES}/ubuntu/install"
+
 . "${DOTFILES}/zsh/start"
-. "${DOTFILES}/ohmyzsh/start"
+# . "${DOTFILES}/ohmyzsh/start"
 # . "${DOTFILES}/starship/start"
 
 # . "${DOTFILES}/antigen/start"
 # . "${DOTFILES}/dropbox/start"
 # . "${DOTFILES}/ohmyposh/start"
 # . "${DOTFILES}/pretzo/start"
-# . "${DOTFILES}/zplug/start"
+. "${DOTFILES}/zplug/start"
 
 # profiling shell
 if [[ "$SHELL_PROFILE" == "true" ]]; then

@@ -3,16 +3,16 @@
 fpath=( "${DOTFILES}/zsh/functions" "${SYNC_DOTFILES}/zsh/functions" $fpath )
 autoload -Uz "${fpath[1]}"/*(:t)
 
-autoload -Uz +X bashcompinit; bashcompinit # need to be the first
-autoload -Uz +X colors; colors
-autoload -Uz +X compinit compdef; compinit # initializes the shell’s auto-completion functionality
-autoload -Uz +X promptinit; promptinit # zsh prompt themes extension
+# autoload -Uz +X bashcompinit; bashcompinit # need to be the first
+# autoload -Uz +X colors; colors
+# autoload -Uz +X compinit compdef; compinit # initializes the shell’s auto-completion functionality
+# autoload -Uz +X promptinit; promptinit # zsh prompt themes extension
 
 . "${DOTFILES}/zsh/install"
 . "${DOTFILES}/zsh/config/setopt"
 . "${DOTFILES}/zsh/config/unsetopt"
 
-zsh_plugins_load
+# zsh_plugins_load
 
 iterate_and_load "dotfiles zsh init" "${DOTFILES}/zsh/init" "*.zsh" "sort"
 iterate_and_load "dotfiles aliases" "$DOTFILES" "aliases" "sort"

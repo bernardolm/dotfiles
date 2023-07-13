@@ -11,7 +11,7 @@ $SHELL_DEBUG && echo "oh-my-zsh plugins to load: '$plugins'"
 zstyle ':omz:lib:directories' aliases no
 zstyle ':omz:lib:theme-and-appearance' aliases no
 
-. "${ZSH}/oh-my-zsh.sh"
-
 # Downloading docker completions
 ohmyzsh_docker_completions
+
+. "${ZSH}/oh-my-zsh.sh"

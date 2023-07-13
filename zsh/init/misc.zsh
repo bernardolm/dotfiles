@@ -20,7 +20,7 @@ if command -v docker &>/dev/null && [ $(cat /etc/group | grep -c docker) -eq 0 ]
     . "${DOTFILES}/docker/install"
 fi
 
-chrome_bookmarks_backup
+# chrome_bookmarks_backup
 
 [ ! -d "${SYNC_DOTFILES}/gnome_shell_extensions" ] && \
     mkdir -p "${SYNC_DOTFILES}/gnome_shell_extensions"
