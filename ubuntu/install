@@ -31,3 +31,8 @@
     curl -sL 'https://raw.githubusercontent.com/molovo/revolver/master/revolver' \
         -o ~/.local/bin/revolver && \
     chmod u+x ~/.local/bin/revolver
+
+[ ! -f ~/.local/bin/lscolors.sh ] && \
+    curl -sL 'https://github.com/trapd00r/LS_COLORS/blob/master/lscolors.sh' \
+        -o ~/.local/bin/lscolors.sh && \
+    source ~/.local/bin/lscolors.sh
