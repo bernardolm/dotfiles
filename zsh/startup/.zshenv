@@ -48,7 +48,7 @@ export TODOTXT_CFG_FILE="${TODO_DIR}/zsh.cfg"
 
 if command -v git &>/dev/null; then
     GITHUB_ORG=$(git config --file \
-        "${SYNC_DOTFILES}/git/.gitconfig_work" github.organization)
+        "${SYNC_DOTFILES}/git/.gitconfig_private" github.organization)
     export GITHUB_ORG
     GITHUB_USER=$(git config --file \
         "${DOTFILES}/.gitconfig" github.user)
