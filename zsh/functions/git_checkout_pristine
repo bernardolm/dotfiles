@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+function git_checkout_pristine() {
+    NEXT_COMMIT=$1
+    /usr/bin/git checkout .
+    /usr/bin/git clean -fdx
+    /usr/bin/git checkout $NEXT_COMMIT
+}

@@ -1,3 +1,5 @@
+#!/usr/bin/env zsh
+
 function dropbox_sync() {
     wait_for=5m
 

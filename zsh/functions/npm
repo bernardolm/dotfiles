@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+function npm {
+    run_with_docker "node" "alpine" "npm" $@
+}

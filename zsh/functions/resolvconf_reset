@@ -1,5 +1,4 @@
-
-
+#!/usr/bin/env zsh
 
 function resolvconf_reset() {
     local resolv_conf="`cat $SYNC_DOTFILES/etc/resolv.conf`"

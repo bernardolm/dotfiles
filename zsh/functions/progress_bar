@@ -1,4 +1,4 @@
-
+#!/usr/bin/env zsh
 
 function progress_bar() {
     local bar_size=300

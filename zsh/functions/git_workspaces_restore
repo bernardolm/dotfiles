@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+
+function git_workspaces_restore() {
+    local file=$(last_backup_version git-workspaces csv)
+
+    while read line; do
+        if [[ `which_shell` == "zsh" ]]; then
+            parts=("${(@s/;/)line}")
+            origin_name=${parts[1]}
+            remote_url=${parts[2]}
+            local_path=${parts[3]}
+        else
+            IFS=';' read -r -a parts <<<"$line"
+            origin_name=${parts[0]}
+            remote_url=${parts[1]}
+            local_path=${parts[2]}
+        fi
+
+        if [ ! -d $local_path ]; then
+            echo "origin_name=$origin_name"
+            echo "remote_url=$remote_url"
+            echo "local_path=$local_path"
+            git clone $remote_url $local_path
+            echo "---"
+        fi
+    done <$file
+}

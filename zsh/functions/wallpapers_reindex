@@ -1,5 +1,4 @@
-
-
+#!/usr/bin/env zsh
 
 function wallpapers_reindex() {
     sh $SYNC_DOTFILES/Pictures/Wallpapers/ubuntu-wallpaper-generator $SYNC_DOTFILES/Pictures/Wallpapers

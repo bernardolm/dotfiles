@@ -1,4 +1,4 @@
-
+#!/usr/bin/env zsh
 
 function go_install_tools() {
     echo "installing golang tools..."
@@ -6,7 +6,7 @@ function go_install_tools() {
     curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin
 
 
-    /bin/cat $DOTFILES/go/install.txt | grep -v '#' | while read -r pkg; do
+    /bin/cat "$DOTFILES/go/install.txt" | grep -v '#' | while read -r pkg; do
         go install $pkg > /dev/null;
     done
 

@@ -1,5 +1,4 @@
-
-
+#!/usr/bin/env zsh
 
 function networks_etup_tunnel() {
     sleep 15s

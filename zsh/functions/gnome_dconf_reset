@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function gnome_dconf_reset() {
-    dconf reset -f /org/gnome/
+    dconf reset -f /
 }

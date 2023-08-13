@@ -1,4 +1,4 @@
-
+#!/usr/bin/env zsh
 
 function ppa_check() {
     for f in /etc/apt/sources.list.d/*.list; do

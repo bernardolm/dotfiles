@@ -1,6 +1,11 @@
 #!/usr/bin/env zsh
 
 function log_echo() {
+    $SHELL_DEBUG || return
+
+    local shell
+    shell="$0"
+
     local icon
     icon="$1"
 
@@ -18,11 +23,16 @@ function log_echo() {
     local rpad=0
     local space=""
     local _caller=""
+    local _caller_end=""
     local cols=$(tput cols)
 
-    $SHELL_STACK && _caller=$(caller)
+    $SHELL_TRACE && _caller=$(caller)
 
-    local output="${icon}${color}$@${reset_color}"
+    local output="${icon}${color} $@ ${NC}"
+
+    if ! command -v ansi2txt &>/dev/null; then
+        sudo apt-get install --no-install-recommends --yes colorized-logs 1>/dev/null
+    fi
 
     if [[ $cols -ge 80 ]]; then
         loutput=$(echo "${output}" | ansi2txt | wc -L)
@@ -34,8 +44,10 @@ function log_echo() {
         rpad=$(($cols-$loutput))
         lcaller=$(echo "${_caller}" | ansi2txt | wc -L)
         rpad=$(($rpad-$lcaller))
-        space=${(l:$rpad:: :)}
+        if [[ "$shell" =~ "zsh" ]]; then
+            space=${(l:$rpad:: :)}
+        fi
     fi
 
-    echo ${output}${space}${_caller}
+    echo -e ${output}${space}${_caller}${_caller_end}
 }

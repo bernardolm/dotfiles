@@ -1,4 +1,4 @@
-
+#!/usr/bin/env zsh
 
 function network_reset_iptables() {
     CMDS=(ip6tables iptables)

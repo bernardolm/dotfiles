@@ -1,5 +1,4 @@
-
-
+#!/usr/bin/env zsh
 
 function disable_accelerometter() {
     xinput &>/dev/null || return 1

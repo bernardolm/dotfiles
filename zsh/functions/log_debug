@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 
 function log_debug() {
-    $SHELL_DEBUG || return
-    log_echo "🐞" "${RED}${ON_YELLOW}" "$@"
+    log_echo "🐞" "${GREY}" "$@"
 }

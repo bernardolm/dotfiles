@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 function ls_2_exa() {
+    command -v exa &> /dev/null || sudo apt-get install exa
     args="$@"
     args=$(echo $args | sed 's/A/a/g')
     eval "exa $args"

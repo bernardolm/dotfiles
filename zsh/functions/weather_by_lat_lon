@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
 function weather_by_lat_lon() {
-    lat_lon=$(my_lat_lon)
+    # lat_lon=$(my_lat_lon)
+    lat_lon=$LATLON
     curl -H 'Accept-Language: pt-br' "wttr.in/${lat_lon}?m2AFnq&format=3"
     # curl -H 'Accept-Language: pt-br' "wttr.in/${lat_lon}?format='+%c%20%t%60%w&period=60'"
     # curl -s wttr.in/London:Stockholm:Moscow\?format\="%l:+%c%20%t%60%w&period=60"
