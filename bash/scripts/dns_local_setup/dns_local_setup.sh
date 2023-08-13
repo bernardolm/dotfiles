@@ -10,13 +10,13 @@
 # server too.
 #
 # How to call?
-# wget -q -O - https://raw.githubusercontent.com/bernardolm/dotfiles/master/bash/scripts/dns_local_setup.sh | bash
+# wget -q -O - https://raw.githubusercontent.com/bernardolm/dotfiles/master/bash/scripts/dns_local_setup/dns_local_setup.sh | bash
 # P.S.: pristine Ubuntu linux don't come with curl, but wget.
 #
 # Dev notes:
 # you can call `python3 -m http.server` from dns_local_setup.sh folder
 # location to serve it by http on port 8000.
-# wget -q -O - http://192.168.1.2:8000/dns_local_setup.sh | bash
+# wget -q -O - http://192.168.1.2:8000/dns_local_setup/dns_local_setup.sh | bash
 #
 # TO DO:
 #
