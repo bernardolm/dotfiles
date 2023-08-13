@@ -2,4 +2,4 @@
 
 . "${DOTFILES}/dropbox/install"
 
-python3 "~/.local/bin/dropbox.py" start
+python3 "~/.local/bin/dropbox.py" start -i

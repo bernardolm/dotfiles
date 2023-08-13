@@ -31,3 +31,5 @@ echo '{"x":'$(gsettings get org.gnome.shell enabled-extensions)'}' | \
     tee "${SYNC_DOTFILES}/gnome_shell_extensions/${TIMESTAMP}.bkp" &>/dev/null
 
 weather_by_lat_lon
+
+unset sudo

@@ -1,6 +1,7 @@
 b4b4r07/emoji-cli
 changyuheng/zsh-interactive-cd
 chrissicool/zsh-256color
+desyncr/auto-ls
 djui/alias-tips
 fcambus/ansiweather
 HeroCC/LS_COLORS
@@ -8,6 +9,7 @@ johanhaleby/kubetail
 laggardkernel/zsh-thefuck
 marlonrichert/zcolors
 mattmc3/zsh-safe-rm
+rawkode/zsh-docker-run
 reegnz/jq-zsh-plugin
 se-jaeger/zsh-activate-py-environment
 wbingli/zsh-wakatime

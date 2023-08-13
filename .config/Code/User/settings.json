@@ -27,9 +27,9 @@
         "editor.defaultFormatter": "vscode.json-language-features",
         "editor.tabSize": 2
     },
-    // "[php]": {
-    //     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
-    // },
+    "[php]": {
+        "editor.defaultFormatter": "vscode.php-language-features"
+    },
     "[markdown]": {
         "editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
     },
@@ -46,12 +46,6 @@
     "[yaml]": {
         "editor.defaultFormatter": "redhat.vscode-yaml",
         "editor.tabSize": 2
-    },
-    "dlvLoadConfig": {
-        "maxVariableRecurse": 3,
-        "maxStringLen": 1024,
-        "maxArrayValues": 400,
-        "maxStructFields": -1
     },
     "editor.rulers": [
         79,
@@ -83,27 +77,11 @@
     "gitlens.advanced.messages": {
         "suppressLineUncommittedWarning": true
     },
-    "go.editorContextMenuCommands": {
-        "removeTags": true,
-        "fillStruct": true,
-        "testFile": true,
-        "testPackage": true,
-        "generateTestForFile": true,
-        "generateTestForPackage": true,
-        "benchmarkAtCursor": true
-    },
     "go.delveConfig": {
         "dlvLoadConfig": {
             "maxStringLen": 1024,
         },
         "apiVersion": 2,
-    },
-    "go.formatFlags": [
-        "-w"
-    ],
-    "go.liveErrors": {
-        "enabled": true,
-        "delay": 500
     },
     "go.testFlags": [
         "-short",
@@ -212,42 +190,21 @@
     "git.autofetch": true,
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
-    "go.autocompleteUnimportedPackages": true,
-    "go.buildOnSave": "off",
-    "go.coverageOptions": "showUncoveredCodeOnly",
-    "go.coverOnSave": false,
-    "go.coverShowCounts": true,
-    "go.formatTool": "goimports",
-    "go.gotoSymbol.includeGoroot": true,
-    "go.gotoSymbol.includeImports": true,
-    "go.lintTool": "golangci-lint",
-    "go.testOnSave": false,
-    "go.testTimeout": "1m",
-    "go.toolsManagement.autoUpdate": true,
-    "go.useCodeSnippetsOnFunctionSuggest": true,
-    "go.useCodeSnippetsOnFunctionSuggestWithoutType": true,
-    "go.useLanguageServer": true,
-    "go.vetOnSave": "off",
+    "go.gopath": "~/gopath",
     "intelephense.environment.phpVersion": "5.6.40",
     "javascript.updateImportsOnFileMove.enabled": "always",
     "partialDiff.enableTelemetry": false,
     "python.envFile": "${workspaceFolder}/*.env",
-    "python.linting.enabled": true,
-    "python.linting.flake8Enabled": true,
-    "python.linting.pycodestyleEnabled": false,
-    "python.linting.pylintEnabled": true,
     "python.testing.pytestEnabled": true,
     "python.testing.unittestEnabled": true,
     "redhat.telemetry.enabled": false,
     "scm.providerCountBadge": "auto",
     "security.workspace.trust.untrustedFiles": "open",
     "shellcheck.disableVersionCheck": true,
-    "synthwave84.brightness": 0.45,
-    "synthwave84.disableGlow": false,
     "telemetry.telemetryLevel": "off",
     "terminal.integrated.defaultProfile.linux": "zsh",
     "trailing-spaces.deleteModifiedLinesOnly": true,
-    "trailing-spaces.liveMatching": false,
+    "trailing-spaces.liveMatching": true,
     "trailing-spaces.trimOnSave": true,
     "update.showReleaseNotes": false,
     "vsicons.dontShowNewVersionMessage": true,
@@ -255,12 +212,11 @@
     "window.restoreWindows": "none",
     "window.title": "${dirty}${separator}${rootName}${separator}vs",
     "window.titleSeparator": " • ",
+    "window.zoomLevel": -1,
+    "workbench.colorTheme": "Tokyo Hack",
     "workbench.editor.restoreViewState": false,
     "workbench.iconTheme": "vscode-icons",
     "workbench.startupEditor": "newUntitledFile",
     "yaml.format.singleQuote": true,
     "yaml.keyOrdering": false,
-    "workbench.colorTheme": "SynthWave '84",
-    "git.openRepositoryInParentFolders": "never",
-    "window.zoomLevel": -1,
 }

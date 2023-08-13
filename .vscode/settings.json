@@ -2,5 +2,6 @@
   "git.autoRepositoryDetection": false,
   "git.detectSubmodules": false,
   "git.ignoreSubmodules": true,
-  "python.analysis.typeCheckingMode": "basic"
+  "python.analysis.typeCheckingMode": "basic",
+  "yaml.schemas": null,
 }

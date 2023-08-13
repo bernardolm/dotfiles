@@ -2,6 +2,8 @@
 
 . "${DOTFILES}/zplug/install"
 
+zplug clear
+
 local plugins_list=($(zsh_plugins_list))
 
 for p in $plugins_list; do

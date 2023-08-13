@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/zsh/functions/log"
+
+log starting "setting python"
+
+command -v python &>/dev/null || \
+    log info "installing python" && \
+    sudo apt-get install -y python-is-python3 1>/dev/null
+
+# sudo ln -sf /usr/bin/register-python-argcomplete3 /usr/bin/register-python-argcomplete

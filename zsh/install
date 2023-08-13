@@ -3,7 +3,7 @@
 command -v zsh >/dev/null || (echo 'you needs to install zsh before' && return)
 
 # find ~ -maxdepth 1 -name "*.bkp" -delete
-find ~ -maxdepth 1 -name '.zcompdump*' -delete
+# find ~ -maxdepth 1 -name '.zcompdump*' -delete
 
 local files=('.zlogin' '.zlogout' '.zprofile' '.zshenv' '.zshrc')
 for f in $files; do

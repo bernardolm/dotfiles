@@ -6,7 +6,7 @@
 export STARSHIP_CONFIG="${DOTFILES}/starship/theme/pastel-powerline.toml"
 # export STARSHIP_CONFIG="${DOTFILES}/starship/theme/starship.toml.toml"
 
-$SHELL_DEBUG && env STARSHIP_LOG=trace starship module rust
-$SHELL_DEBUG && env STARSHIP_LOG=trace starship timings
+$SHELL_TRACE && env STARSHIP_LOG=trace starship module rust
+$SHELL_TRACE && env STARSHIP_LOG=trace starship timings
 
 eval "$(starship init zsh)"

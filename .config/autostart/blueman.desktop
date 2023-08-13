@@ -8,4 +8,5 @@ Type=Application
 Categories=
 X-Ubuntu-Gettext-Domain=blueman
 X-GNOME-Autostart-enabled=false
-Hidden=true
+Hidden=false
+
