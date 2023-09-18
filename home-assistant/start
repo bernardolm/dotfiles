@@ -1,0 +1,24 @@
+#!/usr/bin/env zsh
+
+# running on Debian 12 on WSL
+
+container_name=hassio_supervisor
+
+docker stop $container_name
+
+docker rm $container_name
+
+docker run \
+    --name=$container_name \
+    --privileged \
+    --restart always \
+    --security-opt seccomp=unconfined \
+    -d \
+    -e HOMEASSISTANT_REPOSITORY=homeassistant/qemux86-64-homeassistant \
+    -e SUPERVISOR_NAME=$container_name \
+    -e SUPERVISOR_SHARE=/volume1/docker/homeassistant \
+    -p 8123:8123 \
+    -v "/var/run/dbus:/var/run/dbus" \
+    -v "/var/run/docker.sock:/var/run/docker.sock" \
+    -v "/volume1/docker/homeassistant:/data" \
+    ghcr.io/home-assistant/amd64-hassio-supervisor:2023.09.2
