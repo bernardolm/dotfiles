@@ -2,22 +2,16 @@
 	"name": "Default Linux Universal",
 	// "image": "mcr.microsoft.com/devcontainers/universal:2-linux",
 	"dockerFile": "Dockerfile",
-	"settings": {
-		"files.exclude": {
-			"**/CODE_OF_CONDUCT.md": true,
-			"**/LICENSE": true
-		}
-	},
 	"features": {
 		"ghcr.io/devcontainers/features/desktop-lite:1": {},
 		"ghcr.io/devcontainers/features/docker-from-docker:1": {},
-		"ghcr.io/devcontainers/features/docker-in-docker:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2.5.0": {},
 		"ghcr.io/devcontainers/features/git-lfs:1": {},
 		"ghcr.io/devcontainers/features/github-cli:1": {},
 		"ghcr.io/devcontainers/features/go:1": {},
 		"ghcr.io/devcontainers/features/python:1": {},
 		"ghcr.io/devcontainers/features/sshd:1": {},
-		"ghcr.io/devcontainers-contrib/features/pylint:1": {},
+		"ghcr.io/devcontainers-contrib/features/pylint:2.0.9": {},
 		"ghcr.io/dhoeric/features/act:1": {},
 		"ghcr.io/guiyomh/features/golangci-lint:0": {},
 		"ghcr.io/guiyomh/features/goreleaser:0": {},
@@ -28,12 +22,23 @@
 			"extensions": [
 				"aaron-bond.better-comments",
 				"ajshortt.tokyo-hack",
+				"aleksandra.go-group-imports",
 				"atdushi.conky",
 				"be5invis.vscode-custom-css",
 				"bierner.emojisense",
+				"bierner.github-markdown-preview",
+				"bierner.markdown-checkbox",
+				"bierner.markdown-emoji",
+				"bierner.markdown-footnotes",
+				"bierner.markdown-mermaid",
+				"bierner.markdown-preview-github-styles",
+				"bierner.markdown-yaml-preamble",
 				"bmewburn.vscode-intelephense-client",
+				"bpruitt-goddard.mermaid-markdown-syntax-highlighting",
 				"bungcip.better-toml",
 				"dakara.transformer",
+				"dannymcgee.vscode-go-grammar",
+				"DotJoshJohnson.xml",
 				"dustypomerleau.rust-syntax",
 				"eamodio.gitlens",
 				"esbenp.prettier-vscode",
@@ -50,11 +55,13 @@
 				"ms-python.python",
 				"ms-python.vscode-pylance",
 				"ms-vscode-remote.remote-containers",
-				"ms-vscode-remote.remote-ssh",
 				"ms-vscode-remote.remote-ssh-edit",
+				"ms-vscode-remote.remote-ssh",
+				"ms-vscode-remote.remote-wsl",
 				"ms-vscode-remote.vscode-remote-extensionpack",
 				"ms-vscode.makefile-tools",
 				"ms-vscode.remote-explorer",
+				"ms-vscode.sublime-keybindings",
 				"oderwat.indent-rainbow",
 				"redhat.vscode-xml",
 				"redhat.vscode-yaml",
@@ -75,7 +82,8 @@
 				"wayou.vscode-todo-highlight",
 				"wmaurer.change-case",
 				"wraith13.bracket-lens",
-				"xdebug.php-debug"
+				"xdebug.php-debug",
+				"yzhang.markdown-all-in-one"
 			]
 		}
 	},
