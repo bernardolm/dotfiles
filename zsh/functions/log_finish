@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+function log_finish() {
+    log_echo "🛑" "$PURPLE" "$@" "was finished ⏱️ $(date +"%H:%M:%S.%3N")"
+}

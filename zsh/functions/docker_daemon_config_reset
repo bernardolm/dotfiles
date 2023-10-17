@@ -25,18 +25,12 @@ function docker_daemon_config_reset() {
 
         sudo ip link delete docker0
 
-        # local nameservers=(`/bin/cat /etc/resolv.conf | /bin/grep '^nameserver' | /bin/awk '{print $2}' | uniq`)
-        # local nameserversJson=`jq --compact-output --null-input '$ARGS.positional' --args "${nameservers[@]}"`
-        # echo "nameserversJson=${nameserversJson}"
-        # echo '{"debug":true,"bip":"'${nameservers[1]}'/24","dns":'${nameserversJson}'}' | \
-        #     sudo tee /etc/docker/daemon.json > /dev/null
-
-        echo '{"debug":true,"bip":"172.17.0.1/24"}' | sudo tee /etc/docker/daemon.json > /dev/null
+        echo '{"debug":true,"bip":"172.17.0.1/24","dns":["1.1.1.1","8.8.8.8"]}' | sudo tee /etc/docker/daemon.json > /dev/null
 
         cat /etc/docker/daemon.json
 
-        sudo systemctl restart docker
-        sudo systemctl status docker
+        sudo systemctl restart docker.service
+        sudo systemctl status docker.service
 
         [ `ifconfig docker0 | grep -c docker0` -gt 0 ] \
             && ifconfig docker0 \

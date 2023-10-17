@@ -31,7 +31,11 @@ function log_echo() {
     local output="${icon}${color} $@ ${NC}"
 
     if ! command -v ansi2txt &>/dev/null; then
-        sudo apt-get install --no-install-recommends --yes colorized-logs 1>/dev/null
+        echo -e "${RED} you need to install colorized-logs package: ${NC}"
+        echo -e "${RED} sudo apt-get install --no-install-recommends --yes colorized-logs ${NC}"
+        function ansi2txt() {
+            echo $@
+        }
     fi
 
     if [[ $cols -ge 80 ]]; then

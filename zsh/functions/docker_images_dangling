@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function docker_images_dangling() {
-    ${DOCKER} images -f 'dangling=true' -q
+    docker images -f 'dangling=true' -q
 }

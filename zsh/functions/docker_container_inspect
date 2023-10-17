@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function docker_container_inspect() {
-    ${DOCKER} container inspect -f "{{range .Mounts}}{{.Type}}:{{.Source}}:{{.Destination}}{{println}}{{ end }}" $@
+    docker container inspect -f "{{range .Mounts}}{{.Type}}:{{.Source}}:{{.Destination}}{{println}}{{ end }}" $@
 }

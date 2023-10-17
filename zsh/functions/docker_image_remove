@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function docker_image_remove() {
-    ${DOCKER} rmi $@
+    docker rmi $@
 }

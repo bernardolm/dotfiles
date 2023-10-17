@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function docker_containers_list() {
-    ${DOCKER} ps -aq
+    docker ps -aq
 }

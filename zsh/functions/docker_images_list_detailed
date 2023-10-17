@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function docker_images_list_detailed() {
-    ${DOCKER} images -a $@
+    docker images -a $@
 }

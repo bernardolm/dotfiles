@@ -1,5 +1,0 @@
-#!/usr/bin/env zsh
-
-function log_starting() {
-    log_echo "🥚" "$PURPLE" "starting $@..."
-}

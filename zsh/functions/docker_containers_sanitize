@@ -5,6 +5,6 @@ function docker_containers_sanitize() {
     docker_install_check || return
     docker_containers_list | while read -r id; do
         echo "removing $id"
-        docker_contaier_remove "${id}" || continue
+        docker_container_remove "${id}" || continue
     done
 }

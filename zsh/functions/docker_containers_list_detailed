@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 
 function docker_containers_list_detailed() {
-    # ${DOCKER} ps --all --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.Status}}" $@ | docker-color-output
-    ${DOCKER} ps --all --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.Status}}" $@
+    docker ps --all --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.Status}}" $@
 }

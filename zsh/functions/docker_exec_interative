@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function docker_exec_interative() {
-    ${DOCKER} exec -it $@
+    docker exec -it $@
 }
