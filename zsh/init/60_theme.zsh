@@ -1,10 +1,3 @@
-# local d="$WORKSPACE_USER/dircolors/.dircolors"
-# test -r $d && eval "dircolors $d"
-
-# eval dircolors <(curl -sL https://raw.githubusercontent.com/sorin-ionescu/dotfiles/master/dir_colors)
-
-# stop reading
-
 return
 
 if command -v theme.sh > /dev/null; then

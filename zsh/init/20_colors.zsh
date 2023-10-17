@@ -1,7 +1,5 @@
-# avoiding load
-return
-
-export COLORS=()
+shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=false
 
 $SHELL_DEBUG && \
     readlink /proc/$$/exe && \
@@ -17,8 +15,6 @@ $SHELL_DEBUG && \
         echo " --- ${color}"
     done
 
-
-
 $SHELL_DEBUG && \
     for clbg in {40..47} {100..107} 49 ; do
         #Foreground
@@ -31,7 +27,6 @@ $SHELL_DEBUG && \
             echo #Newline
         done
     done
-
 
 $SHELL_DEBUG && \
     for fgbg in 38 48 ; do # Foreground / Background
@@ -57,3 +52,14 @@ $SHELL_DEBUG && \
         done
         echo
     done
+
+SHELL_DEBUG=$shell_debug_relay
+
+export CYAN="\e[38;5;235m\e[48;5;45m\e[1m"
+export WHITE="\e[38;5;235m\e[48;5;15m\e[1m"
+export GREEN="\e[38;5;235m\e[48;5;41m\e[1m"
+export GREY="\e[38;5;235m\e[48;5;253m\e[1m"
+export RED="\e[38;5;235m\e[48;5;9m\e[1m"
+export YELLOW="\e[38;5;235m\e[48;5;227m\e[1m"
+export PURPLE="\e[38;5;15m\e[48;5;127m\e[1m"
+export NC="\e[0m"
