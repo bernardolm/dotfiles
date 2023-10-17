@@ -1,11 +1,8 @@
 #!/usr/bin/env zsh
 
-fpath=( "${DOTFILES}/antigen/functions" $fpath )
-autoload -Uz ${fpath[1]}/*(:t)
+fpath=( "${DOTFILES}/antigen/functions" "${fpath[@]}" )
 
 export ANTIGEN_PATH="$USER_TMP/antigen.zsh"
-
-# . "${DOTFILES}/antigen/functions"
 
 $SHELL_DEBUG && antigen_purge
 
@@ -23,21 +20,3 @@ if [ ! -d "$ANTIGEN_WORKDIR" ]; then
 else
     antigen_start
 fi
-
-iterate_and_load "dotfiles init zsh's" \
-    "${DOTFILES}/zsh/init" "*.zsh" "sanitize_first_step"
-
-iterate_and_load "dotfiles zsh's" \
-    "$DOTFILES" "*.zsh" "sanitize_second_step"
-
-iterate_and_load "dotfiles aliases" \
-    "$DOTFILES" "aliases" "sanitize_second_step"
-
-iterate_and_load "sync path init zsh's" \
-    "${SYNC_DOTFILES}/zsh/init" "*.zsh" "sanitize_first_step"
-
-iterate_and_load "sync path zsh's" \
-    "$SYNC_DOTFILES" "*.zsh" "sanitize_second_step"
-
-iterate_and_load "sync path aliases" \
-    "$SYNC_DOTFILES" "aliases" "sanitize_second_step"

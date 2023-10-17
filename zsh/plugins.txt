@@ -7,6 +7,7 @@ fcambus/ansiweather
 HeroCC/LS_COLORS
 johanhaleby/kubetail
 laggardkernel/zsh-thefuck
+mafredri/zsh-async
 marlonrichert/zcolors
 mattmc3/zsh-safe-rm
 rawkode/zsh-docker-run

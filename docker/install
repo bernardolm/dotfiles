@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/zsh/functions/log"
+
+log start 'docker install'
+
+curl -sL get.docker.com | bash
+
+log finish 'docker install'

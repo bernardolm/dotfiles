@@ -1,3 +1,5 @@
+$SHELL_DEBUG && echo "👾 zshenv"
+
 export CASE_SENSITIVE=false
 export CLICOLOR=true
 export DISABLE_AUTO_TITLE=true
@@ -5,7 +7,6 @@ export DISABLE_LS_COLORS=false
 export EDITOR=nano
 export EMOJI_CLI_KEYBIND="^e"
 export ENABLE_CORRECTION=true
-export GOROOT="/usr/local/go"
 export HISTDUP=erase # Erase duplicates in the history file
 export HYPHEN_INSENSITIVE=true
 export LANG="en_US.UTF-8"
@@ -15,22 +16,26 @@ export POSH_THEME=M365Princess
 export SAVEHIST=999999
 export SHELL_DEBUG=false
 export SHELL_PROFILE=false
-export SHELL_STACK=false
+export SHELL_TRACE=false
 export TERM="xterm-256color"
 export VISUAL=nano
 export ZSH_HIGHLIGHT_MAXLENGTH=100
+export ZSH_THEME_RANDOM_QUIET=true
+export ZSH_THEME=random
 export ZSH_WAKATIME_PROJECT_DETECTION=true
 
-export DOCKER=$(which docker)
+export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock
 export GPG_TTY="$(tty)"
 export NOW="$(date '+%H-%M-%S-%N')"
 export TODAY="$(date '+%F')"
 
 export DOTFILES="${DOTFILES:=${HOME}/workspaces/bernardolm/dotfiles}"
+
 export GOPATH="${HOME}/gopath"
 export SYNC_DOTFILES="${SYNC_DOTFILES:=${HOME}/sync}"
 export TIMESTAMP="${TODAY}_${NOW}"
 export USER_TMP="${HOME}/tmp"
+export ZDOTDIR="${DOTFILES}/zsh/zdotdir"
 export ZPLUG_HOME="${HOME}/.zplug"
 export ZSH_CUSTOM="${HOME}/.zsh"
 export ZSH="${HOME}/.oh-my-zsh"

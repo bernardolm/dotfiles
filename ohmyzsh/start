@@ -1,7 +1,10 @@
 #!/usr/bin/env zsh
 
-fpath=( "${DOTFILES}/ohmyzsh/functions" $fpath )
-autoload -Uz ${fpath[1]}/*(:t)
+log start "ohmyzsh start"
+
+fpath=( "${DOTFILES}/ohmyzsh/functions" "${fpath[@]}" )
+
+# autoload -z -d ${DOTFILES}/ohmyzsh/functions/*
 
 . "${DOTFILES}/ohmyzsh/install"
 
@@ -9,6 +12,11 @@ plugins=($(ohmyzsh_plugins_list))
 $SHELL_DEBUG && echo "oh-my-zsh plugins to load: '$plugins'"
 
 zstyle ':omz:lib:directories' aliases no
+zstyle ':omz:lib:docker' aliases no
+zstyle ':omz:lib:docker-compose' aliases no
 zstyle ':omz:lib:theme-and-appearance' aliases no
+zstyle ':omz:update' mode disabled
 
 . "${ZSH}/oh-my-zsh.sh"
+
+log finish "ohmyzsh start"

@@ -1,21 +1,29 @@
 #!/usr/bin/env zsh
 
+log start "zplug start"
+
 . "${DOTFILES}/zplug/install"
 
-zplug clear
+# zplug clear
 
 local plugins_list=($(zsh_plugins_list))
 
 for p in $plugins_list; do
+    log info "calling zplug to $p"
     zplug "$p"
 done
 
-zplug "dracula/zsh", as:theme
+# zplug "dracula/zsh", as:theme
 zplug "dracula/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 if ! zplug check; then
+    log warn "zplug is installing new plugins"
     zplug install 1>/dev/null
+    # zplug install --verbose
 fi
 
+log info "loading zplug plugins"
 zplug load
+
+log finish "zplug start"

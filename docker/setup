@@ -1,9 +1,14 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
-log_starting 'docker'
+# shellcheck source=/dev/null
+. "${DOTFILES}/zsh/functions/log"
 
-sudo groupadd docker && newgrp docker
-sudo usermod -aG docker $USER
+log start 'docker setup'
+
+/usr/bin/dockerd-rootless-setuptool.sh --force --skip-iptables install
+
+sudo groupadd docker
+sudo usermod -aG docker "$USER"
 newgrp docker
 
-log_finishing 'docker'
+log finish 'docker setup'

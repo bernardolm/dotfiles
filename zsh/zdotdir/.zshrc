@@ -1,33 +1,58 @@
-#!/usr/bin/env zsh
+# log functions fallback
+if ! typeset -f log >/dev/null; then
+    function log() {
+        fn=$1
+        shift
+        $SHELL_DEBUG && echo "[$fn] 🗣️ $*"
+    }
+fi
 
-# /bin/rm -rf "${HOME}/.zsh"
-# /bin/rm -rf "${HOME}/.oh-my-zsh"
-# /bin/rm -rf "${HOME}/.oh-my-posh"
-# /bin/rm -rf "${HOME}/.zplug"
+log start "zshrc"
 
 # profiling shell
 # Ref.: https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
-if [[ "$SHELL_PROFILE" == "true" ]]; then
+if [[ "${SHELL_PROFILE}" == "true" ]]; then
     [ ! -d "$SHELL_SESSION_PATH" ] && mkdir -p "$SHELL_SESSION_PATH"
     zmodload zsh/zprof
     exec 3>&2 2>"${SHELL_SESSION_PATH}/${NOW}.log"
     setopt xtrace prompt_subst
 fi
 
-. "${DOTFILES}/ubuntu/install"
+# shellcheck source=/dev/null
+. "${DOTFILES}/ssh/start"
 
+# shellcheck source=/dev/null
+. "${DOTFILES}/ubuntu/start"
+
+# shellcheck source=/dev/null
 . "${DOTFILES}/zsh/start"
+
+# shellcheck source=/dev/null
 # . "${DOTFILES}/antigen/start"
-. "${DOTFILES}/zplug/start"
+
+# shellcheck source=/dev/null
 . "${DOTFILES}/ohmyzsh/start"
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/zplug/start"
+
+# shellcheck source=/dev/null
 # . "${DOTFILES}/ohmyposh/start"
+
+# shellcheck source=/dev/null
 . "${DOTFILES}/starship/start"
 
+# shellcheck source=/dev/null
 # . "${DOTFILES}/dropbox/start"
 
+iterate_and_load "dotfiles aliases" "$DOTFILES" "aliases" "sort"
+iterate_and_load "sync path aliases" "$SYNC_DOTFILES" "aliases" "sort"
+
 # profiling shell
-if [[ "$SHELL_PROFILE" == "true" ]]; then
+if [[ "${SHELL_PROFILE}" == "true" ]]; then
     exec 2>&3 3>&-
     unsetopt xtrace
     zprof > "${SHELL_SESSION_PATH}/${NOW}.prf"
 fi
+
+log finish "zshrc"

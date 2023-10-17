@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+log start "ssh setup"
+
+command -v keychain &>/dev/null || sudo apt install -y keychain >/dev/null
+log info "authenticating ssh..."
+eval $(keychain --eval id_ed25519)
+
+# ssh-add /home/$USER/.ssh/id_ed25519
+
+log finish "ssh setup"

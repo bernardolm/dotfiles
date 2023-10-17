@@ -1,22 +1,30 @@
 #!/usr/bin/env zsh
 
-fpath=( "${DOTFILES}/zsh/functions" "${SYNC_DOTFILES}/zsh/functions" $fpath )
-autoload -Uz "${fpath[1]}"/*(:t)
+log start "zsh start"
 
-# autoload -Uz +X bashcompinit; bashcompinit # need to be the first
-# autoload -Uz +X colors; colors
-# autoload -Uz +X compinit compdef; compinit # initializes the shell’s auto-completion functionality
-# autoload -Uz +X promptinit; promptinit # zsh prompt themes extension
+fpath=( "${DOTFILES}/zsh/functions" "${SYNC_DOTFILES}/zsh/functions" "${fpath[@]}" )
+
+unset -f log
+
+autoload -U $fpath[1]/*(.:t)
+autoload -z -d ${DOTFILES}/zsh/functions/*
+autoload -z -d ${SYNC_DOTFILES}/zsh/functions/*
+
+autoload -Uz +X compaudit zrecompile # needs description
+autoload -Uz +X bashcompinit; bashcompinit # need to be the first
+autoload -Uz +X colors; colors # needs description
+autoload -Uz +X compinit compdef; compinit # initializes the shell’s auto-completion prompt system functionality
+autoload -Uz +X promptinit; promptinit # zsh prompt themes extension completion system
 
 . "${DOTFILES}/zsh/install"
 . "${DOTFILES}/zsh/config/setopt"
 . "${DOTFILES}/zsh/config/unsetopt"
 
-# zsh_plugins_load
+zsh_plugins_load
 
 iterate_and_load "dotfiles zsh init" "${DOTFILES}/zsh/init" "*.zsh" "sort"
-iterate_and_load "dotfiles aliases" "$DOTFILES" "aliases" "sort"
 iterate_and_load "sync zsh init" "${SYNC_DOTFILES}/zsh/init" "*.zsh" "sort"
-iterate_and_load "sync path aliases" "$SYNC_DOTFILES" "aliases" "sort"
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+
+log finish "zsh start"

@@ -1,5 +1,7 @@
 .config/autostart/gnome-*.desktop
 .pytest_cache
+.zcompdump*
+.zsh_history
 *.bin
 *.deb
 *.log
@@ -16,4 +18,4 @@
 *venv/
 debian/*
 git/submodule/*
-to-fix.txt
+*fix*.txt

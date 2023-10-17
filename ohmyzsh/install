@@ -1,6 +1,16 @@
 #!/usr/bin/env zsh
 
-if ! [ -f "${ZSH}/oh-my-zsh.sh" ]; then
-    $SHELL_DEBUG && echo "installing (downloading) oh-my-zsh"
-    curl -fsSL "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | KEEP_ZSHRC=yes RUNZSH=no CHSH=no sh --
+log start "ohmyzsh install"
+
+if ! test -d "${ZSH}"; then
+    $SHELL_DEBUG && \
+        echo "installing (downloading) oh-my-zsh"
+
+    curl -fsSL "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | \
+        KEEP_ZSHRC=yes RUNZSH=no CHSH=no bash
+
+    log warn "change default shell to zsh? input password"
+    chsh -s $(which zsh)
 fi
+
+log finish "ohmyzsh install"

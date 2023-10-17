@@ -3,6 +3,7 @@
 # heroku
 # kubectl
 # rsync
+# ssh-agent
 1password
 aliases
 battery
@@ -31,7 +32,6 @@ nmap
 pip
 python
 screen
-ssh-agent
 sublime
 sudo
 thefuck

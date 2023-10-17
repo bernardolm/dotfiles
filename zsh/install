@@ -10,7 +10,7 @@ for f in $files; do
     dest_path="${HOME}/${f}"
     if [ ! -L "$dest_path" ]; then
         # [ -e "$dest_path" ] && mv "$dest_path" "${dest_path}_${TIMESTAMP}.bkp"
-        ln -sf "${DOTFILES}/zsh/startup/${f}" "$dest_path"
+        ln -sf "${DOTFILES}/zsh/zdotdir/${f}" "$dest_path"
     fi
 done
 

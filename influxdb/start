@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+docker run \
+    --name influxdb \
+    --restart always \
+    -d \
+    -p 8086-8089:8086-8089 \
+    -v "${DOTFILES}/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf" \
+    -v "${SYNC_DOTFILES}/influxdb:/var/lib/influxdb" \
+    influxdb:1.8-alpine
