@@ -2,10 +2,26 @@
 
 log start "ssh setup"
 
-command -v keychain &>/dev/null || sudo apt install -y keychain >/dev/null
-log info "authenticating ssh..."
-eval $(keychain --eval id_ed25519)
+# command -v keychain &>/dev/null || sudo apt install -y keychain >/dev/null
+# log info "authenticating ssh..."
+# eval $(keychain --eval id_ed25519)
+
+#-----------------------–----------------------------
 
 # ssh-add /home/$USER/.ssh/id_ed25519
+
+#-----------------------–----------------------------
+
+# ref.: https://code.visualstudio.com/docs/remote/troubleshooting
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+   # Check for a currently running instance of the agent
+   RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
+   if [ "$RUNNING_AGENT" = "0" ]; then
+        # Launch a new instance of the agent
+        ssh-agent -s &> .ssh/ssh-agent
+   fi
+   eval `cat .ssh/ssh-agent`
+fi
 
 log finish "ssh setup"
