@@ -1,28 +1,33 @@
 #!/usr/bin/env zsh
 
 function chmod_reset() {
-    [ -z "$1" ] && echo "path is required" && \
-        return 1 || \
-        log start "resetting permissions on '$1'... "
+    # shell_debug_relay=$SHELL_DEBUG
+    # SHELL_DEBUG=true
 
-    /usr/bin/sudo chown -R "$USER:$USER" "$1"
-    /usr/bin/sudo chmod -R 644 "$1"
-    /usr/bin/sudo find "$1" -type d -exec chmod +x {} \;
+    $SHELL_DEBUG && set -x
+
+    sudo chmod -cR 600 $1
+    sudo chmod -R u+X $1
+    sudo chown -cR $USER:$USER $1
 
     patterns=(
         "*.AppImage"
         "*.py"
         "*.sh"
+        "/bin/"
+        "install-pristine"
+        "install"
+        "post-install"
+        "post-setup"
+        "pre-install"
+        "pre-setup"
         "setup"
         "start"
-        "install"
-        "pre-install"
-        "install-pristine"
-        "post-install"
     )
     for p in "${patterns[@]}"; do
-        find "$1" -name "$p" -exec chmod +x {} \;
+        sudo find "$1" -name "$p" -exec sudo chmod u+x {} \;
     done
 
-    echo "done"
+    # SHELL_DEBUG=$shell_debug_relay
+    $SHELL_DEBUG && set +x
 }

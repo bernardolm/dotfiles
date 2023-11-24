@@ -10,10 +10,10 @@ function iterate_and_load() {
 
     local cmd="find $find_path -name '$find_term' -print 2>/dev/null | $filter_fn"
 
-    log_debug "$cmd"
+    log debug "$cmd"
 
     eval "$cmd" | while read -r script_file; do
-        log_debug "$script_file"
+        log debug "$script_file"
         # shellcheck source=/dev/null
         . "$script_file"
     done

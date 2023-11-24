@@ -1,18 +1,19 @@
 #!/usr/bin/env zsh
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/zsh/init/20_colors.zsh"
-
 function log() {
     level=$1
+
+    silenced_levels=("debug" "start" "finish")
+
+    if ! $SHELL_DEBUG; then
+        if [[ ${silenced_levels[@]} =~ $level ]]; then
+            return
+        fi
+    fi
+
     shift
-    . "${DOTFILES}/zsh/functions/log_debug"
-    . "${DOTFILES}/zsh/functions/log_echo"
-    . "${DOTFILES}/zsh/functions/log_error"
-    . "${DOTFILES}/zsh/functions/log_finish"
-    . "${DOTFILES}/zsh/functions/log_info"
-    . "${DOTFILES}/zsh/functions/log_is_command_success"
-    . "${DOTFILES}/zsh/functions/log_start"
-    . "${DOTFILES}/zsh/functions/log_warn"
+
+    . "${DOTFILES}/zsh/functions/caller"
+
     eval "log_$level '$@'"
 }

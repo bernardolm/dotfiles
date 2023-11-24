@@ -1,0 +1,6 @@
+#!/usr/bin/env zsh
+
+function auto-ls-custom_function() {
+    echo -e "\nauto-ls-custom_function:\n"
+    exa -GxFa --icons --group-directories-first --no-filesize --no-user
+}

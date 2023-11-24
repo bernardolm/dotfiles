@@ -1,12 +1,15 @@
 #!/usr/bin/env zsh
 
 function zsh_plugins_load() {
+    echo "zsh_plugins_load is DEPRECATED, using zplug"
+    return
+
     log start "zsh_plugins_load()"
 
     plugins_path="${ZSH_CUSTOM}/plugins"
 
     find "$plugins_path" -mindepth 3 -maxdepth 3 -name "*.plugin.zsh" | while read -r item; do
-        log_debug $item
+        log debug $item
         . "$item"
     done
 }

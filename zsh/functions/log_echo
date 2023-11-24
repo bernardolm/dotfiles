@@ -1,22 +1,11 @@
 #!/usr/bin/env zsh
 
 function log_echo() {
-    $SHELL_DEBUG || return
+    local fn_called
+    fn_called="$0"
 
-    local shell
-    shell="$0"
-
-    local icon
-    icon="$1"
-
-    shift
-
-    local color
-    color="$1"
-
-    shift
-
-    [ -n "$icon" ] && icon="$icon "
+    local msg
+    msg="$1"
 
     local loutput=0
     local lcaller=0
@@ -28,7 +17,7 @@ function log_echo() {
 
     $SHELL_TRACE && _caller=$(caller)
 
-    local output="${icon}${color} $@ ${NC}"
+    local output=$msg
 
     if ! command -v ansi2txt &>/dev/null; then
         echo -e "${RED} you need to install colorized-logs package: ${NC}"
@@ -39,16 +28,16 @@ function log_echo() {
     fi
 
     if [[ $cols -ge 80 ]]; then
-        loutput=$(echo "${output}" | ansi2txt | wc -L)
+        loutput=$(echo " +++ ${output}" | ansi2txt | wc -L)
 
         if [[ $loutput -gt $cols ]]; then
             loutput=$(($loutput-$cols))
         fi
 
         rpad=$(($cols-$loutput))
-        lcaller=$(echo "${_caller}" | ansi2txt | wc -L)
+        lcaller=$(echo "  ---  ${_caller}" | ansi2txt | wc -L)
         rpad=$(($rpad-$lcaller))
-        if [[ "$shell" =~ "zsh" ]]; then
+        if [[ "$fn_called" =~ "zsh" ]]; then
             space=${(l:$rpad:: :)}
         fi
     fi

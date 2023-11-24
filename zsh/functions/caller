@@ -21,6 +21,6 @@ function caller() {
             fi
         done
 
-        printf "${_stack}${_reset_color}"
+        printf " ${_stack}${_reset_color}"
     fi
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function log_start() {
-    log_echo "🚦" "$PURPLE" "starting $@... ⏱️ $(date +"%H:%M:%S.%3N")"
+    log_echo " 🚦 starting $@ at $(date +"%H:%M:%S.%3N") ⏱️ "
 }

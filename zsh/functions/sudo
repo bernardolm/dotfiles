@@ -10,7 +10,7 @@ function sudo() {
 		"$@"
 	else
 		if ! env sudo --non-interactive true 2>/dev/null; then
-			log_warn "Root privileges are being requested. Pay attention to what you are doing!"
+			log warn "root privileges are being requested. pay attention to what you are doing!"
 			env sudo --validate
 		fi
 		env sudo "$@"

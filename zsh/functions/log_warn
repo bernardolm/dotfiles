@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function log_warn() {
-    log_echo "🚧" "$YELLOW" "$@"
+    log_echo "🚧 ${YELLOW} $@ ${NC}"
 }

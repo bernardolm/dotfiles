@@ -1,7 +1,10 @@
 #!/usr/bin/env zsh
 
 function zsh_plugins_install() {
-    shell_debug_relay=$SHELL_DEBUG
+    echo "zsh_plugins_install is DEPRECATED, using zplug"
+    return
+
+    # shell_debug_relay=$SHELL_DEBUG
     # SHELL_DEBUG=true
 
     local _zsh_plugins_list=($(zsh_plugins_list))
@@ -18,8 +21,8 @@ function zsh_plugins_install() {
         else
             output+="already installed"
         fi
-        log_info "$output"
+        log info "$output"
     done
 
-    SHELL_DEBUG=$shell_debug_relay
+    # SHELL_DEBUG=$shell_debug_relay
 }

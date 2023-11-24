@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function log_info() {
-    log_echo "💬" "$CYAN" "$@"
+    log_echo "💬 ${CYAN} $@ ${NC}"
 }
