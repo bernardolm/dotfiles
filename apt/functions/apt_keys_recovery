@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 function apt_keys_recovery() {
-    current_shell_debug=$SHELL_DEBUG
+    # shell_debug_relay=$SHELL_DEBUG
     # SHELL_DEBUG=true
 
     log start "recovering gpg keys absent"
@@ -76,5 +76,5 @@ function apt_keys_recovery() {
 
     log finish "gpg keys absent recovered"
 
-    SHELL_DEBUG=$current_shell_debug
+    # SHELL_DEBUG=$shell_debug_relay
 }

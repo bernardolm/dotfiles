@@ -78,7 +78,7 @@ function dns_local_setup() {
             show_resolv_conf "$resolv_conf"
         fi
 
-        printf "%s" "$resolv_conf" | ${super} tee /etc/resolv.conf 1>/dev/null
+        printf "%s" "$resolv_conf" | sudo tee /etc/resolv.conf 1>/dev/null
     }
 
     function test_host() {
@@ -95,30 +95,43 @@ function dns_local_setup() {
 
         test_host "The docker container created" "$container_name.$domain" || exit 1
         test_host "Some internet name" "www.google.com" || exit 1
-        test_host "Some local network name" "spinnaker.hucloud.com.br" || exit 1
     }
 
     function start_local_dns() {
         printf "> Starting docker container %s.\n" "$container_name"
         docker run \
-            -d \
-            --privileged=true \
+            --dns 8.8.8.8 \
             --name="$container_name" \
-            --restart=always \
+            --network host \
+            --privileged \
+            --rm \
+            -d \
+            -e DEBUG=true \
             -e DNS_DOMAIN="$domain" \
             -e FALLBACK_DNS="$gateway_ip" \
             -e NAMING="$naming" \
             -p 53:53/udp \
-            -v /etc/resolv.conf:/mnt/resolv.conf \
-            -v /var/run/docker.sock:/var/run/docker.sock \
+            -v /mnt/resolv.conf:/mnt/resolv.conf:rw \
+            -v /var/run/docker.sock:/var/run/docker.sock:ro \
             "$image_name"
 
         printf "  Your changed resolv.conf has:\n"
-        show_resolv_conf "$(cat /etc/resolv.conf)"
+        show_resolv_conf "$(cat /mnt/resolv.conf)"
+
+        sleep 2
+        docker exec -it "$container_name" ip ad
+
+        echo "--- cat devdns /mnt/resolv.conf"
+        docker exec -it "$container_name" cat /mnt/resolv.conf
+        echo "--- cat devdns /etc/resolv.conf"
+        docker exec -it "$container_name" cat /etc/resolv.conf
+        echo "--- cat host /mnt/resolv.conf"
+        cat /mnt/resolv.conf
+        echo "---end"
     }
 
-    function install_docker () {
-        curl -fsSL "https://get.docker.com" -o /tmp/get-docker.sh || exit 1
+    function install_docker() {
+        curl -fsSL get.docker.com -o /tmp/get-docker.sh || exit 1
         ${super} sh /tmp/get-docker.sh || exit 1
     }
 
@@ -225,10 +238,10 @@ function dns_local_setup() {
 
         expose_privileged_port_53
 
-        if [ -h /etc/resolv.conf ]; then
+        if [ -h /mnt/resolv.conf ]; then
             printf "  Removing resolv.conf managed by systemd-resolved\n"
-            ${super} mv -f /etc/resolv.conf /etc/resolv.conf.bkp
-            ${super} touch /etc/resolv.conf
+            ${super} mv -f /mnt/resolv.conf /mnt/resolv.conf.bkp
+            ${super} touch /mnt/resolv.conf
         fi
 
         turning_dns_default_to_new_containers
@@ -259,7 +272,8 @@ function dns_local_setup() {
             return
         fi
 
-        super="$(which sudo)"
+        # super="$(which sudo)"
+        super="/usr/bin/sudo"
 
         USER=$(id -un)
         [ -z "$USER" ] && USER=ghost
@@ -279,7 +293,7 @@ function dns_local_setup() {
     local container_name="${CONTAINER_NAME:-ns1}"
     local custom_fallback_dns="${CUSTOM_FALLBACK_DNS:-}"
     local domain="${DOMAIN:-hud}"
-    local image_name="ruudud/devdns"
+    local image_name="bernardolm/devdns"
     local naming="unsafe"
     local workdir="${WORKSPACE_USER:-"$HOME/.devdns"}"
     # local prohibited_dns="${PROHIBITED_DNS:-'1.1.1.1,1.1.0.0,8.8.8.8,8.8.4.4'}"
@@ -307,6 +321,6 @@ function dns_local_setup() {
     printf "> DNS setup finished. Enjoy!\n\n"
 }
 
-trap "echo; exit" INT
+# trap "echo; exit" INT
 
 dns_local_setup || exit 1

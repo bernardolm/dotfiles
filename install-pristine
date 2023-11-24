@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# set -e
+
+export TERM=xterm-256color
+
+DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/zsh/zdotdir/.zshenv"
+
+# shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=true
+
+# shellcheck source=/dev/null
+# . "${DOTFILES}/zsh/functions/log"
+
+log start "pristine setup"
+
+log debug "some info about environment: \n whoami=$(whoami) \n id=$(id) "
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/ubuntu/pre-install"
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/git/install"
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/python/install"
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/snap/install"
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/ubuntu/install"
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/ubuntu/post-install"
+
+log finish "pristine setup"
+
+# SHELL_DEBUG=$shell_debug_relay

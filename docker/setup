@@ -1,11 +1,6 @@
 #!/usr/bin/env bash
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/zsh/functions/log"
-
 log start 'docker setup'
-
-/usr/bin/dockerd-rootless-setuptool.sh --force --skip-iptables install
 
 sudo groupadd docker
 sudo usermod -aG docker "$USER"

@@ -1,0 +1,10 @@
+argonaut *
+ayu
+base16 default dark
+base2tone-drawbridge-dark
+blazer
+brogrammer *
+floraverse
+grape *
+lavandula
+rose pine

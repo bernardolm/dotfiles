@@ -1,11 +1,13 @@
-# log functions fallback
-if ! typeset -f log >/dev/null; then
-    function log() {
-        fn=$1
-        shift
-        $SHELL_DEBUG && echo "[$fn] 🗣️ $*"
-    }
-fi
+$SHELL_DEBUG && echo "👾 zshrc"
+
+disable log &>/dev/null
+
+function log() {
+    for f in $DOTFILES/zsh/functions/log*; do
+        . $f
+    done
+    eval log $@
+}
 
 log start "zshrc"
 
@@ -19,22 +21,22 @@ if [[ "${SHELL_PROFILE}" == "true" ]]; then
 fi
 
 # shellcheck source=/dev/null
-. "${DOTFILES}/ssh/start"
-
-# shellcheck source=/dev/null
 . "${DOTFILES}/ubuntu/start"
 
 # shellcheck source=/dev/null
 . "${DOTFILES}/zsh/start"
 
 # shellcheck source=/dev/null
+. "${DOTFILES}/ssh/start"
+
+# shellcheck source=/dev/null
 # . "${DOTFILES}/antigen/start"
 
 # shellcheck source=/dev/null
-. "${DOTFILES}/ohmyzsh/start"
+. "${DOTFILES}/zplug/start"
 
 # shellcheck source=/dev/null
-. "${DOTFILES}/zplug/start"
+. "${DOTFILES}/ohmyzsh/start"
 
 # shellcheck source=/dev/null
 # . "${DOTFILES}/ohmyposh/start"

@@ -25,6 +25,7 @@
     pushInsteadOf = "github:"
 
 [core]
+	pager = less -R
     editor = code --wait
     untrackedCache = true
     whitespace = space-before-tab,-indent-with-non-tab,trailing-space
@@ -67,5 +68,8 @@
 [branch]
     sort = -committerdate
 
+[gpg]
+    format = ssh
+
 [include]
-    path = ~/sync/git/.gitconfig_private
+    path = ~/sync/git/.gitconfig

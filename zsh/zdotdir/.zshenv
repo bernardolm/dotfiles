@@ -1,5 +1,9 @@
-$SHELL_DEBUG && echo "👾 zshenv"
+$SHELL_DEBUG && echo -e "\n👾 zshenv"
 
+# export SSH_AUTH_SOCK=~/.1password/agent.sock
+export AUTO_LS_CHPWD=true
+export AUTO_LS_COMMANDS=(custom_function)
+export AUTO_LS_NEWLINE=false
 export CASE_SENSITIVE=false
 export CLICOLOR=true
 export DISABLE_AUTO_TITLE=true
@@ -7,9 +11,10 @@ export DISABLE_LS_COLORS=false
 export EDITOR=nano
 export EMOJI_CLI_KEYBIND="^e"
 export ENABLE_CORRECTION=true
-export HISTDUP=erase # Erase duplicates in the history file
+export HISTDUP=erase # erase duplicates in the history file
 export HYPHEN_INSENSITIVE=true
 export LANG="en_US.UTF-8"
+export LESS="-erX"
 export MICRO_TRUECOLOR=1
 export PAGER=less
 export POSH_THEME=M365Princess
@@ -24,7 +29,7 @@ export ZSH_THEME_RANDOM_QUIET=true
 export ZSH_THEME=random
 export ZSH_WAKATIME_PROJECT_DETECTION=true
 
-export DOCKER_HOST=unix:///run/user/$(id -u)/docker.sock
+# export DOCKER_HOST="unix:///run/user/$(id -u)/docker.sock"
 export GPG_TTY="$(tty)"
 export NOW="$(date '+%H-%M-%S-%N')"
 export TODAY="$(date '+%F')"
@@ -43,7 +48,7 @@ export ZSH="${HOME}/.oh-my-zsh"
 export TODO_DIR="${DOTFILES}/todo-txt"
 
 export DONE_FILE="${SYNC_DOTFILES}/todo-txt/done.txt"
-export HISTFILE="${SYNC_DOTFILES}/zsh/.zsh_history" # Where to save history to disk
+export HISTFILE="${SYNC_DOTFILES}/zsh/.zsh_history" # where to save history to disk
 export HISTSIZE="${SAVEHIST}"
 export REPORT_FILE="${SYNC_DOTFILES}/todo-txt/report.txt"
 export SHELL_SESSION_PATH="${USER_TMP}/shell_session/${TODAY}"

@@ -1,30 +1,45 @@
 #!/usr/bin/env zsh
 
-log start "zsh start"
+# shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=true
+$SHELL_DEBUG && set -x
 
-fpath=( "${DOTFILES}/zsh/functions" "${SYNC_DOTFILES}/zsh/functions" "${fpath[@]}" )
+log start "zsh setup"
 
-unset -f log
+local autoload_this
 
-autoload -U $fpath[1]/*(.:t)
-autoload -z -d ${DOTFILES}/zsh/functions/*
-autoload -z -d ${SYNC_DOTFILES}/zsh/functions/*
+function autoload_this() {
+    local functions_path
+    functions_path=$1
+    functions_path=( $(eval echo "$functions_path") )
 
-autoload -Uz +X compaudit zrecompile # needs description
-autoload -Uz +X bashcompinit; bashcompinit # need to be the first
-autoload -Uz +X colors; colors # needs description
-autoload -Uz +X compinit compdef; compinit # initializes the shell’s auto-completion prompt system functionality
+    for d in $functions_path; do
+        fpath+=("$d")
+        autoload -Uz ${d}/*(:t)
+    done
+}
+
+autoload_this "/home/bernardo/workspaces/bernardolm/dotfiles/**/functions"
+autoload_this "/home/bernardo/sync/**/functions"
+
+# autoload -Uz +X compaudit zrecompile # needs description
+# autoload -Uz +X bashcompinit; bashcompinit # need to be the first
+# autoload -Uz +X colors; colors # needs description
+autoload -Uz +X compinit; compinit  # initializes the shell’s auto-completion \
+                                    # prompt system functionality. \
+                                    # compdef: function definition file not found
 autoload -Uz +X promptinit; promptinit # zsh prompt themes extension completion system
 
 . "${DOTFILES}/zsh/install"
 . "${DOTFILES}/zsh/config/setopt"
 . "${DOTFILES}/zsh/config/unsetopt"
 
-zsh_plugins_load
-
 iterate_and_load "dotfiles zsh init" "${DOTFILES}/zsh/init" "*.zsh" "sort"
 iterate_and_load "sync zsh init" "${SYNC_DOTFILES}/zsh/init" "*.zsh" "sort"
 
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 
-log finish "zsh start"
+log finish "zsh setup"
+
+# SHELL_DEBUG=$shell_debug_relay
+$SHELL_DEBUG && set +x

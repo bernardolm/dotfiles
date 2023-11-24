@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/zsh/functions/log"
-
 log start "git setup"
 
 [ ! -d "${DOTFILES}/git/modules" ] && mkdir -p "${DOTFILES}/git/modules"

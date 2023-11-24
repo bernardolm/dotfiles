@@ -1,27 +1,50 @@
 #!/usr/bin/env zsh
 
+# shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=true
+
 log start "ssh setup"
 
-# command -v keychain &>/dev/null || sudo apt install -y keychain >/dev/null
-# log info "authenticating ssh..."
-# eval $(keychain --eval id_ed25519)
+killall -9 ssh-agent 2>/dev/null
 
-#-----------------------–----------------------------
+# local ssh_agent_instances=$(ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]')
 
-# ssh-add /home/$USER/.ssh/id_ed25519
+# log debug "ssh_agent_instances=${ssh_agent_instances}"
 
-#-----------------------–----------------------------
+function ssh_agent_start() {
+    log info "starting ssh-agent..."
 
-# ref.: https://code.visualstudio.com/docs/remote/troubleshooting
+    /bin/rm -f ~/.ssh/ssh-agent.ppid || true
+    ssh-agent -a ~/.ssh/ssh-agent.ppid -s -t 99999 | tee ~/.ssh/ssh-agent &>/dev/null
+    source ~/.ssh/ssh-agent &>/dev/null
+}
 
-if [ -z "$SSH_AUTH_SOCK" ]; then
-   # Check for a currently running instance of the agent
-   RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
-   if [ "$RUNNING_AGENT" = "0" ]; then
-        # Launch a new instance of the agent
-        ssh-agent -s &> .ssh/ssh-agent
-   fi
-   eval `cat .ssh/ssh-agent`
+# if [ $ssh_agent_instances -eq 0 ]; then
+#     ssh_agent_start
+# elif [ $ssh_agent_instances -gt 1 ]; then
+#     killall -9 ssh-agent
+    ssh_agent_start
+# fi
+
+if [ "${SSH_AGENT_PID}" -eq "" ]; then
+    SSH_AGENT_PID=$(ps axf | grep ssh-agent | grep -v grep | awk '{print $1}')
 fi
 
+log debug "SSH_AGENT_PID=${SSH_AGENT_PID}"
+log debug "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"
+log debug "SSH_CONNECTION=${SSH_CONNECTION}"
+
+if [[ "$SSH_AGENT_PID" == "" ]] || [[ "$SSH_AUTH_SOCK" == "" ]]; then
+    log error "ssh-agent was killed unexpectedly, can't continue to add the keys"
+    return
+fi
+
+log debug "adding my keys to agent..."
+ssh-add "${HOME}/.ssh/id_ed25519" &>/dev/null
+
+log info "listing agent´s keys:"
+log info "$(ssh-add -L)"
+
 log finish "ssh setup"
+
+# SHELL_DEBUG=$shell_debug_relay

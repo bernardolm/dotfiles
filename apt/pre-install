@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+# shellcheck source=/dev/null
+# . "${DOTFILES}/zsh/functions/log"
+
+log start "pre setup apt"
+
+sudo apt-get update
+sudo apt-get --yes upgrade
+
+command -v git &>/dev/null || sudo apt-get --yes install git
+
+log finish "pre setup apt"

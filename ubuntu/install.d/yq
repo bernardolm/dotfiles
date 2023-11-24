@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+log info "installing yq (yaml loader)"
+
+[ ! -f "$HOME/.local/bin/yq" ] && \
+    curl -sL 'https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64' \
+        -o "$HOME/.local/bin/yq" && \
+    chmod u+x "$HOME/.local/bin/yq" && \
+    echo " ✔️"

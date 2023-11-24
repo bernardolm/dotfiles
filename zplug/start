@@ -4,26 +4,36 @@ log start "zplug start"
 
 . "${DOTFILES}/zplug/install"
 
-# zplug clear
+while true; do
+    if [ -f "${ZPLUG_HOME}/init.zsh" ]; then
+        log debug "sourcing zplug init"
+        source "${ZPLUG_HOME}/init.zsh"
+        break
+    fi
+    log debug "waiting zplug be installed..."
+    sleep 1
+done
+
+zplug clear
 
 local plugins_list=($(zsh_plugins_list))
 
 for p in $plugins_list; do
-    log info "calling zplug to $p"
+    log debug "calling zplug to $p"
     zplug "$p"
 done
+
+if ! zplug check; then
+    log warn "zplug is installing new plugins"
+    $SHELL_DEBUG && zplug install --verbose || zplug install
+fi
+
+log info "loading zplug plugins"
+# $SHELL_DEBUG && zplug load --verbose || zplug load
+zplug load
 
 # zplug "dracula/zsh", as:theme
 zplug "dracula/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
-
-if ! zplug check; then
-    log warn "zplug is installing new plugins"
-    zplug install 1>/dev/null
-    # zplug install --verbose
-fi
-
-log info "loading zplug plugins"
-zplug load
 
 log finish "zplug start"

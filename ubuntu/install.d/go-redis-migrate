@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+log info "installing go-redis-migrate"
+
+[ ! -f ~/.local/bin/go-redis-migrate ] && \
+    curl -sL 'https://github.com/obukhov/go-redis-migrate/releases/' \
+        'download/v2.0/go-redis-migrate-v2-linux' \
+        -o ~/.local/bin/go-redis-migrate && \
+    chmod u+x ~/.local/bin/go-redis-migrate && \
+    echo " ✔️"

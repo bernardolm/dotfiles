@@ -1,20 +1,14 @@
 #!/usr/bin/env zsh
 
-command -v zsh >/dev/null || (echo 'you needs to install zsh before' && return)
-
-# find ~ -maxdepth 1 -name "*.bkp" -delete
-# find ~ -maxdepth 1 -name '.zcompdump*' -delete
+command -v zsh >/dev/null || echo 'you needs to install zsh before' && return
 
 local files=('.zlogin' '.zlogout' '.zprofile' '.zshenv' '.zshrc')
 for f in $files; do
     dest_path="${HOME}/${f}"
     if [ ! -L "$dest_path" ]; then
-        # [ -e "$dest_path" ] && mv "$dest_path" "${dest_path}_${TIMESTAMP}.bkp"
         ln -sf "${DOTFILES}/zsh/zdotdir/${f}" "$dest_path"
     fi
 done
-
-# zsh_plugins_install
 
 [ ! -f "$ZSH/plugins/docker/_docker" ] && \
     curl -sL 'https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker' \

@@ -1,0 +1,15 @@
+# C:\Users\bernardo\.wslconfig
+
+[wsl2]
+debugConsole=true
+ipv6=false
+localhostForwarding=false
+networkingMode=bridged
+swap=0
+vmSwitch=WSL
+
+[experimental]
+dnsTunneling=true
+firewall=false
+networkingMode="mirrored"
+sparseVhd=true

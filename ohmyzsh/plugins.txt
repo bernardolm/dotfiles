@@ -1,41 +1,62 @@
-# aws
-# fzf
-# heroku
-# kubectl
-# rsync
+# globalias
+# gpg-agent
+# keychain
 # ssh-agent
 1password
+ag
+alias-finder
 aliases
-battery
-bgnotify
 colored-man-pages
 colorize
 command-not-found
 common-aliases
 cp
+debian
 docker
-docker-compose
 emoji
 emoji-clock
 extract
-gh
+fzf
 git
+git-auto-fetch
+git-commit
+git-escape-magic
+git-extras
 git-flow
+git-flow-avh
+git-hubflow
+git-lfs
+git-prompt
+gitfast
 github
+gitignore
+gnu-utils
 golang
-gpg-agent
 history
-lein
+history-substring-search
+jsontools
+last-working-dir
+lol
 magic-enter
 man
+nanoc
 nmap
 pip
+pre-commit
 python
+repo
+rsync
+safe-paste
 screen
-sublime
+starship
 sudo
+systemadmin
+systemd
 thefuck
+themes
 timer
+transfer
 ubuntu
-vscode
+ufw
+zsh-interactive-cd
 zsh-navigation-tools

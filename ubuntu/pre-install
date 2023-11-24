@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+log start "pre setup ubuntu"
+
+# command -v sudo &>/dev/null || \
+#     log error "you should install sudo before" && \
+#     function sudo() {
+#         eval $@
+#     }
+
+# log info "setup language and locale"
+export LANGUAGE=en_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+sudo locale-gen en_US.UTF-8
+
+. "${DOTFILES}/apt/pre-install"
+
+log finish "pre setup ubuntu"

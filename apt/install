@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+
+# shellcheck source=/dev/null
+# . "${DOTFILES}/zsh/functions/log"
+
+log start "setup apt packages"
+
+log info "install base apt packages"
+
+sudo apt-get install --no-install-recommends --yes \
+	$(cat apt/base.yaml | grep -v '\s+#' | yq '.[2].apt_in')
+
+log info "purge base apt packages"
+
+sudo apt-get purge --yes \
+	$(cat apt/base.yaml | grep -v '\s+#' | yq '.[3].apt_out')
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/apt/setup-sources"
+
+log info "install 3rd party apt packages"
+
+sudo apt-get install --no-install-recommends --yes \
+	$(cat apt/3rd_party.yaml | grep -v '\s+#' | yq '.[2].apt')
+
+log info "fixing broken apt packages"
+
+sudo apt-get install --no-install-recommends --yes -f
+
+log info "install pro apt packages"
+
+sudo apt-get install --no-install-recommends --yes \
+	$(cat apt/pro.yaml | grep -v '\s+#' | yq '.[2].apt')
+
+log info "install other apt packages"
+
+sudo apt-get install --no-install-recommends --yes \
+	ttf-mscorefonts-installer
+
+log info "remove hold apt packages"
+
+sudo dpkg --get-selections | \
+	grep hold | xargs -x sudo apt-get autoremove
+
+log finish "setup apt packages"

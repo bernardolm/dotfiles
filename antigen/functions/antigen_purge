@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 function antigen_purge() {
-    log_info "antigen_purge"
+    log info "antigen_purge"
 
     find "$HOME" -maxdepth 1 -name '*.zcompdump*' -delete -true # completion cache
     find "$HOME" -maxdepth 5 -name '*.zwc' -delete -true

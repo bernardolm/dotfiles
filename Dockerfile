@@ -1,22 +1,24 @@
 FROM ubuntu:jammy
 
-ARG DEBIAN_FRONTEND=noninteractive
-ENV NO_COLOR=0
+ARG GIDH=999
+ARG UIDH=999
+ARG USER=bot
 ENV TERM=xterm-256color
 WORKDIR /opt/dotfiles
 
-RUN apt-get update
-RUN apt-get --yes upgrade
-RUN apt-get install --yes \
-    curl \
-    fontconfig \
-    gconf2 \
-    git \
-    gnome-shell-extensions \
-    libglib2.0-bin \
-    make \
-    python3-pip \
-    sudo \
-    ttf-mscorefonts-installer
+RUN apt-get update && \
+    apt-get --no-install-recommends --yes install \
+    sudo locales apt-utils dialog
 
-ENTRYPOINT [ "make", "setup" ]
+# to turn tests fast
+RUN apt-get --yes upgrade
+RUN apt-get --no-install-recommends --yes install \
+    git
+# to turn tests fast
+
+RUN groupadd -g ${GIDH} ${USER} && \
+    useradd --create-home -u ${UIDH} -g ${GIDH} ${USER} && \
+    usermod -a -G sudo,${USER} ${USER} && \
+    echo "${USER} ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
+
+ENTRYPOINT [ "./install-pristine" ]

@@ -3,48 +3,51 @@
 
 MAKEFLAGS += --silent
 PWD=$(shell pwd)
-DOTBOT_CMD="DOTBOT_DIR=./git/modules/dotbot ./install -vv"
+DOTBOT_CMD="./install"
 
-default: reset
-	@echo "starting docker to test first steps ubuntu"
-	@docker build --progress tty -t=dotfiles:test .
-	@docker run --rm -it \
-		-e DOTFILES=/opt/dotfiles \
-		-e SYNC_DOTFILES=/opt/sync \
-		-v /var/lib/apt/lists:/var/lib/apt/lists \
-		-v ${PWD}:/opt/dotfiles \
-		-v ${HOME}/sync:/opt/sync \
-		-w /opt/dotfiles \
+test: reset
+	echo "building docker image to test first steps ubuntu"
+	docker build \
+		--build-arg="UIDH=$(shell id -u)" \
+		--build-arg="USER=${USER}" \
+		--build-arg="GIDH=$(shell grep ${USER} /etc/passwd | cut -d: -f4)" \
+		--progress=plain \
+		-t=dotfiles:test \
+		.
+	echo "starting docker container"
+	docker run --rm -it \
+		--user ${USER} \
+		-e DOTFILES=/home/${USER}/dotfiles \
+		-e SYNC_DOTFILES=/home/${USER}/sync \
+		-e USER=${USER} \
+		-v /etc/apt/sources.list:/etc/apt/sources.list:ro \
+		-v ${HOME}/Dropbox:/home/${USER}/Dropbox:ro \
+		-v ${PWD}:/home/${USER}/dotfiles:ro \
+		-v ${PWD}/.git:/home/${USER}/dotfiles/.git \
+		-v ${PWD}/git/modules:/home/${USER}/dotfiles/git/modules \
+		-w /home/${USER}/dotfiles \
 		dotfiles:test
 
 reset:
-	@reset
+	reset
 
 pre:
-	sudo ${PWD}/pre-install
+	sudo ${PWD}/pre-setup
 
-base:
-	eval ${DOTBOT_CMD} -c dotbot/base.yaml
+# golang:
+# 	eval ${DOTBOT_CMD} -c dotbot/go.yaml \
+# 		--except go
 
-apt:
-	eval ${DOTBOT_CMD} -c dotbot/apt.yaml \
-		-p git/modules/dotbot-sudo/sudo.py \
-		--except apt,apt_esm
+# pip:
+# 	eval ${DOTBOT_CMD} -c dotbot/pip.yaml \
+# 		-p git/modules/dotbot-pip/pip.py
 
-golang:
-	eval ${DOTBOT_CMD} -c dotbot/go.yaml \
-		--except go
+# snap:
+# 	eval ${DOTBOT_CMD} -c dotbot/snap.yaml \
+# 		-p git/modules/dotbot-snap/snap.py
 
-pip:
-	eval ${DOTBOT_CMD} -c dotbot/pip.yaml \
-		-p git/modules/dotbot-pip/pip.py
+# post:
+# 	eval ${DOTBOT_CMD} -c dotbot/post.yaml \
+# 		-p git/modules/dotbot-sudo/sudo.py
 
-snap:
-	eval ${DOTBOT_CMD} -c dotbot/snap.yaml \
-		-p git/modules/dotbot-snap/snap.py
-
-post:
-	eval ${DOTBOT_CMD} -c dotbot/post.yaml \
-		-p git/modules/dotbot-sudo/sudo.py
-
-setup: reset pre base apt pip snap golang post
+# setup: reset pre base apt pip snap golang post

@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+log info "installing lscolors.sh"
+
+[ ! -f ~/.local/bin/lscolors.sh ] && \
+    curl -sL 'https://github.com/trapd00r/LS_COLORS/blob/master/lscolors.sh' \
+        -o ~/.local/bin/lscolors.sh && \
+    . ~/.local/bin/lscolors.sh && \
+    echo " ✔️"

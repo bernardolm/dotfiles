@@ -1,38 +1,23 @@
 #!/usr/bin/env zsh
 
-[ ! -f ~/.local/bin/dropbox.py ] && \
-    curl -sL 'https://linux.dropbox.com/packages/dropbox.py' \
-        -o ~/.local/bin/dropbox.py
-    chmod u+x ~/.local/bin/dropbox.py
+log start "ubuntu setup"
 
-[ ! -f ~/.local/bin/gnome-shell-extension-installer ] && \
-    curl -sL 'https://raw.githubusercontent.com/brunelli/' \
-        'gnome-shell-extension-installer/master/' \
-        'gnome-shell-extension-installer' \
-        -o ~/.local/bin/gnome-shell-extension-installer && \
-    chmod u+x ~/.local/bin/gnome-shell-extension-installer
+log info "calling dotbot to create sym links and others"
 
-[ ! -f ~/.local/bin/go-redis-migrate ] && \
-    curl -sL 'https://github.com/obukhov/go-redis-migrate/releases/' \
-        'download/v2.0/go-redis-migrate-v2-linux' \
-        -o ~/.local/bin/go-redis-migrate && \
-    chmod u+x ~/.local/bin/go-redis-migrate
+# ./install --exit-on-failure \
+#     -c ubuntu/links.yaml
 
-[ ! -f ~/.local/bin/slugify ] && \
-    curl -sL 'https://raw.githubusercontent.com/benlinton/slugify/master/slugify' \
-        -o ~/.local/bin/slugify && \
-    chmod u+x ~/.local/bin/slugify
+# [ ! -f /usr/bin/curl ] && \
+#     log info "installing curl" && \
+#     sudo apt-get install --no-install-recommends --yes curl
 
-[ ! -f ~/.local/bin/theme.sh ] && \
-    curl -sL 'https://git.io/JM70M' -o ~/.local/bin/theme.sh && \
-    chmod u+x ~/.local/bin/theme.sh
+for file in ${DOTFILES}/ubuntu/install.d/*; do
+    . "$file"
+done
 
-[ ! -f ~/.local/bin/revolver ] && \
-    curl -sL 'https://raw.githubusercontent.com/molovo/revolver/master/revolver' \
-        -o ~/.local/bin/revolver && \
-    chmod u+x ~/.local/bin/revolver
+# shellcheck source=/dev/null
+# . "${DOTFILES}/apt/install"
 
-[ ! -f ~/.local/bin/lscolors.sh ] && \
-    curl -sL 'https://github.com/trapd00r/LS_COLORS/blob/master/lscolors.sh' \
-        -o ~/.local/bin/lscolors.sh && \
-    source ~/.local/bin/lscolors.sh
+# sudo apt install -y bc fzf nano curl git python3-distutils
+
+log finish "ubuntu setup"

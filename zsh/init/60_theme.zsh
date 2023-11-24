@@ -1,7 +1,7 @@
 return
 
 if command -v theme.sh > /dev/null; then
-	log_info "applying theme"
+	log info "applying theme"
 
 	[ -e ~/.theme_history ] && theme.sh "$(theme.sh -l|tail -n1)"
 
@@ -13,5 +13,5 @@ if command -v theme.sh > /dev/null; then
 	zle -N last_theme
 	bindkey '^O' last_theme
 else
-	log_warn "theme.sh not found"
+	log warn "theme.sh not found"
 fi

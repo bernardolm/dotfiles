@@ -1,8 +1,7 @@
 #!/usr/bin/env zsh
 
-INFLUX_URL="http://$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' influxdb):8086"
-
 docker run \
+    --health-start-period 5s \
     --name chronograf \
     --restart always \
     -d \

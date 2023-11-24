@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+log info "installing gnome-shell-extension-installer"
+
+[ ! -f ~/.local/bin/gnome-shell-extension-installer ] && \
+    curl -sL 'https://raw.githubusercontent.com/brunelli/' \
+        'gnome-shell-extension-installer/master/' \
+        'gnome-shell-extension-installer' \
+        -o ~/.local/bin/gnome-shell-extension-installer && \
+    chmod u+x ~/.local/bin/gnome-shell-extension-installer && \
+    echo " ✔️"
