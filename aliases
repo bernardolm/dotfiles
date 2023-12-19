@@ -14,7 +14,6 @@ alias gfp='git fetch --prune'
 alias go-fix='goimports -w ./..'
 alias go-test='go-fix ; go clean -testcache ; go test ./...'
 alias go-upgrade='bash -c "sudo $WORKSPACE_USER/update-golang/update-golang.sh"'
-alias gofix='goimports-here ; gofmt-here ; go mod tidy'
 alias gsl='git stash list'
 alias gst="git status --branch --show-stash --untracked-files=all --ignore-submodules=untracked --column=always --renames --find-renames=70%"
 alias gt='go test ./...'

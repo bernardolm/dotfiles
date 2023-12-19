@@ -1,9 +1,9 @@
 #!/usr/bin/env zsh
 
 function log() {
-    level=$1
+    local level=$1
 
-    silenced_levels=("debug" "start" "finish")
+    local silenced_levels=("debug" "start" "finish")
 
     if ! $SHELL_DEBUG; then
         if [[ ${silenced_levels[@]} =~ $level ]]; then

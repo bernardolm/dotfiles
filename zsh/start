@@ -6,7 +6,7 @@ $SHELL_DEBUG && set -x
 
 log start "zsh setup"
 
-local autoload_this
+local autoload_this &>/dev/null
 
 function autoload_this() {
     local functions_path
@@ -14,13 +14,14 @@ function autoload_this() {
     functions_path=( $(eval echo "$functions_path") )
 
     for d in $functions_path; do
+        log debug "zsh autoload ${d}"
         fpath+=("$d")
         autoload -Uz ${d}/*(:t)
     done
 }
 
-autoload_this "/home/bernardo/workspaces/bernardolm/dotfiles/**/functions"
-autoload_this "/home/bernardo/sync/**/functions"
+autoload_this "${HOME}/workspaces/bernardolm/dotfiles/**/functions"
+autoload_this "${HOME}/sync/**/functions"
 
 # autoload -Uz +X compaudit zrecompile # needs description
 # autoload -Uz +X bashcompinit; bashcompinit # need to be the first
@@ -37,7 +38,11 @@ autoload -Uz +X promptinit; promptinit # zsh prompt themes extension completion 
 iterate_and_load "dotfiles zsh init" "${DOTFILES}/zsh/init" "*.zsh" "sort"
 iterate_and_load "sync zsh init" "${SYNC_DOTFILES}/zsh/init" "*.zsh" "sort"
 
-zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+setopt automenu nolistambiguous
+zstyle ':completion:*' menu select
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+zstyle :compinstall filename "${HOME}/.zshrc"
 
 log finish "zsh setup"
 

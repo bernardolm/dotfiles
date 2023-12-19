@@ -2,18 +2,18 @@
 
 function iterate_and_load() {
     local msg="$1"
+    log start "$msg"
+
     local find_path="$2"
     local find_term="$3"
     local filter_fn="$4"
 
-    log start "$msg"
+    log debug "find_path=${find_path} • find_term=${find_term} • filter_fn=${filter_fn}"
 
-    local cmd="find $find_path -name '$find_term' -print 2>/dev/null | $filter_fn"
-
-    log debug "$cmd"
-
-    eval "$cmd" | while read -r script_file; do
-        log debug "$script_file"
+    eval find "${find_path}" -name "${find_term}" -print 2>/dev/null | \
+        "${filter_fn}" | \
+        while read -r script_file; do
+        log debug "loading $script_file"
         # shellcheck source=/dev/null
         . "$script_file"
     done

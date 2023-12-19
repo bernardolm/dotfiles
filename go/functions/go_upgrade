@@ -1,0 +1,50 @@
+#!/usr/bin/env zsh
+
+function go_upgrade() {
+    # shell_debug_relay=$SHELL_DEBUG
+    # SHELL_DEBUG=true
+
+    local latest_version
+    latest_version=$(curl -sL "https://go.dev/dl/?mode=json" | \
+        jq --raw-output 'map(select(.stable==true)) | first | .version')
+
+    local current_version
+
+    if $(command -v go &> /dev/null); then
+        current_version=$(go version | cut -d' ' -f 3)
+    fi
+
+    if [ "${current_version}" == "" ]; then
+        log info "go(lang) was not installed yet"
+
+    elif [ "${current_version}" == "${latest_version}" ]; then
+        log info "you are already using the latest version $latest_version"
+        return
+
+    else
+        log info "the current version is $current_version \nand the latest version is $latest_version"
+
+    fi
+
+    local filename
+    filename="${latest_version}.linux-amd64.tar.gz"
+
+    local source_path
+    source_path="$USER_TMP/${filename}"
+
+    log debug "downloading 'https://go.dev/dl/${filename}'..."
+
+    test -f "${source_path}" && /bin/rm -rf "${source_path}"
+
+    curl -sL "https://go.dev/dl/${filename}" -o "${source_path}"
+
+    sudo /bin/rm -rf /usr/local/go
+
+    log debug "extracting ${filename} to /usr/local/go..."
+
+    sudo tar -C /usr/local -xzf "${source_path}"
+
+    go version
+
+    # SHELL_DEBUG=$shell_debug_relay
+}

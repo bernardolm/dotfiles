@@ -19,7 +19,7 @@ zplug clear
 local plugins_list=($(zsh_plugins_list))
 
 for p in $plugins_list; do
-    log debug "calling zplug to $p"
+    log debug "zplug adding $p"
     zplug "$p"
 done
 
@@ -28,7 +28,7 @@ if ! zplug check; then
     $SHELL_DEBUG && zplug install --verbose || zplug install
 fi
 
-log info "loading zplug plugins"
+log debug "zplug plugins loading"
 # $SHELL_DEBUG && zplug load --verbose || zplug load
 zplug load
 
