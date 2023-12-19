@@ -73,3 +73,6 @@
 
 [include]
     path = ~/sync/git/.gitconfig
+
+[safe]
+	directory = /home/bernardo/workspaces/bernardolm/dotfiles/git/modules/dotbot
