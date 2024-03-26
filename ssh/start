@@ -1,39 +1,71 @@
 #!/usr/bin/env zsh
 
+return
+
 # shell_debug_relay=$SHELL_DEBUG
 # SHELL_DEBUG=true
 
+(which log | grep DOTFILES 1>/dev/null) || function log { shift ; /bin/echo $@ }
+
 log start "ssh setup"
 
-killall -9 ssh-agent 2>/dev/null
+# killall -9 ssh-agent 2>/dev/null
 
 function ssh_agent_start() {
-    log debug "starting ssh-agent..."
+    log debug "starting ssh agent..."
 
-    /bin/rm -f ~/.ssh/ssh-agent.ppid || true
-    ssh-agent -a ~/.ssh/ssh-agent.ppid -s -t 99999 | tee ~/.ssh/ssh-agent &>/dev/null
-    source ~/.ssh/ssh-agent &>/dev/null
+    rm -f /run/user/1000/ssh-agent.socket
+    ssh-agent -t $twenty_four_hours_in_seconds -a $SSH_AUTH_SOCK
 }
 
-ssh_agent_start
+function ssh_agent_ppid() {
+    pgrep -x ssh-agent
+}
 
-if [ "${SSH_AGENT_PID}" -eq "" ]; then
-    SSH_AGENT_PID=$(ps axf | grep ssh-agent | grep -v grep | awk '{print $1}')
+function pub_key_get() {
+    cat "$HOME/.ssh/id_ed25519.pub" | awk '{print $2}'
+}
+
+function ssh_agent_check_loaded_my_key () {
+    ret=$(ssh-add -L | grep -c $pub_key | bc)
+    [ $ret -gt 0 ]
+}
+
+function list_loaded_keys() {
+    $SHELL_DEBUG && ssh-add -L | awk '{print $2}'
+}
+
+if $SHELL_DEBUG; then
+    killall -9 ssh-agent
+    rm -f /run/user/1000/ssh-agent.socket
 fi
 
-log debug "SSH_AGENT_PID=${SSH_AGENT_PID} •" \
-            "SSH_AUTH_SOCK=${SSH_AUTH_SOCK} •" \
-            "SSH_CONNECTION=${SSH_CONNECTION}"
+local twenty_four_hours_in_seconds=86400
+local pub_key=$(pub_key_get)
 
-if [[ "$SSH_AGENT_PID" == "" ]] || [[ "$SSH_AUTH_SOCK" == "" ]]; then
-    log error "ssh-agent was killed unexpectedly, can't continue to add the keys"
-    return
+log debug "pub_key=${pub_key}"
+
+log debug "ssh_agent_ppid=$(ssh_agent_ppid)"
+log debug "SSH_AGENT_PID=${SSH_AUTH_SOCK}"
+log debug "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"
+log debug "SSH_CONNECTION=${SSH_CONNECTION}"
+
+if [ -z "$(ssh_agent_ppid)" ]; then
+    ssh_agent_start
+
+    log debug "ssh_agent_ppid=$(ssh_agent_ppid)"
+    log debug "SSH_AGENT_PID=${SSH_AUTH_SOCK}"
+    log debug "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"
+    log debug "SSH_CONNECTION=${SSH_CONNECTION}"
 fi
 
-log debug "adding my keys to agent..."
-ssh-add "${HOME}/.ssh/id_ed25519" &>/dev/null
+if ! ssh_agent_check_loaded_my_key; then
+    log debug "adding my keys to ssh agent..."
+    ssh-add "$HOME/.ssh/id_ed25519"
 
-log debug "ssh keys loaded: $(ssh-add -L | cut -d' ' -f1)"
+    log debug "new ssh keys loaded:"
+    $SHELL_DEBUG && list_loaded_keys
+fi
 
 log finish "ssh setup"
 
