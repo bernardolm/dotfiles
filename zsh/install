@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-command -v zsh >/dev/null || echo 'you needs to install zsh before' && return
+command -v zsh >/dev/null || (echo 'you needs to install zsh before' && return)
 
 local files=('.zlogin' '.zlogout' '.zprofile' '.zshenv' '.zshrc')
 for f in $files; do

@@ -39,6 +39,9 @@ fi
 . "${DOTFILES}/ohmyzsh/start"
 
 # shellcheck source=/dev/null
+. "${DOTFILES}/ohmyzsh/start"
+
+# shellcheck source=/dev/null
 # . "${DOTFILES}/ohmyposh/start"
 
 # shellcheck source=/dev/null

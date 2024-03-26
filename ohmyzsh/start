@@ -2,7 +2,11 @@
 
 log start "ohmyzsh setup"
 
-[ -d ${ZSH} ] || . "${DOTFILES}/ohmyzsh/install"
+fpath=( "${DOTFILES}/ohmyzsh/functions" "${fpath[@]}" )
+
+autoload -z -d ${DOTFILES}/ohmyzsh/functions/*(.:t)
+
+. "${DOTFILES}/ohmyzsh/install"
 
 zstyle ':omz:lib:directories' aliases no
 zstyle ':omz:lib:docker-compose' aliases no

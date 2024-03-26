@@ -4,5 +4,5 @@ function ls_2_exa() {
     command -v exa &> /dev/null || sudo apt-get install exa
     args="$@"
     args=$(echo $args | sed 's/A/a/g')
-    eval "/usr/bin/exa --all --oneline --long --classify --icons --color always --group-directories-first --header --octal-permissions $args"
+    eval "/usr/bin/exa --all --oneline --long --classify --icons --color always --group-directories-first --header --octal-permissions --extended $args"
 }

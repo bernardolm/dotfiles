@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 docker run \
+    --expose 8086 \
     --name influxdb \
     --restart always \
     -d \

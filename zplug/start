@@ -19,18 +19,17 @@ zplug clear
 local plugins_list=($(zsh_plugins_list))
 
 for p in $plugins_list; do
-    log debug "zplug adding $p"
+    log debug "zplug: $p"
     zplug "$p"
 done
 
 if ! zplug check; then
-    log warn "zplug is installing new plugins"
+    log warn "zplug: installing new plugins"
     $SHELL_DEBUG && zplug install --verbose || zplug install
 fi
 
-log debug "zplug plugins loading"
-# $SHELL_DEBUG && zplug load --verbose || zplug load
-zplug load
+log info "zplug: loading"
+$SHELL_DEBUG && zplug load --verbose || zplug load
 
 # zplug "dracula/zsh", as:theme
 zplug "dracula/zsh-syntax-highlighting"
