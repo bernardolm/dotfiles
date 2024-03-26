@@ -1,12 +1,27 @@
 #!/usr/bin/env zsh
 
+docker_image_name="${USER}/mosquitto:latest"
+
+if [ -z "$(docker images -q $docker_image_name 2> /dev/null)" ]; then
+    uid=$(id -u)
+
+    docker build \
+        --build-arg "muid=${uid}" \
+        -f "${DOTFILES}/mosquitto/Dockerfile" \
+        -t $docker_image_name \
+        "${DOTFILES}/mosquitto"
+fi
+
 docker run \
-    --restart always \
-    -d \
     --name mosquitto \
+    --restart always \
+    --rm \
+    -d \
     -p 1883:1883 \
     -p 9001:9001 \
-    -v "$DOTFILES/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro" \
-    -v "$SYNC_DOTFILES/mosquitto:/mosquitto" \
-    eclipse-mosquitto:2.0.17
- 
+    -v "${DOTFILES}/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro" \
+    -v "${SYNC_DOTFILES}/mosquitto/data:/mosquitto/data" \
+    -v "${SYNC_DOTFILES}/mosquitto/log:/mosquitto/log" \
+    -v "${SYNC_DOTFILES}/mosquitto/passwd:/mosquitto/passwd" \
+    -v /etc/localtime:/etc/localtime:ro \
+    $docker_image_name
