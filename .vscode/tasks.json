@@ -1,0 +1,33 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "removing extensions",
+      "type": "shell",
+      "windows": {
+        "command": "echo 'not supported on windows'"
+      },
+      "command": "cpp -P -E ./.vscode/my-extensions.json | jq -r '.uninstall[]' | while read i; do code --force --uninstall-extension $i; done",
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      // "presentation": {
+      //   "reveal": "silent"
+      // }
+    },
+    {
+      "label": "installing extensions",
+      "type": "shell",
+      "windows": {
+        "command": "echo 'not supported on windows'"
+      },
+      "command": "cpp -P -E ./.vscode/my-extensions.json | jq -r '.install[]' | while read i; do code --force --install-extension $i; done",
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
+      // "presentation": {
+      //   "reveal": "silent"
+      // }
+    }
+  ]
+}
