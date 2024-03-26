@@ -1,6 +1,11 @@
 #!/usr/bin/env zsh
 
 function auto-ls-custom_function() {
-    echo -e "\nauto-ls-custom_function:\n"
-    exa -lGxFa --icons --group-directories-first --no-filesize --no-user
+    $SHELL_DEBUG && echo -n $funcstack[1]":\n"
+
+    local files=$(find . -maxdepth 1 -type f | wc -l)
+    local hiddenFiles=$(find . -maxdepth 1 -type f | grep "./." | wc -l)
+    local folders=$(find . -maxdepth 1 -type d | wc -l)
+
+    SHELL_DEBUG=true log info "there are $PURPLE $files $NC$CYAN files ($ROSE $hiddenFiles $NC$CYAN hidden) and $PURPLE $folders $NC$CYAN folders in this path."
 }

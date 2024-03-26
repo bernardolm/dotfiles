@@ -42,6 +42,9 @@ fi
 # . "${DOTFILES}/ohmyposh/start"
 
 # shellcheck source=/dev/null
+. "${DOTFILES}/tabby/start"
+
+# shellcheck source=/dev/null
 . "${DOTFILES}/starship/start"
 
 # shellcheck source=/dev/null

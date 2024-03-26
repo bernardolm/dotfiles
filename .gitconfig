@@ -38,6 +38,18 @@
         git update-index --add --cacheinfo \"$info,$new\" && \
         git rm --cached \"$old\"; \
     }; f"
+	build = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"build(${scope}): ${@}\"; else git commit -m \"build: ${@}\"; fi }; a"
+	chore = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"chore(${scope}): ${@}\"; else git commit -m \"chore: ${@}\"; fi }; a"
+	ci = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"ci(${scope}): ${@}\"; else git commit -m \"ci: ${@}\"; fi }; a"
+	docs = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"docs(${scope}): ${@}\"; else git commit -m \"docs: ${@}\"; fi }; a"
+	feat = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"feat(${scope}): ${@}\"; else git commit -m \"feat: ${@}\"; fi }; a"
+	fix = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"fix(${scope}): ${@}\"; else git commit -m \"fix: ${@}\"; fi }; a"
+	perf = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"perf(${scope}): ${@}\"; else git commit -m \"perf: ${@}\"; fi }; a"
+	refactor = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"refactor(${scope}): ${@}\"; else git commit -m \"refactor: ${@}\"; fi }; a"
+	revert = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"revert(${scope}): ${@}\"; else git commit -m \"revert: ${@}\"; fi }; a"
+	style = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"style(${scope}): ${@}\"; else git commit -m \"style: ${@}\"; fi }; a"
+	test = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"test(${scope}): ${@}\"; else git commit -m \"test: ${@}\"; fi }; a"
+	rev = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"revert(${scope}): ${@}\"; else git commit -m \"revert: ${@}\"; fi }; a"
 
 [merge]
     log = true

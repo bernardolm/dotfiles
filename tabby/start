@@ -1,0 +1,10 @@
+#!/usr/bin/env zsh
+
+# shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=true
+
+log start "tabby setup"
+
+log finish "tabby setup"
+
+# SHELL_DEBUG=$shell_debug_relay

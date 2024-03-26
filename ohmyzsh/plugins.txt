@@ -1,7 +1,6 @@
 # globalias
 # gpg-agent
 # keychain
-# ssh-agent
 1password
 ag
 alias-finder
@@ -48,6 +47,7 @@ repo
 rsync
 safe-paste
 screen
+ssh-agent
 starship
 sudo
 systemadmin

@@ -24,9 +24,9 @@ function chmod_reset() {
         "setup"
         "start"
     )
-    for p in "${patterns[@]}"; do
-        sudo find "$1" -name "$p" -exec sudo chmod u+x {} \;
-    done
+    # for p in "${patterns[@]}"; do
+    #     sudo find "$1" -name "$p" -exec sudo chmod u+x {} \;
+    # done
 
     # SHELL_DEBUG=$shell_debug_relay
     $SHELL_DEBUG && set +x
