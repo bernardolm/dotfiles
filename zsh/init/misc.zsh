@@ -1,7 +1,7 @@
 $SHELL_DEBUG && localectl status
 
 command -v thefuck >/dev/null && \
-    eval "$(thefuck --yeah --alias)"
+    eval "$(thefuck --alias)"
 
 [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 [ -f "${HOME}/.fzf.zsh" ] && . "${HOME}/.fzf.zsh"
@@ -19,3 +19,5 @@ if [ "$XDG_SESSION_TYPE" != "tty" ]; then
             tee "${SYNC_DOTFILES}/gnome_shell_extensions/${TIMESTAMP}.bkp" &>/dev/null
     fi
 fi
+
+bindkey "^s" emoji::cli

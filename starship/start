@@ -5,8 +5,7 @@
 unset STARSHIP_CONFIG
 
 export STARSHIP_CACHE=~/.starship/cache
-
-export STARSHIP_CONFIG="${DOTFILES}/starship/theme/custom.toml"
+export STARSHIP_CONFIG="${DOTFILES}/starship/theme/starship.toml"
 
 $SHELL_TRACE && env STARSHIP_LOG=trace starship module rust
 $SHELL_TRACE && env STARSHIP_LOG=trace starship timings

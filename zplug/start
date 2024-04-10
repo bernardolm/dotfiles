@@ -1,17 +1,26 @@
 #!/usr/bin/env zsh
 
+# shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=true
+
 log start "zplug start"
+
+$SHELL_DEBUG \
+    && /bin/rm -rf ~/.zplug ~/.cache/zplug \
+    && export ZPLUG_LOG_LOAD_SUCCESS=true \
+    && export ZPLUG_LOG_LOAD_FAILURE=true \
+    && export ZPLUG_VERBOSE="--verbose"
 
 . "${DOTFILES}/zplug/install"
 
 while true; do
     if [ -f "${ZPLUG_HOME}/init.zsh" ]; then
-        log debug "sourcing zplug init"
+        log debug "zplug: sourcing init"
         source "${ZPLUG_HOME}/init.zsh"
         break
     fi
-    log debug "waiting zplug be installed..."
-    sleep 1
+    log debug "zplug: waiting to be installed..."
+    sleep 3
 done
 
 zplug clear
@@ -20,19 +29,21 @@ local plugins_list=($(zsh_plugins_list))
 
 for p in $plugins_list; do
     log debug "zplug: $p"
-    zplug "$p"
+    zplug $p
 done
 
 if ! zplug check; then
     log warn "zplug: installing new plugins"
-    $SHELL_DEBUG && zplug install --verbose || zplug install
+    zplug install
 fi
 
-log info "zplug: loading"
-$SHELL_DEBUG && zplug load --verbose || zplug load
+log debug "zplug: loading"
+zplug load ${ZPLUG_VERBOSE}
 
 # zplug "dracula/zsh", as:theme
-zplug "dracula/zsh-syntax-highlighting"
+# zplug "dracula/zsh-syntax-highlighting"
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 log finish "zplug start"
+
+# SHELL_DEBUG=$shell_debug_relay

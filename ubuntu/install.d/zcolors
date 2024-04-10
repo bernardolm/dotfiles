@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+log info "installing zcolors"
+
+local __tmp_path="${ZSH_CUSTOM:-$ZSH/custom}/plugins/zcolors"
+
+[ ! -d "${__tmp_path}" ] \
+    && git clone --quiet \
+        https://github.com/marlonrichert/zcolors.git \
+        "${__tmp_path}" \
+    && autoload -Uz \
+        "${__tmp_path}/functions/zcolors" \
+    && zcolors >| ~/.zcolors \
+    && source ~/.zcolors \
+    && echo "✔️"

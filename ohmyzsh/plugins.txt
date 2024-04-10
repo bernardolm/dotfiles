@@ -1,62 +1,64 @@
+# 1password
+# ag
+# alias-finder
+# aliases
+# common-aliases # only ohmyzsh, but don't install
+# cp
+# debian
+# docker
+# emoji-clock
+# extract
+# fzf
+# git
+# git-auto-fetch
+# git-commit
+# git-escape-magic
+# git-extras
+# git-flow
+# git-flow-avh
+# git-hubflow
+# git-lfs
+# git-prompt
+# gitfast
+# github
+# gitignore
 # globalias
+# gnu-utils
+# golang
 # gpg-agent
+# history
+# jsontools
 # keychain
-1password
-ag
-alias-finder
-aliases
+# last-working-dir
+# lol
+# magic-enter
+# man
+# nanoc
+# nmap
+# pip
+# pre-commit
+# python
+# repo
+# rsync
+# safe-paste
+# screen
+# ssh-agent
+# starship
+# sudo
+# systemadmin
+# systemd
+# themes
+# timer
+# transfer
+# ubuntu
+# ufw
+# zsh-navigation-tools
 colored-man-pages
 colorize
 command-not-found
-common-aliases
-cp
-debian
-docker
 emoji
-emoji-clock
-extract
-fzf
-git
-git-auto-fetch
-git-commit
-git-escape-magic
-git-extras
-git-flow
-git-flow-avh
-git-hubflow
-git-lfs
-git-prompt
-gitfast
-github
-gitignore
-gnu-utils
-golang
-history
 history-substring-search
-jsontools
-last-working-dir
-lol
-magic-enter
-man
-nanoc
-nmap
-pip
-pre-commit
-python
-repo
-rsync
-safe-paste
-screen
-ssh-agent
-starship
-sudo
-systemadmin
-systemd
 thefuck
-themes
-timer
-transfer
-ubuntu
-ufw
+zcolors # ohmyzsh custom
+zsh-autosuggestions # ohmyzsh custom
 zsh-interactive-cd
-zsh-navigation-tools

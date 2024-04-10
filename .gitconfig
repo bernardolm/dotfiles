@@ -67,6 +67,7 @@
 [diff]
     renames = copies
     tool = meld
+	colorMoved = zebra
 
 [difftool "default-difftool"]
     cmd = code --wait --diff $LOCAL $REMOTE
@@ -88,3 +89,59 @@
 
 [safe]
 	directory = /home/bernardo/workspaces/bernardolm/dotfiles/git/modules/dotbot
+[color "status"]
+	branch = normal
+	added = 10 normal
+	updated = 10 normal
+	localbranch = normal
+	changed = 11 normal
+	header = normal
+	remotebranch = normal blink
+	nobranch = normal bold
+	unmerged = 9 normal
+	untracked = normal dim
+[color "branch"]
+	plain = normal
+	remote = normal blink
+	current = normal reverse
+	local = normal
+	upstream = normal blink
+[color "remote"]
+	hint = normal dim
+	success = 2 normal
+	error = 1 normal
+	warning = 3 normal
+[color "interactive"]
+	header = normal dim bold
+	prompt = 15 4
+	help = normal dim
+	error = normal bold
+[color "diff"]
+	commit = normal
+	newMoved = 15 3
+	oldMovedAlternativeDimmed = 7 5 dim
+	frag = normal dim
+	oldMovedAlternative = 7 5
+	contextBold = normal bold
+	newBold = 15 2 bold
+	context = normal
+	oldMoved = 7 3
+	oldBold = 7 1 bold
+	newMovedDimmed = 15 3 dim
+	func = normal dim
+	meta = normal dim
+	newDimmed = 15 2 dim
+	newMovedAlternative = 15 5
+	new = 15 2
+	newMovedAlternativeDimmed = 15 5 dim
+	whitespace = normal 9
+	oldMovedDimmed = 7 3 dim
+	oldDimmed = 7 1 dim
+	old = 7 1
+[color "decorate"]
+	branch = normal
+	tag = normal
+	remotebranch = normal blink
+	stash = normal dim
+	grafted = normal bold
+	HEAD = normal italic

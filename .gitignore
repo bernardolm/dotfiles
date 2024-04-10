@@ -4,6 +4,7 @@
 .zsh_history
 *.bin
 *.deb
+*.env
 *.log
 *.sqlite*
 *.tar.gz
@@ -14,8 +15,8 @@
 **/micro/buffers
 **/micro/plug
 *bluetooth*
+*fix*.txt
 *phone.py
 *venv/
 debian/*
 git/submodule/*
-*fix*.txt

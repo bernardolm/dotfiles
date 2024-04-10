@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-return
-
 # shell_debug_relay=$SHELL_DEBUG
 # SHELL_DEBUG=true
 
@@ -9,13 +7,14 @@ return
 
 log start "ssh setup"
 
-# killall -9 ssh-agent 2>/dev/null
-
 function ssh_agent_start() {
     log debug "starting ssh agent..."
 
     rm -f /run/user/1000/ssh-agent.socket
-    ssh-agent -t $twenty_four_hours_in_seconds -a $SSH_AUTH_SOCK
+    ssh-agent -t $twenty_four_hours_in_seconds -a $SSH_AUTH_SOCK | \
+        sed 's/^echo/#echo/' >> "${SSH_ENV}"
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
 }
 
 function ssh_agent_ppid() {
@@ -35,6 +34,17 @@ function list_loaded_keys() {
     $SHELL_DEBUG && ssh-add -L | awk '{print $2}'
 }
 
+function show_env_values() {
+    $SHELL_DEBUG || return
+    echo "---"
+    log debug "SSH_AGENT_PID=${SSH_AGENT_PID}"
+    log debug "ssh_agent_ppid=$(ssh_agent_ppid)"
+    log debug "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"
+    log debug "SSH_CONNECTION=${SSH_CONNECTION}"
+    log debug "SSH_ENV=${SSH_ENV}"
+    echo "---"
+}
+
 if $SHELL_DEBUG; then
     killall -9 ssh-agent
     rm -f /run/user/1000/ssh-agent.socket
@@ -45,18 +55,13 @@ local pub_key=$(pub_key_get)
 
 log debug "pub_key=${pub_key}"
 
-log debug "ssh_agent_ppid=$(ssh_agent_ppid)"
-log debug "SSH_AGENT_PID=${SSH_AUTH_SOCK}"
-log debug "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"
-log debug "SSH_CONNECTION=${SSH_CONNECTION}"
+SSH_ENV="$HOME/.ssh/environment"
+
+show_env_values
 
 if [ -z "$(ssh_agent_ppid)" ]; then
     ssh_agent_start
-
-    log debug "ssh_agent_ppid=$(ssh_agent_ppid)"
-    log debug "SSH_AGENT_PID=${SSH_AUTH_SOCK}"
-    log debug "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"
-    log debug "SSH_CONNECTION=${SSH_CONNECTION}"
+    show_env_values
 fi
 
 if ! ssh_agent_check_loaded_my_key; then

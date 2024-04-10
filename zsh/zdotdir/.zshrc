@@ -45,10 +45,10 @@ fi
 # . "${DOTFILES}/ohmyposh/start"
 
 # shellcheck source=/dev/null
-. "${DOTFILES}/tabby/start"
+. "${DOTFILES}/starship/start"
 
 # shellcheck source=/dev/null
-. "${DOTFILES}/starship/start"
+. "${DOTFILES}/tabby/start"
 
 # shellcheck source=/dev/null
 # . "${DOTFILES}/dropbox/start"

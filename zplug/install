@@ -1,9 +1,7 @@
 #!/usr/bin/env zsh
 
-log start "zplug install"
-
 if ! [[ -d "${HOME}/.zplug" ]]; then
-    curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+    log start "zplug install"
+    git clone --quiet https://github.com/zplug/zplug $ZPLUG_HOME
+    log finish "zplug install"
 fi
-
-log finish "zplug install"

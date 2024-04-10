@@ -1,5 +1,6 @@
 $SHELL_DEBUG && echo -e "\n👾 zshenv"
 
+# export SSH_AUTH_SOCK="${HOME}/.ssh/ssh-agent.socket"
 export AUTO_LS_CHPWD=true
 export AUTO_LS_COMMANDS=(custom_function)
 export AUTO_LS_NEWLINE=false
@@ -26,7 +27,6 @@ export SAVEHIST=999999
 export SHELL_DEBUG=false
 export SHELL_PROFILE=false
 export SHELL_TRACE=false
-# export SSH_AUTH_SOCK="${HOME}/.ssh/ssh-agent.socket"
 export SSH_AUTH_SOCK="/run/user/$(id -u)/ssh-agent.socket"
 export TERM="xterm-256color"
 export VISUAL=nano
