@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
 function docker_container_remove() {
-    docker_container_stop $@ || true
+    docker_container_stop $@
     docker rm $@
 }

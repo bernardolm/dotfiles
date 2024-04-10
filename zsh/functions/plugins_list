@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+function plugins_list() {
+    local plugins
+    /bin/cat < "$1" | grep -v '^#' | grep -v '^$' | while read -r line ; do
+        line=$(comment_remove $line)
+        plugins+="$line "
+    done
+    [ -z $plugins ] && return
+    echo $plugins
+}

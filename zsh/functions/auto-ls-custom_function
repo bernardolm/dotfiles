@@ -8,4 +8,6 @@ function auto-ls-custom_function() {
     local folders=$(find . -maxdepth 1 -type d | wc -l)
 
     SHELL_DEBUG=true log info "there are $PURPLE $files $NC$CYAN files ($ROSE $hiddenFiles $NC$CYAN hidden) and $PURPLE $folders $NC$CYAN folders in this path."
+
+    /bin/ls -lah
 }
