@@ -1,1 +1,23 @@
-bind Del delete all
+# bind Del delete all
+
+#bind 	DEL		delete			main
+#bind    ^H      backspace   	main
+
+# # set magic
+# # set rebinddelete
+
+set autoindent
+set constantshow
+set guidestripe 80
+set historylog
+set indicator
+set linenumbers # Displaying the Current Line Number
+# set mouse
+set positionlog
+set showcursor
+# set smarthome
+# set stateflags
+set tabsize 4
+set tabstospaces
+set trimblanks
+set unix
