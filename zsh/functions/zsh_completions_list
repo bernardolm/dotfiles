@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+function zsh_completions_list() {
+    plugins_list "${DOTFILES}/zsh/completions.txt"
+}

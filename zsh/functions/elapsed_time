@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+function elapsed_time {
+    start=$1
+    now=$(($(date +%s%N)/1000000))
+    elapsed=$(($now-$start))
+    echo "elapsed time: ${elapsed}ms"
+}

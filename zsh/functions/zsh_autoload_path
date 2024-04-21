@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+function zsh_autoload_path() {
+    _paths="$@"
+    for _path in "${_paths[@]}"; do
+        _path=($(eval echo $_path))
+        eval "fpath=( $_path ${fpath[@]} )"
+        for folder in "${_path[@]}"; do
+            for file in $folder/*; do
+                name=$(basename $file)
+                autoload -Uz $name
+            done
+        done
+    done
+}

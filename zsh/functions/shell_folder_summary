@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+function shell_folder_summary() {
+    local files=$(find . -maxdepth 1 -type f | wc -l)
+    local folders=$(find . -maxdepth 1 -type d | wc -l)
+    local hiddenFiles=$(find . -maxdepth 1 -type f | grep "./." | wc -l)
+    local overwrite_last_line='\e[1A\e[K'
+    local print_this="""📢  in $CLR_WHITE $PWD $NO_COLOR there are:
+📂  $CLR_PURPLE $folders $NO_COLOR folders
+📄  $CLR_ROSE $files $NO_COLOR files
+🗄️   $CLR_GREEN $hiddenFiles $NO_COLOR hidden files$NO_COLOR"""
+
+    echo -e "$overwrite_last_line$print_this"
+}
