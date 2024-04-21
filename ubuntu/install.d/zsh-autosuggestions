@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+return
+
 log info "installing zsh-autosuggestions"
 
 local __tmp_path="${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-autosuggestions"

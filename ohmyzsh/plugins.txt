@@ -53,12 +53,14 @@
 # ubuntu
 # ufw
 # zsh-navigation-tools
+# zsh-wakatime # ohmyzsh custom, without project detection
 colored-man-pages
 colorize
 command-not-found
 emoji
 history-substring-search
 thefuck
+wakatime # ohmyzsh custom, with project detection
 zcolors # ohmyzsh custom
 zsh-autosuggestions # ohmyzsh custom
 zsh-interactive-cd

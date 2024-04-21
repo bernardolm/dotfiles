@@ -8,8 +8,9 @@ command_timeout = 1000
 scan_timeout = 1000
 
 [hostname]
+format = 'at [$ssh_symbol $hostname]($style) in '
 ssh_only = false
-ssh_symbol = '📡 '
+ssh_symbol = '📡'
 style = 'bold red'
 
 [character]

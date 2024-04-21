@@ -1,6 +1,7 @@
-# johanhaleby/kubetail # only zplug, but don't install
+# johanhaleby/kubetail # only zplug, but don't install yet
 # laggardkernel/zsh-thefuck # prefer ohmyzsh
 # mrjohannchang/zsh-interactive-cd # prefer ohmyzsh
+# wbingli/zsh-wakatime # only zplug, but don't install, without project detection
 # zdharma-continuum/zsh-navigation-tools # prefer ohmyzsh
 # zsh-users/zsh-history-substring-search # prefer ohmyzsh
 babarot/emoji-cli
@@ -9,5 +10,6 @@ djui/alias-tips # only zplug
 HeroCC/LS_COLORS
 marlonrichert/zcolors # only zplug, but install raw
 reegnz/jq-zsh-plugin # only zplug
-wbingli/zsh-wakatime # only zplug
+sobolevn/wakatime-zsh-plugin # only zplug, with project detection
+zsh-users/zsh-autosuggestions # testing!
 zsh-users/zsh-syntax-highlighting # only zplug
