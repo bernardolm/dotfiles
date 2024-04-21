@@ -16,22 +16,22 @@ TEMP_PATH=~/tmp/git-update/${NOW}
 # Light Gray   0;37     White         1;37
 
 setopt ksh_arrays
-COLORIZE[0]="\033[0;31m"
-COLORIZE[1]="\033[0;32m"
-COLORIZE[2]="\033[0;33m"
-COLORIZE[3]="\033[0;34m"
-COLORIZE[4]="\033[0;35m"
-COLORIZE[5]="\033[0;36m"
-COLORIZE[6]="\033[0;37m"
-COLORIZE[7]="\033[1;30m"
-COLORIZE[8]="\033[1;31m"
-COLORIZE[9]="\033[1;32m"
-COLORIZE[10]="\033[1;33m"
-COLORIZE[11]="\033[1;34m"
-COLORIZE[12]="\033[1;35m"
-COLORIZE[13]="\033[1;36m"
-COLORIZE[14]="\033[1;37m"
-NC="\033[0m" # No Color
+local COLORIZE[0]="\033[0;31m"
+local COLORIZE[1]="\033[0;32m"
+local COLORIZE[2]="\033[0;33m"
+local COLORIZE[3]="\033[0;34m"
+local COLORIZE[4]="\033[0;35m"
+local COLORIZE[5]="\033[0;36m"
+local COLORIZE[6]="\033[0;37m"
+local COLORIZE[7]="\033[1;30m"
+local COLORIZE[8]="\033[1;31m"
+local COLORIZE[9]="\033[1;32m"
+local COLORIZE[10]="\033[1;33m"
+local COLORIZE[11]="\033[1;34m"
+local COLORIZE[12]="\033[1;35m"
+local COLORIZE[13]="\033[1;36m"
+local COLORIZE[14]="\033[1;37m"
+local NC="\033[0m" # No Color
 
 WAIT_FOR=0
 

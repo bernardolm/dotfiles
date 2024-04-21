@@ -20,8 +20,8 @@ function log_echo() {
     local output=$msg
 
     if ! command -v ansi2txt &>/dev/null; then
-        echo -e "${RED} you need to install colorized-logs package: ${NC}"
-        echo -e "${RED} sudo apt-get install --no-install-recommends --yes colorized-logs ${NC}"
+        echo -e "${CLR_RED} you need to install colorized-logs package: ${NO_COLOR}"
+        echo -e "${CLR_RED} sudo apt-get install --no-install-recommends --yes colorized-logs ${NO_COLOR}"
         function ansi2txt() {
             echo $@
         }

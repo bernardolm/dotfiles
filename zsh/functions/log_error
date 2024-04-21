@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function log_error() {
-    log_echo "💣 ${RED} $@ ${NC}"
+    log_echo "💣 ${CLR_RED} $@ ${NO_COLOR}"
 }
