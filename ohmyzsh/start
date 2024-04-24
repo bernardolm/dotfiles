@@ -2,10 +2,7 @@
 
 log start "ohmyzsh setup"
 
-fpath=( "${DOTFILES}/ohmyzsh/functions" "${fpath[@]}" )
-
-autoload -z -d ${DOTFILES}/ohmyzsh/functions/*(.:t)
-
+# shellcheck source=/dev/null
 . "${DOTFILES}/ohmyzsh/install"
 
 zstyle ':omz:lib:directories' aliases no
@@ -19,7 +16,8 @@ zstyle ':omz:update' mode disabled
 plugins=($(ohmyzsh_plugins_list))
 log debug "oh-my-zsh plugins loaded: '$plugins'"
 
-. "${ZSH}/oh-my-zsh.sh" &>/dev/null
+# shellcheck source=/dev/null
+. "${ZSH}/oh-my-zsh.sh"
 
 unalias sudo
 

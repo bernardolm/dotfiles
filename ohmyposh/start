@@ -1,5 +1,7 @@
 #!/usr/bin/env zsh
 
+return
+
 . "${DOTFILES}/ohmyposh/install"
 
 eval "$(oh-my-posh init zsh \

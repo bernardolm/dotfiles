@@ -1,0 +1,10 @@
+- defaults:
+    shell:
+      stderr: true
+      stdout: false
+
+- sudo:
+    - shell:
+
+- apt:
+    vlc

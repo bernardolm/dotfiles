@@ -44,7 +44,6 @@
 # screen
 # ssh-agent
 # starship
-# sudo
 # systemadmin
 # systemd
 # themes
@@ -52,15 +51,18 @@
 # transfer
 # ubuntu
 # ufw
-# zsh-navigation-tools
 # zsh-wakatime # ohmyzsh custom, without project detection
 colored-man-pages
 colorize
 command-not-found
 emoji
 history-substring-search
+sudo
 thefuck
+vscode
 wakatime # ohmyzsh custom, with project detection
+z
 zcolors # ohmyzsh custom
 zsh-autosuggestions # ohmyzsh custom
 zsh-interactive-cd
+zsh-navigation-tools

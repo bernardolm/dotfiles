@@ -17,7 +17,7 @@ export GREP_COLORS='mt=30;103'
 export HISTDUP=erase # erase duplicates in the history file
 export HYPHEN_INSENSITIVE=true
 export LANG="en_US.UTF-8"
-export LC_ALL=en_US.UTF-8
+export LC_ALL=C # LC_ALL=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LESS="-erX"
 export MICRO_TRUECOLOR=1
@@ -27,18 +27,18 @@ export SAVEHIST=999999
 export SHELL_DEBUG=false
 export SHELL_PROFILE=false
 export SHELL_TRACE=false
-export SSH_AUTH_SOCK="/run/user/$(id -u)/ssh-agent.socket"
 export TERM="xterm-256color"
 export VISUAL=nano
+export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#939393,bold,underline"
 export ZSH_HIGHLIGHT_MAXLENGTH=100
 export ZSH_THEME_RANDOM_QUIET=true
 export ZSH_THEME=random
 export ZSH_WAKATIME_PROJECT_DETECTION=true
 
-# export DOCKER_HOST="unix:///run/user/$(id -u)/docker.sock"
-export GPG_TTY="$(tty)"
-export NOW="$(date '+%H-%M-%S-%N')"
-export TODAY="$(date '+%F')"
+export GPG_TTY ; GPG_TTY="$(tty)"
+export NOW ; NOW="$(date '+%H-%M-%S-%N')"
+export SSH_AUTH_SOCK ; SSH_AUTH_SOCK="/run/user/$(id -u)/ssh-agent.socket"
+export TODAY ; TODAY="$(date '+%F')"
 
 export DOTFILES="${DOTFILES:=${HOME}/workspaces/bernardolm/dotfiles}"
 
@@ -74,6 +74,8 @@ fi
 export WORKSPACE_ORG="${HOME}/workspaces/${GITHUB_ORG}"
 export WORKSPACE_USER="${HOME}/workspaces/${GITHUB_USER}"
 
+export PATH; PATH="${PATH}:$(echo ~/.vscode-server/bin/*/bin)"
+export PATH; PATH="${PATH}:$(go env GOPATH)/bin"
 export PATH="${PATH}:/bin"
 export PATH="${PATH}:/home/linuxbrew/.linuxbrew/bin"
 export PATH="${PATH}:/snap/bin/"
@@ -81,8 +83,6 @@ export PATH="${PATH}:/usr/bin"
 export PATH="${PATH}:/usr/local/bin"
 export PATH="${PATH}:/usr/local/go/bin"
 export PATH="${PATH}:/usr/local/java/jre/bin"
-export PATH="${PATH}:$(echo ~/.vscode-server/bin/*/bin)"
-export PATH="${PATH}:$(go env GOPATH)/bin"
 export PATH="${PATH}:${DOTFILES}/bin"
 export PATH="${PATH}:${GOPATH}/bin"
 export PATH="${PATH}:${GOROOT}/bin"

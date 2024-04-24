@@ -3,7 +3,7 @@
 function shell_folder_summary() {
     local files=$(find . -maxdepth 1 -type f | wc -l)
     local folders=$(find . -maxdepth 1 -type d | wc -l)
-    local hiddenFiles=$(find . -maxdepth 1 -type f | grep "./." | wc -l)
+    local hiddenFiles=$(find . -maxdepth 1 -type f | egrep "^\./\." | wc -l)
     local overwrite_last_line='\e[1A\e[K'
     local print_this="""📢  in $CLR_WHITE $PWD $NO_COLOR there are:
 📂  $CLR_PURPLE $folders $NO_COLOR folders

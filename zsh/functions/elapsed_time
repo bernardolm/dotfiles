@@ -1,8 +1,11 @@
 #!/usr/bin/env zsh
 
-function elapsed_time {
-    start=$1
-    now=$(($(date +%s%N)/1000000))
-    elapsed=$(($now-$start))
-    echo "elapsed time: ${elapsed}ms"
+function elapsed_time() {
+    local toMs=1000000
+    local start=$1;
+    start=$(((start / toMs)));
+    local end=$(date +%s%N);
+    end=$(((end / toMs)));
+    local elapsed=$(((end - start)));
+    echo "\e[7;331m ${elapsed}ms \033[0m\t"
 }

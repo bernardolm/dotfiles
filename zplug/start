@@ -5,43 +5,44 @@
 
 log start "zplug start"
 
-$SHELL_DEBUG \
-    && /bin/rm -rf ~/.zplug ~/.cache/zplug \
-    && export ZPLUG_LOG_LOAD_SUCCESS=true \
-    && export ZPLUG_LOG_LOAD_FAILURE=true \
-    && export ZPLUG_VERBOSE="--verbose"
+$SHELL_DEBUG && zplug_reset
 
+# shellcheck source=/dev/null
 . "${DOTFILES}/zplug/install"
 
 while true; do
     if [ -f "${ZPLUG_HOME}/init.zsh" ]; then
         log debug "zplug: sourcing init"
+        # shellcheck source=/dev/null
         source "${ZPLUG_HOME}/init.zsh"
+
         break
     fi
     log debug "zplug: waiting to be installed..."
     sleep 3
 done
 
-zplug clear
+local to_load=($(zsh_plugins_list) $(zsh_completions_list))
 
-local plugins_list=($(zsh_plugins_list))
-
-for p in $plugins_list; do
+for p in $to_load; do
     log debug "zplug: $p"
-    zplug $p
+    zplug $p, lazy:true 2>/dev/null || zplug $p
 done
 
+start=$(date +%s%N)
 if ! zplug check; then
     log warn "zplug: installing new plugins"
     zplug install
 fi
+$SHELL_DEBUG && echo "$(elapsed_time $start) zplug install"
 
 log debug "zplug: loading"
+start=$(date +%s%N)
 zplug load ${ZPLUG_VERBOSE}
+$SHELL_DEBUG && echo "$(elapsed_time $start) zplug load"
 
-# zplug "dracula/zsh", as:theme
-# zplug "dracula/zsh-syntax-highlighting"
+# zplug "dracula/zsh", as:theme, defer:2
+# zplug "dracula/zsh-syntax-highlighting", defer:2
 zplug "zsh-users/zsh-syntax-highlighting", defer:2
 
 log finish "zplug start"

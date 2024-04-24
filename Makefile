@@ -12,7 +12,7 @@ test: reset
 		--build-arg="USER=${USER}" \
 		--build-arg="GIDH=$(shell grep ${USER} /etc/passwd | cut -d: -f4)" \
 		--progress=plain \
-		-t=dotfiles:test \
+		-t=${GITHUB_USER}/dotfiles:test \
 		.
 	echo "starting docker container"
 	docker run --rm -it \
@@ -26,7 +26,7 @@ test: reset
 		-v ${PWD}/.git:/home/${USER}/dotfiles/.git \
 		-v ${PWD}/git/modules:/home/${USER}/dotfiles/git/modules \
 		-w /home/${USER}/dotfiles \
-		dotfiles:test
+		${GITHUB_USER}/dotfiles:test
 
 reset:
 	reset

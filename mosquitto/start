@@ -1,21 +1,24 @@
 #!/usr/bin/env zsh
 
-docker_image_name="${USER}/mosquitto:latest"
+docker_container_name=mosquitto
+docker_image_name="${GITHUB_USER}/${docker_container_name}:latest"
 
-if [ -z "$(docker images -q $docker_image_name 2> /dev/null)" ]; then
+echo "docker_container_name=$docker_container_name"
+echo "docker_image_name=$docker_image_name"
+
+if [ -z "$(docker images -q "${docker_image_name}" 2> /dev/null)" ]; then
     uid=$(id -u)
 
     docker build \
         --build-arg "muid=${uid}" \
         -f "${DOTFILES}/mosquitto/Dockerfile" \
-        -t $docker_image_name \
+        -t "${docker_image_name}" \
         "${DOTFILES}/mosquitto"
 fi
 
 docker run \
-    --name mosquitto \
+    --name "${docker_container_name}" \
     --restart always \
-    --rm \
     -d \
     -p 1883:1883 \
     -p 9001:9001 \
@@ -24,4 +27,4 @@ docker run \
     -v "${SYNC_DOTFILES}/mosquitto/log:/mosquitto/log" \
     -v "${SYNC_DOTFILES}/mosquitto/passwd:/mosquitto/passwd" \
     -v /etc/localtime:/etc/localtime:ro \
-    $docker_image_name
+    "${docker_image_name}"

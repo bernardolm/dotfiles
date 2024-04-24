@@ -1,0 +1,61 @@
+- defaults:
+    # clear:
+    #   recursive: true
+    # link:
+    #   create: true
+    #   force: true
+    #   ignore-missing: true
+      # relink: true
+    shell:
+      stderr: true
+      stdout: true
+
+- clean: ['~/etc']
+
+# - create:
+#     ~/etc:
+#       mode: 0700
+
+#- shell:
+#    - find ~ -xtype l -delete
+
+# - link:
+#     ~/sync: ~/Dropbox/config-backup
+
+- link:
+    # ~/.config/:
+    #   exclude: [.config/Code]
+    #   glob: true
+    #   path: .config/*
+    ~/etc/:
+      create: true
+      exclude: [ "etc/**/*.bkp", "etc/**/*.off" ]
+      # force: true
+      glob: true
+      # ignore-missing: true
+      path: etc/**/*
+      # relink: true
+
+
+# - link:
+#     ~/.bash_aliases: bash/.bash_aliases
+#     ~/.bash_history: ~/sync/bash/.bash_history
+#     ~/.bashrc: bash/.bashrc
+#     ~/.config/rclone: ~/sync/.config/rclone
+#     ~/.curecoin: ~/sync/.curecoin
+#     ~/.epsonscan2: ~/sync/.epsonscan2
+#     ~/.ethereum: ~/sync/.ethereum
+#     ~/.gitconfig: .gitconfig
+#     ~/.icons: ~/sync/.icons
+#     ~/.inputrc: .inputrc
+#     ~/.local/share/fonts: ~/sync/.local/share/fonts
+#     ~/.musicoin: ~/sync/.musicoin
+#     ~/.pypirc: ~/sync/.pypirc
+#     ~/.screenrc: .screenrc
+#     ~/.themes: ~/sync/.themes
+#     ~/.wakatime.cfg: ~/sync/.wakatime.cfg
+#     ~/.zlogin: zsh/zdotdir/.zlogin
+#     ~/.zlogout: zsh/zdotdir/.zlogout
+#     ~/.zprofile: zsh/zdotdir/.zprofile
+#     ~/.zshenv: zsh/zdotdir/.zshenv
+#     ~/.zshrc: zsh/zdotdir/.zshrc

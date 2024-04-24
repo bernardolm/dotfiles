@@ -3,11 +3,19 @@
 function auto-ls-custom_function() {
     $SHELL_DEBUG && echo -n $funcstack[1]":\n"
 
-    local files=$(find . -maxdepth 1 -type f | wc -l)
-    local hiddenFiles=$(find . -maxdepth 1 -type f | grep "./." | wc -l)
-    local folders=$(find . -maxdepth 1 -type d | wc -l)
+    shell_folder_summary
 
-    SHELL_DEBUG=true log info "there are $PURPLE $files $NC$CYAN files ($ROSE $hiddenFiles $NC$CYAN hidden) and $PURPLE $folders $NC$CYAN folders in this path."
-
-    /bin/ls -lah
+    /usr/bin/exa \
+        --blocks \
+        --classify \
+        --color-scale \
+        --color=always \
+        --group-directories-first \
+        --icons \
+        --inode \
+        --level=2 \
+        --links \
+        --list-dirs \
+        --octal-permissions \
+        --tree | head -30
 }

@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function npm {
-    run_with_docker "php" "alpine" "npm" $@
+    docker_run "php" "alpine" "npm" $@
 }

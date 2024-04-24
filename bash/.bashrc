@@ -117,3 +117,5 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+source ~/workspaces/bernardolm/bash-wakatime/bash-wakatime.sh
