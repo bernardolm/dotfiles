@@ -1,13 +1,10 @@
 #!/usr/bin/env zsh
 
-return
+local __package=zsh-autosuggestions
+local __tmp_path="${ZSH_CUSTOM:-$ZSH/custom}/plugins/${__package}"
 
-log info "installing zsh-autosuggestions"
-
-local __tmp_path="${ZSH_CUSTOM:-$ZSH/custom}/plugins/zsh-autosuggestions"
-
-[ ! -d "${__tmp_path}" ] \
+[ ! -d "${__tmp_path}" ] && SHELL_DEBUG=true log info "installing ${__package}" \
     && git clone --quiet \
         https://github.com/zsh-users/zsh-autosuggestions.git \
         "${__tmp_path}" \
-    && echo "✔️"
+    && echo "${__package} ✔️"

@@ -1,0 +1,27 @@
+#!/usr/bin/env zsh
+
+local __package=wakatime-cli
+local __tmp_path="${WORKSPACE_USER}/${__package}"
+local __bin_path="${ZSH_WAKATIME_BIN}"
+
+# echo "__package=${__package}"
+# echo "__bin_path=${__bin_path}"
+# echo "__tmp_path=${__tmp_path}"
+
+# frm "${__tmp_path}" "${__bin_path}"
+
+#
+# attention!
+# this isn't the ohmyzsh plugin, but a dependency on it
+#
+
+[ ! -d "${__bin_path}" ] && SHELL_DEBUG=true log info "installing ${__package}" \
+    && frm "${__tmp_path}" \
+    && (test -d "${__tmp_path}" || \
+        git clone git@github.com:wakatime/wakatime-cli.git "${__tmp_path}") \
+    && git --git-dir="${__tmp_path}/.git" --work-tree="${__tmp_path}" checkout release \
+    && git --git-dir="${__tmp_path}/.git" --work-tree="${__tmp_path}" pull origin release \
+    && make -C "${__tmp_path}" build-linux-amd64 \
+    && mv "${__tmp_path}/build/wakatime-cli-linux-amd64" "${__bin_path}" \
+    && which ${__bin_path} \
+    && echo "${__package} ✔️"
