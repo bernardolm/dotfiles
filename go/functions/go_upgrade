@@ -10,7 +10,7 @@ function go_upgrade() {
 
     local current_version
 
-    if $(command -v go &> /dev/null); then
+    if $(which go &> /dev/null); then
         current_version=$(go version | cut -d' ' -f 3)
     fi
 

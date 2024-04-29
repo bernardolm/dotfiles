@@ -2,7 +2,7 @@
 
 log start "pre setup ubuntu"
 
-# command -v sudo &>/dev/null || \
+# which sudo &>/dev/null || \
 #     log error "you should install sudo before" && \
 #     function sudo() {
 #         eval $@

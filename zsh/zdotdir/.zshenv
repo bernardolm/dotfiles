@@ -61,7 +61,7 @@ export ZDOTDIR="${DOTFILES}/zsh/zdotdir"
 export TODO_ACTIONS_DIR="${TODO_DIR}/.todo.actions.d"
 export TODOTXT_CFG_FILE="${TODO_DIR}/zsh.cfg"
 
-if command -v git &>/dev/null; then
+if which git &>/dev/null; then
     GITHUB_ORG=$(git config --file \
         "${SYNC_DOTFILES}/git/.gitconfig_private" github.organization)
     export GITHUB_ORG

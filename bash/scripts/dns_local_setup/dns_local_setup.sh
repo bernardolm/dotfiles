@@ -305,7 +305,7 @@ function dns_local_setup() {
     gateway_ip=$(ip route show | grep -i 'default via' | awk '{ printf $3 }' | head -1)
 
     local has_docker
-    has_docker=$(command -v docker 1>/dev/null && printf "yes")
+    has_docker=$(which docker 1>/dev/null && printf "yes")
 
     check_dependencies
     ensure_workdir

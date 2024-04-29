@@ -1,6 +1,6 @@
 return
 
-if command -v theme.sh > /dev/null; then
+if which theme.sh > /dev/null; then
 	log info "applying theme"
 
 	[ -e ~/.theme_history ] && theme.sh "$(theme.sh -l|tail -n1)"

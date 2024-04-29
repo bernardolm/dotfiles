@@ -1,6 +1,6 @@
 $SHELL_DEBUG && localectl status
 
-command -v thefuck >/dev/null && \
+which thefuck >/dev/null && \
     eval "$(thefuck --alias)"
 
 [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
