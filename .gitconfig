@@ -38,18 +38,6 @@
         git update-index --add --cacheinfo \"$info,$new\" && \
         git rm --cached \"$old\"; \
     }; f"
-	build = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"build(${scope}): ${@}\"; else git commit -m \"build: ${@}\"; fi }; a"
-	chore = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"chore(${scope}): ${@}\"; else git commit -m \"chore: ${@}\"; fi }; a"
-	ci = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"ci(${scope}): ${@}\"; else git commit -m \"ci: ${@}\"; fi }; a"
-	docs = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"docs(${scope}): ${@}\"; else git commit -m \"docs: ${@}\"; fi }; a"
-	feat = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"feat(${scope}): ${@}\"; else git commit -m \"feat: ${@}\"; fi }; a"
-	fix = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"fix(${scope}): ${@}\"; else git commit -m \"fix: ${@}\"; fi }; a"
-	perf = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"perf(${scope}): ${@}\"; else git commit -m \"perf: ${@}\"; fi }; a"
-	refactor = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"refactor(${scope}): ${@}\"; else git commit -m \"refactor: ${@}\"; fi }; a"
-	revert = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"revert(${scope}): ${@}\"; else git commit -m \"revert: ${@}\"; fi }; a"
-	style = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"style(${scope}): ${@}\"; else git commit -m \"style: ${@}\"; fi }; a"
-	test = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"test(${scope}): ${@}\"; else git commit -m \"test: ${@}\"; fi }; a"
-	rev = "!a() { if [ \"$1\" = \"-s\" ] || [ \"$1\" = \"--scope\" ]; then local scope=\"$2\"; shift 2; git commit -m \"revert(${scope}): ${@}\"; else git commit -m \"revert: ${@}\"; fi }; a"
 
 [merge]
     log = true
@@ -89,35 +77,40 @@
 
 [safe]
 	directory = /home/bernardo/workspaces/bernardolm/dotfiles/git/modules/dotbot
+
 [color "status"]
-	branch = normal
+	branch = 6 normal bold
 	added = 10 normal
 	updated = 10 normal
-	localbranch = normal
+	localbranch = 6 normal bold
 	changed = 11 normal
 	header = normal
-	remotebranch = normal blink
-	nobranch = normal bold
+	remotebranch = 5 normal bold
+	nobranch = 1 0 bold
 	unmerged = 9 normal
-	untracked = normal dim
+	untracked = normal
+
 [color "branch"]
-	plain = normal
-	remote = normal blink
-	current = normal reverse
-	local = normal
-	upstream = normal blink
+	plain = 6 normal bold
+	remote = 5 normal bold
+	current = 6 normal bold reverse
+	local = 6 normal bold
+	upstream = 5 normal bold
+
 [color "remote"]
 	hint = normal dim
 	success = 2 normal
 	error = 1 normal
 	warning = 3 normal
+
 [color "interactive"]
-	header = normal dim bold
+	header = normal bold
 	prompt = 15 4
-	help = normal dim
-	error = normal bold
+	help = normal
+	error = 1 0 bold
+
 [color "diff"]
-	commit = normal
+	commit = 3 0
 	newMoved = 15 3
 	oldMovedAlternativeDimmed = 7 5 dim
 	frag = normal dim
@@ -138,10 +131,11 @@
 	oldMovedDimmed = 7 3 dim
 	oldDimmed = 7 1 dim
 	old = 7 1
+
 [color "decorate"]
-	branch = normal
-	tag = normal
-	remotebranch = normal blink
-	stash = normal dim
-	grafted = normal bold
-	HEAD = normal italic
+	branch = 6 normal bold
+	tag = 3 0
+	remotebranch = 5 normal bold
+	stash = normal
+	grafted = 1 0 bold
+	HEAD = 6 normal bold italic
