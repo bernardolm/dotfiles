@@ -1,15 +1,3 @@
 #!/usr/bin/env zsh
 
-which zsh >/dev/null || (echo 'you needs to install zsh before' && return)
-
-local files=('.zlogin' '.zlogout' '.zprofile' '.zshenv' '.zshrc')
-for f in $files; do
-    dest_path="${HOME}/${f}"
-    if [ ! -L "$dest_path" ]; then
-        ln -sf "${DOTFILES}/zsh/zdotdir/${f}" "$dest_path"
-    fi
-done
-
-[ ! -f "$ZSH/plugins/docker/_docker" ] && \
-    curl -sL 'https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker' \
-    -o "$ZSH/plugins/docker/_docker"
+which zsh >/dev/null || (echo 'you needs to install zsh before' && exit 1)

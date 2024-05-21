@@ -1,66 +1,71 @@
 $SHELL_DEBUG && echo "👾 zshrc"
 
-disable log &>/dev/null
+# profiling shell
+if $SHELL_PROFILE; then
+    [ ! -d "$SHELL_SESSION_PATH" ] && mkdir -p "$SHELL_SESSION_PATH"
+    zmodload zsh/zprof
+    $SHELL_DEBUG && echo "a zsh profile was started"
+fi
 
-function log() {
-    for f in $DOTFILES/zsh/functions/log*; do
-        . $f
+disable log &>/dev/null && function log() {
+    for f in "${DOTFILES}"/zsh/functions/log*; do
+        # shellcheck source=/dev/null
+        . "$f"
     done
-    eval log $@
+    # shellcheck disable=SC2294
+    eval log "$@"
 }
 
 log start "zshrc"
 
-# profiling shell
-# Ref.: https://kevin.burke.dev/kevin/profiling-zsh-startup-time/
-if [[ "${SHELL_PROFILE}" == "true" ]]; then
-    [ ! -d "$SHELL_SESSION_PATH" ] && mkdir -p "$SHELL_SESSION_PATH"
-    zmodload zsh/zprof
-    exec 3>&2 2>"${SHELL_SESSION_PATH}/${NOW}.log"
-    setopt xtrace prompt_subst
-fi
+# shellcheck disable=SC2168
+local inits=()
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/ubuntu/start"
+# shellcheck disable=SC2030
+# shellcheck disable=SC2086
+find ${DOTFILES}/ -maxdepth 3 -type f -path '*/init.d/*' | sort \
+    | while IFS="" read -r line; do inits+=("$line"); done
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/zsh/start"
+# shellcheck disable=SC2030
+# shellcheck disable=SC2031
+# shellcheck disable=SC2086
+find ${SYNC_DOTFILES}/ -maxdepth 3 -type f -path '*/init.d/*' | sort \
+    | while IFS="" read -r line; do inits+=("$line"); done
+# inits+=($(find ${SYNC_DOTFILES}/ -maxdepth 3 -type f -path '*/init.d/*' | sort))
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/ssh/start"
-
-# shellcheck source=/dev/null
-# . "${DOTFILES}/antigen/start"
-
-# shellcheck source=/dev/null
-. "${DOTFILES}/zplug/start"
-
-# shellcheck source=/dev/null
-. "${DOTFILES}/ohmyzsh/start"
-
-# shellcheck source=/dev/null
-. "${DOTFILES}/ohmyzsh/start"
-
-# shellcheck source=/dev/null
-# . "${DOTFILES}/ohmyposh/start"
-
-# shellcheck source=/dev/null
-. "${DOTFILES}/starship/start"
-
-# shellcheck source=/dev/null
-. "${DOTFILES}/tabby/start"
-
-# shellcheck source=/dev/null
-# . "${DOTFILES}/dropbox/start"
-
-iterate_and_load "dotfiles aliases" "$DOTFILES" "aliases" "sort"
-iterate_and_load "sync path aliases" "$SYNC_DOTFILES" "aliases" "sort"
-
-# profiling shell
-if [[ "${SHELL_PROFILE}" == "true" ]]; then
-    exec 2>&3 3>&-
-    unsetopt xtrace
-    zprof > "${SHELL_SESSION_PATH}/${NOW}.prf"
-fi
+startList=$(date +%s%N)
+# shellcheck disable=SC2031
+# shellcheck disable=SC2168
+local _init_order=(
+    "${DOTFILES}/zsh/functions/elapsed_time"
+    "${DOTFILES}/ubuntu/start"
+    "${DOTFILES}/zsh/start"
+    "${DOTFILES}/ssh/start"
+    # "${DOTFILES}/antigen/start"
+    "${DOTFILES}/zplug/functions/zplug_reset"
+    "${DOTFILES}/zplug/start"
+    "${DOTFILES}/ohmyzsh/start"
+    # "${DOTFILES}/starship/start"
+    "${DOTFILES}/powerline/start"
+    # "${DOTFILES}/tabby/start"
+    "${DOTFILES}/dropbox/start"
+    # "${DOTFILES}/vscode-server/start"
+    "${DOTFILES}/aliases"
+    "${inits[@]}"
+); for _f in "${_init_order[@]}"; do
+    startFile=$(date +%s%N)
+    # shellcheck source=/dev/null
+    . "$_f"
+    # shellcheck disable=SC2086
+    $SHELL_DEBUG && echo "$(elapsed_time ${startFile}) $_f"
+done
+# shellcheck disable=SC2086
+$SHELL_DEBUG && echo "$(elapsed_time ${startList}) everything"
 
 log finish "zshrc"
+
+# profiling shell
+if $SHELL_PROFILE; then
+    zprof > "${SHELL_SESSION_PATH}/${NOW}.prf"
+    echo "a log profile file as created here ${SHELL_SESSION_PATH}/${NOW}.prf"
+fi

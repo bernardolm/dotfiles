@@ -26,7 +26,7 @@ local to_load=($(zsh_plugins_list) $(zsh_completions_list))
 
 for p in $to_load; do
     log debug "zplug: $p"
-    zplug $p, lazy:true 2>/dev/null || zplug $p
+    zplug "$p", lazy:true 2>/dev/null || zplug "$p"
 done
 
 start=$(date +%s%N)
@@ -41,9 +41,9 @@ start=$(date +%s%N)
 zplug load ${ZPLUG_VERBOSE}
 $SHELL_DEBUG && echo "$(elapsed_time $start) zplug load"
 
-# zplug "dracula/zsh", as:theme, defer:2
-# zplug "dracula/zsh-syntax-highlighting", defer:2
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+# zplug 'dracula/zsh', as:theme, defer:2
+# zplug 'dracula/zsh-syntax-highlighting', defer:2
+zplug 'zsh-users/zsh-syntax-highlighting', defer:2
 
 log finish "zplug start"
 

@@ -1,0 +1,15 @@
+#!/usr/bin/env zsh
+
+./install
+
+echo 'linking zsh zdotfiles'
+local files=('.zlogin' '.zlogout' '.zprofile' '.zshenv' '.zshrc')
+for f in $files; do
+    dest_path="${HOME}/${f}"
+    if [ ! -L "$dest_path" ]; then
+        echo $dest_path isn\'t a symbolic link but needs to be && exit 1
+        # ln -sf "${DOTFILES}/zsh/zdotdir/${f}" "$dest_path"
+    # else
+        # echo $dest_path is a symbolic
+    fi
+done

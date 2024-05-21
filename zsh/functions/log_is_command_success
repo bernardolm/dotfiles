@@ -2,8 +2,8 @@
 
 function log_is_command_success() {
     if [ $? -eq 0 ]; then
-        log_echo "😉"
+        echo "${CLR_GREEN} 😉 ✔️ ${NO_COLOR}"
     else
-        log_echo "🤬"
+        echo "${CLR_RED} 🤬 ❌ ${NO_COLOR}"
     fi
 }

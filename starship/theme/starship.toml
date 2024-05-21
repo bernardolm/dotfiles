@@ -36,3 +36,6 @@ disabled = true
 [cmd_duration]
 min_time = 250
 show_milliseconds = true
+
+[directory]
+truncation_length = 5

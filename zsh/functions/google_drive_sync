@@ -5,16 +5,16 @@ function google_drive_sync() {
     notify-send "google drive worker" "running..."
 
     echo -e "syncing local..."
-    rsync -au --delete "${SYNC_DOTFILES}/" "${HOME}/google-drive/config-backup/"
+    rsync -au --delete "${SYNC_DOTFILES}/" "${HOME}/google-drive/ubuntu/"
 
     echo -e "removing vendor paths..."
-    find "${HOME}/google-drive/config-backup/" -name 'node_modules' \
+    find "${HOME}/google-drive/ubuntu/" -name 'node_modules' \
         -exec /bin/rm rm -rf {} \; 2>/dev/null
 
     echo -e "syncing virtual..."
     rclone sync --copy-links --check-first --delete-before --delete-excluded --fast-list \
         --progress --rc --rc-enable-metrics --transfers 12 \
-        "${HOME}/google-drive/config-backup/" config-backup:
+        "${HOME}/google-drive/ubuntu/" ubuntu:
 
     echo -e "finish google drive worker"
     notify-send "google drive worker" "finish"

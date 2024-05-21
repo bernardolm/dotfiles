@@ -1,7 +1,28 @@
 #!/usr/bin/env zsh
 
+$DEBUG || return
+
+# Ref.: https://code.visualstudio.com/docs/remote/troubleshooting#_setting-up-the-ssh-agent
+# if [ -z "$SSH_AUTH_SOCK" ]; then
+#    # Check for a currently running instance of the agent
+#    RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
+#    if [ "$RUNNING_AGENT" = "0" ]; then
+#         # Launch a new instance of the agent
+#         ssh-agent -s &> .ssh/ssh-agent
+#    fi
+#    eval `cat .ssh/ssh-agent`
+# fi
+
+
 # shell_debug_relay=$SHELL_DEBUG
 # SHELL_DEBUG=true
+if ! which bc &>/dev/null; then
+    echo -e "${CLR_RED} you need to install bc package: ${NO_COLOR}"
+    echo -e "${CLR_RED} sudo apt-get install --no-install-recommends --yes bc ${NO_COLOR}"
+    function bc() {
+        echo $@
+    }
+fi
 
 (which log | grep DOTFILES 1>/dev/null) || function log { shift ; /bin/echo $@ }
 

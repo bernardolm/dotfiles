@@ -25,7 +25,6 @@ requests
 requests_cache
 supervisor
 tasmotizer
-thefuck
 vobject
 w1thermsensor
 wheel

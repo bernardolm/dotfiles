@@ -1,50 +1,46 @@
 #!/usr/bin/env zsh
 
+$DEBUG || return
+
 # shell_debug_relay=$SHELL_DEBUG
 # SHELL_DEBUG=true
-$SHELL_DEBUG && set -x
 
 log start "zsh setup"
 
-local autoload_this &>/dev/null
+$SHELL_DEBUG && _start=$(($(date +%s%N)/1000000))
 
-function autoload_this() {
-    local functions_path
-    functions_path=$1
-    functions_path=( $(eval echo "$functions_path") )
+# TODO: move to top zdotfile
+SCRIPT_PATH="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
 
-    for d in $functions_path; do
-        log debug "zsh autoload ${d}"
-        fpath+=("$d")
-        autoload -Uz ${d}/*(:t)
-    done
-}
+# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/functions/elapsed_time
+. $(eval echo $SCRIPT_PATH/functions/elapsed_time)
 
-autoload_this "${HOME}/workspaces/bernardolm/dotfiles/**/functions"
-autoload_this "${HOME}/sync/**/functions"
+# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/functions/zsh_autoload_path
+. $(eval echo $SCRIPT_PATH/functions/zsh_autoload_path)
+_fpaths=(
+    "${HOME}/sync/**/functions"
+    "${HOME}/workspaces/bernardolm/dotfiles/**/functions"
+)
+zsh_autoload_path $_fpaths || (echo 'autoload panic!' && exit 1)
 
-# autoload -Uz +X compaudit zrecompile # needs description
-# autoload -Uz +X bashcompinit; bashcompinit # need to be the first
-# autoload -Uz +X colors; colors # needs description
-autoload -Uz +X compinit; compinit  # initializes the shell’s auto-completion \
-                                    # prompt system functionality. \
-                                    # compdef: function definition file not found
-autoload -Uz +X promptinit; promptinit # zsh prompt themes extension completion system
+$SHELL_DEBUG && elapsed_time $_start
 
+# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/config/autoload
+. "${DOTFILES}/zsh/config/autoload"
+
+# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/install
 . "${DOTFILES}/zsh/install"
+
+# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/config/setopt
 . "${DOTFILES}/zsh/config/setopt"
+
+# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/config/setopt
 . "${DOTFILES}/zsh/config/unsetopt"
 
 iterate_and_load "dotfiles zsh init" "${DOTFILES}/zsh/init" "*.zsh" "sort"
 iterate_and_load "sync zsh init" "${SYNC_DOTFILES}/zsh/init" "*.zsh" "sort"
 
-setopt automenu nolistambiguous
-zstyle ':completion:*' menu select
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-
-zstyle :compinstall filename "${HOME}/.zshrc"
-
-log finish "zsh setup"
+# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/config/zstyle
+. "${DOTFILES}/zsh/config/zstyle"
 
 # SHELL_DEBUG=$shell_debug_relay
-$SHELL_DEBUG && set +x

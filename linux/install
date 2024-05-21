@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+log start "linux setup"
+
+"${DOTFILES}/install" --exit-on-failure -c linux/links.yaml
+
+# for file in ${DOTFILES}/linux/install.d/*; do
+#     . "$file"
+# done
+
+# shellcheck source=/dev/null
+# . "${DOTFILES}/apt/install"
+
+# sudo apt install -y bc fzf nano curl git python3-distutils htop wget
+
+log finish "linux setup"

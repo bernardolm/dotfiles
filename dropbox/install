@@ -1,1 +1,4 @@
 #!/usr/bin/env zsh
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/linux/install.d/dropbox-py"

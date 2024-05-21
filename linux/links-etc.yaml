@@ -3,16 +3,16 @@
       recursive: true
     link:
       create: true
-      ignore-missing: true
       force: true
+      ignore-missing: true
+    relink: true
     shell:
       stderr: true
       stdout: true
 
 - link:
-    /etc/:
-      exclude: [ "etc/**/*.bkp", "etc/**/*.off", "etc/**/*.copy" ]
+    /etc:
       glob: true
-      path: etc/**/*
+      path: $HOME/sync/etc/**
 
 # eval "$DOTFILES/dotbot/bin/dotbot" -vv -d "$HOME/sync" -c "$DOTFILES/ubuntu/links-etc.yaml" --exit-on-failure

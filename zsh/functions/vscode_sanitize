@@ -13,4 +13,7 @@ function vscode_sanitize() {
     /bin/rm -rf ~/.vscode/Code/Crash\ Reports
     /bin/rm -rf ~/.vscode/Code/exthost\ Crash\ Reports
     /bin/rm -rf ~/.vscode/Code/Local\ Storage
+    /bin/rm -rf ~/.vscode-server/Code/Crash\ Reports
+    /bin/rm -rf ~/.vscode-server/Code/exthost\ Crash\ Reports
+    /bin/rm -rf ~/.vscode-server/Code/Local\ Storage
 }
