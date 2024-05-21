@@ -11,9 +11,9 @@ if [ -z "$(docker images -q "${docker_image_name}" 2> /dev/null)" ]; then
 
     docker build \
         --build-arg "muid=${uid}" \
-        -f "${DOTFILES}/mosquitto/Dockerfile" \
+        -f "${DOTFILES}/${docker_container_name}/Dockerfile" \
         -t "${docker_image_name}" \
-        "${DOTFILES}/mosquitto"
+        "${DOTFILES}/${docker_container_name}"
 fi
 
 docker run \
@@ -22,9 +22,9 @@ docker run \
     -d \
     -p 1883:1883 \
     -p 9001:9001 \
-    -v "${DOTFILES}/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro" \
-    -v "${SYNC_DOTFILES}/mosquitto/data:/mosquitto/data" \
-    -v "${SYNC_DOTFILES}/mosquitto/log:/mosquitto/log" \
-    -v "${SYNC_DOTFILES}/mosquitto/passwd:/mosquitto/passwd" \
+    -v "${DOTFILES}/${docker_container_name}/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro" \
+    -v "${SYNC_DOTFILES}/${docker_container_name}/data:/mosquitto/data" \
+    -v "${SYNC_DOTFILES}/${docker_container_name}/log:/mosquitto/log" \
+    -v "${SYNC_DOTFILES}/${docker_container_name}/passwd:/mosquitto/passwd" \
     -v /etc/localtime:/etc/localtime:ro \
     "${docker_image_name}"
