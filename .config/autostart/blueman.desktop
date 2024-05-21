@@ -1,12 +1,1 @@
-[Desktop Entry]
-Name=Blueman Applet
-Comment=Blueman Bluetooth Manager
-Icon=blueman
-Exec=blueman-applet
-Terminal=false
-Type=Application
-Categories=
-X-Ubuntu-Gettext-Domain=blueman
-X-GNOME-Autostart-enabled=false
-Hidden=false
-
+/home/bernardo/workspaces/bernardolm/dotfiles/.config/autostart/blueman.desktop

@@ -7,12 +7,12 @@
       "windows": {
         "command": "echo 'not supported on windows'"
       },
-      "command": "cpp -P -E ./.vscode/my-extensions.json | jq -r '.uninstall[]' | while read i; do code --force --uninstall-extension $i >/dev/null; done",
+      "command": "echo cpp -P -E ./.vscode/my-extensions.json | jq -r '.actions.uninstall_local' | zsh",
       "runOptions": {
         "runOn": "folderOpen"
       },
       "presentation": {
-        "group": "vscode-extensions"
+        // "group": "vscode-extensions"
       }
     },
     {
@@ -21,12 +21,12 @@
       "windows": {
         "command": "echo 'not supported on windows'"
       },
-      "command": "cpp -P -E ./.vscode/my-extensions.json | jq -r '.install[]' | while read i; do code --force --install-extension $i >/dev/null; done",
+      "command": "echo cpp -P -E ./.vscode/my-extensions.json | jq -r '.actions.install_local' | zsh",
       "runOptions": {
         "runOn": "folderOpen"
       },
       "presentation": {
-        "group": "vscode-extensions"
+        // "group": "vscode-extensions"
       }
     }
   ]

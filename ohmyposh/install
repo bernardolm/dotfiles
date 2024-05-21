@@ -1,7 +1,0 @@
-#!/usr/bin/env zsh
-
-OHMYPOSH="${HOME}/.local/bin"
-OHMYPOSH_BIN="${OHMYPOSH}/oh-my-posh"
-
-[[ ! -f $OHMYPOSH_BIN ]] && \
-    curl -s https://ohmyposh.dev/install.sh | bash -s -- -d "${OHMYPOSH}"

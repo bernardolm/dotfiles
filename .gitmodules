@@ -1,8 +1,7 @@
 [submodule "git/modules/dotbot"]
     active = true
-    ignore = dirty
 	path = git/modules/dotbot
-	url = https://github.com/anishathalye/dotbot.git
+	url = https://github.com/bernardolm/dotbot.git
 
 [submodule "git/modules/dotbot-pip"]
     active = true
@@ -12,7 +11,6 @@
 
 [submodule "git/modules/dotbot-snap"]
     active = true
-    ignore = dirty
 	path = git/modules/dotbot-snap
 	url = https://github.com/bernardolm/dotbot-snap.git
 

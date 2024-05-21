@@ -1,6 +1,1 @@
-[Desktop Entry]
-Type=Application
-Name=ignore-lid-switch-tweak
-Exec=/usr/libexec/gnome-tweak-tool-lid-inhibitor
-Hidden=false
-
+/home/bernardo/workspaces/bernardolm/dotfiles/.config/autostart/ignore-lid-switch-tweak.desktop

@@ -1,109 +1,534 @@
 {
-  "install": [
-    "aleksandra.go-group-imports",
-    "bierner.emojisense",
-    "dakara.transformer",
-    "eamodio.gitlens",
-    "emmanuelbeziat.vscode-great-icons",
-    "esbenp.prettier-vscode",
-    "exiasr.hadolint",
-    "foxundermoon.shell-format",
-    "golang.go",
-    "jeff-hykin.better-dockerfile-syntax",
-    "jeff-hykin.better-shellscript-syntax",
-    "manojjoshi.aesthetic",
-    "mikestead.dotenv",
-    "ms-kubernetes-tools.vscode-kubernetes-tools",
-    "ms-vscode-remote.remote-ssh-edit",
-    "ms-vscode-remote.remote-ssh",
-    "ms-vscode.makefile-tools",
-    "ms-vscode.remote-explorer",
-    "ms-vscode.sublime-keybindings",
-    "oderwat.indent-rainbow",
-    "redhat.vscode-yaml",
-    "riccardonovaglia.missinglineendoffile",
-    "rogalmic.bash-debug",
-    "ryu1kn.partial-diff",
-    "shardulm94.trailing-spaces",
-    "tamasfe.even-better-toml",
-    "timonwong.shellcheck",
-    "truman.autocomplate-shell",
-    "wakatime.vscode-wakatime",
-    "wmaurer.change-case",
-    "wraith13.bracket-lens"
-  ],
-  "uninstall": [
-    "1password.op-vscode",
-    "aaron-bond.better-comments",
-    "ajshortt.tokyo-hack",
-    "atdushi.conky",
-    "be5invis.vscode-custom-css",
-    "bierner.github-markdown-preview",
-    "bierner.markdown-checkbox",
-    "bierner.markdown-emoji",
-    "bierner.markdown-footnotes",
-    "bierner.markdown-mermaid",
-    "bierner.markdown-preview-github-styles",
-    "bierner.markdown-yaml-preamble",
-    "bmewburn.vscode-intelephense-client",
-    "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
-    "bungcip.better-toml", // deprecated
-    "dannymcgee.vscode-go-grammar",
-    "davidanson.vscode-markdownlint",
-    "dotjoshjohnson.xml", // deprecated
-    "dracula-theme.theme-dracula",
-    "dustypomerleau.rust-syntax",
-    "evan-buss.font-switcher",
-    "formulahendry.code-runner",
-    "github.codespaces",
-    "github.remotehub",
-    "golang.go-nightly",
-    "lehni.vscode-fix-checksums",
-    "mads-hartmann.bash-ide-vscode",
-    "maxmedia.go-prof",
-    "meronz.manpages",
-    "meronz.manpages",
-    "mikastiv.ocean-space-refined",
-    "ms-azuretools.vscode-docker",
-    "ms-dotnettools.vscode-dotnet-runtime",
-    "ms-python.autopep8",
-    "ms-python.black-formatter",
-    "ms-python.debugpy",
-    "ms-python.flake8",
-    "ms-python.isort",
-    "ms-python.pylint",
-    "ms-python.python",
-    "ms-python.vscode-pylance",
-    "ms-vscode-remote.remote-containers",
-    "ms-vscode-remote.remote-wsl",
-    "ms-vscode-remote.vscode-remote-extensionpack", // all pack ins't necessary
-    "ms-vscode.azure-repos",
-    "ms-vscode.remote-repositories",
-    "ms-vscode.remote-server", // tunnels
-    "ms-vscode.theme-markdownkit",
-    "ms-vscode.vscode-speech-language-pack-pt-br",
-    "ms-vscode.vscode-speech",
-    "mutantdino.resourcemonitor",
-    "redhat.vscode-xml",
-    "remisa.shellman",
-    "robbowen.synthwave-vscode",
-    "rogalmic.bash-debug",
-    "rust-lang.rust-analyzer",
-    "ryu1kn.edit-with-shell",
-    "sanchodelniglo.synthwave-80s-color-theme",
-    "serayuzgur.crates",
-    "shakram02.bash-beautify",
-    "swellaby.rust-pack",
-    "tetradresearch.vscode-h2o",
-    "visualstudioexptteam.intellicode-api-usage-examples",
-    "visualstudioexptteam.vscodeintellicode-completions",
-    "visualstudioexptteam.vscodeintellicode-insiders",
-    "visualstudioexptteam.vscodeintellicode",
-    "vscode-icons-team.vscode-icons",
-    "wayou.vscode-todo-highlight",
-    "woozy-masta.shell-script-ide",
-    "xdebug.php-debug",
-    "xshrim.txt-syntax",
-    "yzhang.markdown-all-in-one"
+  "actions": {
+    "install_local": "cpp -P -E ./.vscode/my-extensions.json | jq -r '.my_extensions[] | folter_by()' | while read i; do code --force --install-extension $i >/dev/null; done",
+    "install_server": "cpp -P -E ./.vscode/my-extensions.json | jq -r '.my_extensions[] | folter_by()' | while read i; do code --force --install-extension $i >/dev/null; done",
+    "uninstall_local": "cpp -P -E ./.vscode/my-extensions.json | jq -r '.my_extensions[] | folter_by()' | while read i; do code --force --uninstall-extension $i >/dev/null; done",
+    "uninstall_server": "cpp -P -E ./.vscode/my-extensions.json | jq -r '.my_extensions[] | folter_by()' | while read i; do code --force --uninstall-extension $i >/dev/null; done",
+    "sort": "cpp -P -E ./.vscode/my-extensions.json | jq '.my_extensions[] | sort_by(.id)' > ./.vscode/sorted-my-extensions.json"
+  },
+  "my_extensions": [
+    {
+      "id": "1password.op-vscode",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "forget it"
+    },
+    {
+      "id": "aaron-bond.better-comments",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ads-hartmann.bash-ide-vscode",
+      "extension_kind": "workspace",
+      "to_install": false
+    },
+    {
+      "id": "ajshortt.tokyo-hack",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "theme"
+    },
+    {
+      "id": "aleksandra.go-group-imports",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "atdushi.conky",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "be5invis.vscode-custom-css",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "bierner.emojisense",
+      "extension_kind": "ui",
+      "to_install": true
+    },
+    {
+      "id": "bierner.github-markdown-preview",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "bierner.markdown-checkbox",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "bierner.markdown-emoji",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "bierner.markdown-footnotes",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "bierner.markdown-mermaid",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "bierner.markdown-preview-github-styles",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "bierner.markdown-yaml-preamble",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "bmewburn.vscode-intelephense-client",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "bpruitt-goddard.mermaid-markdown-syntax-highlighting",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "bungcip.better-toml",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "deprecated"
+    },
+    {
+      "id": "dakara.transformer",
+      "extension_kind": "",
+      "to_install": true
+    },
+    {
+      "id": "dannymcgee.vscode-go-grammar",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "davidanson.vscode-markdownlint",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "dotjoshjohnson.xml",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "deprecated"
+    },
+    {
+      "id": "dracula-theme.theme-dracula",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "theme"
+    },
+    {
+      "id": "dustypomerleau.rust-syntax",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "eamodio.gitlens",
+      "extension_kind": "",
+      "to_install": true
+    },
+    {
+      "id": "emmanuelbeziat.vscode-great-icons",
+      "extension_kind": "ui",
+      "to_install": true
+    },
+    {
+      "id": "esbenp.prettier-vscode",
+      "extension_kind": "",
+      "to_install": true
+    },
+    {
+      "id": "evan-buss.font-switcher",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "exiasr.hadolint",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "formulahendry.code-runner",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "foxundermoon.shell-format",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "github.codespaces",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "forget it"
+    },
+    {
+      "id": "github.remotehub",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "golang.go-nightly",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "golang.go",
+      "extension_kind": "",
+      "to_install": true,
+      "reason": ":heart:"
+    },
+    {
+      "id": "jeff-hykin.better-dockerfile-syntax",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "jeff-hykin.better-shellscript-syntax",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "lehni.vscode-fix-checksums",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "manojjoshi.aesthetic",
+      "extension_kind": "ui",
+      "to_install": false
+    },
+    {
+      "id": "maxmedia.go-prof",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "meronz.manpages",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "mikastiv.ocean-space-refined",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "mikestead.dotenv",
+      "extension_kind": "ui",
+      "to_install": false
+    },
+    {
+      "id": "ms-azuretools.vscode-docker",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-dotnettools.vscode-dotnet-runtime",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-kubernetes-tools.vscode-kubernetes-tools",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-python.autopep8",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-python.black-formatter",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-python.debugpy",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-python.flake8",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-python.isort",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-python.pylint",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-python.python",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-python.vscode-pylance",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-vscode-remote.remote-containers",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "forget it"
+    },
+    {
+      "id": "ms-vscode-remote.remote-ssh-edit",
+      "extension_kind": "ui",
+      "to_install": false
+    },
+    {
+      "id": "ms-vscode-remote.remote-ssh",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-vscode-remote.remote-wsl",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "forget it"
+    },
+    {
+      "id": "ms-vscode-remote.vscode-remote-extensionpack",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "all pack ins't necessary"
+    },
+    {
+      "id": "ms-vscode.azure-repos",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "forget it"
+    },
+    {
+      "id": "ms-vscode.makefile-tools",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-vscode.remote-explorer",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-vscode.remote-repositories",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "forget it"
+    },
+    {
+      "id": "ms-vscode.remote-server",
+      "extension_kind": "",
+      "to_install": false,
+      "reason": "forget it (tunnel)"
+    },
+    {
+      "id": "ms-vscode.sublime-keybindings",
+      "extension_kind": "ui",
+      "to_install": false
+    },
+    {
+      "id": "ms-vscode.theme-markdownkit",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-vscode.vscode-speech-language-pack-pt-br",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ms-vscode.vscode-speech",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "mutantdino.resourcemonitor",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "oderwat.indent-rainbow",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "redhat.vscode-xml",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "redhat.vscode-yaml",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "remisa.shellman",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "riccardonovaglia.missinglineendoffile",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "robbowen.synthwave-vscode",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "rogalmic.bash-debug",
+      "extension_kind": "workspace",
+      "to_install": false
+    },
+    {
+      "id": "rust-lang.rust-analyzer",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ryu1kn.edit-with-shell",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "ryu1kn.partial-diff",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "sanchodelniglo.synthwave-80s-color-theme",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "serayuzgur.crates",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "shakram02.bash-beautify",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "shardulm94.trailing-spaces",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "swellaby.rust-pack",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "tamasfe.even-better-toml",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "tetradresearch.vscode-h2o",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "timonwong.shellcheck",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "truman.autocomplate-shell",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "tyriar.theme-sapphire",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "visualstudioexptteam.intellicode-api-usage-examples",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "visualstudioexptteam.vscodeintellicode-completions",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "visualstudioexptteam.vscodeintellicode-insiders",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "visualstudioexptteam.vscodeintellicode",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "vscode-icons-team.vscode-icons",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "wakatime.vscode-wakatime",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "wayou.vscode-todo-highlight",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "wmaurer.change-case",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "woozy-masta.shell-script-ide",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "wraith13.bracket-lens",
+      "extension_kind": "ui",
+      "to_install": false
+    },
+    {
+      "id": "xdebug.php-debug",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "xshrim.txt-syntax",
+      "extension_kind": "",
+      "to_install": false
+    },
+    {
+      "id": "yzhang.markdown-all-in-one",
+      "extension_kind": "",
+      "to_install": false
+    }
   ]
 }
