@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+# log start "pre setup linux"
+
+# sudo locale-gen en_US.UTF-8  # NOTE: bypassing temp
+
+# log finish "pre setup linux"

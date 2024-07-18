@@ -9,6 +9,7 @@
 - apt_in:
     alacarte
     aspell-fr
+    bleachbit
     baobab
     chrome-gnome-shell
     conky-all
@@ -40,7 +41,6 @@
     tlp-rdw
     tweak
     ubuntu-restricted-extras
-
     yaru-theme-gnome-shell
 
 - apt_check_if_these_are_for_desktop:

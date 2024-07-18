@@ -1,53 +1,53 @@
 - defaults:
-    clear:
-      recursive: true
+    # clear:
+    #   recursive: true
     link:
       create: true
-      force: true
-      ignore-missing: true
-    relink: true
+      # force: true
+      # ignore-missing: true
+    # relink: true
     shell:
       stderr: true
       stdout: true
 
 - link:
-    ~/sync: $HOME/Dropbox/ubuntu
+    # ~/sync: $HOME/Dropbox/ubuntu
     ~/.config:
       glob: true
       path: $DOTFILES/.config/**
     ~/.local:
       glob: true
       path: $DOTFILES/.local/**
-    ~/.config/:
-      exclude:
-        - $HOME/sync/.config/syncthing/**
-      glob: true
-      path: $HOME/sync/.config/**
-    ~/.config/syncthing/:
-      glob: true
-      path: $HOME/sync/.config/syncthing/$HOSTNAME/**
-    ~/.local/:
-      exclude:
-        - $HOME/sync/.local/share/gnome-shell/**
-        - $HOME/sync/.local/share/applications/**
-      glob: true
-      path: $HOME/sync/.local/**
+    # ~/.config/:
+    #   exclude:
+    #     - $HOME/sync/.config/syncthing/**
+    #   glob: true
+    #   path: $HOME/sync/.config/**
+    # ~/.config/syncthing/:
+    #   glob: true
+    #   path: $HOME/sync/.config/syncthing/$HOSTNAME/**
+    # ~/.local/:
+    #   exclude:
+    #     - $HOME/sync/.local/share/gnome-shell/**
+    #     - $HOME/sync/.local/share/applications/**
+    #   glob: true
+    #   path: $HOME/sync/.local/**
     ~/.bash_aliases: $DOTFILES/bash/.bash_aliases
     ~/.bash_history: $HOME/sync/bash/.bash_history
     ~/.bashrc: $DOTFILES/bash/.bashrc
-    ~/.curecoin: $HOME/sync/.curecoin
-    ~/.epsonscan2: $HOME/sync/.epsonscan2
-    ~/.ethereum: $HOME/sync/.ethereum
-    ~/.gitconfig: $DOTFILES/git/gitconfig
-    ~/.icons: $HOME/sync/.icons
-    ~/.musicoin: $HOME/sync/.musicoin
-    ~/.pypirc: $HOME/sync/.pypirc
-    ~/.screenrc: $DOTFILES/screen/screenrc
-    ~/.themes: $HOME/sync/.themes
+    # ~/.curecoin: $HOME/sync/.curecoin
+    # ~/.epsonscan2: $HOME/sync/.epsonscan2
+    # ~/.ethereum: $HOME/sync/.ethereum
+    ~/.gitconfig: $DOTFILES/git/.gitconfig
+    # ~/.icons: $HOME/sync/.icons
+    # ~/.musicoin: $HOME/sync/.musicoin
+    # ~/.pypirc: $HOME/sync/.pypirc
+    # ~/.screenrc: $DOTFILES/screen/screenrc
+    # ~/.themes: $HOME/sync/.themes
     ~/.wakatime.cfg: $HOME/sync/.wakatime.cfg
     ~/.zlogin: $DOTFILES/zsh/zdotdir/.zlogin
     ~/.zlogout: $DOTFILES/zsh/zdotdir/.zlogout
     ~/.zprofile: $DOTFILES/zsh/zdotdir/.zprofile
     ~/.zshenv: $DOTFILES/zsh/zdotdir/.zshenv
     ~/.zshrc: $DOTFILES/zsh/zdotdir/.zshrc
-    ~/.tmux.conf: $DOTFILES/tmux/tmux.conf
+    # ~/.tmux.conf: $DOTFILES/tmux/tmux.conf

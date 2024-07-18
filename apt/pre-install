@@ -5,8 +5,8 @@
 
 log start "pre setup apt"
 
-sudo apt-get update
-sudo apt-get --yes upgrade
+# sudo apt-get update # NOTE: bypassing temp
+# sudo apt-get --yes upgrade # NOTE: bypassing temp
 
 which git &>/dev/null || sudo apt-get --yes install git
 

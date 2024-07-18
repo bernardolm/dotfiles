@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
-$DEBUG || return
+# shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=true
 
 # Ref.: https://code.visualstudio.com/docs/remote/troubleshooting#_setting-up-the-ssh-agent
 # if [ -z "$SSH_AUTH_SOCK" ]; then
@@ -13,9 +14,6 @@ $DEBUG || return
 #    eval `cat .ssh/ssh-agent`
 # fi
 
-
-# shell_debug_relay=$SHELL_DEBUG
-# SHELL_DEBUG=true
 if ! which bc &>/dev/null; then
     echo -e "${CLR_RED} you need to install bc package: ${NO_COLOR}"
     echo -e "${CLR_RED} sudo apt-get install --no-install-recommends --yes bc ${NO_COLOR}"
@@ -39,7 +37,8 @@ function ssh_agent_start() {
 }
 
 function ssh_agent_ppid() {
-    pgrep -x ssh-agent
+    # pgrep -x ssh-agent
+    sudo lsof -i | grep 1392 | awk '{print $6}'
 }
 
 function pub_key_get() {
@@ -57,19 +56,20 @@ function list_loaded_keys() {
 
 function show_env_values() {
     $SHELL_DEBUG || return
-    echo "---"
+    echo ""
     log debug "SSH_AGENT_PID=${SSH_AGENT_PID}"
     log debug "ssh_agent_ppid=$(ssh_agent_ppid)"
     log debug "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"
     log debug "SSH_CONNECTION=${SSH_CONNECTION}"
     log debug "SSH_ENV=${SSH_ENV}"
-    echo "---"
+    echo ""
 }
 
-if $SHELL_DEBUG; then
-    killall -9 ssh-agent
-    rm -f /run/user/1000/ssh-agent.socket
-fi
+# if $SHELL_DEBUG; then
+#     killall -9 ssh-agent
+#     rm -f /run/user/1000/ssh-agent.socket
+#     sudo fuser 1392/tcp
+# fi
 
 local twenty_four_hours_in_seconds=86400
 local pub_key=$(pub_key_get)

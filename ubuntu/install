@@ -4,20 +4,14 @@ log start "ubuntu setup"
 
 log info "calling dotbot to create sym links and others"
 
-# ./install --exit-on-failure \
-#     -c ubuntu/links.yaml
+"${DOTFILES}/install" --exit-on-failure \
+    -c "${DOTFILES}/ubuntu/links.yaml"
 
-# [ ! -f /usr/bin/curl ] && \
-#     log info "installing curl" && \
-#     sudo apt-get install --no-install-recommends --yes curl
-
-for file in ${DOTFILES}/ubuntu/install.d/*; do
-    . "$file"
+for f in "${DOTFILES}/ubuntu/install.d/*"; do
+    [[ -f $f ]] && source -- "$f"
 done
 
 # shellcheck source=/dev/null
 # . "${DOTFILES}/apt/install"
-
-# sudo apt install -y bc fzf nano curl git python3-distutils
 
 log finish "ubuntu setup"

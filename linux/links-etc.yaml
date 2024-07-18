@@ -1,11 +1,11 @@
 - defaults:
-    clear:
-      recursive: true
+    # clear:
+    #   recursive: true
     link:
       create: true
-      force: true
-      ignore-missing: true
-    relink: true
+      # force: true
+      # ignore-missing: true
+    # relink: true
     shell:
       stderr: true
       stdout: true
@@ -14,5 +14,3 @@
     /etc:
       glob: true
       path: $HOME/sync/etc/**
-
-# eval "$DOTFILES/dotbot/bin/dotbot" -vv -d "$HOME/sync" -c "$DOTFILES/ubuntu/links-etc.yaml" --exit-on-failure

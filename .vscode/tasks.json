@@ -1,33 +1,19 @@
 {
   "version": "2.0.0",
   "tasks": [
-    {
-      "label": "removing extensions",
-      "type": "shell",
-      "windows": {
-        "command": "echo 'not supported on windows'"
-      },
-      "command": "echo cpp -P -E ./.vscode/my-extensions.json | jq -r '.actions.uninstall_local' | zsh",
-      "runOptions": {
-        "runOn": "folderOpen"
-      },
-      "presentation": {
-        // "group": "vscode-extensions"
-      }
-    },
-    {
-      "label": "installing extensions",
-      "type": "shell",
-      "windows": {
-        "command": "echo 'not supported on windows'"
-      },
-      "command": "echo cpp -P -E ./.vscode/my-extensions.json | jq -r '.actions.install_local' | zsh",
-      "runOptions": {
-        "runOn": "folderOpen"
-      },
-      "presentation": {
-        // "group": "vscode-extensions"
-      }
-    }
+    // {
+    //   "label": "managing extensions",
+    //   "type": "shell",
+    //   "windows": {
+    //     "command": "echo 'not supported on windows'"
+    //   },
+    //   "command": "echo cpp -P -E ./.vscode/my-extensions.json | jq -r '.actions.uninstall_local' | zsh",
+    //   "runOptions": {
+    //     "runOn": "folderOpen"
+    //   },
+    //   "presentation": {
+    //     // "group": "vscode-extensions"
+    //   }
+    // }
   ]
 }

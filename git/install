@@ -1,29 +1,43 @@
 #!/usr/bin/env bash
 
+shell_debug_relay=$SHELL_DEBUG
+SHELL_DEBUG=true
+
+# shellcheck source=/dev/null
+. "${DOTFILES}/zsh/functions/log"
+
 log start "git setup"
+
+_git_submodules="${DOTFILES}/.gitmodules"
 
 [ ! -d "${DOTFILES}/git/modules" ] && mkdir -p "${DOTFILES}/git/modules"
 
 log info "sanitizing git submodules"
-git config --file "${DOTFILES}/.gitmodules" --list | tr ' ' '\n'
-cat < .gitmodules | grep '\[submodule' | while read -r item; do
+
+# $SHELL_DEBUG && git config --file "${_git_submodules}" --list | tr ' ' '\n'
+
+cat < "${_git_submodules}" | grep '\[submodule' | while read -r item; do
     name=$(echo "$item" | sed -E 's/.*"(.*)".*/\1/g')
     label=$(echo "$name" | xargs basename)
-    path=$(git config --file ".gitmodules" --get "submodule.${name}.path")
-    url=$(git config --file ".gitmodules" --get "submodule.${name}.url")
+    path=$(git config --file "${_git_submodules}" --get "submodule.${name}.path")
+    url=$(git config --file "${_git_submodules}" --get "submodule.${name}.url")
 
-    echo "    submodule ${label} in ${path} by ${url}"
+    echo -e "submodule ${label}:\n\tpath:\t${DOTFILES}/${path}\n\turl:\t${url}"
 
-    if [ -d "${path}" ]; then
-        echo "    updating..."
-        git submodule update --init "${path}"
+    echo -en "\tstatus:"
+
+    if [ -d "${DOTFILES}/${path}" ]; then
+        echo -en " updating..."
+        git submodule update --init "${DOTFILES}/${path}"
     else
-        echo "    adding..."
-        git submodule add --force "${url}" "${path}"
+        echo -en " adding..."
+        git submodule add --force "${url}" "${DOTFILES}/${path}"
     fi
-    echo -e "    done\n    ---"
+    echo -e " done."
 done
 
-git config --global --add safe.directory "$DOTFILES/git/modules/dotbot"
+git config --global --add safe.directory "${DOTFILES}/git/modules/dotbot"
 
 log finish "git setup"
+
+SHELL_DEBUG=$shell_debug_relay

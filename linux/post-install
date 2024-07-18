@@ -1,0 +1,11 @@
+#!/usr/bin/env zsh
+
+# shellcheck source=/dev/null
+
+# log start "post install linux"
+
+# cp --update --remove-destination --backup ~/sync/.gcalcli/oauth ~/.gcalcli_oauth
+# ulimit -n 131072 || true
+# ulimit -u 8192 || true
+
+# log finish "post install linux"

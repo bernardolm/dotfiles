@@ -16,15 +16,18 @@ export DISABLE_LS_COLORS=false
 export EDITOR='nano'
 export EMOJI_CLI_KEYBIND='^e'
 export ENABLE_CORRECTION=true
+export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 export GREP_COLORS='mt=30;103'
 export HISTDUP='erase' # erase duplicates in the history file
 export HYPHEN_INSENSITIVE=true
 export LANG='en_US.UTF-8'
+export LANGUAGE='en_US.UTF-8'
 export LC_ALL='en_US.UTF-8'
 export LC_CTYPE='en_US.UTF-8'
 export LESS='-erX'
 export MICRO_TRUECOLOR=1
 export PAGER='less'
+export POWERLINE_ROOT='/home/bernardo/.local/lib/python3.11/site-packages/powerline'
 export SAVEHIST=999999
 export SHELL_DEBUG=false
 export SHELL_PROFILE=false
@@ -36,7 +39,6 @@ export ZSH_HIGHLIGHT_MAXLENGTH=100
 export ZSH_THEME_RANDOM_QUIET=true
 export ZSH_THEME='random'
 export ZSH_WAKATIME_PROJECT_DETECTION=true
-export POWERLINE_ROOT='/home/bernardo/.local/lib/python3.11/site-packages/powerline'
 
 export DOTFILES ; DOTFILES="${DOTFILES:=${HOME}/workspaces/bernardolm/dotfiles}" # 🧙‍♂️
 export GOPATH ; GOPATH="${HOME}/gopath"
@@ -68,9 +70,9 @@ export TODOTXT_CFG_FILE ; TODOTXT_CFG_FILE="${TODO_DIR}/zsh.cfg"
 
 if which git &>/dev/null; then
     export GITHUB_ORG ; GITHUB_ORG=$(git config --file \
-        "${SYNC_DOTFILES}/git/.gitconfig_private" github.organization)
+        "${SYNC_DOTFILES}/git/.gitconfig.work" github.organization)
     export GITHUB_USER ; GITHUB_USER=$(git config --file \
-        "${DOTFILES}/.gitconfig" github.user)
+        "${DOTFILES}/git/.gitconfig" github.user)
 fi
 
 export WORKSPACE_ORG ; WORKSPACE_ORG="${HOME}/workspaces/${GITHUB_ORG}"

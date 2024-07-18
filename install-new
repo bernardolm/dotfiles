@@ -1,19 +1,27 @@
 #!/usr/bin/env bash
 
-# set -e
+reset
+
+set -e
+# set -x
 
 export TERM=xterm-256color
 
 DOTFILES="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+echo "DOTFILES=$DOTFILES"
+
+[ "${PWD}" != "${DOTFILES}" ] \
+    && echo "you NEED to be in ${DOTFILES} to continue..." \
+    && exit 1
 
 # shellcheck source=/dev/null
 . "${DOTFILES}/zsh/zdotdir/.zshenv"
 
-# shell_debug_relay=$SHELL_DEBUG
-# SHELL_DEBUG=true
+shell_debug_relay=$SHELL_DEBUG
+SHELL_DEBUG=true
 
 # shellcheck source=/dev/null
-# . "${DOTFILES}/zsh/functions/log"
+. "${DOTFILES}/zsh/functions/log"
 
 log start "pristine setup"
 
@@ -39,4 +47,4 @@ log debug "some info about environment: \n whoami=$(whoami) \n id=$(id) "
 
 log finish "pristine setup"
 
-# SHELL_DEBUG=$shell_debug_relay
+SHELL_DEBUG=$shell_debug_relay

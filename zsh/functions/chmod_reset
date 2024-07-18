@@ -1,20 +1,25 @@
 #!/usr/bin/env zsh
 
 function chmod_reset() {
-    # shell_debug_relay=$SHELL_DEBUG
-    # SHELL_DEBUG=true
-
-    $SHELL_DEBUG && set -x
+    shell_debug_relay=$SHELL_DEBUG
+    SHELL_DEBUG=true
 
     sudo chmod -cR 600 $1
     sudo chmod -R u+X $1
     sudo chown -cR $USER:$USER $1
 
+    [ "$SHELL_DEBUG" = "true" ] && set -x
+
+    # +chmod_reset:25> sudo find . -name '*/bin/*' -exec sudo chmod u+x '{}' ';'
+    # find: warning: ‘-name’ matches against basenames only,
+    # but the given pattern contains a directory separator (‘/’),
+    # thus the expression will evaluate to false all the time.  Did you mean ‘-wholename’?
+    # "*/bin/*"
+
     patterns=(
         "*.AppImage"
         "*.py"
         "*.sh"
-        "/bin/"
         "install-pristine"
         "install"
         "post-install"
@@ -24,10 +29,10 @@ function chmod_reset() {
         "setup"
         "start"
     )
-    # for p in "${patterns[@]}"; do
-    #     sudo find "$1" -name "$p" -exec sudo chmod u+x {} \;
-    # done
+    for p in "${patterns[@]}"; do
+        find "$1" -name "$p" -exec chmod u+x {} \;
+    done
 
-    # SHELL_DEBUG=$shell_debug_relay
-    $SHELL_DEBUG && set +x
+    [ "$SHELL_DEBUG" = "true" ] && set +x
+    SHELL_DEBUG=$shell_debug_relay
 }
