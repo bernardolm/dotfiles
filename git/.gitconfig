@@ -1,0 +1,31 @@
+[include]
+    path = ~/sync/git/.gitconfig
+    path = ~/sync/git/.gitconfig.work
+
+[user]
+    name = Bernardo Loureiro
+
+[github]
+    user = bernardolm
+
+[merge]
+    log = true
+
+[apply]
+    whitespace = fix
+
+[diff]
+    renames = copies
+    colorMoved = zebra
+
+[init]
+    defaultBranch = main
+
+[commit]
+    gpgsign = true
+
+[gpg]
+    format = ssh
+
+[safe]
+    directory = /home/bernardo/workspaces/bernardolm/dotfiles
