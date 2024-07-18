@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-$DEBUG || return
+return
 
 # shell_debug_relay=$SHELL_DEBUG
 # SHELL_DEBUG=true
