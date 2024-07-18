@@ -1,5 +1,7 @@
 $SHELL_DEBUG && echo "👾 zshrc"
 
+return
+
 # profiling shell
 if $SHELL_PROFILE; then
     [ ! -d "$SHELL_SESSION_PATH" ] && mkdir -p "$SHELL_SESSION_PATH"
@@ -38,17 +40,17 @@ startList=$(date +%s%N)
 # shellcheck disable=SC2168
 local _init_order=(
     "${DOTFILES}/zsh/functions/elapsed_time"
-    "${DOTFILES}/ubuntu/start"
-    "${DOTFILES}/zsh/start"
+    # "${DOTFILES}/ubuntu/start"
+    # "${DOTFILES}/zsh/start"
     "${DOTFILES}/ssh/start"
     # "${DOTFILES}/antigen/start"
-    "${DOTFILES}/zplug/functions/zplug_reset"
+    # "${DOTFILES}/zplug/functions/zplug_reset"
     "${DOTFILES}/zplug/start"
     "${DOTFILES}/ohmyzsh/start"
     # "${DOTFILES}/starship/start"
-    "${DOTFILES}/powerline/start"
+    # "${DOTFILES}/powerline/start"
     # "${DOTFILES}/tabby/start"
-    "${DOTFILES}/dropbox/start"
+    # "${DOTFILES}/dropbox/start"
     # "${DOTFILES}/vscode-server/start"
     "${DOTFILES}/aliases"
     "${inits[@]}"

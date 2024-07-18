@@ -4,7 +4,7 @@
 # colors; colors # needs description
 # compaudit zrecompile # needs description
 # compsys; compsys  # the function based completion system
-autoload -Uz +X compinit; compinit  # initializes the shell’s auto-completion
-                                    # prompt system functionality.
-                                    # compdef: function definition file not found
-autoload -Uz +X promptinit; promptinit # zsh prompt themes extension completion system
+autoload -Uz +X compinit; compinit -u   # initializes the shell’s auto-completion
+                                        # prompt system functionality.
+                                        # compdef: function definition file not found
+autoload -Uz +X promptinit; promptinit  # zsh prompt themes extension completion system
