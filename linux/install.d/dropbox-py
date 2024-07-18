@@ -18,6 +18,8 @@ $SHELL_DEBUG && echo "__bin_path=${__bin_path}"
 #     eval log "$@"
 # }
 
+# https://www.dropbox.com/download?dl=packages/dropbox.py
+
 [ ! -f "${__bin_path}" ] \
     && SHELL_DEBUG=true log info "installing ${__package}" \
     && mkdir -p "$(dirname ${__bin_path})" \
