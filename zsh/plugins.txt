@@ -1,5 +1,4 @@
 # johanhaleby/kubetail # only zplug, but don't install yet
-# laggardkernel/zsh-thefuck # prefer ohmyzsh
 # mrjohannchang/zsh-interactive-cd # prefer ohmyzsh
 # wbingli/zsh-wakatime # only zplug, but don't install, without project detection
 # zdharma-continuum/zsh-navigation-tools # prefer ohmyzsh

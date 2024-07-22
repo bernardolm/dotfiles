@@ -2,6 +2,9 @@
 
 $SHELL_DEBUG && echo "👾 zshenv"
 
+# export ZSH_DISABLE_COMPFIX=true # specific to OMZ and is not used by compinit itself
+# export ZSH_THEME_RANDOM_QUIET=true
+# export ZSH_THEME='random'
 export AUTO_LS_CHPWD=false
 export AUTO_LS_COMMANDS='custom_function'
 export AUTO_LS_NEWLINE=false
@@ -10,6 +13,15 @@ export BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED=-1
 export CASE_SENSITIVE=false
 export CLICOLOR=true
+export CLR_BLUE="\e[38;5;15m\e[48;5;21m\e[1m"
+export CLR_CYAN="\e[38;5;235m\e[48;5;51m\e[1m"
+export CLR_GREEN="\e[38;5;235m\e[48;5;40m\e[1m"
+export CLR_GREY="\e[38;5;235m\e[48;5;253m\e[1m"
+export CLR_PURPLE="\e[38;5;15m\e[48;5;129m\e[1m"
+export CLR_RED="\e[38;5;235m\e[48;5;9m\e[1m"
+export CLR_ROSE="\e[38;5;15m\e[48;5;201m\e[1m"
+export CLR_WHITE="\e[38;5;235m\e[48;5;5m\e[1m"
+export CLR_YELLOW="\e[38;5;235m\e[48;5;226m\e[1m"
 export COLORTERM=truecolor
 export DISABLE_AUTO_TITLE=true
 export DISABLE_LS_COLORS=false
@@ -26,18 +38,18 @@ export LC_ALL='en_US.UTF-8'
 export LC_CTYPE='en_US.UTF-8'
 export LESS='-erX'
 export MICRO_TRUECOLOR=1
+export NO_COLOR="\e[0m"
 export PAGER='less'
 export POWERLINE_ROOT='/home/bernardo/.local/lib/python3.11/site-packages/powerline'
 export SAVEHIST=999999
 export SHELL_DEBUG=false
 export SHELL_PROFILE=false
 export SHELL_TRACE=false
+export SSH_AGENT_PID=-1
 export TERM='xterm-256color'
 export VISUAL='nano'
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="underline"
 export ZSH_HIGHLIGHT_MAXLENGTH=100
-export ZSH_THEME_RANDOM_QUIET=true
-export ZSH_THEME='random'
 export ZSH_WAKATIME_PROJECT_DETECTION=true
 
 export DOTFILES ; DOTFILES="${DOTFILES:=${HOME}/workspaces/bernardolm/dotfiles}" # 🧙‍♂️

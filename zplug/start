@@ -1,11 +1,13 @@
 #!/usr/bin/env zsh
 
-# shell_debug_relay=$SHELL_DEBUG
-# SHELL_DEBUG=true
+shell_debug_relay=$SHELL_DEBUG
+SHELL_DEBUG=false
 
 log start "zplug start"
 
-$SHELL_DEBUG && zplug_reset
+$SHELL_DEBUG \
+    && log warn "in debug mode, everything related to zplug will be deleted" \
+    && zplug_reset
 
 # shellcheck source=/dev/null
 . "${DOTFILES}/zplug/install"
@@ -15,7 +17,6 @@ while true; do
         log debug "zplug: sourcing init"
         # shellcheck source=/dev/null
         source "${ZPLUG_HOME}/init.zsh"
-
         break
     fi
     log debug "zplug: waiting to be installed..."
@@ -47,4 +48,4 @@ zplug 'zsh-users/zsh-syntax-highlighting', defer:2
 
 log finish "zplug start"
 
-# SHELL_DEBUG=$shell_debug_relay
+SHELL_DEBUG=$shell_debug_relay

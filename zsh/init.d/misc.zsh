@@ -1,7 +1,4 @@
-$SHELL_DEBUG && localectl status
-
-which thefuck >/dev/null && \
-    eval "$(thefuck --alias)"
+$SHELL_DEBUG && localectl status 1>/dev/null
 
 [ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
 [ -f "${HOME}/.fzf.zsh" ] && . "${HOME}/.fzf.zsh"

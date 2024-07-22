@@ -26,6 +26,3 @@
 
 [gpg]
     format = ssh
-
-[safe]
-    directory = /home/bernardo/workspaces/bernardolm/dotfiles

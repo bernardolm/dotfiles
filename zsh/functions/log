@@ -3,7 +3,7 @@
 function log() {
     local level=$1
 
-    local silenced_levels=("debug" "start" "finish")
+    local silenced_levels=("debug" "start" "finish" "env")
 
     if [ ! "$SHELL_DEBUG" = "true" ]; then
         if [[ ${silenced_levels[@]} =~ $level ]]; then

@@ -1,46 +1,84 @@
 #!/usr/bin/env zsh
 
-return
+set -e
 
-# shell_debug_relay=$SHELL_DEBUG
-# SHELL_DEBUG=true
+shell_debug_relay=$SHELL_DEBUG
+SHELL_DEBUG=false
 
-log start "zsh setup"
+# profiling shell
+if $SHELL_PROFILE; then
+    [ ! -d "$SHELL_SESSION_PATH" ] && mkdir -p "$SHELL_SESSION_PATH"
+    zmodload zsh/zprof
+    $SHELL_DEBUG && echo "a zsh profile was started"
+fi
 
-$SHELL_DEBUG && _start=$(($(date +%s%N)/1000000))
+disable log &>/dev/null && function log() {
+    for f in "${DOTFILES}"/zsh/functions/log*; do
+        # shellcheck source=/dev/null
+        . "$f"
+    done
+    # shellcheck disable=SC2294
+    eval log "$@"
+}
+
+log start "zsh"
 
 # TODO: move to top zdotfile
-SCRIPT_PATH="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
+export SCRIPT_PATH="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
+log env "SCRIPT_PATH"
 
-# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/functions/elapsed_time
-. $(eval echo $SCRIPT_PATH/functions/elapsed_time)
+# shellcheck disable=SC2168
+local inits=()
 
-# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/functions/zsh_autoload_path
-. $(eval echo $SCRIPT_PATH/functions/zsh_autoload_path)
-_fpaths=(
-    "${HOME}/sync/**/functions"
-    "${HOME}/workspaces/bernardolm/dotfiles/**/functions"
-)
-zsh_autoload_path $_fpaths || (echo 'autoload panic!' && exit 1)
+# shellcheck disable=SC2030
+# shellcheck disable=SC2086
+find ${DOTFILES}/ -maxdepth 3 -type f -path '*/init.d/*' | sort \
+    | while IFS="" read -r line; do inits+=("$line"); done
 
-$SHELL_DEBUG && elapsed_time $_start
+# shellcheck disable=SC2030
+# shellcheck disable=SC2031
+# shellcheck disable=SC2086
+find ${SYNC_DOTFILES}/ -maxdepth 3 -type f -path '*/init.d/*' | sort \
+    | while IFS="" read -r line; do inits+=("$line"); done
 
-# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/config/autoload
-. "${DOTFILES}/zsh/config/autoload"
+startList=$(date +%s%N)
+# shellcheck disable=SC2031
+# shellcheck disable=SC2168
+local _init_order=(
+    "${DOTFILES}/zsh/functions/elapsed_time"
+    "${DOTFILES}/zsh/functions/zsh_autoload_path"
+    "${DOTFILES}/zsh/config/autoload"
+    "${DOTFILES}/zsh/config/setopt"
+    "${DOTFILES}/zsh/config/unsetopt"
+    "${DOTFILES}/zsh/config/zstyle"
+    # "${DOTFILES}/ubuntu/start"
+    "${DOTFILES}/ssh/start"
+    # "${DOTFILES}/antigen/start"
+    "${DOTFILES}/zplug/start"
+    "${DOTFILES}/ohmyzsh/start"
+    "${DOTFILES}/starship/start"
+    # "${DOTFILES}/powerline/start"
+    # "${DOTFILES}/tabby/start"
+    # "${DOTFILES}/dropbox/start"
+    # "${DOTFILES}/vscode-server/start"
+    "${DOTFILES}/aliases"
+    "${inits[@]}"
+); for _f in "${_init_order[@]}"; do
+    startFile=$(date +%s%N)
+    # shellcheck source=/dev/null
+    . "$_f"
+    # shellcheck disable=SC2086
+    $SHELL_DEBUG && echo "$(elapsed_time ${startFile}) $_f"
+done
+# shellcheck disable=SC2086
+$SHELL_DEBUG && echo "$(elapsed_time ${startList}) everything"
 
-# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/install
-. "${DOTFILES}/zsh/install"
+log finish "zsh"
 
-# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/config/setopt
-. "${DOTFILES}/zsh/config/setopt"
+# profiling shell
+if $SHELL_PROFILE; then
+    zprof > "${SHELL_SESSION_PATH}/${NOW}.prf"
+    echo "a log profile file as created here ${SHELL_SESSION_PATH}/${NOW}.prf"
+fi
 
-# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/config/setopt
-. "${DOTFILES}/zsh/config/unsetopt"
-
-iterate_and_load "dotfiles zsh init" "${DOTFILES}/zsh/init" "*.zsh" "sort"
-iterate_and_load "sync zsh init" "${SYNC_DOTFILES}/zsh/init" "*.zsh" "sort"
-
-# shellcheck source=~/workspaces/bernardolm/dotfiles/zsh/config/zstyle
-. "${DOTFILES}/zsh/config/zstyle"
-
-# SHELL_DEBUG=$shell_debug_relay
+set +e

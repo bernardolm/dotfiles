@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-# shell_debug_relay=$SHELL_DEBUG
-# SHELL_DEBUG=true
+shell_debug_relay=$SHELL_DEBUG
+SHELL_DEBUG=false
 
 # Ref.: https://code.visualstudio.com/docs/remote/troubleshooting#_setting-up-the-ssh-agent
 # if [ -z "$SSH_AUTH_SOCK" ]; then
@@ -37,8 +37,8 @@ function ssh_agent_start() {
 }
 
 function ssh_agent_ppid() {
-    # pgrep -x ssh-agent
-    sudo lsof -i | grep 1392 | awk '{print $6}'
+    pgrep -x ssh-agent
+    # sudo lsof -i | grep 1392 | awk '{print $6}'
 }
 
 function pub_key_get() {
@@ -57,8 +57,9 @@ function list_loaded_keys() {
 function show_env_values() {
     $SHELL_DEBUG || return
     echo ""
-    log debug "SSH_AGENT_PID=${SSH_AGENT_PID}"
+    # log warn "you can be asked for superuser password to get pid from ssh-agent"
     log debug "ssh_agent_ppid=$(ssh_agent_ppid)"
+    log debug "SSH_AGENT_PID=${SSH_AGENT_PID}"
     log debug "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"
     log debug "SSH_CONNECTION=${SSH_CONNECTION}"
     log debug "SSH_ENV=${SSH_ENV}"
@@ -95,4 +96,4 @@ fi
 
 log finish "ssh setup"
 
-# SHELL_DEBUG=$shell_debug_relay
+SHELL_DEBUG=$shell_debug_relay

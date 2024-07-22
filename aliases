@@ -21,7 +21,6 @@ alias gotop='gotop-cjbassi'
 alias gsl='git stash list'
 alias gst="git status --branch --show-stash --untracked-files=all --ignore-submodules=untracked --column=always --renames --find-renames=70%"
 alias gt='go test ./...'
-alias less='cless && cless || less'
 alias ls='ls_2_exa'
 alias lsa='ls -lah'
 alias n='nautilus .'

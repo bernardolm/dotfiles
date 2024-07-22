@@ -52,6 +52,7 @@
 # ufw
 # wakatime # with project detection, but installed by zplug
 # zsh-wakatime # ohmyzsh custom, without project detection
+
 colored-man-pages
 colorize
 command-not-found

@@ -1,3 +1,4 @@
 #!/usr/bin/env zsh
 
-which starship &>/dev/null || (curl -sS https://starship.rs/install.sh | sh)
+which starship &>/dev/null \
+    || (curl -sS https://starship.rs/install.sh | BIN_DIR=$HOME/.local/bin VERBOSE=1 sh)

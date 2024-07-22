@@ -2,8 +2,7 @@
 
 function zplug_reset() {
     start=$(date +%s%N)
-    log warn "in debug mode, everything related to zplug will be deleted" \
-        && (zplug clean 2>/dev/null || true) \
+    (zplug clean 2>/dev/null || true) \
         && (zplug clear 2>/dev/null || true) \
         && /bin/rm -rf ~/.zplug ~/.cache/zplug \
         && export ZPLUG_LOG_LOAD_SUCCESS=true \
