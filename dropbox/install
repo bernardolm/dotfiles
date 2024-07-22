@@ -2,3 +2,5 @@
 
 # shellcheck source=/dev/null
 . "${DOTFILES}/linux/install.d/dropbox-py"
+
+# sudo apt ufw allow 17500 17600 17603
