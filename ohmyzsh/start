@@ -1,10 +1,22 @@
 #!/usr/bin/env zsh
 
-log start "ohmyzsh setup"
+shell_debug_relay=$SHELL_DEBUG
+SHELL_DEBUG=false
 
+log start "ohmyzsh"
+
+start=$(date +%s%N)
 # shellcheck source=/dev/null
 . "${DOTFILES}/ohmyzsh/install"
+$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh install"
 
+start=$(date +%s%N)
+_zsh_autosuggestions=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+[ ! -d $_zsh_autosuggestions ] \
+    && git clone https://github.com/zsh-users/zsh-autosuggestions $_zsh_autosuggestions
+$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh autosuggestions clone"
+
+start=$(date +%s%N)
 zstyle ':omz:lib:directories' aliases no
 zstyle ':omz:lib:docker-compose' aliases no
 zstyle ':omz:lib:docker' aliases no
@@ -12,13 +24,20 @@ zstyle ':omz:lib:git' aliases yes
 zstyle ':omz:lib:sudo' aliases mo
 zstyle ':omz:lib:theme-and-appearance' aliases no
 zstyle ':omz:update' mode disabled
+$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh zstyle"
 
+start=$(date +%s%N)
 plugins=($(ohmyzsh_plugins_list))
-log debug "oh-my-zsh plugins loaded: '$plugins'"
+log debug "oh-my-zsh plugins loaded: $plugins"
+$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh plugins list"
 
+start=$(date +%s%N)
 # shellcheck source=/dev/null
 . "${ZSH}/oh-my-zsh.sh"
+$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh source"
 
 unalias sudo
 
-log finish "ohmyzsh setup"
+log finish "ohmyzsh"
+
+SHELL_DEBUG=$shell_debug_relay

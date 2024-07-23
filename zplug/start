@@ -5,13 +5,16 @@ SHELL_DEBUG=false
 
 log start "zplug start"
 
-$SHELL_DEBUG \
-    && log warn "in debug mode, everything related to zplug will be deleted" \
-    && zplug_reset
+# $SHELL_DEBUG \
+#     && log warn "in debug mode, everything related to zplug will be deleted" \
+#     && zplug_reset
 
+start=$(date +%s%N)
 # shellcheck source=/dev/null
 . "${DOTFILES}/zplug/install"
+$SHELL_DEBUG && echo "$(elapsed_time $start) zplug install"
 
+start=$(date +%s%N)
 while true; do
     if [ -f "${ZPLUG_HOME}/init.zsh" ]; then
         log debug "zplug: sourcing init"
@@ -20,31 +23,32 @@ while true; do
         break
     fi
     log debug "zplug: waiting to be installed..."
-    sleep 3
+    sleep 1
 done
+$SHELL_DEBUG && echo "$(elapsed_time $start) zplug source"
 
+start=$(date +%s%N)
 local to_load=($(zsh_plugins_list) $(zsh_completions_list))
+$SHELL_DEBUG && echo "$(elapsed_time $start) zplug load plugins"
 
+start=$(date +%s%N)
 for p in $to_load; do
     log debug "zplug: $p"
-    zplug "$p", lazy:true 2>/dev/null || zplug "$p"
+    zplug "$p"
 done
+$SHELL_DEBUG && echo "$(elapsed_time $start) zplug plugins list"
 
 start=$(date +%s%N)
 if ! zplug check; then
     log warn "zplug: installing new plugins"
     zplug install
 fi
-$SHELL_DEBUG && echo "$(elapsed_time $start) zplug install"
+$SHELL_DEBUG && echo "$(elapsed_time $start) zplug install plugins"
 
-log debug "zplug: loading"
 start=$(date +%s%N)
+log debug "zplug: loading"
 zplug load ${ZPLUG_VERBOSE}
 $SHELL_DEBUG && echo "$(elapsed_time $start) zplug load"
-
-# zplug 'dracula/zsh', as:theme, defer:2
-# zplug 'dracula/zsh-syntax-highlighting', defer:2
-zplug 'zsh-users/zsh-syntax-highlighting', defer:2
 
 log finish "zplug start"
 

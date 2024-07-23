@@ -1,4 +1,3 @@
-
 # 1password
 # ag
 # alias-finder
@@ -62,7 +61,6 @@ history-substring-search
 sudo
 vscode
 z
-zcolors # ohmyzsh custom
 zsh-autosuggestions # ohmyzsh custom
 zsh-interactive-cd
 zsh-navigation-tools

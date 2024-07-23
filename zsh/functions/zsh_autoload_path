@@ -1,15 +1,19 @@
 #!/usr/bin/env zsh
 
 function zsh_autoload_path() {
-    _paths="$@"
-    for _path in "${_paths[@]}"; do
-        _path=($(eval echo $_path))
-        eval "fpath=( $_path ${fpath[@]} )"
-        for folder in "${_path[@]}"; do
-            for file in $folder/*; do
-                name=$(basename $file)
-                autoload -Uz $name
+    if [ ! -f ~/.zcomp.autoload ]; then
+        _paths="$@"
+        for _path in "${_paths[@]}"; do
+            _path=($(eval echo $_path))
+            echo "eval \"fpath=( $_path ${fpath[@]} )\"" >> ~/.zcomp.autoload
+            for folder in "${_path[@]}"; do
+                for file in $folder/*; do
+                    name=$(basename $file)
+                    echo "autoload -Uz $name" >> ~/.zcomp.autoload
+                done
             done
         done
-    done
+    fi
+
+    source ~/.zcomp.autoload
 }

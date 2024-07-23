@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 shell_debug_relay=$SHELL_DEBUG
-SHELL_DEBUG=true
+SHELL_DEBUG=false
 
 # shellcheck source=/dev/null
 . "${DOTFILES}/zsh/functions/log"

@@ -34,5 +34,6 @@ function chmod_reset() {
     done
 
     [ "$SHELL_DEBUG" = "true" ] && set +x
+
     SHELL_DEBUG=$shell_debug_relay
 }

@@ -6,24 +6,13 @@ local __bin_path="${HOME}/.local/bin/${__package}"
 $SHELL_DEBUG && echo "__package=${__package}"
 $SHELL_DEBUG && echo "__bin_path=${__bin_path}"
 
-# while read -r f ; do . "$f" ; done < <(find $DOTFILES/zsh/functions -name 'log*' | sort)
-# while read -r f ; do . "$f" ; done < <(/bin/ls $DOTFILES/zsh/functions/log*)
-
-# disable log &>/dev/null && function log() {
-#     for f in "${DOTFILES}"/zsh/functions/log*; do
-#         # shellcheck source=/dev/null
-#         . "$f"
-#     done
-#     # shellcheck disable=SC2294
-#     eval log "$@"
-# }
-
 # https://www.dropbox.com/download?dl=packages/dropbox.py
+# https://linux.dropbox.com/packages/dropbox.py
 
 [ ! -f "${__bin_path}" ] \
     && SHELL_DEBUG=true log info "installing ${__package}" \
     && mkdir -p "$(dirname ${__bin_path})" \
-    && curl -sL -o "${__bin_path}" https://linux.dropbox.com/packages/dropbox.py \
+    && curl -sL -o "${__bin_path}" https://www.dropbox.com/download?dl=packages/dropbox.py \
     && chmod u+x "${__bin_path}" \
     && ls -lah "${__bin_path}" \
     | log_is_command_success

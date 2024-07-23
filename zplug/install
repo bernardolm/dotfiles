@@ -1,11 +1,7 @@
 #!/usr/bin/env zsh
 
 if ! [[ -d "${HOME}/.zplug" ]]; then
-    start=$(date +%s%N)
-
     log start "zplug install"
     git clone --quiet https://github.com/zplug/zplug $ZPLUG_HOME
     log finish "zplug install"
-
-    echo "$(elapsed_time $start) $DOTFILES/zplug/install"
 fi
