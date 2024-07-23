@@ -2,10 +2,6 @@
 
 log start "pre setup ubuntu"
 
-# log info "setup language and locale"
-
-# sudo locale-gen en_US.UTF-8  # NOTE: bypassing temp
-
 . "${DOTFILES}/apt/pre-install"
 
 log finish "pre setup ubuntu"

@@ -1,13 +1,10 @@
 #!/usr/bin/env bash
 
-# shellcheck source=/dev/null
-# . "${DOTFILES}/zsh/functions/log"
-
 log start "pre setup apt"
 
-# sudo apt-get update # NOTE: bypassing temp
-# sudo apt-get --yes upgrade # NOTE: bypassing temp
+# sudo apt-get update                                 # NOTE: bypassing temp
+# sudo apt-get upgrade --yes --no-install-recommends  # NOTE: bypassing temp
 
-which git &>/dev/null || sudo apt-get --yes install git
+command -v yq >/dev/null || sudo apt install yq
 
 log finish "pre setup apt"

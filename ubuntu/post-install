@@ -1,19 +1,7 @@
 #!/usr/bin/env zsh
 
-# shellcheck source=/dev/null
-
 log start "post install ubuntu"
 
-# fc-cache -f
-# gconftool-2 --shutdown
-# gconftool-2 --spawn
-# gnome-extensions disable window-list@gnome-shell-extensions.gcampax.github.com 2>/dev/null || true
-# gnome-extensions disable windowsNavigator@gnome-shell-extensions.gcampax.github.com 2>/dev/null || true
-# gnome-extensions disable workspace-indicator@gnome-shell-extensions.gcampax.github.com 2>/dev/null || true
-# gsettings set org.cinnamon.desktop.wm.preferences num-workspaces 1 2>/dev/null || true
-# gsettings set org.gnome.shell enable-hot-corners true 2>/dev/null || true
-# sudo dpkg --add-architecture i386
 sudo pro attach $UBUNTU_PRO_PERSONAL_TOKEN
-# sudo systemctl enable tlp
 
 log finish "post install ubuntu"

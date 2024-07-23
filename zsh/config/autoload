@@ -5,4 +5,4 @@ _fpaths=(
     "${HOME}/workspaces/bernardolm/dotfiles/**/functions"
 )
 
-zsh_autoload_path $_fpaths || (echo 'autoload panic!' && exit 1)
+zsh_autoload_paths $_fpaths || (echo 'autoload panic!' && exit 1)

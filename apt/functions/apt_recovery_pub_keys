@@ -1,22 +1,24 @@
 #!/usr/bin/env zsh
 
-function apt_keys_recovery() {
-    # shell_debug_relay=$SHELL_DEBUG
-    # SHELL_DEBUG=true
+function apt_recovery_pub_keys() {
+    shell_debug_relay=$SHELL_DEBUG
+    SHELL_DEBUG=true
 
-    log start "recovering gpg keys absent"
+    log start "recovering apt pub keys"
+
+    log info "individual pub keys"
 
     local file
 
     ## 1password
     file=/etc/apt/trusted.gpg.d/1password.gpg
     if [ ! -f $file ]; then
-        log info "1password"
+        log info "1password pub key will be recovered"
 
         curl -fsSL https://downloads.1password.com/linux/keys/1password.asc | \
             sudo gpg --yes --dearmor --output $file
 
-        /bin/rm -f /etc/apt/sources.list.d/1password.list
+        sudo /bin/rm -f /etc/apt/sources.list.d/1password.list
 
         echo -n 'deb [arch=amd64 ' \
             "signed-by=${file}] " \
@@ -28,22 +30,36 @@ function apt_keys_recovery() {
 
         curl -fsSL https://downloads.1password.com/linux/debian/debsig/1password.pol | \
             sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol &>/dev/null
+
+        log info "1password recovered"
+    else;
+        log info "1password OK"
     fi
 
     ## docker
     file=/etc/apt/trusted.gpg.d/docker.gpg
     if [ ! -f $file ]; then
-        log info "docker"
+        log info "docker pub key will be recovered"
+
         curl -fsSL https://download.docker.com/linux/ubuntu/gpg | \
             sudo gpg --yes --dearmor --output $file
+
+        log info "docker recovered"
+    else;
+        log info "docker OK"
     fi
 
     ## google cloud platform
     file=/etc/apt/trusted.gpg.d/cloud.google.gpg
     if [ ! -f $file ]; then
-        log info "google cloud"
+        log info "google cloud pub key will be recovered"
+
         curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | \
             sudo gpg --yes --dearmor --output $file
+
+        log info "google cloud recovered"
+    else;
+        log info "google cloud OK"
     fi
 
     # order is important
@@ -56,31 +72,27 @@ function apt_keys_recovery() {
 
     [ -f /etc/apt/trusted.gpg ] && sudo /bin/rm -f /etc/apt/trusted.gpg
 
-    log info "others sources"
+    log info "anothers pub keys"
 
-    sudo apt-get update 2>/dev/null | \
-        sed -nr 's/^.*NO_PUBKEY\s(\w{16}).*$/\1/p' | sort | uniq | \
-        while read -r key; do
-
-        log debug "${key}: no pubkey found"
+    apt_list_absent_pub_key | while read -r key; do
+        log debug "pub key ${key}"
 
         for server in "${servers[@]}"; do
-            log debug "${key}: trying recover key from ${server}"
+            log debug "trying recover ${key} from ${server}"
             sudo apt-key adv --keyserver ${server} \
                 --recv-keys "${key}" &>/dev/null \
-                && log debug "${key}: OK" && \
-                break || \
-                log error "${key}: failed"
+                && break || \
+                log error "failed to ${key} from ${server}"
         done
 
         sudo apt-key export "${key}" 2>/dev/null | \
             sudo gpg --batch --yes --dearmour \
             -o "/etc/apt/trusted.gpg.d/${key}.gpg"
 
-        log info "${key}: done"
+        log info "${key} OK"
     done
 
-    log finish "gpg keys absent recovered"
+    log finish "recovering apt pub keys"
 
-    # SHELL_DEBUG=$shell_debug_relay
+    SHELL_DEBUG=$shell_debug_relay
 }

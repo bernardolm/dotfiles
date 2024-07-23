@@ -7,12 +7,12 @@ ENV TERM=xterm-256color
 WORKDIR /opt/dotfiles
 
 RUN apt-get update && \
-    apt-get --no-install-recommends --yes install \
+    apt-get install --no-install-recommends --yes  \
     sudo locales apt-utils dialog
 
 # to turn tests fast
-RUN apt-get --yes upgrade
-RUN apt-get --no-install-recommends --yes install \
+RUN apt-get upgrade --no-install-recommends --yes
+RUN apt-get install --no-install-recommends --yes \
     git
 # to turn tests fast
 

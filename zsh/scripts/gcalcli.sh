@@ -12,7 +12,7 @@ test -z $DEBUG || echo "agenda is $agenda"
 local agenda_cmd=""
 
 if [ ! -z $DEBUG ]; then
-    local tmp_file="/tmp/gcalcli.cache"
+    local tmp_file="~/tmp/gcalcli.cache"
 
     if [ ! -f "$tmp_file" ]; then
         $DOTFILES/zsh/scripts/gcalcli.sh > "$tmp_file"

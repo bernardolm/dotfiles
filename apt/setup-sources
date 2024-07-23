@@ -28,6 +28,6 @@ log info 'setting apt sources'
 # fi
 
 # shellcheck source=/dev/null
-source "${DOTFILES}/zsh/functions/apt_keys_recovery"; apt_keys_recovery
+source "${DOTFILES}/apt/functions/apt_keys_recovery"; apt_keys_recovery
 
 sudo apt-get update

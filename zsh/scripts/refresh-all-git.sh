@@ -1,10 +1,9 @@
 #!/usr/bin/env zsh
 source ~/.zshrc
 
-NOW=$(date +"%Y%m%d-%H%M%S")
-
-mkdir -p ~/tmp/git-update/${NOW}
-TEMP_PATH=~/tmp/git-update/${NOW}
+local now=$(date +"%Y%m%d-%H%M%S")
+local log_path=~/tmp/refresh-all-git/$NOW
+[ ! -d $log_path ] && mkdir -p $log_path
 
 # Black        0;30     Dark Gray     1;30
 # Red          0;31     Light Red     1;31
@@ -16,67 +15,67 @@ TEMP_PATH=~/tmp/git-update/${NOW}
 # Light Gray   0;37     White         1;37
 
 setopt ksh_arrays
-local COLORIZE[0]="\033[0;31m"
-local COLORIZE[1]="\033[0;32m"
-local COLORIZE[2]="\033[0;33m"
-local COLORIZE[3]="\033[0;34m"
-local COLORIZE[4]="\033[0;35m"
-local COLORIZE[5]="\033[0;36m"
-local COLORIZE[6]="\033[0;37m"
-local COLORIZE[7]="\033[1;30m"
-local COLORIZE[8]="\033[1;31m"
-local COLORIZE[9]="\033[1;32m"
-local COLORIZE[10]="\033[1;33m"
-local COLORIZE[11]="\033[1;34m"
-local COLORIZE[12]="\033[1;35m"
-local COLORIZE[13]="\033[1;36m"
-local COLORIZE[14]="\033[1;37m"
-local NC="\033[0m" # No Color
+local colorize[0]="\033[0;31m"
+local colorize[1]="\033[0;32m"
+local colorize[2]="\033[0;33m"
+local colorize[3]="\033[0;34m"
+local colorize[4]="\033[0;35m"
+local colorize[5]="\033[0;36m"
+local colorize[6]="\033[0;37m"
+local colorize[7]="\033[1;30m"
+local colorize[8]="\033[1;31m"
+local colorize[9]="\033[1;32m"
+local colorize[10]="\033[1;33m"
+local colorize[11]="\033[1;34m"
+local colorize[12]="\033[1;35m"
+local colorize[13]="\033[1;36m"
+local colorize[14]="\033[1;37m"
+local nc="\033[0m" # No Color
 
-WAIT_FOR=0
+local wait_for=0
 
 do_bkp() {
-    FROM="$1"
-    TO="../_$2-bkp-${NOW}"
-    mv ${FROM} ${TO}
+    local from="$1"
+    local to="../_$2-bkp-${now}"
+    mv ${from} ${to}
 }
 
 update_repo() {
-    REPO_NAME=$(basename $1)
-    THIS_LOG=${TEMP_PATH}/${REPO_NAME}.log
-    touch ${THIS_LOG}
+    local repo_name=$(basename $1)
+    local this_log=${log_path}/${repo_name}.log
+    touch ${this_log}
 
     cd $1
 
-    RANDOM_NUMBER=$(((RANDOM % 14) + 1))
+    local random_number=$(((RANDOM % 14) + 1))
 
-    echo -e ${COLORIZE[$RANDOM_NUMBER]} >>${THIS_LOG} 2>&1
+    echo -e ${colorize[$RANDOM_NUMBER]} >>${this_log} 2>&1
 
-    if [[ ${REPO_NAME} =~ '^_+.*$' ]]; then
-        echo -e "skipping ${REPO_NAME}" >>${THIS_LOG} 2>&1
+    if [[ ${repo_name} =~ '^_+.*$' ]]; then
+        echo -e "skipping ${repo_name}" >>${this_log} 2>&1
     elif [ -d ".git" ]; then
-        echo -e "starting ${REPO_NAME} after "$2"s" >>${THIS_LOG} 2>&1
+        echo -e "starting ${repo_name} after "$2"s" >>${this_log} 2>&1
         sleep $WAIT_FOR
 
-        echo -e "fetching ${REPO_NAME}" >>${THIS_LOG} 2>&1
-        # git stash >>${THIS_LOG} 2>&1
-        git fetch --all --prune >>${THIS_LOG} 2>&1
-        # (git checkout master || git checkout main) >>${THIS_LOG} 2>&1
-        # (git pull origin master || git pull origin main) >>${THIS_LOG} 2>&1
-        echo -e "\n\n" >>${THIS_LOG} 2>&1
+        echo -e "fetching ${repo_name}" >>${this_log} 2>&1
+        # git stash >>${this_log} 2>&1
+        git fetch --all --prune >>${this_log} 2>&1
+        # (git checkout master || git checkout main) >>${this_log} 2>&1
+        # (git pull origin master || git pull origin main) >>${this_log} 2>&1
+        echo -e "\n\n" >>${this_log} 2>&1
 
-        if [[ $(cat ${THIS_LOG} | grep -c "Repository not found") > 0 ]]; then
-            echo -e "backuping ${REPO_NAME}, repository not found" >>${THIS_LOG} 2>&1
-            do_bkp $1 ${REPO_NAME}
+        if [[ $(cat ${this_log} | grep -c "Repository not found") > 0 ]]; then
+            echo -e "backuping ${repo_name}, repository not found" >>${this_log} 2>&1
+            do_bkp $1 ${repo_name}
         fi
     else
-        echo -e "backuping ${REPO_NAME}, is a obsolete repository" >>${THIS_LOG} 2>&1
-        do_bkp $1 ${REPO_NAME}
+        echo -e "backuping ${repo_name}, is a obsolete repository" >>${this_log} 2>&1
+        do_bkp $1 ${repo_name}
     fi
 
-    echo -e ${NC} >>${THIS_LOG} 2>&1
+    echo -e ${NC} >>${this_log} 2>&1
 
-    cat $THIS_LOG
+    cat $this_log
 
     cd ..
 }
@@ -87,8 +86,8 @@ iter_paths() {
             continue
         fi
 
-        WAIT_FOR=$((WAIT_FOR + 2))
-        update_repo $f $WAIT_FOR &
+        wait_for=$((wait_for + 2))
+        update_repo $f $wait_for &
     done
 }
 
@@ -98,4 +97,4 @@ iter_paths "find ${WORKSPACE_USER} -mindepth 1 -maxdepth 1 -type d"
 # iter_paths "find $GOPATH/src/github.com/$GITHUB_ORG -mindepth 1 -maxdepth 1 -type d"
 # iter_paths "find $GOPATH/src/github.com/$GITHUB_USER -mindepth 1 -maxdepth 1 -type d"
 
-# sleep $((WAIT_FOR + (15 * 60))) && /bin/rm -rf $TEMP_PATH
+# sleep $((WAIT_FOR + (15 * 60))) && /bin/rm -rf $log_path
