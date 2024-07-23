@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-
-log info "installing theme.sh"
-
-[ ! -f ~/.local/bin/theme.sh ] && \
-    curl -sL 'https://git.io/JM70M' -o ~/.local/bin/theme.sh && \
-    chmod u+x ~/.local/bin/theme.sh && \
-    echo " ✔️"

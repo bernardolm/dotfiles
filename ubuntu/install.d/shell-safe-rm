@@ -1,9 +1,0 @@
-#!/usr/bin/env zsh
-
-log info "installing shell-safe-rm"
-
-[ ! -f "$HOME/.local/bin/rm.sh" ] && \
-    curl -sL 'https://github.com/kaelzhang/shell-safe-rm/blob/master/bin/rm.sh' \
-        -o "$HOME/.local/bin/rm.sh" && \
-    chmod u+x "$HOME/.local/bin/rm.sh" && \
-    echo "✔️"
