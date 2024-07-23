@@ -3,12 +3,9 @@
 $SHELL_DEBUG && echo "👾 zshenv"
 
 # export AUTO_LS_CHPWD=true
-# export AUTO_LS_COMMANDS='custom_function'
 # export AUTO_LS_NEWLINE=false
 # export AUTO_LS_PATH=false
-# export ZSH_DISABLE_COMPFIX=true # specific to OMZ and is not used by compinit itself
-# export ZSH_THEME_RANDOM_QUIET=true
-# export ZSH_THEME='random'
+export AUTO_LS_COMMANDS='custom_function'
 export BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED=-1
 export CASE_SENSITIVE=false
@@ -65,7 +62,6 @@ export VSCODE_CLI_DATA_DIR ; VSCODE_CLI_DATA_DIR="${HOME}/.vscode-server/cli"
 export ZPLUG_HOME ; ZPLUG_HOME="${HOME}/.zplug"
 export ZSH ; ZSH="${HOME}/.oh-my-zsh"
 export ZSH_CUSTOM ; ZSH_CUSTOM="${HOME}/.zsh"
-export ZSH_WAKATIME_BIN ; ZSH_WAKATIME_BIN="${HOME}/.local/bin/wakatime-cli"
 
 export DONE_FILE ; DONE_FILE="${SYNC_DOTFILES}/todo-txt/done.txt"
 export HISTFILE ; HISTFILE="${SYNC_DOTFILES}/zsh/.zsh_history" # where to save history to disk
