@@ -1,3 +1,4 @@
+
 # 1password
 # ag
 # alias-finder
@@ -52,7 +53,6 @@
 # ufw
 # wakatime # with project detection, but installed by zplug
 # zsh-wakatime # ohmyzsh custom, without project detection
-
 colored-man-pages
 colorize
 command-not-found
@@ -60,7 +60,6 @@ emoji
 git
 history-substring-search
 sudo
-thefuck
 vscode
 z
 zcolors # ohmyzsh custom
