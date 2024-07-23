@@ -131,8 +131,8 @@ function dns_local_setup() {
     }
 
     function install_docker() {
-        curl -fsSL get.docker.com -o /tmp/get-docker.sh || exit 1
-        ${super} sh /tmp/get-docker.sh || exit 1
+        curl -fsSL get.docker.com -o ~/tmp/get-docker.sh || exit 1
+        ${super} sh ~/tmp/get-docker.sh || exit 1
     }
 
     function setup_docker() {

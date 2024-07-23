@@ -17,11 +17,7 @@ function keep_mic_muted() {
     keep_mic_muted $1 $times
 }
 
-log_path=~/tmp/cron/keep-mic-muted
-
-if [ ! -d $log_path ]; then
-    echo -e "creating keep-mic-muted log folder '$log_path'..."
-    mkdir -p $log_path
-fi
+log_path=~/tmp/keep_mic_muted
+[ ! -d $log_path ] && mkdir -p $log_path
 
 keep_mic_muted 60 > $log_path/$(date +"%Y%m%d%H%M%S").log 2>&1
