@@ -1,57 +1,5 @@
-# 1password
-# ag
-# alias-finder
-# aliases
-# common-aliases # only ohmyzsh, but don't install
-# cp
-# debian
-# docker
-# emoji-clock
-# extract
-# fzf
-# git-auto-fetch
-# git-commit
-# git-escape-magic
-# git-extras
-# git-flow
-# git-flow-avh
-# git-hubflow
-# git-lfs
-# git-prompt
-# gitfast
-# github
-# gitignore
-# globalias
-# gnu-utils
-# golang
-# gpg-agent
-# history
-# jsontools
-# keychain
-# last-working-dir
-# lol
-# magic-enter
-# man
-# nanoc
-# nmap
-# pip
-# pre-commit
-# python
-# repo
-# rsync
-# safe-paste
-# screen
-# ssh-agent
-# starship
-# systemadmin
-# systemd
-# themes
-# timer
-# transfer
-# ubuntu
-# ufw
-# wakatime # with project detection, but installed by zplug
-# zsh-wakatime # ohmyzsh custom, without project detection
+1password
+aliases
 colored-man-pages
 colorize
 command-not-found
@@ -60,6 +8,7 @@ git
 history-substring-search
 sudo
 vscode
+wakatime
 z
 zsh-autosuggestions # ohmyzsh custom
 zsh-interactive-cd
