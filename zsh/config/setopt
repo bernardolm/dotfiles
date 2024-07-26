@@ -5,6 +5,7 @@ $SHELL_DEBUG || (
 )
 
 setopt append_history           # add cmd to history, don't replace. to share history across sessions.
+setopt autocd                   # needs explanation!
 setopt autocd auto_cd           # exec cd if cmd is a folder.
 setopt automenu nolistambiguous # needs explanation!
 setopt beep                     # beep on error in zle.
@@ -22,8 +23,10 @@ setopt hist_reduce_blanks       # remove superfluous blanks from each command li
 setopt hist_save_by_copy        # when the history file is re-written, we normally write out a copy of the file named $histfile.new and then rename it over the old one.
 setopt hist_save_no_dups        # do not write a duplicate event to the history file.
 setopt hist_verify              # whenever the user enters a line with history expansion, don’t execute the line directly; instead, perform history expansion and reload the line into the editing buffer.
+setopt histignorespace          # space-prepended not retained
 setopt ignore_eof               # do not exit on end-of-file. require the use of exit or logout instead
 setopt inc_append_history       # this option works like append_history except that new history lines are added to the $histfile incrementally (as soon as they are entered), rather than waiting until the shell exits
+setopt interactivecomments      # needs explanation!
 setopt list_beep                # beep on an ambiguous completion.
 setopt nomatch notify           # needs explanation!
 setopt prompt_subst             # if set, parameter expansion, command substitution and arithmetic expansion are performed in prompts

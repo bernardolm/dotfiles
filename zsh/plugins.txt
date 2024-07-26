@@ -1,3 +1,4 @@
+agkozak/zsh-z # for z ohmyzsh plugin
 desyncr/auto-ls # only zplug
 sobolevn/wakatime-zsh-plugin # only zplug, with project detection
 zsh-users/zsh-syntax-highlighting # only zplug

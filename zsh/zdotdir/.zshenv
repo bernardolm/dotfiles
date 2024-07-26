@@ -46,6 +46,8 @@ export SSH_AGENT_PID=-1
 export TERM='xterm-256color'
 export VISUAL='nano'
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="underline"
+export ZSH_COLORIZE_CHROMA_FORMATTER=terminal256
+export ZSH_COLORIZE_TOOL=chroma
 export ZSH_HIGHLIGHT_MAXLENGTH=100
 export ZSH_WAKATIME_PROJECT_DETECTION=true
 
@@ -54,6 +56,7 @@ export GOPATH ; GOPATH="${HOME}/gopath"
 export GPG_TTY ; GPG_TTY="$(tty)"
 export HOSTNAME="$(hostname)"
 export NOW ; NOW="$(date '+%H-%M-%S-%N')"
+export PROMPT=$(random_emoji fruits)"  > ${PROMPT}"
 export SSH_AUTH_SOCK ; SSH_AUTH_SOCK="/run/user/$(id -u)/ssh-agent.socket"
 export SYNC_DOTFILES ; SYNC_DOTFILES="${SYNC_DOTFILES:=${HOME}/sync}" # 🧙‍♂️
 export TODAY ; TODAY="$(date '+%F')"

@@ -1,1 +1,3 @@
+#!/usr/bin/env zsh
+
 [ ! -d "$GOPATH" ] && mkdir -p "$GOPATH"

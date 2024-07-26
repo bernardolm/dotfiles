@@ -1,7 +1,11 @@
 #!/usr/bin/env zsh
 
-# zstyle ':compinstall'  filename "${HOME}/.zshrc"
-# zstyle ':completion:*:complete:ls:*:*' verbose no
-# zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-# zstyle ':completion:*' menu select
-# zstyle ':completion:*' verbose yes
+# zstyle ':omz:plugins:docker' legacy-completion yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*' menu select
+zstyle ':completion:*' verbose yes
+zstyle ':omz:plugins:alias-finder' autoload yes
+zstyle ':omz:plugins:alias-finder' cheaper yes
+zstyle ':omz:plugins:alias-finder' exact yes
+zstyle ':omz:plugins:alias-finder' longer yes
