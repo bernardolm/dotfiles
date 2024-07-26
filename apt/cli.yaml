@@ -29,6 +29,7 @@ add:
   - python3-setuptools
   - shellcheck
   - silversearcher-ag
+  - sshfs
   - traceroute
   - upx-ucl
   - wget

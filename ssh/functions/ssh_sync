@@ -1,0 +1,19 @@
+#!/usr/bin/env zsh
+
+function ssh_sync_connect {
+    sshfs -f -C -d \
+        -o allow_other,default_permissions,reconnect \
+        -v $1 $2
+}
+
+function ssh_sync() {
+    local current_ip=$(hostname -I | cut -d' ' -f1)
+    local current_hostname=$(hostname)
+    local no_hostname="dev-server-acao-01"
+
+    echo [ "${current_hostname}" = "${no_hostname}" ] \
+        && echo "not in ${no_hostname}" \
+        && return
+
+    echo ssh_sync_connect "${USER}@${current_ip}:${HOME}/Dropbox/linux" "${USER}@dev-server-acao-01:$HOME/sync"
+}
