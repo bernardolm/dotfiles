@@ -1,22 +1,23 @@
-# bind Del delete all
+include /usr/share/nano/*
+include ~/.nano/*.nanorc
 
-#bind 	DEL		delete			main
-#bind    ^H      backspace   	main
+# bind       ^H      backspace       main
+# bind       Del     delete      all
+# bind       DEL     delete      main
 
-# # set magic
-# # set rebinddelete
-
+# set magic
+# set mouse
+# set rebinddelete
+# set smarthome
+# set stateflags
 set autoindent
 set constantshow
 set guidestripe 80
 set historylog
 set indicator
 set linenumbers # Displaying the Current Line Number
-# set mouse
 set positionlog
 set showcursor
-# set smarthome
-# set stateflags
 set tabsize 4
 set tabstospaces
 set trimblanks

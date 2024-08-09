@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 
-log start "setup apt packages"
+log start "install apt"
+
+source "${DOTFILES}/apt/functions/apt_keys_recovery" ; apt_keys_recovery
+
+sudo apt update                                 # NOTE: bypassing temp
+sudo apt upgrade --yes --no-install-recommends  # NOTE: bypassing temp
+
+command -v yq >/dev/null || sudo apt install --yes --no-install-recommends yq
+# command -v git >/dev/null || sudo apt install --yes --no-install-recommends  git
 
 sudo apt-get install --no-install-recommends \
 	$(cat ${DOTFILES}/apt/cli.yaml | grep -v '\s+#' | yq '.add.[]' | tr '\n' ' ' | tr '"' ' ')
@@ -16,4 +24,4 @@ sudo apt-get install --no-install-recommends \
 
 sudo apt-get autoremove --purge
 
-log finish "setup apt packages"
+log finish "install apt"

@@ -5,7 +5,6 @@
 
 [submodule "git/modules/dotbot-pip"]
     active = true
-    ignore = dirty
 	path = git/modules/dotbot-pip
 	url = https://github.com/sobolevn/dotbot-pip.git
 
@@ -16,12 +15,15 @@
 
 [submodule "git/modules/dotbot-sudo"]
     active = true
-    ignore = dirty
 	path = git/modules/dotbot-sudo
 	url = https://github.com/DrDynamic/dotbot-sudo.git
 
 [submodule "git/modules/dotbot-brew"]
     active = true
-    ignore = dirty
 	path = git/modules/dotbot-brew
 	url = https://github.com/d12frosted/dotbot-brew.git
+
+[submodule "git/modules/nanorc"]
+    active = true
+	path = git/modules/nanorc
+	url = git@github.com:scopatz/nanorc.git
