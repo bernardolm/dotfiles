@@ -1,7 +1,9 @@
 #!/usr/bin/env zsh
 
-log start "pre setup ubuntu"
+log start "pre install ubuntu"
+
+# sudo locale-gen en_US.UTF-8  # NOTE: bypassing temp
 
 . "${DOTFILES}/apt/pre-install"
 
-log finish "pre setup ubuntu"
+log finish "pre install ubuntu"

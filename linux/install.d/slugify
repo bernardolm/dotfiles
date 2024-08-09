@@ -1,0 +1,9 @@
+#!/usr/bin/env zsh
+
+log info "installing slugify"
+
+[ ! -f ~/.local/bin/slugify ] && \
+    curl -sL 'https://raw.githubusercontent.com/benlinton/slugify/master/slugify' \
+        -o ~/.local/bin/slugify && \
+    chmod u+x ~/.local/bin/slugify && \
+    echo " ✔️"

@@ -61,7 +61,7 @@ local _init_order=(
     # "${DOTFILES}/tabby/start"
     # "${DOTFILES}/dropbox/start"
     # "${DOTFILES}/vscode-server/start"
-    "${DOTFILES}/aliases"
+    "${DOTFILES}/zsh/aliases"
     "${inits[@]}"
 ); for _f in "${_init_order[@]}"; do
     startFile=$(date +%s%N)

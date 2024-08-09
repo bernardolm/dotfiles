@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-shell_debug_relay=$SHELL_DEBUG
-SHELL_DEBUG=false
+# shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=false
 
 log start "zplug start"
 
@@ -52,4 +52,4 @@ $SHELL_DEBUG && echo "$(elapsed_time $start) zplug load"
 
 log finish "zplug start"
 
-SHELL_DEBUG=$shell_debug_relay
+# SHELL_DEBUG=$shell_debug_relay
