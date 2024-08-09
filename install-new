@@ -28,22 +28,23 @@ log start "pristine setup"
 log debug "some info about environment: \n whoami=$(whoami) \n id=$(id) "
 
 # shellcheck source=/dev/null
-. "${DOTFILES}/ubuntu/pre-install"
+. "${DOTFILES}/linux/pre-install"
+. "${DOTFILES}/linux/install"
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/git/install"
+# # shellcheck source=/dev/null
+# . "${DOTFILES}/git/install"
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/python/install"
+# # shellcheck source=/dev/null
+# . "${DOTFILES}/python/install"
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/snap/install"
+# # shellcheck source=/dev/null
+# . "${DOTFILES}/snap/install"
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/ubuntu/install"
+# # shellcheck source=/dev/null
+# . "${DOTFILES}/ubuntu/install"
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/ubuntu/post-install"
+# # shellcheck source=/dev/null
+# . "${DOTFILES}/ubuntu/post-install"
 
 log finish "pristine setup"
 

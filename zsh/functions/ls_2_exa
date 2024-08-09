@@ -1,7 +1,12 @@
 #!/usr/bin/env zsh
 
 function ls_2_exa() {
-    command -v exa >/dev/null || log warn "you need to install exa" && return
+    if ! command -v exa >/dev/null; then
+        log warn "exa isn't installed"
+        /bin/ls $@
+        return
+    fi
+
     args="$@"
     args=$(echo $args | sed 's/A/a/g')
     eval "/usr/bin/exa --all --oneline --long --classify --icons --color always --group-directories-first --header --octal-permissions $args"

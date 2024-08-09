@@ -1,5 +1,9 @@
 #!/usr/bin/env zsh
 
+python3 -c "$(wget -q -O - https://raw.githubusercontent.com/wakatime/vim-wakatime/master/scripts/install_cli.py)"
+
+return
+
 local __package=wakatime-cli
 local __tmp_path="${WORKSPACE_USER}/${__package}"
 local __bin_path="${ZSH_WAKATIME_BIN}"

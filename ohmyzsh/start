@@ -11,12 +11,6 @@ start=$(date +%s%N)
 $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh install"
 
 start=$(date +%s%N)
-_zsh_autosuggestions=${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-[ ! -d $_zsh_autosuggestions ] \
-    && git clone https://github.com/zsh-users/zsh-autosuggestions $_zsh_autosuggestions
-$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh autosuggestions clone"
-
-start=$(date +%s%N)
 zstyle ':omz:lib:directories' aliases no
 zstyle ':omz:lib:docker-compose' aliases no
 zstyle ':omz:lib:docker' aliases no

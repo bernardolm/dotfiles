@@ -47,12 +47,12 @@ export ZSH_COLORIZE_TOOL=chroma
 export ZSH_HIGHLIGHT_MAXLENGTH=100
 export ZSH_WAKATIME_PROJECT_DETECTION=true
 
+# export PROMPT=$(random_emoji fruits)"  > ${PROMPT}"
 export DOTFILES ; DOTFILES="${DOTFILES:=${HOME}/workspaces/bernardolm/dotfiles}" # 🧙‍♂️
 export GOPATH ; GOPATH="${HOME}/gopath"
 export GPG_TTY ; GPG_TTY="$(tty)"
 export HOSTNAME="$(hostname)"
 export NOW ; NOW="$(date '+%H-%M-%S-%N')"
-export PROMPT=$(random_emoji fruits)"  > ${PROMPT}"
 export SSH_AUTH_SOCK ; SSH_AUTH_SOCK="/run/user/$(id -u)/ssh-agent.socket"
 export SYNC_DOTFILES ; SYNC_DOTFILES="${SYNC_DOTFILES:=${HOME}/sync}" # 🧙‍♂️
 export TODAY ; TODAY="$(date '+%F')"
@@ -60,7 +60,8 @@ export USER_TMP ; USER_TMP="${HOME}/tmp"
 export VSCODE_CLI_DATA_DIR ; VSCODE_CLI_DATA_DIR="${HOME}/.vscode-server/cli"
 export ZPLUG_HOME ; ZPLUG_HOME="${HOME}/.zplug"
 export ZSH ; ZSH="${HOME}/.oh-my-zsh"
-export ZSH_CUSTOM ; ZSH_CUSTOM="${HOME}/.zsh"
+export ZSH_CUSTOM ; ZSH_CUSTOM="${ZSH}/custom"
+export ZSH_REPOS ; ZSH_REPOS="${HOME}/.zsh"
 
 export DONE_FILE ; DONE_FILE="${SYNC_DOTFILES}/todo-txt/done.txt"
 export HISTFILE ; HISTFILE="${SYNC_DOTFILES}/zsh/.zsh_history" # where to save history to disk
