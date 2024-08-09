@@ -42,8 +42,8 @@ start=$(date +%s%N)
 if ! zplug check; then
     log warn "zplug: installing new plugins"
     zplug install
+    $SHELL_DEBUG && echo "$(elapsed_time $start) zplug install plugins"
 fi
-$SHELL_DEBUG && echo "$(elapsed_time $start) zplug install plugins"
 
 start=$(date +%s%N)
 log debug "zplug: loading"
