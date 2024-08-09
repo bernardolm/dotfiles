@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
-shell_debug_relay=$SHELL_DEBUG
-SHELL_DEBUG=false
+# shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=false
 
 # shellcheck source=/dev/null
 . "${DOTFILES}/zsh/functions/log"
@@ -40,4 +40,4 @@ git config --global --add safe.directory "${DOTFILES}/git/modules/dotbot"
 
 log finish "git setup"
 
-SHELL_DEBUG=$shell_debug_relay
+# SHELL_DEBUG=$shell_debug_relay

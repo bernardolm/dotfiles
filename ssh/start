@@ -1,99 +1,28 @@
 #!/usr/bin/env zsh
 
-shell_debug_relay=$SHELL_DEBUG
-SHELL_DEBUG=false
-
-# Ref.: https://code.visualstudio.com/docs/remote/troubleshooting#_setting-up-the-ssh-agent
-# if [ -z "$SSH_AUTH_SOCK" ]; then
-#    # Check for a currently running instance of the agent
-#    RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
-#    if [ "$RUNNING_AGENT" = "0" ]; then
-#         # Launch a new instance of the agent
-#         ssh-agent -s &> .ssh/ssh-agent
-#    fi
-#    eval `cat .ssh/ssh-agent`
-# fi
-
-if ! which bc &>/dev/null; then
-    echo -e "${CLR_RED} you need to install bc package: ${NO_COLOR}"
-    echo -e "${CLR_RED} sudo apt-get install --no-install-recommends --yes bc ${NO_COLOR}"
-    function bc() {
-        echo $@
-    }
-fi
-
-(which log | grep DOTFILES 1>/dev/null) || function log { shift ; /bin/echo $@ }
+# shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=true
 
 log start "ssh setup"
 
-function ssh_agent_start() {
-    log debug "starting ssh agent..."
+export SSH_AGENT_OUTPUT="$HOME/.ssh/ssh-agent"
+export SSH_TTL=86400 # twenty four hours in seconds
 
-    rm -f /run/user/1000/ssh-agent.socket
-    ssh-agent -t $twenty_four_hours_in_seconds -a $SSH_AUTH_SOCK | \
-        sed 's/^echo/#echo/' >> "${SSH_ENV}"
-    chmod 600 "${SSH_ENV}"
-    . "${SSH_ENV}" > /dev/null
-}
+if [ -f "${SSH_AGENT_OUTPUT}" ]; then
+    eval $(cat "${SSH_AGENT_OUTPUT}")
+else
+    ssh-agent -k 2>/dev/null || killall -9 ssh-agent 2>/dev/null
 
-function ssh_agent_ppid() {
-    pgrep -x ssh-agent
-    # sudo lsof -i | grep 1392 | awk '{print $6}'
-}
+    ssh-agent -s -t ${SSH_TTL} | grep -v 'Agent pid' > "${SSH_AGENT_OUTPUT}"
+    chmod 600 "${SSH_AGENT_OUTPUT}"
+    eval $(cat "${SSH_AGENT_OUTPUT}")
 
-function pub_key_get() {
-    cat "$HOME/.ssh/id_ed25519.pub" | awk '{print $2}'
-}
-
-function ssh_agent_check_loaded_my_key () {
-    ret=$(ssh-add -L | grep -c $pub_key | bc)
-    [ $ret -gt 0 ]
-}
-
-function list_loaded_keys() {
-    $SHELL_DEBUG && ssh-add -L | awk '{print $2}'
-}
-
-function show_env_values() {
-    $SHELL_DEBUG || return
-    echo ""
-    # log warn "you can be asked for superuser password to get pid from ssh-agent"
-    log debug "ssh_agent_ppid=$(ssh_agent_ppid)"
-    log debug "SSH_AGENT_PID=${SSH_AGENT_PID}"
-    log debug "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"
-    log debug "SSH_CONNECTION=${SSH_CONNECTION}"
-    log debug "SSH_ENV=${SSH_ENV}"
-    echo ""
-}
-
-# if $SHELL_DEBUG; then
-#     killall -9 ssh-agent
-#     rm -f /run/user/1000/ssh-agent.socket
-#     sudo fuser 1392/tcp
-# fi
-
-local twenty_four_hours_in_seconds=86400
-local pub_key=$(pub_key_get)
-
-log debug "pub_key=${pub_key}"
-
-SSH_ENV="$HOME/.ssh/environment"
-
-show_env_values
-
-if [ -z "$(ssh_agent_ppid)" ]; then
-    ssh_agent_start
-    show_env_values
+    ssh-add
 fi
 
-if ! ssh_agent_check_loaded_my_key; then
-    log debug "adding my keys to ssh agent..."
-    ssh-add "$HOME/.ssh/id_ed25519"
-
-    log debug "new ssh keys loaded:"
-    $SHELL_DEBUG && list_loaded_keys
-fi
+log info "ssh keys loaded in agent:"
+ssh-add -L | tr ' ' '\n'
 
 log finish "ssh setup"
 
-SHELL_DEBUG=$shell_debug_relay
+# SHELL_DEBUG=$shell_debug_relay

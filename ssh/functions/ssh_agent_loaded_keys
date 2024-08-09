@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+function ssh_agent_loaded_keys () {
+    if [ "$(ssh_agents_running)" -eq 1 ]; then
+        ssh-add -L | wc -l | bc
+    fi
+}

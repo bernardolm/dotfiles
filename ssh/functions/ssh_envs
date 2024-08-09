@@ -1,0 +1,16 @@
+#!/usr/bin/env zsh
+
+function ssh_envs() {
+    $SHELL_DEBUG || return
+    echo ""
+    # log warn "you can be asked for superuser password to get pid from ssh-agent"
+    log debug "pub_key=${pub_key}"
+    log debug "ssh_agent_loaded_keys=$(ssh_agent_loaded_keys)"
+    log debug "SSH_AGENT_OUTPUT=${SSH_AGENT_OUTPUT}"
+    log debug "SSH_AGENT_PID=${SSH_AGENT_PID}"
+    log debug "ssh_agent_ppid=$(ssh_agent_ppid)"
+    log debug "ssh_agents_running=$(ssh_agents_running)"
+    log debug "SSH_AUTH_SOCK=${SSH_AUTH_SOCK}"
+    log debug "SSH_CONNECTION=${SSH_CONNECTION}"
+    echo ""
+}

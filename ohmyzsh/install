@@ -9,7 +9,7 @@ if [ ! -d "${ZSH}" ]; then
     curl -fsSL "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | \
         KEEP_ZSHRC=yes RUNZSH=no CHSH=no bash
 
-    SHELL_DEBUG=true log warn "change default shell to zsh? input password"
+    log warn "change default shell to zsh? input password"
     chsh -s $(which zsh)
 fi
 

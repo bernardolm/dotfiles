@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+# log start "post install linux"
+
+# log finish "post install linux"
