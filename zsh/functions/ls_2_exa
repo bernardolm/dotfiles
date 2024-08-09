@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 function ls_2_exa() {
-    which exa &> /dev/null || sudo apt-get install exa
+    command -v exa >/dev/null || log warn "you need to install exa" && return
     args="$@"
     args=$(echo $args | sed 's/A/a/g')
     eval "/usr/bin/exa --all --oneline --long --classify --icons --color always --group-directories-first --header --octal-permissions $args"

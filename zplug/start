@@ -29,14 +29,14 @@ $SHELL_DEBUG && echo "$(elapsed_time $start) zplug source"
 
 start=$(date +%s%N)
 local to_load=($(zsh_plugins_list) $(zsh_completions_list))
-$SHELL_DEBUG && echo "$(elapsed_time $start) zplug load plugins"
+$SHELL_DEBUG && echo "$(elapsed_time $start) zplug loading plugins list"
 
 start=$(date +%s%N)
 for p in $to_load; do
     log debug "zplug: $p"
     zplug "$p"
 done
-$SHELL_DEBUG && echo "$(elapsed_time $start) zplug plugins list"
+$SHELL_DEBUG && echo "$(elapsed_time $start) zplug run from plugins list"
 
 start=$(date +%s%N)
 if ! zplug check; then

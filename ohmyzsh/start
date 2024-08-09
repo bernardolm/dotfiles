@@ -36,7 +36,7 @@ start=$(date +%s%N)
 . "${ZSH}/oh-my-zsh.sh"
 $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh source"
 
-unalias sudo
+unalias sudo 2>/dev/null
 
 log finish "ohmyzsh"
 

@@ -7,7 +7,7 @@ unset STARSHIP_CONFIG
 export STARSHIP_CACHE=~/.starship/cache
 export STARSHIP_CONFIG="${DOTFILES}/starship/theme/starship.toml"
 
-$SHELL_TRACE && env STARSHIP_LOG=trace starship module rust
-$SHELL_TRACE && env STARSHIP_LOG=trace starship timings
+# $SHELL_TRACE && env STARSHIP_LOG=debug starship module rust
+# $SHELL_TRACE && env STARSHIP_LOG=debug starship timings
 
 eval "$(starship init zsh)"

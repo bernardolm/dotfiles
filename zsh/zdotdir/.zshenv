@@ -1,11 +1,7 @@
-[ -z "$SSH_TTY" ] && return
+# [ -z "$SSH_TTY" ] && return
 
 $SHELL_DEBUG && echo "👾 zshenv"
 
-# export AUTO_LS_CHPWD=true
-# export AUTO_LS_NEWLINE=false
-# export AUTO_LS_PATH=false
-export AUTO_LS_COMMANDS='custom_function'
 export BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED=-1
 export CASE_SENSITIVE=false

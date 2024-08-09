@@ -26,7 +26,6 @@ history
 isodate
 man
 nmap
-octozen # ???
 perms
 pip
 postgres
@@ -37,7 +36,6 @@ rsync
 safe-paste
 screen
 ssh
-ssh-agent
 sudo
 systemd
 themes
