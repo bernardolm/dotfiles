@@ -1,0 +1,17 @@
+#!/usr/bin/env zsh
+
+function exa_folder_summary() {
+    /usr/bin/exa \
+        --blocks \
+        --classify \
+        --color-scale \
+        --color=always \
+        --group-directories-first \
+        --icons \
+        --inode \
+        --level=2 \
+        --links \
+        --list-dirs \
+        --octal-permissions \
+        --tree | head -30
+}

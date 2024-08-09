@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+function funcstack_breadcrumbs() {
+    for f in "$funcstack[@]"; do echo "> $f"; done
+}
