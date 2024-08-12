@@ -1,0 +1,55 @@
+#!/usr/bin/env zsh
+
+# shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=true
+
+log start "ssh setup"
+
+export SSH_AGENT_OUTPUT="$HOME/.ssh/ssh-agent"
+export SSH_TTL=86400 # twenty four hours in seconds
+
+local keys=$(ssh-add -L)
+local keys_count=$(echo "${keys}" | wc -l | bc)
+
+
+
+
+# kill
+# if ! ssh-add -L || [ "${keys_count}" -ne 1 ] || [ "${SSH_AUTH_SOCK}" ~= "run" ]; then
+if ! ssh-add -L || [ "${SSH_AUTH_SOCK}" ~= "run" ]; then
+    ssh-agent -k 2>/dev/null || killall -9 ssh-agent 2>/dev/null
+fi
+
+local agent_count=$(ps aux | grep -v grep | wc -l | bc)
+
+if [ "${agent_count}" -eq 0 ]; then
+    ssh-agent -s -t ${SSH_TTL} | grep -v 'Agent pid' > "${SSH_AGENT_OUTPUT}"
+    chmod 600 "${SSH_AGENT_OUTPUT}"
+fi
+
+
+
+# add
+[ "${keys}" = "The agent has no identities." ] ||
+
+
+
+
+
+
+if [ -f "${SSH_AGENT_OUTPUT}" ]; then
+    eval $(cat "${SSH_AGENT_OUTPUT}")
+else
+
+    eval $(cat "${SSH_AGENT_OUTPUT}")
+
+fi
+
+ssh-add
+
+log info "ssh keys loaded in agent:"
+ssh-add -L | tr ' ' '\n'
+
+log finish "ssh setup"
+
+# SHELL_DEBUG=$shell_debug_relay

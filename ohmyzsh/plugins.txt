@@ -36,6 +36,7 @@ rsync
 safe-paste
 screen
 ssh
+ssh-agent
 sudo
 systemd
 themes
