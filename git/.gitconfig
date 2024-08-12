@@ -16,7 +16,7 @@
 
 [diff]
     renames = copies
-    colorMoved = zebra
+	colorMoved = zebra
 
 [init]
     defaultBranch = main
@@ -26,3 +26,59 @@
 
 [gpg]
     format = ssh
+[color "status"]
+	branch = 6 normal bold
+	added = 10 normal
+	updated = 10 normal
+	localbranch = 6 normal bold
+	changed = 11 normal
+	header = normal
+	remotebranch = 5 normal bold
+	nobranch = 1 0 bold
+	unmerged = 9 normal
+	untracked = normal
+[color "branch"]
+	plain = 6 normal bold
+	remote = 5 normal bold
+	current = 6 normal bold reverse
+	local = 6 normal bold
+	upstream = 5 normal bold
+[color "remote"]
+	hint = normal dim
+	success = 2 normal
+	error = 1 normal
+	warning = 3 normal
+[color "interactive"]
+	header = normal bold
+	prompt = 15 4
+	help = normal
+	error = 1 0 bold
+[color "diff"]
+	commit = 3 0
+	newMoved = 15 3
+	oldMovedAlternativeDimmed = 7 5 dim
+	frag = normal dim
+	oldMovedAlternative = 7 5
+	contextBold = normal bold
+	newBold = 15 2 bold
+	context = normal
+	oldMoved = 7 3
+	oldBold = 7 1 bold
+	newMovedDimmed = 15 3 dim
+	func = normal dim
+	meta = normal dim
+	newDimmed = 15 2 dim
+	newMovedAlternative = 15 5
+	new = 15 2
+	newMovedAlternativeDimmed = 15 5 dim
+	whitespace = normal 9
+	oldMovedDimmed = 7 3 dim
+	oldDimmed = 7 1 dim
+	old = 7 1
+[color "decorate"]
+	branch = 6 normal bold
+	tag = 3 0
+	remotebranch = 5 normal bold
+	stash = normal
+	grafted = 1 0 bold
+	HEAD = 6 normal bold italic

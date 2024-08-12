@@ -65,7 +65,7 @@ local _init_order=(
     $SHELL_DEBUG && echo "$(elapsed_time ${startFile}) $_f"
 done
 # shellcheck disable=SC2086
-$SHELL_DEBUG && echo "$(elapsed_time ${startList}) everything"
+$SHELL_DEBUG && echo "$(elapsed_time ${startList}) all list"
 
 log finish "zsh"
 

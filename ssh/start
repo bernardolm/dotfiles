@@ -8,15 +8,17 @@ log start "ssh setup"
 export SSH_AGENT_OUTPUT="$HOME/.ssh/ssh-agent"
 export SSH_TTL=86400 # twenty four hours in seconds
 
-if [ -f "${SSH_AGENT_OUTPUT}" ]; then
-    eval $(cat "${SSH_AGENT_OUTPUT}")
-else
-    ssh-agent -k 2>/dev/null || killall -9 ssh-agent 2>/dev/null
+[ -f "${SSH_AGENT_OUTPUT}" ] && eval $(cat "${SSH_AGENT_OUTPUT}")
+
+if ! ssh-add -l >/dev/null; then
+    ssh-agent -k >/dev/null || killall -9 ssh-agent >/dev/null
 
     ssh-agent -s -t ${SSH_TTL} | grep -v 'Agent pid' > "${SSH_AGENT_OUTPUT}"
     chmod 600 "${SSH_AGENT_OUTPUT}"
     eval $(cat "${SSH_AGENT_OUTPUT}")
+fi
 
+if [ "$(ssh-add -L)" == "The agent has no identities." ]; then
     ssh-add
 fi
 
