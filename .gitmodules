@@ -1,29 +1,18 @@
-[submodule "git/modules/dotbot"]
-    active = true
-	path = git/modules/dotbot
+[submodule "git/submodules/dotbot"]
+	path = git/submodules/dotbot
 	url = https://github.com/bernardolm/dotbot.git
-
-[submodule "git/modules/dotbot-pip"]
-    active = true
-	path = git/modules/dotbot-pip
+[submodule "git/submodules/dotbot-pip"]
+	path = git/submodules/dotbot-pip
 	url = https://github.com/sobolevn/dotbot-pip.git
-
-[submodule "git/modules/dotbot-snap"]
-    active = true
-	path = git/modules/dotbot-snap
+[submodule "git/submodules/dotbot-snap"]
+	path = git/submodules/dotbot-snap
 	url = https://github.com/bernardolm/dotbot-snap.git
-
-[submodule "git/modules/dotbot-sudo"]
-    active = true
-	path = git/modules/dotbot-sudo
+[submodule "git/submodules/dotbot-sudo"]
+	path = git/submodules/dotbot-sudo
 	url = https://github.com/DrDynamic/dotbot-sudo.git
-
-[submodule "git/modules/dotbot-brew"]
-    active = true
-	path = git/modules/dotbot-brew
+[submodule "git/submodules/dotbot-brew"]
+	path = git/submodules/dotbot-brew
 	url = https://github.com/d12frosted/dotbot-brew.git
-
-[submodule "git/modules/nanorc"]
-    active = true
-	path = git/modules/nanorc
-	url = git@github.com:scopatz/nanorc.git
+[submodule "git/submodules/nanorc"]
+	path = git/submodules/nanorc
+	url = https://github.com/scopatz/nanorc.git
