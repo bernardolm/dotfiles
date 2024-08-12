@@ -6,7 +6,7 @@ docker run \
     --restart always \
     -d \
     -e "INFLUXDB_PASSWORD=${INFLUX_ADMIN_PASSWORD}" \
-    -e "INFLUXDB_URL=${INFLUX_URL}" \
+    -e "INFLUXDB_URL=${LOCAL_IP}:8086" \
     -e "INFLUXDB_USERNAME=${INFLUX_ADMIN_USERNAME}" \
     -e LOG_LEVEL=debug \
     -e REPORTING_DISABLED=true \

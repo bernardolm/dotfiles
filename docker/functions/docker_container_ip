@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function docker_container_ip() {
-    docker inspect --format '{{ .NetworkSettings.IPAddress }}' "$@"
+    docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' "$@"
 }
