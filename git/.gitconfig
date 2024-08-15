@@ -82,3 +82,5 @@
 	stash = normal
 	grafted = 1 0 bold
 	HEAD = 6 normal bold italic
+[safe]
+	directory = /home/bernardo/workspaces

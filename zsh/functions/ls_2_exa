@@ -2,7 +2,7 @@
 
 function ls_2_exa() {
     if ! command -v exa >/dev/null; then
-        log warn "exa isn't installed"
+        log warn "exa is not installed"
         /bin/ls $@
         return
     fi

@@ -18,6 +18,7 @@ set indicator
 set linenumbers # Displaying the Current Line Number
 set positionlog
 set showcursor
+set softwrap
 set tabsize 4
 set tabstospaces
 set trimblanks

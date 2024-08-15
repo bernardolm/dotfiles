@@ -28,7 +28,7 @@ cat < "${_git_submodules}" | grep '\[submodule' | while read -r item; do
 
     if [ -d "${DOTFILES}/${_path}" ]; then
         echo -en " updating..."
-        git submodule update "${DOTFILES}/${_path}"
+        git submodule update --init "${DOTFILES}/${_path}"
     else
         echo -en " adding..."
         git submodule add "${_url}" "${DOTFILES}/${_path}"
