@@ -1,11 +1,11 @@
 - defaults:
-    # clear:
-    #   recursive: true
+    clear:
+      recursive: true
     link:
       create: true
-      # force: true
+      force: true
       # ignore-missing: true
-    # relink: true
+    relink: true
     shell:
       stderr: true
       stdout: true
@@ -31,7 +31,7 @@
     ~/.bash_history: $HOME/sync/bash/.bash_history
     ~/.bashrc: $DOTFILES/bash/.bashrc
     ~/.gitconfig: $DOTFILES/git/.gitconfig
-    ~/.nano: $DOTFILES/git/modules/nanorc
+    ~/.nano: $DOTFILES/git/submodules/nanorc
     ~/.wakatime.cfg: $HOME/sync/.wakatime.cfg
     ~/.zlogin: $DOTFILES/zsh/zdotdir/.zlogin
     ~/.zlogout: $DOTFILES/zsh/zdotdir/.zlogout
