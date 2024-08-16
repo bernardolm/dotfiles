@@ -7,5 +7,5 @@ docker run \
     -d \
     -p 8086:8086 \
     -v "${DOTFILES}/influxdb/influxdb.conf:/etc/influxdb/influxdb.conf" \
-    -v "${SYNC_DOTFILES}/influxdb:/var/lib/influxdb" \
+    -v "${HOME}/docker-volumes/influxdb:/var/lib/influxdb" \
     influxdb:1.8-alpine

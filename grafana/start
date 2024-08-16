@@ -8,6 +8,6 @@ docker run \
     -e "GF_PATHS_CONFIG=/etc/grafana/grafana.ini" \
     -e "GF_PATHS_DATA=/var/lib/grafana" \
     -p 3000:3000 \
-    -v "$DOTFILES/grafana/grafana.ini:/etc/grafana/grafana.ini:ro" \
-    -v "$SYNC_DOTFILES/grafana:/var/lib/grafana" \
+    -v "${DOTFILES}/grafana/grafana.ini:/etc/grafana/grafana.ini:ro" \
+    -v "${HOME}/docker-volumes/grafana:/var/lib/grafana" \
     grafana/grafana-oss

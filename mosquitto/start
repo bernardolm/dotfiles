@@ -23,8 +23,7 @@ docker run \
     -p 1883:1883 \
     -p 9001:9001 \
     -v "${DOTFILES}/${docker_container_name}/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro" \
-    -v "${SYNC_DOTFILES}/${docker_container_name}/data:/mosquitto/data" \
-    -v "${SYNC_DOTFILES}/${docker_container_name}/log:/mosquitto/log" \
-    -v "${SYNC_DOTFILES}/${docker_container_name}/passwd:/mosquitto/passwd" \
+    -v "${HOME}/docker-volumes/${docker_container_name}/data:/mosquitto/data" \
+    -v "${HOME}/docker-volumes/${docker_container_name}/log:/mosquitto/log" \
     -v /etc/localtime:/etc/localtime:ro \
     "${docker_image_name}"

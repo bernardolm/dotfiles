@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-# set -e
-
 # shell_debug_relay=$SHELL_DEBUG
 # SHELL_DEBUG=false
 
@@ -76,5 +74,3 @@ if $SHELL_PROFILE; then
 fi
 
 # SHELL_DEBUG=$shell_debug_relay
-
-# set +e
