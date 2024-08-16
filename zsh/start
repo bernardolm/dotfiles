@@ -22,8 +22,8 @@ disable log &>/dev/null && function log() {
 log start "zsh"
 
 # TODO: move to top zdotfile
-export SCRIPT_PATH="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
-log env "SCRIPT_PATH"
+# export SCRIPT_PATH="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
+# log env "SCRIPT_PATH"
 
 # shellcheck disable=SC2168
 local inits=()
