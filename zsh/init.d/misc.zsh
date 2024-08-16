@@ -19,11 +19,4 @@ if [ ! -h "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ] \
         "${ZSH_CUSTOM}/plugins/zsh-autosuggestions"
 fi
 
-if [ -d "${ZPLUG_HOME}/repos/marlonrichert/zcolors" ]; then
-    autoload -Uz "${ZPLUG_HOME}/repos/marlonrichert/zcolors/functions/zcolors"
-    zcolors >| ~/.zcolors
-    . "${ZPLUG_HOME}/repos/marlonrichert/zcolors/zcolors.plugin.zsh"
-    . ~/.zcolors
-fi
-
 bindkey "^s" emoji::cli
