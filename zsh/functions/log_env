@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 function log_env() {
-    val=$(env | grep $1 | cut -d '=' -f2)
-    log_echo "${CLR_GREY} $1='$val' ${NO_COLOR}"
+    local pattern="^$1=.*"
+    local result=$(printenv | grep -E "${pattern}")
+    log_echo "${CLR_GREY} ${result} ${NO_COLOR}"
 }
