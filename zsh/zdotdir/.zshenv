@@ -53,7 +53,7 @@ export GOPATH ; GOPATH="${HOME}/gopath"
 export GPG_TTY ; GPG_TTY="$(tty)"
 export HOSTNAME="$(hostname)"
 export NOW ; NOW="$(date '+%H-%M-%S-%N')"
-export SSH_AUTH_SOCK ; SSH_AUTH_SOCK="/run/user/$(id -u)/ssh-agent.socket"
+export SSH_AGENT_OUTPUT="$HOME/.ssh/ssh-agent"
 export SYNC_DOTFILES ; SYNC_DOTFILES="${SYNC_DOTFILES:=${HOME}/sync}" # 🧙‍♂️
 export TODAY ; TODAY="$(date '+%F')"
 export USER_TMP ; USER_TMP="${HOME}/tmp"
@@ -64,7 +64,6 @@ export ZSH_CUSTOM ; ZSH_CUSTOM="${ZSH}/custom"
 export ZSH_REPOS ; ZSH_REPOS="${HOME}/.zsh"
 
 export DONE_FILE ; DONE_FILE="${SYNC_DOTFILES}/todo-txt/done.txt"
-export HISTFILE ; HISTFILE="${SYNC_DOTFILES}/zsh/.zsh_history" # where to save history to disk
 export HISTSIZE ; HISTSIZE="${SAVEHIST}"
 export REPORT_FILE ; REPORT_FILE="${SYNC_DOTFILES}/todo-txt/report.txt"
 export SHELL_SESSION_PATH ; SHELL_SESSION_PATH="${USER_TMP}/shell_session/${TODAY}"
