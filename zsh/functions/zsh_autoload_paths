@@ -11,6 +11,7 @@ function zsh_autoload_paths() {
             for folder in "${_path[@]}"; do
                 for file in $folder/*; do
                     name=$(basename $file)
+                    [ "${name}" = "*" ] && continue
                     echo "autoload -Uz $name" >> ~/tmp/zsh_autoload_paths.txt
                 done
             done
