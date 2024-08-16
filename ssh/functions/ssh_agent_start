@@ -1,9 +1,11 @@
 #!/usr/bin/env zsh
 
 function ssh_agent_start() {
-    log info "starting ssh agent..."
+    log debug "starting ssh agent..."
 
-    ssh-agent -s -t ${SSH_TTL} | grep -v 'Agent pid' > ${SSH_AGENT_OUTPUT}
+    local ssh_ttl=86400 # twenty four hours in seconds
+
+    ssh-agent -s -t ${ssh_ttl} | grep -v 'Agent pid' > ${SSH_AGENT_OUTPUT}
     chmod 600 "${SSH_AGENT_OUTPUT}"
     eval $(cat "${SSH_AGENT_OUTPUT}")
 }

@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+function ssh_agent_state() {
+    local ssh_add=$(ssh-add -L 2>&1)
+    local ssh_agent_state="alive"
+
+    case $ssh_add in
+    "The agent has no identities.")
+        ssh_agent_state="empty"
+        ;;
+    "Error connecting to agent: No such file or directory")
+        ssh_agent_state="no_connection"
+        ;;
+    "Could not open a connection to your authentication agent.")
+        ssh_agent_state="no_connection"
+        ;;
+    esac
+
+    echo $ssh_agent_state
+}

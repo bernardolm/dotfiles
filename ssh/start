@@ -1,1 +1,34 @@
 #!/usr/bin/env zsh
+
+# shell_debug_relay=$SHELL_DEBUG
+# SHELL_DEBUG=true
+
+log start "ssh setup"
+
+# trying to restore agent
+if [ -f "${SSH_AGENT_OUTPUT}" ]; then
+    log debug "ssh eval agent"
+    eval $(cat "${SSH_AGENT_OUTPUT}")
+fi
+
+# restart
+if [ "$(ssh_agent_state)" = "no_connection" ]; then
+    log info "ssh kill"
+    ssh_agent_kill
+
+    log info "ssh start"
+    ssh_agent_start
+fi
+
+# add or list
+if [ "$(ssh_agent_state)" = "empty" ]; then
+    log info "ssh add"
+    ssh-add
+else
+    log info "ssh keys"
+    ssh-add -L | awk '{print $3}'
+fi
+
+log finish "ssh setup"
+
+# SHELL_DEBUG=$shell_debug_relay

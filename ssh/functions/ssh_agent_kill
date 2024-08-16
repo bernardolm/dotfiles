@@ -1,10 +1,10 @@
 #!/usr/bin/env zsh
 
 function ssh_agent_kill() {
-    log info "killing and cleaning ssh agent..."
-    ssh-agent -k 2>/dev/null || killall -9 ssh-agent
+    log debug "killing and cleaning ssh agent..."
+    ssh-agent -k 2>/dev/null || killall -9 ssh-agent 2>/dev/null
     rm -rf /tmp/ssh-* 2>/dev/null
-    echo "" > "${SSH_AGENT_OUTPUT}"
+    rm -f "${SSH_AGENT_OUTPUT}"
     unset SSH_AGENT_PID
     unset SSH_AUTH_SOCK
 }
