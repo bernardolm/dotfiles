@@ -1,4 +1,4 @@
-# [ -z "$SSH_TTY" ] && return
+[[ $- != *i* ]] && return
 
 $SHELL_DEBUG && echo "👾 zshenv"
 
