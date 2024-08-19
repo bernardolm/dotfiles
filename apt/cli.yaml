@@ -6,6 +6,7 @@ add:
   - colorized-logs
   - curl
   - dnsutils
+  - exa # jammy
   - expect
   - fonts-emojione
   - fonts-noto-color-emoji
@@ -50,5 +51,4 @@ remove:
   - '*xserver*'
 
 3rd-party:
-  - exa
   - gh

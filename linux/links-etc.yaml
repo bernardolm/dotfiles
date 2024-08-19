@@ -1,11 +1,9 @@
 - defaults:
-    # clear:
-    #   recursive: true
+    clear:
+      recursive: true
     link:
-      create: true
-      # force: true
-      # ignore-missing: true
-    # relink: true
+      glob: true
+    relink: true
     shell:
       stderr: true
       stdout: true
@@ -13,4 +11,8 @@
 - link:
     /etc:
       glob: true
-      path: $HOME/sync/etc/**
+      path: $HOME/sync/etc/apt/**
+      exclude:
+        - fstab.off
+        - systemd
+        - wsl.conf.off

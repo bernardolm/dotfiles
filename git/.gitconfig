@@ -3,6 +3,7 @@
 
 [user]
     name = Bernardo Loureiro
+	signingkey = /home/bernardo/.ssh/id_ed25519.pub
 
 [github]
     user = bernardolm
@@ -24,7 +25,4 @@
     gpgsign = true
 
 [gpg]
-    format = ssh
-
-[safe]
-	directory = /home/bernardo/workspaces
+	format = ssh

@@ -4,35 +4,30 @@
     link:
       create: true
       force: true
-      # ignore-missing: true
+      glob: true
     relink: true
     shell:
       stderr: true
       stdout: true
 
 - link:
-    ~/.config:
-      glob: true
-      path: $DOTFILES/.config/**
-    ~/.local:
-      glob: true
-      path: $DOTFILES/.local/**
-    # ~/.curecoin: $HOME/sync/.curecoin
-    # ~/.epsonscan2: $HOME/sync/.epsonscan2
-    # ~/.ethereum: $HOME/sync/.ethereum
-    # ~/.icons: $HOME/sync/.icons
-    # ~/.musicoin: $HOME/sync/.musicoin
-    # ~/.pypirc: $HOME/sync/.pypirc
-    # ~/.screenrc: $DOTFILES/screen/screenrc
-    # ~/.themes: $HOME/sync/.themes
-    # ~/.tmux.conf: $DOTFILES/tmux/tmux.conf
-    # ~/sync: $HOME/Dropbox/ubuntu
+    ~/.fonts: $HOME/shared/home/.fonts
+    ~/.ssh/authorized_keys: $HOME/shared/home/.ssh/authorized_keys
+    ~/.ssh/config: $HOME/shared/home/.ssh/config
+
+- link:
+    ~/.bash_history: $HOME/sync/home/.bash_history
+    ~/.config/maestral/maestral.ini: $HOME/sync/home/.config/maestral/maestral.ini
+    ~/.config/rclone/rclone.conf: $HOME/sync/home/.config/rclone/rclone.conf
+    ~/.wakatime.cfg: $HOME/sync/home/.wakatime.cfg
+    ~/.wget-hsts: $HOME/sync/home/.wget-hsts
+    ~/.zsh_history: $HOME/sync/home/.zsh_history
+
+- link:
     ~/.bash_aliases: $DOTFILES/bash/.bash_aliases
-    ~/.bash_history: $HOME/sync/bash/.bash_history
     ~/.bashrc: $DOTFILES/bash/.bashrc
     ~/.gitconfig: $DOTFILES/git/.gitconfig
     ~/.nano: $DOTFILES/git/submodules/nanorc
-    ~/.wakatime.cfg: $HOME/sync/.wakatime.cfg
     ~/.zlogin: $DOTFILES/zsh/zdotdir/.zlogin
     ~/.zlogout: $DOTFILES/zsh/zdotdir/.zlogout
     ~/.zprofile: $DOTFILES/zsh/zdotdir/.zprofile
