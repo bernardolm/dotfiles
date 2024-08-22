@@ -1,6 +1,7 @@
 #!/usr/bin/env zsh
 
 function apt_list_absent_pub_key() {
+    [ ! -d ~/tmp ] && mkdir ~/tmp
     sudo apt-get update 2>/dev/null | sed -nr 's/^.*NO_PUBKEY\s(\w{16}).*$/\1/p' | sort | uniq > ~/tmp/apt_list_absent_pub_key.txt
     cat ~/tmp/apt_list_absent_pub_key.txt
 }

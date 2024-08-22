@@ -1,7 +1,8 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
-# log start "pre install linux"
+# log start "pre install linux" # don't work at this point
 
-# sudo locale-gen en_US.UTF-8  # NOTE: bypassing temp
+sudo locale-gen en en_US en_US.UTF-8  # uncomment to commit
+sudo update-locale LANG=en_US  # uncomment to commit
 
-# log finish "pre install linux"
+# log finish "pre install linux" # don't work at this point

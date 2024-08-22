@@ -2,17 +2,18 @@
     clear:
       recursive: true
     link:
+      create: true
       glob: true
-    relink: true
     shell:
       stderr: true
       stdout: true
 
-- link:
-    /etc:
-      glob: true
-      path: $HOME/sync/etc/apt/**
-      exclude:
-        - fstab.off
-        - systemd
-        - wsl.conf.off
+- sudo:
+  - link:
+      /etc:
+        glob: true
+        path: /home/bernardo/sync/etc/**
+        exclude:
+          - fstab.off
+          - systemd
+          - wsl.conf.off

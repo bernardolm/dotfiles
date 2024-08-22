@@ -1,3 +1,11 @@
 #!/usr/bin/env bash
 
-# python3 -c "$(wget -q -O - https://raw.githubusercontent.com/wakatime/vim-wakatime/master/scripts/install_cli.py)"
+log start "python setup"
+
+CONFIG="${DOTFILES}/python/pip.yaml" \
+    DOTBOT_DIR="git/submodules/dotbot" \
+    "${DOTFILES}/install" \
+    -p "${DOTFILES}/git/submodules/dotbot-pip/pip.py" \
+    --exit-on-failure
+
+log finish "python setup"

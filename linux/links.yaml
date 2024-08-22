@@ -3,12 +3,14 @@
       recursive: true
     link:
       create: true
-      force: true
       glob: true
-    relink: true
     shell:
       stderr: true
       stdout: true
+
+- link:
+    ~/sync: $HOME/Dropbox/linux
+    ~/shared: $HOME/Dropbox/shared
 
 - link:
     ~/.fonts: $HOME/shared/home/.fonts

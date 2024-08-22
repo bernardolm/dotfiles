@@ -32,7 +32,7 @@ function apt_recovery_pub_keys() {
             sudo tee /etc/debsig/policies/AC2D62742012EA22/1password.pol &>/dev/null
 
         log info "1password recovered"
-    else;
+    else
         log info "1password OK"
     fi
 
@@ -45,7 +45,7 @@ function apt_recovery_pub_keys() {
             sudo gpg --yes --dearmor --output $file
 
         log info "docker recovered"
-    else;
+    else
         log info "docker OK"
     fi
 
@@ -58,7 +58,7 @@ function apt_recovery_pub_keys() {
             sudo gpg --yes --dearmor --output $file
 
         log info "google cloud recovered"
-    else;
+    else
         log info "google cloud OK"
     fi
 

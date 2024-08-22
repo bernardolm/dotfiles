@@ -2,25 +2,22 @@
 
 log start "install apt"
 
-source "${DOTFILES}/apt/functions/apt_keys_recovery" ; apt_keys_recovery
+. "${DOTFILES}/apt/functions/apt_list_absent_pub_key" ; apt_list_absent_pub_key
+. "${DOTFILES}/apt/functions/apt_recovery_pub_keys" ; apt_recovery_pub_keys
 
-sudo apt update                                 # NOTE: bypassing temp
-sudo apt upgrade --yes --no-install-recommends  # NOTE: bypassing temp
+sudo apt update                                 # uncomment to commit
+sudo apt upgrade --yes --no-install-recommends  # uncomment to commit
 
 command -v yq >/dev/null || sudo apt install --yes --no-install-recommends yq
-# command -v git >/dev/null || sudo apt install --yes --no-install-recommends  git
 
-sudo apt-get install --no-install-recommends \
+sudo apt-get install --yes --no-install-recommends \
 	$(cat ${DOTFILES}/apt/cli.yaml | grep -v '\s+#' | yq '.add.[]' | tr '\n' ' ' | tr '"' ' ')
 
-sudo apt-get purge \
-	$(cat ${DOTFILES}/apt/cli.yaml | grep -v '\s+#' | yq '.remove.[]' | tr '\n' ' ' | tr '"' ' ')
+# sudo apt-get purge \
+# 	$(cat ${DOTFILES}/apt/cli.yaml | grep -v '\s+#' | yq '.remove.[]' | tr '\n' ' ' | tr '"' ' ')
 
-# shellcheck source=/dev/null
-. "${DOTFILES}/apt/setup-sources"
-
-sudo apt-get install --no-install-recommends \
-	$(cat ${DOTFILES}/apt/cli.yaml | grep -v '\s+#' | yq '.3rd-party.[]' | tr '\n' ' ' | tr '"' ' ')
+# sudo apt-get install --yes --no-install-recommends \
+# 	$(cat ${DOTFILES}/apt/cli.yaml | grep -v '\s+#' | yq '.3rd-party.[]' | tr '\n' ' ' | tr '"' ' ')
 
 sudo apt-get autoremove --purge
 

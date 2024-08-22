@@ -2,5 +2,5 @@
     binary: /usr/bin/pip3
     file: ./python/requirements.txt
     stderr: true # Print the execution stderr
-    stdout: false # Print the execution stdout
+    stdout: true # Print the execution stdout
     user: true # Like --user

@@ -1,11 +1,9 @@
 - defaults:
-    # clear:
-    #   recursive: true
+    clear:
+      recursive: true
     link:
       create: true
-      # force: true
-      # ignore-missing: true
-    # relink: true
+      glob: true
     shell:
       stderr: true
       stdout: true
