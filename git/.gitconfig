@@ -26,3 +26,10 @@
 
 [gpg]
 	format = ssh
+[safe]
+	directory = /home/bernardo/workspaces/bernardolm/dotfiles/git/submodules/dotbot
+	directory = /home/bernardo/workspaces/bernardolm/dotfiles/git/submodules/dotbot-pip
+	directory = /home/bernardo/workspaces/bernardolm/dotfiles/git/submodules/dotbot-snap
+	directory = /home/bernardo/workspaces/bernardolm/dotfiles/git/submodules/dotbot-sudo
+	directory = /home/bernardo/workspaces/bernardolm/dotfiles/git/submodules/dotbot-brew
+	directory = /home/bernardo/workspaces/bernardolm/dotfiles/git/submodules/nanorc
