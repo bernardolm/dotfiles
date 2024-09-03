@@ -1,6 +1,7 @@
 # alias lsa='exa -lhFa --group-directories-first --icons --no-time'
 alias ack='ag && ag || ack'
 alias dclsa='docker container ls -a --format "table {{.ID}}\t{{.Names}}\t{{.State}}\t{{.Ports}}"'
+alias dim="docker images -a"
 alias disk-usage='baobab'
 alias drm='docker_container_remove'
 alias dropbox-status='watch -n1 dropbox.py status'

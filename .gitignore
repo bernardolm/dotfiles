@@ -5,6 +5,7 @@
 *.bin
 *.deb
 *.env
+*.fuse*
 *.log
 *.sqlite*
 *.tar.gz
