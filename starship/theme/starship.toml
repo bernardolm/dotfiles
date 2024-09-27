@@ -4,7 +4,7 @@
 format = """$all$line_break[➜](yellow)  """
 
 # add_newline = false
-command_timeout = 1000
+command_timeout = 2000
 scan_timeout = 1000
 
 [hostname]
