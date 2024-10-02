@@ -11,6 +11,9 @@ function ssh_agent_state() {
     "Error connecting to agent: No such file or directory")
         ssh_agent_state="no_connection"
         ;;
+    "Error connecting to agent: Connection refused")
+        ssh_agent_state="no_connection"
+        ;;
     "Could not open a connection to your authentication agent.")
         ssh_agent_state="no_connection"
         ;;
