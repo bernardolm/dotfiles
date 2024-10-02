@@ -11,7 +11,6 @@ setopt automenu nolistambiguous # needs explanation!
 setopt beep                     # beep on error in zle.
 setopt complete_aliases         # prevents aliases on the command line from being internally substituted before completion is attempted. the effect is to make the alias a distinct command for completion purposes.
 setopt complete_in_word         # do not go to the end of the word in the completing
-setopt correct                  # try to correct the spelling of commands
 setopt extended_history         # add timestamps to history
 setopt extendedglob             # treat the ‘#’, ‘~’ and ‘^’ characters as part of patterns for filename generation
 setopt hist_expire_dups_first   # expire a duplicate event first when trimming history.
