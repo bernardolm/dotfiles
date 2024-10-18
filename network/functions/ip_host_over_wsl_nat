@@ -1,0 +1,5 @@
+#!/usr/bin/env zsh
+
+function ip_host_over_wsl_nat() {
+    ip route show | grep -i default | awk '{print $3}'
+}
