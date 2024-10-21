@@ -10,7 +10,7 @@ debian
 dirpersist
 docker
 docker-compose
-dotenv
+# dotenv
 emoji
 emoji-clock
 emotty # emotty_set=choose-one [emoji, loral, love, nature, stellar, zodiac]
@@ -39,7 +39,7 @@ ssh
 sudo
 systemd
 themes
-timer
+# timer
 tldr
 tmux
 ubuntu

@@ -16,11 +16,12 @@ export CLR_ROSE="\e[38;5;15m\e[48;5;201m\e[1m"
 export CLR_WHITE="\e[38;5;235m\e[48;5;5m\e[1m"
 export CLR_YELLOW="\e[38;5;235m\e[48;5;226m\e[1m"
 export COLORTERM=truecolor
+export COMPLETION_WAITING_DOTS=true
 export DISABLE_AUTO_TITLE=true
 export DISABLE_LS_COLORS=false
 export EDITOR='nano'
 export EMOJI_CLI_KEYBIND='^e'
-export ENABLE_CORRECTION=true
+export ENABLE_CORRECTION=false
 export GIT_DISCOVERY_ACROSS_FILESYSTEM=true
 export GREP_COLORS='mt=30;103'
 export HISTDUP='erase' # erase duplicates in the history file
@@ -35,9 +36,10 @@ export NO_COLOR="\e[0m"
 export PAGER='less'
 export POWERLINE_ROOT='/home/bernardo/.local/lib/python3.11/site-packages/powerline'
 export SAVEHIST=999999
-export SHELL_DEBUG=false
+export SHELL_DEBUG=true
 export SHELL_PROFILE=false
 export SHELL_TRACE=false
+export SPACESHIP_EXEC_TIME_SHOW=false
 export SSH_AGENT_PID=-1
 export TERM='xterm-256color'
 export VISUAL='nano'
@@ -48,7 +50,6 @@ export ZSH_DISABLE_COMPFIX=true
 export ZSH_HIGHLIGHT_MAXLENGTH=100
 export ZSH_WAKATIME_PROJECT_DETECTION=true
 
-# export PROMPT=$(random_emoji fruits)"  > ${PROMPT}"
 export DOTFILES ; DOTFILES="${DOTFILES:=${HOME}/workspaces/bernardolm/dotfiles}" # 🧙‍♂️
 export GOPATH ; GOPATH="${HOME}/gopath"
 export GPG_TTY ; GPG_TTY="$(tty)"

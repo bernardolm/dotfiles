@@ -26,9 +26,10 @@ log debug "oh-my-zsh plugins loaded: $plugins"
 $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh plugins list"
 
 start=$(date +%s%N)
+log debug "oh-my-zsh calling init script"
 # shellcheck source=/dev/null
 . "${ZSH}/oh-my-zsh.sh"
-$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh source"
+$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh init script"
 
 unalias sudo 2>/dev/null
 

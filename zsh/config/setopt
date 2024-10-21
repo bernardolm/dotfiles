@@ -28,5 +28,4 @@ setopt inc_append_history       # this option works like append_history except t
 setopt interactivecomments      # needs explanation!
 setopt list_beep                # beep on an ambiguous completion.
 setopt nomatch notify           # needs explanation!
-setopt prompt_subst             # if set, parameter expansion, command substitution and arithmetic expansion are performed in prompts
 setopt share_history            # this option both imports new commands from the history file, and also causes your typed commands to be appended to the history file

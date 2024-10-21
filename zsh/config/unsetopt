@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
 unsetopt beep           # needs explanation!
-unsetopt correct    # try to correct the spelling of arguments too
+unsetopt correct        # try to correct the spelling of arguments too
+unsetopt correct_all    # try to correct the spelling of arguments too
 unsetopt hup            # don't kill bg process when terminal is killed or exited
 unsetopt nomatch        # if a pattern for filename generation has no matches, print an error
 unsetopt notify         # report the status of background jobs immediately,
