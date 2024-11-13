@@ -1,0 +1,25 @@
+#!/usr/bin/env zsh
+
+function autoclean() {
+    sudo apt autoremove --purge --yes
+    sudo apt clean all
+
+    sudo journalctl --rotate
+    sudo journalctl --vacuum-size=5M
+
+    sudo rm -rf /var/lib/apt/lists/*
+    sudo rm -rf /var/log/*.gz
+    sudo rm -rf /var/log/*.log
+
+    if snap model 2>/dev/null; then
+        snap_clean;
+    fi
+
+    if docker ps 2>/dev/null; then
+        docker_clean;
+    fi
+
+    rm -rf ~/.cache/*
+    rm -rf ~/gopath/pkg/mod/cache/*
+    rm -rf ~/tmp/*
+}
