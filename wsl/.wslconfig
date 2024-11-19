@@ -1,15 +1,15 @@
 [wsl2]
+# dnsTunneling=true # disable to get access using VPN in windows
+# networkingMode=mirrored # disable to get access using VPN in windows
 autoProxy=true
 debugConsole=false
 defaultVhdSize=64GB
 dnsProxy=true
-# dnsTunneling=true # disable to get access using VPN in windows
 firewall=false
 guiApplications=false
 localhostForwarding=true
 memory=12GB
 nestedVirtualization=true
-# networkingMode=mirrored # disable to get access using VPN in windows
 swap=0
 
 [experimental]
