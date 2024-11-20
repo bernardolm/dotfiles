@@ -1,4 +1,3 @@
-
 [apply]
     whitespace = fix
 
@@ -25,7 +24,7 @@
     log = true
 
 [safe]
-    directory = ~/workspaces
+	directory = /home/bernardo/workspaces/bernardolm/dotfiles
 
 [user]
     name = Bernardo Loureiro
