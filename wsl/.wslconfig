@@ -22,3 +22,5 @@ sparseVhd=true # default: false
 
 
 # netsh interface portproxy add v4tov4 listenaddress=192.168.1.13 listenport=23 connectaddress=172.26.156.60 connectport=22
+
+# netsh interface portproxy add v4tov4 listenaddress=192.168.1.27 listenport=23 connectaddress=172.26.209.149 connectport=22
