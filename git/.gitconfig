@@ -25,6 +25,7 @@
 
 [safe]
 	directory = /home/bernardo/workspaces/bernardolm/dotfiles
+	directory = /home/bernardo/workspaces/bernardolm/step-task
 
 [user]
     name = Bernardo Loureiro
