@@ -26,6 +26,8 @@
 [safe]
 	directory = /home/bernardo/workspaces/bernardolm/dotfiles
 	directory = /home/bernardo/workspaces/bernardolm/step-task
+	directory = /home/bernardo/workspaces/acao-da-cidadania/engineering
+	directory = /home/bernardo/workspaces/acao-da-cidadania/marketing-service
 
 [user]
     name = Bernardo Loureiro
