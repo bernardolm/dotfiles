@@ -6,7 +6,7 @@ elapsed=0
 interval=2
 timeout=10
 username=bernardo
-virtual_disk_path="C:/wsl/Ubuntu-24.04/ubuntu-home-64gb.vhd"
+virtual_disk_path="C:/wsl/${WSL_DISTRO_NAME}/ubuntu-home-64gb.vhd"
 
 # Mount point
 mount_point="/home/${username}"
