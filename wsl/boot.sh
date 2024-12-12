@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+WSL_DISTRO_NAME="${WSL_DISTRO_NAME:=Ubuntu-24.04}"
+
 # Configuration
 disk_uuid=D6623F1C623F00B3
 elapsed=0
