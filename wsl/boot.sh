@@ -13,7 +13,7 @@ mount_point="/home/${username}"
 
 # Attaching virtual disk to WSL
 function attach_vhd_to_wsl() {
-    cmd="/mnt/c/Users/${username}/AppData/Local/Microsoft/WindowsApps/wsl.exe -d $WSL_DISTRO_NAME --mount --vhd ${virtual_disk_path} --bare"
+    cmd="/mnt/c/Users/${username}/AppData/Local/Microsoft/WindowsApps/wsl.exe -d ${WSL_DISTRO_NAME} --mount --vhd ${virtual_disk_path} --bare"
     echo "> ${cmd}"
     eval "${cmd} | echo already attached" 2>/dev/null
 }
