@@ -7,7 +7,7 @@
 # localhostForwarding=true  # default: true
 # nestedVirtualization=true # default: true
 # networkingMode=mirrored   # default: NAT # disable to get access using VPN in windows
-# safeMode=false  # default: false
+# safeMode=false            # default: false
 defaultVhdSize=64GB
 firewall=false              # default: true
 memory=12GB
