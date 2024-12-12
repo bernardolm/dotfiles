@@ -1,26 +1,21 @@
 [wsl2]
-# autoProxy=true # default: true
-# debugConsole=false # default: false
-# dnsProxy=true # default: true
-# dnsTunneling=true # default: true # disable to get access using VPN in windows
-# guiApplications=true # default: true
-# localhostForwarding=true # default: true
+# autoProxy=true            # default: true
+# debugConsole=false        # default: false
+# dnsProxy=true             # default: true
+# dnsTunneling=true         # default: true # disable to get access using VPN in windows
+# guiApplications=true      # default: true
+# localhostForwarding=true  # default: true
 # nestedVirtualization=true # default: true
-# networkingMode=mirrored # default: NAT # disable to get access using VPN in windows
-# safeMode=false # default: false
+# networkingMode=mirrored   # default: NAT # disable to get access using VPN in windows
+# safeMode=false  # default: false
 defaultVhdSize=64GB
-firewall=false # default: true
+firewall=false              # default: true
 memory=12GB
 swap=0
 
 [experimental]
 # bestEffortDnsParsing=true # default: false
-# hostAddressLoopback=true # default: false
-# ignoredPorts=22,53,80 # Specifies which ports Linux applications can bind to, even if that port is used in Windows.
+# hostAddressLoopback=true  # default: false
 autoMemoryReclaim=dropcache # default: disabled
-sparseVhd=true # default: false
-
-
-# netsh interface portproxy add v4tov4 listenaddress=192.168.1.13 listenport=23 connectaddress=172.26.156.60 connectport=22
-
-# netsh interface portproxy add v4tov4 listenaddress=192.168.1.27 listenport=23 connectaddress=172.26.209.149 connectport=22
+ignoredPorts=22             # Specifies which ports Linux applications can bind to, even if that port is used in Windows.
+sparseVhd=true              # default: false
