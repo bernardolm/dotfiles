@@ -1,28 +1,22 @@
 #!/usr/bin/env bash
 
-WSL_DISTRO_NAME="${WSL_DISTRO_NAME:=Ubuntu-24.04}"
-
 # Configuration
 disk_uuid=D6623F1C623F00B3
+distro_name="${WSL_DISTRO_NAME:=Ubuntu-24.04}"
 elapsed=0
 interval=2
 timeout=10
 username=bernardo
-virtual_disk_path="C:/wsl/${WSL_DISTRO_NAME}/ubuntu-home-64gb.vhd"
 
-# Mount point
+# Dynamic configuration
 mount_point="/home/${username}"
+virtual_disk_path="C:/wsl/${distro_name}/ubuntu-home-64gb.vhd"
 
 # Attaching virtual disk to WSL
 function attach_vhd_to_wsl() {
-    cmd="/mnt/c/Users/${username}/AppData/Local/Microsoft/WindowsApps/wsl.exe -d ${WSL_DISTRO_NAME} --mount --vhd ${virtual_disk_path} --bare"
+    cmd="/mnt/c/Users/${username}/AppData/Local/Microsoft/WindowsApps/wsl.exe -d ${distro_name} --mount --vhd ${virtual_disk_path} --bare"
     echo "> ${cmd}"
     eval "${cmd} | echo already attached" 2>/dev/null
-}
-
-# get disk device path
-function get_disk_path() {
-    blkid --uuid ${disk_uuid}
 }
 
 function mount_home() {
@@ -31,7 +25,12 @@ function mount_home() {
     echo "> ${cmd}"
     eval "${cmd}"
 
-    cmd="mount -o defaults,permissions $(get_disk_path) ${mount_point}"
+    # Discovering disk path by UUID
+    disk_path=$(blkid --uuid "${disk_uuid}")
+    [ -z "${disk_path}" ] && echo "failed to get disk path" && exit 1
+
+    # Mounting disk to home path
+    cmd="mount -o defaults,permissions ${disk_path} ${mount_point}"
     echo "> ${cmd}"
     eval "${cmd}"
 
@@ -40,6 +39,8 @@ function mount_home() {
     echo "> ${cmd}"
     eval "${cmd}"
 }
+
+sleep 1
 
 attach_vhd_to_wsl
 
