@@ -14,7 +14,7 @@ CONFIG="${DOTFILES}/linux/links-etc.yaml" \
     -p "${DOTFILES}/git/submodules/dotbot-sudo/sudo.py" \
     --exit-on-failure
 
-for f in "${DOTFILES}/linux/install.d/*"; do
+for f in "${DOTFILES}"/linux/install.d/*; do
     [[ -f $f ]] && source -- "$f"
 done
 

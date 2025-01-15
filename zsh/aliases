@@ -24,6 +24,7 @@ alias gst="git status --branch --show-stash --untracked-files=all --ignore-submo
 alias gt='go test ./...'
 alias ls='ls_2_exa'
 alias lsa='ls -lah'
+alias mv='mv --backup=t'
 alias n='nautilus .'
 alias nautilus-speed-up='sudo rm -rf $HOME/.local/share/gvfs-metadata ; sudo pkill gvfsd-metadata'
 alias new-guid='uuidgen | tr "[A-Z]" "[a-z]"'
