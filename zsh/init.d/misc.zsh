@@ -20,3 +20,7 @@ if [ ! -h "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ] \
 fi
 
 bindkey "^s" emoji::cli
+
+export PATH=$HOME/flutter/bin:$PATH
+
+eval $(op signin)
