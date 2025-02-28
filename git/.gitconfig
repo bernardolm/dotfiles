@@ -23,9 +23,13 @@
 [merge]
     log = true
 
-[user]
-    name = Bernardo Loureiro
-    signingkey = ~/.ssh/id_ed25519.pub
+
+[pull]
+	rebase = true
 
 [url "ssh://git@"]
 	insteadOf = https://
+
+[user]
+    name = Bernardo Loureiro
+    signingkey = ~/.ssh/id_ed25519.pub
