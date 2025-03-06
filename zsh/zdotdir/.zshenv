@@ -1,20 +1,21 @@
 [[ $- != *i* ]] && return
 
 $SHELL_DEBUG && echo "👾 zshenv"
+echo "🤖 i'm \e[38;5;15m\e[48;5;129m\e[1m $(hostname) \e[0m at \e[38;5;15m\e[48;5;129m\e[1m $(hostname -I)\e[0m"
 
 export BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED=-1
 export CASE_SENSITIVE=false
 export CLICOLOR=true
-export CLR_BLUE="\e[38;5;15m\e[48;5;21m\e[1m"
-export CLR_CYAN="\e[38;5;235m\e[48;5;51m\e[1m"
-export CLR_GREEN="\e[38;5;235m\e[48;5;40m\e[1m"
-export CLR_GREY="\e[38;5;235m\e[48;5;253m\e[1m"
-export CLR_PURPLE="\e[38;5;15m\e[48;5;129m\e[1m"
-export CLR_RED="\e[38;5;235m\e[48;5;9m\e[1m"
-export CLR_ROSE="\e[38;5;15m\e[48;5;201m\e[1m"
-export CLR_WHITE="\e[38;5;235m\e[48;5;5m\e[1m"
-export CLR_YELLOW="\e[38;5;235m\e[48;5;226m\e[1m"
+export CLR_BG_BLUE="\e[38;5;15m\e[48;5;21m\e[1m"
+export CLR_BG_CYAN="\e[38;5;235m\e[48;5;51m\e[1m"
+export CLR_BG_GREEN="\e[38;5;235m\e[48;5;40m\e[1m"
+export CLR_BG_GREY="\e[38;5;235m\e[48;5;253m\e[1m"
+export CLR__BG_PURPLE="\e[38;5;15m\e[48;5;129m\e[1m"
+export CLR_BG_RED="\e[38;5;235m\e[48;5;9m\e[1m"
+export CLR_BG_ROSE="\e[38;5;15m\e[48;5;201m\e[1m"
+export CLR_BG_WHITE="\e[38;5;235m\e[48;5;5m\e[1m"
+export CLR_BG_YELLOW="\e[38;5;235m\e[48;5;226m\e[1m"
 export COLORTERM=truecolor
 export COMPLETION_WAITING_DOTS=true
 export DISABLE_AUTO_TITLE=true

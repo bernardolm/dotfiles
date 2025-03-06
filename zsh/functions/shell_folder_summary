@@ -4,9 +4,9 @@ function shell_folder_summary() {
     local files=$(find . -maxdepth 1 -type f | wc -l)
     local folders=$(find . -maxdepth 1 -type d | wc -l)
     local hiddenFiles=$(find . -maxdepth 1 -type f | egrep "^\./\." | wc -l)
-    local print_this="$CLR_WHITE $PWD $NO_COLOR"
-    print_this+="$CLR_PURPLE 📂 $folders $NO_COLOR"
-    print_this+="$CLR_ROSE 📄 $files $NO_COLOR"
-    print_this+="$CLR_GREEN 🗄️ $hiddenFiles $NO_COLOR"
+    local print_this="$CLR_BG_WHITE $PWD $NO_COLOR"
+    print_this+="$CLR__BG_PURPLE 📂 $folders $NO_COLOR"
+    print_this+="$CLR_BG_ROSE 📄 $files $NO_COLOR"
+    print_this+="$CLR_BG_GREEN 🗄️ $hiddenFiles $NO_COLOR"
     echo -ne "$print_this"
 }

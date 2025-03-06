@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function log_warn() {
-    log_echo "🚧 ${CLR_YELLOW} $@ ${NO_COLOR}"
+    log_echo "🚧 ${CLR_BG_YELLOW} $@ ${NO_COLOR}"
 }
