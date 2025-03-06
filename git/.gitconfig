@@ -1,3 +1,7 @@
+[include]
+    path = ~/sync/git/gitconfig
+
+
 [apply]
     whitespace = fix
 
@@ -14,15 +18,11 @@
 [gpg]
 	format = ssh
 
-[include]
-    path = ~/sync/git/gitconfig
-
 [init]
     defaultBranch = main
 
 [merge]
     log = true
-
 
 [pull]
 	rebase = true
