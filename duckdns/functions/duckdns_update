@@ -20,7 +20,7 @@ function duckdns_update() {
     duckdns_url+="&token=${DUCKDNS_TOKEN}"
     duckdns_url+="&domains=${domain}"
 
-    log_info "updating duckdns domain ${domain} with ${ip4}"
+    log_info "updating duckdns domain ${domain}.duckdns.org with ${ip4}"
     log_debug "log file at ${log_file}"
 
     curl -L --silent --insecure --output "${log_file}" "${duckdns_url}"
