@@ -1,0 +1,7 @@
+#!/usr/bin/env zsh
+
+function duckdns_update_all() {
+    duckdns_update_public
+    duckdns_update_wsl
+    duckdns_update_wsl_host
+}

@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+function duckdns_update_wsl_host() {
+    host_domain=$(hostname.exe | tr -d ' |\r')
+    host_ip=$(netsh.exe interface ipv4 show addresses "Wi-Fi" | grep "IP" | cut -d: -f2 | tr -d ' |\r')
+
+    duckdns_update ${host_domain} ${host_ip}
+}

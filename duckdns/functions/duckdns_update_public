@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+function duckdns_update_public() {
+    public_domain=${DUCKDNS_DOMAIN}
+    public_ip=$(curl -sL checkip.amazonaws.com)
+
+    if [ "${public_ip}" = "${OFFICE_EXTERNAL_IP}" ]; then
+        log_warn "${public_domain} with ${public_ip} doesn't need to update"
+        return
+    fi
+
+    duckdns_update ${public_domain} ${public_ip}
+}

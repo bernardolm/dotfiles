@@ -1,0 +1,8 @@
+#!/usr/bin/env zsh
+
+function duckdns_update_wsl() {
+    wsl_domain="$(hostname)-wsl"
+    wsl_ip=$(hostname -I | cut -d' ' -f1)
+
+    duckdns_update ${wsl_domain} ${wsl_ip}
+}
