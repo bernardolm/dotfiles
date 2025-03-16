@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
 function chmod_reset() {
-    shell_debug_relay=$SHELL_DEBUG
-    SHELL_DEBUG=true
+    # shell_debug_relay=$SHELL_DEBUG
+    # SHELL_DEBUG=true
 
     sudo chmod -cR 600 $1
     sudo chmod -R u+X $1
@@ -35,5 +35,5 @@ function chmod_reset() {
 
     [ "$SHELL_DEBUG" = "true" ] && set +x
 
-    SHELL_DEBUG=$shell_debug_relay
+    # SHELL_DEBUG=$shell_debug_relay
 }
