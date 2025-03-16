@@ -1,6 +1,8 @@
 #!/usr/bin/env zsh
 
 function duckdns_update() {
+    echo "> duckdns_update $@"
+
     domain="$1"
     ip4="$2"
     ip6="$3"
@@ -9,10 +11,6 @@ function duckdns_update() {
     mkdir -p ${log_file}
     log_file+=$(date +"%Y-%m-%d-%H-%M-%S")
     log_file+=".log"
-
-    if [ "${domain}" != "${DUCKDNS_DOMAIN}" ]; then
-        domain=${GITHUB_USER}--${domain}
-    fi
 
     duckdns_url="https://www.duckdns.org/update?verbose=true"
     duckdns_url+="&ip=${ip4}"

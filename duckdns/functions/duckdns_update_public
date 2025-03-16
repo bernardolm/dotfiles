@@ -1,8 +1,6 @@
 #!/usr/bin/env zsh
 
 function duckdns_update_public() {
-    log_start "duckdns public IP update"
-
     public_domain=${DUCKDNS_DOMAIN}
     public_ip=$(curl -sL checkip.amazonaws.com)
 
@@ -11,5 +9,5 @@ function duckdns_update_public() {
         return
     fi
 
-    duckdns_update ${public_domain} ${public_ip}
+    duckdns_update "${public_domain}" "${public_ip}"
 }

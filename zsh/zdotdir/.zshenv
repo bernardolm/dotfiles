@@ -1,4 +1,5 @@
-[[ $- != *i* ]] && return
+# [[ $- != *i* ]] && return
+# [ -z "$PS1" ] && return
 
 $SHELL_DEBUG && echo "👾 zshenv"
 echo "🤖 i'm \e[38;5;15m\e[48;5;129m\e[1m $(hostname) \e[0m at \e[38;5;15m\e[48;5;129m\e[1m $(hostname -I)\e[0m"
