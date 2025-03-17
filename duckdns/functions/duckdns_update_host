@@ -3,7 +3,7 @@
 function duckdns_update_host() {
     domain_suffix=""
 
-    if [ -n "${WSL_INTEROP}" ]; then
+    if [[ $(grep -i Microsoft /proc/version) ]]; then
         domain_suffix="-wsl"
     fi
 

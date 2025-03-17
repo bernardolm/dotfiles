@@ -8,7 +8,6 @@ function duckdns_update_public() {
     log debug "public_domain=${public_domain}"
     log debug "public_ip=${public_ip}"
 
-
     if [ "${public_ip}" = "${OFFICE_EXTERNAL_IP}" ]; then
         log warn "${public_domain} with ${public_ip} does not need to update"
         return
