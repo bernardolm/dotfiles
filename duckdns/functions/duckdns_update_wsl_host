@@ -1,6 +1,11 @@
 #!/usr/bin/env zsh
 
 function duckdns_update_wsl_host() {
+    if [ -z "${WSL_INTEROP}" ]; then
+        log warn "you are not in WSL"
+        return
+    fi
+
     PATH=/mnt/c/WINDOWS/system32/:$PATH
 
     host_domain=$(hostname.exe | tr -d ' |\r')

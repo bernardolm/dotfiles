@@ -1,0 +1,14 @@
+#!/usr/bin/env zsh
+
+function duckdns_update_host() {
+    domain_suffix=""
+
+    if [ -n "${WSL_INTEROP}" ]; then
+        domain_suffix="-wsl"
+    fi
+
+    domain=$(hostname)
+    ip=$(hostname -I | cut -d' ' -f1)
+
+    duckdns_update "${GITHUB_USER}--${domain}${domain_suffix}" "${ip}"
+}

@@ -1,8 +1,0 @@
-#!/usr/bin/env zsh
-
-function duckdns_update_wsl() {
-    wsl_domain=$(hostname)
-    wsl_ip=$(hostname -I | cut -d' ' -f1)
-
-    duckdns_update "${GITHUB_USER}--${wsl_domain}-wsl" "${wsl_ip}"
-}
