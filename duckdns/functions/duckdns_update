@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 function duckdns_update() {
-    echo "> duckdns_update $@"
+    log debug "> duckdns_update $@"
 
     domain="$1"
     ip4="$2"
