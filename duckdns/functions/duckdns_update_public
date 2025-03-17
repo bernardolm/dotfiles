@@ -4,8 +4,13 @@ function duckdns_update_public() {
     public_domain=${DUCKDNS_DOMAIN}
     public_ip=$(curl -sL checkip.amazonaws.com)
 
+    log debug "OFFICE_EXTERNAL_IP=${OFFICE_EXTERNAL_IP}"
+    log debug "public_domain=${public_domain}"
+    log debug "public_ip=${public_ip}"
+
+
     if [ "${public_ip}" = "${OFFICE_EXTERNAL_IP}" ]; then
-        log warn "${public_domain} with ${public_ip} doesn't need to update"
+        log warn "${public_domain} with ${public_ip} does not need to update"
         return
     fi
 
