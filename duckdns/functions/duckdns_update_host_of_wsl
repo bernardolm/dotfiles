@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-function duckdns_update_wsl_host() {
-    if [ -z "${WSL_INTEROP}" ]; then
+function duckdns_update_host_of_wsl() {
+    if [[ ! $(grep -i Microsoft /proc/version) ]]; then
         log warn "you are not in WSL"
         return
     fi

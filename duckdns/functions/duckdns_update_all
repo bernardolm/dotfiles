@@ -2,6 +2,6 @@
 
 function duckdns_update_all() {
     duckdns_update_host
+    duckdns_update_host_of_wsl
     duckdns_update_public
-    duckdns_update_wsl_host
 }
