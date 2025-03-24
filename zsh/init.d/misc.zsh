@@ -7,6 +7,7 @@ $SHELL_DEBUG && localectl status 1>/dev/null
 
 if [ ! -h "${ZSH_CUSTOM}/plugins/wakatime" ] \
     && [ -d "${ZPLUG_HOME}/repos/sobolevn/wakatime-zsh-plugin" ]; then
+    log info "(sym) linking wakatime-zsh-plugin"
     rm -rf "${ZSH_CUSTOM}/plugins/wakatime" >/dev/null
     ln -sf "${ZPLUG_HOME}/repos/sobolevn/wakatime-zsh-plugin" \
         "${ZSH_CUSTOM}/plugins/wakatime"
@@ -14,6 +15,7 @@ fi
 
 if [ ! -h "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ] \
     && [ -d "${ZPLUG_HOME}/repos/zsh-users/zsh-autosuggestions" ]; then
+    log info "(sym) linking zsh-autosuggestions"
     rm -rf "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" >/dev/null
     ln -sf "${ZPLUG_HOME}/repos/zsh-users/zsh-autosuggestions" \
         "${ZSH_CUSTOM}/plugins/zsh-autosuggestions"

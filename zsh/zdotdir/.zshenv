@@ -1,7 +1,7 @@
 [ "${FORCED_INTERACTIVE}" != "true" ] && [[ $- != *i* ]] && return
 
 $SHELL_DEBUG && echo "👾 zshenv"
-echo "🤖 i'm \e[38;5;15m\e[48;5;129m\e[1m $(hostname) \e[0m at \e[38;5;15m\e[48;5;129m\e[1m $(hostname -I)\e[0m"
+echo "🤖 i'm $(hostname) at $(hostname -I)"
 
 export BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED=-1

@@ -1,3 +1,5 @@
+# dotenv
+# timer
 1password # needs: 1password cli
 alias-finder
 aliases
@@ -10,7 +12,6 @@ debian
 dirpersist
 docker
 docker-compose
-# dotenv
 emoji
 emoji-clock
 emotty # emotty_set=choose-one [emoji, loral, love, nature, stellar, zodiac]
@@ -39,14 +40,13 @@ ssh
 sudo
 systemd
 themes
-# timer
 tldr
 tmux
 ubuntu
 ufw
-wakatime # custom: ohmyzsh
+wakatime # ohmyzsh custom
 z
 zbell
-zsh-autosuggestions # custom: ohmyzsh
+zsh-autosuggestions # ohmyzsh custom
 zsh-interactive-cd
 zsh-navigation-tools

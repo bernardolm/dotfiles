@@ -46,14 +46,13 @@ local _init_order=(
     "${DOTFILES}/zsh/functions/elapsed_time"
     "${DOTFILES}/zsh/functions/zsh_autoload_paths"
     "${DOTFILES}/zsh/config/autoload"
-    "${DOTFILES}/zsh/config/setopt"
-    "${DOTFILES}/zsh/config/unsetopt"
-    "${DOTFILES}/zsh/config/zstyle"
     "${DOTFILES}/ssh/start"
     "${DOTFILES}/zplug/start"
     "${DOTFILES}/ohmyzsh/start"
     "${DOTFILES}/starship/start"
     "${DOTFILES}/zsh/aliases"
+    "${DOTFILES}/zsh/config/setopt"
+    "${DOTFILES}/zsh/config/zstyle"
     "${inits[@]}"
 ); for _f in "${_init_order[@]}"; do
     startFile=$(date +%s%N)
