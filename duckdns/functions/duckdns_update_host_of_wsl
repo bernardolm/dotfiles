@@ -1,12 +1,12 @@
 #!/usr/bin/env zsh
 
 function duckdns_update_host_of_wsl() {
-    if [[ ! $(grep -i Microsoft /proc/version) ]]; then
+    log debug "WSL_SYSTEM=${WSL_SYSTEM}"
+
+    if [ "${WSL_SYSTEM}" != 'true' ]; then
         log warn "you are not in WSL"
         return
     fi
-
-    PATH=/mnt/c/WINDOWS/system32/:$PATH
 
     host_domain=$(hostname.exe | tr -d ' |\r')
     host_ip=$(netsh.exe interface ipv4 show addresses | grep "IP" | grep "192.168.0." | cut -d: -f2 | tr -d ' |\r')

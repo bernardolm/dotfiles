@@ -20,7 +20,7 @@ function git_commit_last_with_file() {
     if [ -f $1 ]; then
         echo "file yet found, going head..."
         go_to_git_next_commit
-        if [[ "$?" == "1" ]]; then
+        if [[ "$?" = "1" ]]; then
             echo "git_next_commit returns error, retrying"
             sleep 3
         fi

@@ -2,8 +2,8 @@
 # Lists as many items as can fit in the terminal, no wrapping or scrolling.
 
 if [ -n "$1" ]; then
-	if [ "$1" == "usage" ]; then
-		echo "    $(basename $0) [TERM...]"
+	if [ "$1" = "usage" ]; then
+		echo "    $(basename "${0}") [TERM...]"
 		echo "      Lists as many items as can fit in the terminal, no wrapping or scrolling."
 		echo ""
 		exit

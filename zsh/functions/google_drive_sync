@@ -5,7 +5,7 @@ function google_drive_sync() {
     notify-send "google drive worker" "running..."
 
     echo -e "syncing local..."
-    rsync -au --delete "${SYNC_DOTFILES}/" "${HOME}/google-drive/ubuntu/"
+    rsync -au --delete "${HOME}/sync/" "${HOME}/google-drive/ubuntu/"
 
     echo -e "removing vendor paths..."
     find "${HOME}/google-drive/ubuntu/" -name 'node_modules' \

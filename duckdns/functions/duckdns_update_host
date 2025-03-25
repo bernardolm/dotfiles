@@ -3,12 +3,9 @@
 function duckdns_update_host() {
     domain_suffix=""
 
-    if [[ $(grep -i Microsoft /proc/version) ]]; then
+    if [ "${WSL_SYSTEM}" = 'true' ]; then
         domain_suffix="-wsl"
     fi
 
-    domain=$(hostname)
-    ip=$(hostname -I | cut -d' ' -f1)
-
-    duckdns_update "${GITHUB_USER}--${domain}${domain_suffix}" "${ip}"
+    duckdns_update "${GITHUB_USER}--${HOSTNAME}${domain_suffix}" "${IP_CURRENT}"
 }

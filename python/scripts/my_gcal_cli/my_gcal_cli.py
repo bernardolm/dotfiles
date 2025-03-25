@@ -8,7 +8,7 @@ from gcalcli.gcal import GoogleCalendarInterface
 from gcalcli.printer import Printer
 from gcalcli.utils import get_time_from_str
 
-config_path = f'{os.getenv("SYNC_DOTFILES")}/.gcalcli'
+config_path = f'{os.getenv("HOME")}/sync/.gcalcli'
 
 
 def config_path_exists():

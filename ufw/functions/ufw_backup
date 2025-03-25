@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function ufw_backup() {
-    sudo ufw show added | tail -n +2 | tee "${SYNC_DOTFILES}/ufw/rules.sh"
+    sudo ufw show added | tail -n +2 | tee "${HOME}/sync/ufw/rules.sh"
 }

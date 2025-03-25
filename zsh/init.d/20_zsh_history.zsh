@@ -1,6 +1,6 @@
 log debug "checking zsh_history"
 
-zsh_history_source=${SYNC_DOTFILES}/home/.zsh_history
+zsh_history_source=${HOME}/sync/home/.zsh_history
 zsh_history_target=${HOME}/.zsh_history
 
 function zsh_history_merge() {

@@ -144,7 +144,7 @@ function dns_local_setup() {
     function check_dependencies() {
         printf "> Checking dependencies.\n"
 
-        if [ "$has_docker" == "yes" ]; then
+        if [ "$has_docker" = "yes" ]; then
             printf "  Docker install OK.\n"
         else
             printf "  Installing docker.\n"
@@ -182,7 +182,7 @@ function dns_local_setup() {
     function apt_cmd() {
         app="$2"
         cmd="$1"
-        if [ "$cmd" == "purge" ] && \
+        if [ "$cmd" = "purge" ] && \
             [ "$(apt-get list --installed 2>/dev/null | grep -c "$app")" == "0" ]; then
             return
         fi
@@ -256,7 +256,7 @@ function dns_local_setup() {
 
     function download_docker_image() {
         printf "> Pulling docker image %s.\n" "$image_name"
-        if [[ "$(docker images -q $image_name:latest 2>/dev/null)" == "" ]]; then
+        if [[ "$(docker images -q $image_name:latest 2>/dev/null)" = "" ]]; then
             docker pull "$image_name:latest" 1>/dev/null || exit 1
         fi
     }

@@ -11,5 +11,5 @@ docker run \
     -e LOG_LEVEL=debug \
     -e REPORTING_DISABLED=true \
     -p 8888:8888 \
-    -v "${SYNC_DOTFILES}/chronograf:/var/lib/chronograf" \
+    -v "${HOME}/sync/chronograf:/var/lib/chronograf" \
     chronograf:1.8-alpine

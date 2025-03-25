@@ -1,5 +1,3 @@
 #!/usr/bin/env zsh
 
-source "${DOTFILES}/ufw/functions/ufw_start"
-
-sudo zsh -c "$(declare -f ufw_start); SYNC_DOTFILES=${SYNC_DOTFILES} ufw_start"
+source "${DOTFILES}/ufw/functions/ufw_start" ; ufw_start

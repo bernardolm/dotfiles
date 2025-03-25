@@ -21,7 +21,7 @@ function git_clone_repos_by_url() {
         LOG_FILE=$1
         ONLY_LAST_LINE=$2
         echo -e "\n"$NO_COLOR >>$LOG_FILE 2>&1
-        if [[ "$ONLY_LAST_LINE" == "only-last-line" ]]; then
+        if [[ "$ONLY_LAST_LINE" = "only-last-line" ]]; then
             print_last_line $LOG_FILE;
             return;
         fi

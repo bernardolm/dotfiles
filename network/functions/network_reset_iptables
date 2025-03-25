@@ -36,7 +36,7 @@ function network_reset_iptables() {
 
     echo "restoring rules"
 
-    bash "${SYNC_DOTFILES}/ufw-custom.txt"
+    bash "${HOME}/sync/ufw-custom.txt"
 
     echo ""
 

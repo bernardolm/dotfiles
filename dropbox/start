@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-if [ "$HOSTNAME" == "ubuntu-hyper-v" ]; then
+if [ "$HOSTNAME" = "ubuntu-hyper-v" ]; then
     # shellcheck source=/dev/null
     . "${DOTFILES}/dropbox/install"
 

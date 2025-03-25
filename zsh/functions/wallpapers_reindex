@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 function wallpapers_reindex() {
-    sh $SYNC_DOTFILES/Pictures/Wallpapers/ubuntu-wallpaper-generator $SYNC_DOTFILES/Pictures/Wallpapers
+    sh ${HOME}/sync/Pictures/Wallpapers/ubuntu-wallpaper-generator ${HOME}/sync/Pictures/Wallpapers
     if ! [ -s "/usr/share/gnome-background-properties/ubuntu-wallpapers.xml" ]; then \
         echo "ubuntu-wallpapers.xml not exist, creating..."; \
         sudo touch /usr/share/gnome-background-properties/ubuntu-wallpapers.xml; \
