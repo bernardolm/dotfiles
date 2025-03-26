@@ -1,0 +1,50 @@
+# Get editor completions based on the config schema
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = """${custom.wsl}$all$line_break[➜](yellow)  """
+
+# add_newline = false
+command_timeout = 2000
+scan_timeout = 1000
+
+[hostname]
+format = 'at [$ssh_symbol$hostname]($style) '
+ssh_only = false
+ssh_symbol = '📡 '
+style = 'bold red'
+
+[character]
+format = 'out $symbol'
+success_symbol = "🥳"
+error_symbol = "🤬"
+
+[username]
+disabled = true
+
+[golang]
+version_format = ''
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[git_status]
+disabled = true
+
+[cmd_duration]
+min_time = 250
+show_milliseconds = true
+
+[directory]
+truncation_length = 5
+
+[custom.wsl]
+symbol = '🪟 '
+when='[[ $(grep -i Microsoft /proc/version) ]]'
+
+[os]
+disabled=false
+format = "on [($symbol$name $codename )]($style)"
+style = "bold blue"
