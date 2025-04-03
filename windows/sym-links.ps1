@@ -18,10 +18,6 @@ Remove-Item "$Env:LocalAppData\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\
     -Target "$Env:USERPROFILE\Dropbox\windows\windows-terminal" `
     -Path "$Env:LocalAppData\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState"
 
-Remove-Item "$Env:USERPROFILE\Documents\PowerShell\Microsoft.PowerShell_profile.ps1" ; New-Item -ItemType SymbolicLink `
-    -Target "$Env:USERPROFILE\Dropbox\windows\pws\Microsoft.PowerShell_profile.ps1" `
-    -Path "$Env:USERPROFILE\Documents\PowerShell\Microsoft.PowerShell_profile.ps1"
-
-Remove-Item "$Env:USERPROFILE\Documents\PowerShell\powershell.config.json" ; New-Item -ItemType SymbolicLink `
-    -Target "$Env:USERPROFILE\Dropbox\windows\pws\powershell.config.json" `
-    -Path "$Env:USERPROFILE\Documents\PowerShell\powershell.config.json"
+Remove-Item "$Env:USERPROFILE\Documents\PowerShell" ; New-Item -ItemType SymbolicLink `
+    -Target "$Env:USERPROFILE\Dropbox\windows\PowerShell" `
+    -Path "$Env:USERPROFILE\Documents\PowerShell"
