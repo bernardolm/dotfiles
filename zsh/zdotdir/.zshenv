@@ -1,7 +1,7 @@
 [ "${FORCED_INTERACTIVE}" != "true" ] && [[ $- != *i* ]] && return
 
 $SHELL_DEBUG && echo "👾 zshenv"
-echo "🤖 i'm '$(hostname)' at '$(hostname -I)'"
+echo "🤖 you '$(whoami)' are in '$(hostname)' at '$(hostname -I)'"
 
 export BUILDKIT_STEP_LOG_MAX_SIZE ; BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED ; BUILDKIT_STEP_LOG_MAX_SPEED=-1
@@ -61,7 +61,7 @@ export HOSTNAME ; HOSTNAME=$(hostname)
 export IP_CURRENT ; IP_CURRENT=$(hostname -I | awk '{print $1}')
 export IP_PUBLIC_NOW ; IP_PUBLIC_NOW=$(curl -sL checkip.amazonaws.com)
 export NOW ; NOW=$(date '+%H%M%S')
-export SSH_AGENT_OUTPUT="$HOME/.ssh/ssh-agent"
+export SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
 export TODAY ; TODAY=$(date '+%y%m%d')
 export USER_TMP ; USER_TMP="${HOME}/tmp"
 export VSCODE_CLI_DATA_DIR ; VSCODE_CLI_DATA_DIR="${HOME}/.vscode-server/cli"

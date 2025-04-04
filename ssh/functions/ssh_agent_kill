@@ -2,9 +2,8 @@
 
 function ssh_agent_kill() {
     log debug "killing and cleaning ssh agent..."
-    ssh-agent -k 2>/dev/null || killall -9 ssh-agent 2>/dev/null
-    rm -rf /tmp/ssh-* 2>/dev/null
-    rm -f "${SSH_AGENT_OUTPUT}"
-    unset SSH_AGENT_PID
-    unset SSH_AUTH_SOCK
+    ssh-agent -k &>/dev/null
+    rm -rfd '/tmp/ssh-'
+    rm -rf "${SSH_AGENT_OUTPUT_SCRIPT}"
+    log debug "finish to killing and cleaning ssh agent"
 }
