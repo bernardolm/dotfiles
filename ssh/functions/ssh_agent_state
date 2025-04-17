@@ -5,9 +5,6 @@ function ssh_agent_state() {
     local ssh_agent_state="alive"
 
     case $ssh_add in
-    "The agent has no identities.")
-        ssh_agent_state="empty"
-        ;;
     "Error connecting to agent: No such file or directory")
         ssh_agent_state="no_connection"
         ;;
@@ -16,6 +13,9 @@ function ssh_agent_state() {
         ;;
     "Could not open a connection to your authentication agent.")
         ssh_agent_state="no_connection"
+        ;;
+    "The agent has no identities.")
+        ssh_agent_state="empty"
         ;;
     esac
 

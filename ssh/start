@@ -1,17 +1,32 @@
 #!/usr/bin/env zsh
 
-# shell_debug_relay=$SHELL_DEBUG
+# shell_debug_relay=${SHELL_DEBUG}
 # SHELL_DEBUG=true
+# ssh_agent_kill
+
+for f in ${DOTFILES}/ssh/functions/*; do source "$f"; done
 
 log start "ssh setup"
 
-# trying to restore agent
-if [ -f "${SSH_AGENT_OUTPUT}" ]; then
-    log debug "ssh eval agent"
-    eval $(cat "${SSH_AGENT_OUTPUT}")
+log env SSH_AUTH_SOCK
+log env SSH_AGENT_PID
+log env SSH_AGENT_OUTPUT_SCRIPT
+$SHELL_DEBUG && \
+    [ -f "${SSH_AGENT_OUTPUT_SCRIPT}" ] && \
+    log debug "ssh agent script below" && \
+    cat ${SSH_AGENT_OUTPUT_SCRIPT}
+
+if [ -f "${SSH_AGENT_OUTPUT_SCRIPT}" ]; then
+    log info "ssh agent script found, trying to source it"
+    source ${SSH_AGENT_OUTPUT_SCRIPT}
+    log env SSH_AUTH_SOCK
+    log env SSH_AGENT_PID
+else
+    log debug "ssh agent script not found"
 fi
 
-# restart
+log debug "ssh_agent_state=$(ssh_agent_state)"
+
 if [ "$(ssh_agent_state)" = "no_connection" ]; then
     log info "ssh kill"
     ssh_agent_kill
@@ -20,7 +35,6 @@ if [ "$(ssh_agent_state)" = "no_connection" ]; then
     ssh_agent_start
 fi
 
-# add or list
 if [ "$(ssh_agent_state)" = "empty" ]; then
     log info "ssh add"
     ssh-add
@@ -30,4 +44,4 @@ fi
 
 log finish "ssh setup"
 
-# SHELL_DEBUG=$shell_debug_relay
+# SHELL_DEBUG=${shell_debug_relay}

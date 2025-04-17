@@ -5,7 +5,7 @@ function ssh_agent_start() {
 
     local ssh_ttl=86400 # twenty four hours in seconds
 
-    ssh-agent -s -t ${ssh_ttl} | grep -v 'Agent pid' > ${SSH_AGENT_OUTPUT}
-    chmod 600 "${SSH_AGENT_OUTPUT}"
-    eval $(cat "${SSH_AGENT_OUTPUT}")
+    ssh-agent -s -t ${ssh_ttl} | grep -v 'Agent pid' > ${SSH_AGENT_OUTPUT_SCRIPT}
+    chmod 600 "${SSH_AGENT_OUTPUT_SCRIPT}"
+    source ${SSH_AGENT_OUTPUT_SCRIPT}
 }
