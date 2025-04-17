@@ -1,0 +1,23 @@
+## required
+dtoverlay=w1-gpio
+enable_uart=1
+
+## just to improve performance. it is necessary to test
+# arm_boost=0
+# audio_pwm_mode=1
+# camera_auto_detect=0
+# disable_audio_dither=1
+# disable_camera_led=1
+# disable_poe_fan=1
+# disable_splash=1
+# disable_touchscreen=1
+# display_auto_detect=1
+# dtparam=audio=off
+# dtparam=i2c_arm=off
+# dtparam=i2s=off
+# dtparam=spi=off
+# enable_tvout=0
+# enable_uart=1
+# hdmi_enable_4kp60=0
+# hdmi_mode=1
+# ignore_lcd=1
