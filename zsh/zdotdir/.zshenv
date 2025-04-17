@@ -1,7 +1,7 @@
 [ "${FORCED_INTERACTIVE}" != "true" ] && [[ $- != *i* ]] && return
 
 $SHELL_DEBUG && echo "👾 zshenv"
-echo "🤖 i'm '$(hostname)' at '$(hostname -I)'"
+echo "🤖 you '$(whoami)' are in '$(hostname)' at '$(hostname -I)'"
 
 export BUILDKIT_STEP_LOG_MAX_SIZE ; BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED ; BUILDKIT_STEP_LOG_MAX_SPEED=-1
@@ -39,9 +39,9 @@ export NO_COLOR ; NO_COLOR='\e[0m'
 export PAGER ; PAGER='less'
 export POWERLINE_ROOT ; POWERLINE_ROOT='/home/bernardo/.local/lib/python3.11/site-packages/powerline'
 export SAVEHIST ; SAVEHIST=999999
-export SHELL_DEBUG ; SHELL_DEBUG=false
-export SHELL_PROFILE ; SHELL_PROFILE=false
-export SHELL_TRACE ; SHELL_TRACE=false
+export SHELL_DEBUG ; SHELL_DEBUG=true
+export SHELL_PROFILE ; SHELL_PROFILE=true
+export SHELL_TRACE ; SHELL_TRACE=true
 export SPACESHIP_EXEC_TIME_SHOW ; SPACESHIP_EXEC_TIME_SHOW=false
 export SSH_AGENT_PID ; SSH_AGENT_PID=-1
 export TERM ; TERM='xterm-256color'
@@ -61,7 +61,7 @@ export HOSTNAME ; HOSTNAME=$(hostname)
 export IP_CURRENT ; IP_CURRENT=$(hostname -I | awk '{print $1}')
 export IP_PUBLIC_NOW ; IP_PUBLIC_NOW=$(curl -sL checkip.amazonaws.com)
 export NOW ; NOW=$(date '+%H%M%S')
-export SSH_AGENT_OUTPUT="$HOME/.ssh/ssh-agent"
+export SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
 export TODAY ; TODAY=$(date '+%y%m%d')
 export USER_TMP ; USER_TMP="${HOME}/tmp"
 export VSCODE_CLI_DATA_DIR ; VSCODE_CLI_DATA_DIR="${HOME}/.vscode-server/cli"
