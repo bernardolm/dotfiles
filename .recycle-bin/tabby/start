@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# shell_debug_relay=$SHELL_DEBUG
+# shell_debug_relay=${SHELL_DEBUG}
 # SHELL_DEBUG=true
 
 log start "tabby setup"
@@ -10,4 +10,4 @@ precmd () { echo -n "\x1b]1337;CurrentDir=$(pwd)\x07" }
 
 log finish "tabby setup"
 
-# SHELL_DEBUG=$shell_debug_relay
+# SHELL_DEBUG=${shell_debug_relay}

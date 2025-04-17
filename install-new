@@ -14,7 +14,7 @@ echo "DOTFILES=$DOTFILES"
 . "${DOTFILES}/linux/pre-install"
 . "${DOTFILES}/zsh/zdotdir/.zshenv"
 
-shell_debug_relay=$SHELL_DEBUG
+shell_debug_relay=${SHELL_DEBUG}
 SHELL_DEBUG=true
 
 . "${DOTFILES}/zsh/functions/log"
@@ -29,4 +29,4 @@ log start "pristine setup"
 
 log finish "pristine setup"
 
-SHELL_DEBUG=$shell_debug_relay
+SHELL_DEBUG=${shell_debug_relay}

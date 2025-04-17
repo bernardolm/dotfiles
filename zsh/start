@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# shell_debug_relay=$SHELL_DEBUG
+# shell_debug_relay=${SHELL_DEBUG}
 # SHELL_DEBUG=false
 
 # profiling shell
@@ -72,4 +72,4 @@ if $SHELL_PROFILE; then
     echo "a log profile file as created here ${SHELL_SESSION_PATH}/${NOW}.prf"
 fi
 
-# SHELL_DEBUG=$shell_debug_relay
+# SHELL_DEBUG=${shell_debug_relay}

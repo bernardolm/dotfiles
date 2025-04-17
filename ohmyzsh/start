@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-# shell_debug_relay=$SHELL_DEBUG
+# shell_debug_relay=${SHELL_DEBUG}
 # SHELL_DEBUG=false
 
 log start "ohmyzsh"
@@ -35,4 +35,4 @@ unalias sudo 2>/dev/null
 
 log finish "ohmyzsh"
 
-# SHELL_DEBUG=$shell_debug_relay
+# SHELL_DEBUG=${shell_debug_relay}

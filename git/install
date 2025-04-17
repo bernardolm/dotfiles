@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# shell_debug_relay=$SHELL_DEBUG
+# shell_debug_relay=${SHELL_DEBUG}
 # SHELL_DEBUG=false
 
 # shellcheck source=/dev/null
@@ -43,4 +43,4 @@ done
 
 log finish "git setup"
 
-# SHELL_DEBUG=$shell_debug_relay
+# SHELL_DEBUG=${shell_debug_relay}
