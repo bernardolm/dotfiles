@@ -9,7 +9,10 @@ function duckdns_update_host_of_wsl() {
     fi
 
     host_domain=$(hostname.exe | tr -d ' |\r')
-    host_ip=$(netsh.exe interface ipv4 show addresses | grep "IP" | grep "192.168.0." | cut -d: -f2 | tr -d ' |\r')
+    log debug "host_domain=${host_domain}"
+
+    host_ip=$(netsh.exe interface ipv4 show addresses | grep "IP" | grep "${IP_RANGE_PREFIX}" | cut -d: -f2 | tr -d ' |\r')
+    log debug "host_ip=${host_ip}"
 
     duckdns_update "${GITHUB_USER}--${host_domain}" "${host_ip}"
 }
