@@ -1,0 +1,8 @@
+'see_in_1p_1':
+  friendly_name: office_weather_sensor
+'see_in_1p_2':
+  friendly_name: living_room_weather_sensor
+'see_in_1p_3':
+  friendly_name: backyard_weather_sensor
+'see_in_1p_4':
+  friendly_name: suite_weather_sensor
