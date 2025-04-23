@@ -30,13 +30,13 @@ local inits=()
 
 # shellcheck disable=SC2030
 # shellcheck disable=SC2086
-find ${DOTFILES}/ -maxdepth 3 -type f -path '*/init.d/*' | sort \
+find -L "${DOTFILES}/" -maxdepth 3 -type f -path '*/init.d/*' | sort \
     | while IFS="" read -r line; do inits+=("$line"); done
 
 # shellcheck disable=SC2030
 # shellcheck disable=SC2031
 # shellcheck disable=SC2086
-find "${HOME}/sync" -maxdepth 3 -type f -path '*/init.d/*' | sort \
+find -L "${HOME}/sync" -maxdepth 3 -type f -path '*/init.d/*' | sort \
     | while IFS="" read -r line; do inits+=("$line"); done
 
 startList=$(date +%s%N)
