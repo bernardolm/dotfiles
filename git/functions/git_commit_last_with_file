@@ -6,9 +6,9 @@ function git_commit_last_with_file() {
     LOG=$2
     if [[ "$LOG" == "" ]]; then
         echo "seeking last commit with file $FILE..."
-        LOG=$USER_TMP/git_commit_last_with_file/
-        mkdir -p $LOG
-        LOG=$LOG/$(date +"%Y%m%d%H%M%S").log
+        LOG="$USER_TMP/git_commit_last_with_file_"
+        LOG+=$(date +"%Y%m%d%H%M%S")
+        LOG+=".log"
         touch $LOG
     fi
 

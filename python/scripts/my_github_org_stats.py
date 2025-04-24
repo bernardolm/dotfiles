@@ -31,7 +31,7 @@ total_additions, total_deletions, total_commits, repo_position = 0, 0, 0, 0
 
 now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 
-file_path = f"{HOME}/my_github_org_stats_{GITHUB_ORG}_{GITHUB_USER}_{now}.log"
+file_path = f"{HOME}/tmp/my_github_org_stats_{GITHUB_ORG}_{GITHUB_USER}_{now}.log"
 
 with open(file=file_path, mode="a", encoding="utf-8") as file:
     to_log = f"{org.get_repos().totalCount} repos found " \
