@@ -1,14 +1,14 @@
 #!/usr/bin/env zsh
 
 function duckdns_update_public() {
+    log debug "ADC_PUBLIC_IP=${ADC_PUBLIC_IP}"
+    log debug "CURRENT_PUBLIC_IP=${CURRENT_PUBLIC_IP}"
     log debug "DUCKDNS_DOMAIN=${DUCKDNS_DOMAIN}"
-    log debug "IP_PUBLIC_NOW=${IP_PUBLIC_NOW}"
-    log debug "IP_PUBLIC_WORK=${IP_PUBLIC_WORK}"
 
-    if [ "${IP_PUBLIC_NOW}" = "${IP_PUBLIC_WORK}" ]; then
-        log warn "${DUCKDNS_DOMAIN} with ${IP_PUBLIC_WORK} does not need to update"
+    if [ "${MY_PLACE}" = "work" ]; then
+        log warn "at ${MY_PLACE} does not need to update '${DUCKDNS_DOMAIN}'"
         return
     fi
 
-    duckdns_update "${DUCKDNS_DOMAIN}" "${IP_PUBLIC_NOW}"
+    duckdns_update "${DUCKDNS_DOMAIN}" "${CURRENT_PUBLIC_IP}"
 }

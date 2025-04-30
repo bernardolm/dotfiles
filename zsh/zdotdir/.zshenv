@@ -53,13 +53,13 @@ export ZSH_DISABLE_COMPFIX ; ZSH_DISABLE_COMPFIX=true
 export ZSH_HIGHLIGHT_MAXLENGTH ; ZSH_HIGHLIGHT_MAXLENGTH=100
 export ZSH_WAKATIME_PROJECT_DETECTION ; ZSH_WAKATIME_PROJECT_DETECTION=true
 
+export CURRENT_PUBLIC_IP ; CURRENT_PUBLIC_IP=$(curl -sL checkip.amazonaws.com)
 export DOTFILES ; DOTFILES="${DOTFILES:=${HOME}/workspaces/bernardolm/dotfiles}" # 🧙‍♂️
 export GOPATH ; GOPATH="${HOME}/gopath"
 export GPG_TTY ; GPG_TTY=$(tty)
 export HISTSIZE ; HISTSIZE="${SAVEHIST}"
 export HOSTNAME ; HOSTNAME=$(hostname)
 export IP_CURRENT ; IP_CURRENT=$(hostname -I | awk '{print $1}')
-export IP_PUBLIC_NOW ; IP_PUBLIC_NOW=$(curl -sL checkip.amazonaws.com)
 export NOW ; NOW=$(date '+%H%M%S')
 export SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
 export TODAY ; TODAY=$(date '+%y%m%d')
