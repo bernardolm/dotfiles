@@ -30,6 +30,7 @@ add:
   - python3-setuptools
   - shellcheck
   - silversearcher-ag
+  - ssh-audit
   - sshfs
   - traceroute
   - upx-ucl
