@@ -1,0 +1,25 @@
+services:
+
+  mariadb:
+
+    container_name: mariadb
+    env_file:
+      - $DOTFILES/mariadb/.env
+    environment:
+      MARIADB_PASSWORD: $MARIADB_PASSWORD
+      MARIADB_ROOT_PASSWORD: $MARIADB_ROOT_PASSWORD
+      MARIADB_USER: $MARIADB_USER
+      TZ: America/Sao_Paulo
+    image: mariadb:lts
+    network_mode: bridge
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /mnt/data/docker-volumes/mariadb/backup:/backup
+      - /mnt/data/docker-volumes/mariadb/data:/var/lib/mysql:Z
+      - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
+      - $DOTFILES/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf:ro
+      - $HOME/tmp/mariadb:/tmp

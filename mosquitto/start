@@ -16,14 +16,5 @@ if [ -z "$(docker images -q "${docker_image_name}" 2> /dev/null)" ]; then
         "${DOTFILES}/${docker_container_name}"
 fi
 
-docker run \
-    --name "${docker_container_name}" \
-    --restart always \
-    -d \
-    -p 1883:1883 \
-    -p 9001:9001 \
-    -v "${DOTFILES}/${docker_container_name}/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro" \
-    -v "${HOME}/docker-volumes/${docker_container_name}/data:/mosquitto/data" \
-    -v "${HOME}/docker-volumes/${docker_container_name}/log:/mosquitto/log" \
-    -v /etc/localtime:/etc/localtime:ro \
-    "${docker_image_name}"
+docker compose up -d
+docker compose logs -f ${docker_container_name}

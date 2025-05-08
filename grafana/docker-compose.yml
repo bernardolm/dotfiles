@@ -1,0 +1,21 @@
+services:
+
+  grafana:
+
+    container_name: grafana
+    env_file:
+      - $DOTFILES/grafana/.env
+    environment:
+      GF_PATHS_CONFIG: /etc/grafana/grafana.ini
+      GF_PATHS_DATA: /var/lib/grafana
+      TZ: America/Sao_Paulo
+    image: grafana/grafana-oss
+    network_mode: bridge
+    ports:
+      - 3001:3000
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /mnt/data/docker-volumes/grafana:/var/lib/grafana
+      - $DOTFILES/grafana/grafana.ini:/etc/grafana/grafana.ini:ro

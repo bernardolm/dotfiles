@@ -1,0 +1,18 @@
+services:
+
+  maestral:
+
+    container_name: maestral
+    env_file:
+      - $DOTFILES/maestral/.env
+    environment:
+      TZ: America/Sao_Paulo
+    image: maestraldbx/maestral:latest
+    network_mode: bridge
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /mnt/data/docker-volumes/maestral/dropbox:/dropbox
+      - $DOTFILES/maestral/maestral.ini:/dropbox/.config/maestral/maestral.ini:ro
+      - $HOME/Dropbox:/dropbox-sync

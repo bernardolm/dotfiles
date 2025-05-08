@@ -1,0 +1,48 @@
+#!/usr/bin/env bash
+
+log start 'docker start containers'
+
+CURRENT_PWD=$(pwd)
+
+found_containers=""
+
+find "$DOTFILES" -name 'docker-compose.yml' | while read -r file; do
+    BASE_PATH=$(basename $(dirname $file))
+    found_containers="$found_containers $BASE_PATH"
+    # cd $BASE_PATH
+    # docker compose up -d
+    # echo "\n"
+done
+
+log info "found docker compose files for:$found_containers"
+
+echo ""
+
+declare -a containers=(
+    influxdb
+    maestral
+    mariadb
+    mosquitto
+    postgres
+    redis
+
+    docmost
+    grafana
+    nextcloud
+)
+
+echo "DESTROY=$DESTROY"
+
+for container in "${containers[@]}"; do
+    [[ "$DESTROY" == "yes" ]] && (docker stop "$container" || true)
+    [[ "$DESTROY" == "yes" ]] && (docker rm "$container" || true)
+    # cd "$DOTFILES/$container"
+    docker compose -f "$DOTFILES/$container/docker-compose.yml" up -d
+    echo ""
+done
+
+# cd $CURRENT_PWD
+
+docker container ls -a --format "table {{.Names}}\t{{.State}}\t{{.Ports}}"
+
+log finish 'docker start containers'
