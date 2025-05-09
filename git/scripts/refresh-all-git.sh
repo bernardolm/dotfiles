@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
-source ~/.zshrc
+source $HOME/.zshrc
 
-local now=$(date +"%Y%m%d-%H%M%S")
-local log_path=~/tmp/refresh-all-git/$NOW
+local now=$(date +"%Y%m%d%H%M%S")
+local log_path=$HOME/tmp/refresh-all-git/$now
 [ ! -d $log_path ] && mkdir -p $log_path
 
 # Black        0;30     Dark Gray     1;30
@@ -36,7 +36,7 @@ local wait_for=0
 
 do_bkp() {
     local from="$1"
-    local to="../_$2-bkp-${now}"
+    local to="../_$2-bkp-$now"
     mv ${from} ${to}
 }
 

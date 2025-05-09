@@ -18,12 +18,12 @@
     ~/.ssh/config: $HOME/shared/home/.ssh/config
 
 - link:
-    ~/.bash_history: $HOME/sync/home/.bash_history
-    ~/.config/maestral/maestral.ini: $HOME/sync/home/.config/maestral/maestral.ini
-    ~/.config/rclone/rclone.conf: $HOME/sync/home/.config/rclone/rclone.conf
-    ~/.wakatime.cfg: $HOME/sync/home/.wakatime.cfg
-    ~/.wget-hsts: $HOME/sync/home/.wget-hsts
-    ~/.zsh_history: $HOME/sync/home/.zsh_history
+    ~/.bash_history: $HOME/sync/linux/home/.bash_history
+    ~/.config/maestral/maestral.ini: $HOME/sync/linux/home/.config/maestral/maestral.ini
+    ~/.config/rclone/rclone.conf: $HOME/sync/linux/home/.config/rclone/rclone.conf
+    ~/.wakatime.cfg: $HOME/sync/linux/home/.wakatime.cfg
+    ~/.wget-hsts: $HOME/sync/linux/home/.wget-hsts
+    ~/.zsh_history: $HOME/sync/linux/home/.zsh_history
 
 - link:
     ~/.bash_aliases: $DOTFILES/bash/.bash_aliases

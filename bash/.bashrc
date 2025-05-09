@@ -116,5 +116,5 @@ if ! shopt -oq posix; then
   fi
 fi
 
-[ -f ~/workspaces/misc/bash-wakatime/bash-wakatime.sh ]
-    \ && source ~/workspaces/misc/bash-wakatime/bash-wakatime.sh
+[ -f "$HOME/workspaces/misc/bash-wakatime/bash-wakatime.sh" ] \
+    && source "$HOME/workspaces/misc/bash-wakatime/bash-wakatime.sh"

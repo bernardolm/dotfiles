@@ -19,7 +19,7 @@ function autoclean() {
         docker_clean;
     fi
 
-    rm -rf ~/.cache/*
-    rm -rf ~/gopath/pkg/mod/cache/*
-    rm -rf ~/tmp/*
+    rm -rf $HOME/.cache/*
+    rm -rf $HOME/gopath/pkg/mod/cache/*
+    rm -rf $HOME/tmp/*
 }

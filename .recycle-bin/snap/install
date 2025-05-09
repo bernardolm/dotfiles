@@ -4,8 +4,8 @@ log start "setup snap"
 
 sudo snap refresh
 
-sudo "${DOTFILES}/install" --exit-on-failure \
-    -c "${DOTFILES}/snap/snap.yaml" \
-	-p "${DOTFILES}/git/modules/dotbot-snap/snap.py"
+sudo "$DOTFILES/install" --exit-on-failure \
+    -c "$DOTFILES/snap/snap.yaml" \
+	-p "$DOTFILES/git/modules/dotbot-snap/snap.py"
 
 log finish "setup snap"

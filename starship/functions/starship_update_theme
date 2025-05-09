@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 function starship_update_theme() {
-    root="${DOTFILES}/starship/theme/"
+    local root="$DOTFILES/starship/theme/"
 
     cat ${root}/base_theme.toml > ${root}/starship.toml
 

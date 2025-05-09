@@ -11,7 +11,7 @@ log start "zplug start"
 
 start=$(date +%s%N)
 # shellcheck source=/dev/null
-. "${DOTFILES}/zplug/install"
+. "$DOTFILES/zplug/install"
 $SHELL_DEBUG && echo "$(elapsed_time $start) zplug install"
 
 start=$(date +%s%N)

@@ -4,7 +4,7 @@
 # SHELL_DEBUG=true
 # ssh_agent_kill
 
-for f in ${DOTFILES}/ssh/functions/*; do source "$f"; done
+for f in $DOTFILES/ssh/functions/*; do source "$f"; done
 
 log start "ssh setup"
 

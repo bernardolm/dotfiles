@@ -1,7 +1,7 @@
 $SHELL_DEBUG && localectl status 1>/dev/null
 
-[ -f "${HOME}/.cargo/env" ] && . "${HOME}/.cargo/env"
-[ -f "${HOME}/.fzf.zsh" ] && . "${HOME}/.fzf.zsh"
+[ -f "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
+[ -f "$HOME/.fzf.zsh" ] && . "$HOME/.fzf.zsh"
 [ -d "${ZPLUG_HOME}/repos/b4b4r07/emoji-cli" ] \
     && . "${ZPLUG_HOME}/repos/b4b4r07/emoji-cli/emoji-cli.plugin.zsh"
 

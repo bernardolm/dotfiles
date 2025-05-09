@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
 
 _fpaths=(
-    "${HOME}/sync/**/functions"
-    "${HOME}/workspaces/bernardolm/dotfiles/**/functions"
+    "$HOME/sync/linux/**/functions"
+    "$DOTFILES/**/functions"
 )
 
 zsh_autoload_paths $_fpaths || (echo 'autoload panic!' && exit 1)

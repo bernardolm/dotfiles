@@ -4,11 +4,11 @@ log start "ubuntu setup"
 
 log info "calling dotbot to create sym links and others"
 
-CONFIG="${DOTFILES}/linux/links.yaml" \
+CONFIG="$DOTFILES/linux/links.yaml" \
     DOTBOT_DIR="git/submodules/dotbot" \
-    "${DOTFILES}/install" --exit-on-failure
+    "$DOTFILES/install" --exit-on-failure
 
-for f in "${DOTFILES}/ubuntu/install.d/*"; do
+for f in "$DOTFILES/ubuntu/install.d/*"; do
     [[ -f $f ]] && source -- "$f"
 done
 

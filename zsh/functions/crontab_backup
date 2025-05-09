@@ -1,11 +1,13 @@
 #!/usr/bin/env zsh
 
 function crontab_backup() {
-    mkdir -p "${HOME}/sync/crontab/"
+    mkdir -p "$HOME/sync/linux/crontab/"
 
-    if [ -f "${HOME}/sync/crontab/${HOSTNAME}_current.txt" ]; then
-        mv "${HOME}/sync/crontab/${HOSTNAME}_current.txt" "${HOME}/sync/crontab/${HOSTNAME}_$(date +"%Y%m%d%H%M%S").txt"
+    local now=$(date +"%Y%m%d%H%M%S")
+
+    if [ -f "$HOME/sync/linux/crontab/${HOSTNAME}_current.txt" ]; then
+        mv "$HOME/sync/linux/crontab/${HOSTNAME}_current.txt" "$HOME/sync/linux/crontab/${HOSTNAME}_$now.txt"
     fi
 
-    crontab -l > "${HOME}/sync/crontab/${HOSTNAME}_current.txt"
+    crontab -l > "$HOME/sync/linux/crontab/${HOSTNAME}_current.txt"
 }

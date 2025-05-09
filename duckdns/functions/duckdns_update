@@ -7,9 +7,9 @@ function duckdns_update() {
     ip4="$2"
     ip6="$3"
 
-    log_file="${USER_TMP}/duckdns_${domain}_"
-    log_file+=$(date +"%Y-%m-%d-%H-%M-%S")
-    log_file+=".log"
+    local now=$(date +"%Y%m%d%H%M%S")
+
+    log_file="${USER_TMP}/duckdns_${domain}_$now.log"
 
     duckdns_url="https://www.duckdns.org/update?verbose=true"
     duckdns_url+="&ip=${ip4}"

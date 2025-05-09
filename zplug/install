@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-if ! [[ -d "${HOME}/.zplug" ]]; then
+if ! [[ -d "$HOME/.zplug" ]]; then
     start=$(date +%s%N)
 
     log start "zplug install"

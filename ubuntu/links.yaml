@@ -11,9 +11,9 @@
 - link:
     ~/.local/:
       exclude:
-        - $HOME/sync/.local/share/gnome-shell/**
-        - $HOME/sync/.local/share/applications/**
+        - $HOME/sync/linux/.local/share/gnome-shell/**
+        - $HOME/sync/linux/.local/share/applications/**
       glob: true
-      path: $HOME/sync/.local/**
-    ~/.icons: $HOME/sync/.icons
-    ~/.themes: $HOME/sync/.themes
+      path: $HOME/sync/linux/.local/**
+    ~/.icons: $HOME/sync/linux/.icons
+    ~/.themes: $HOME/sync/linux/.themes

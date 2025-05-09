@@ -21,7 +21,7 @@ function ufw_start() {
     ufw default deny incoming ;
     ufw default allow outgoing ;
 
-    . "${HOME}/sync/ufw/rules.sh" ;
+    . "$HOME/sync/linux/ufw/rules.sh" ;
 
     ufw reload ;
 

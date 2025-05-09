@@ -4,13 +4,13 @@
 # SHELL_DEBUG=false
 
 # shellcheck source=/dev/null
-. "${DOTFILES}/zsh/functions/log"
+. "$DOTFILES/zsh/functions/log"
 
 log start "git setup"
 
-_git_submodules="${DOTFILES}/.gitmodules"
+_git_submodules="$DOTFILES/.gitmodules"
 
-[ ! -d "${DOTFILES}/git/modules" ] && mkdir -p "${DOTFILES}/git/modules"
+[ ! -d "$DOTFILES/git/modules" ] && mkdir -p "$DOTFILES/git/modules"
 
 log info "sanitizing git submodules"
 
@@ -24,19 +24,19 @@ cat < "${_git_submodules}" | grep '\[submodule' | while read -r item; do
     _path=$(git config --file "${_git_submodules}" --get "submodule.${_name}.path")
     _url=$(git config --file "${_git_submodules}" --get "submodule.${_name}.url")
 
-    echo -e "submodule ${_label}:\n\tpath:\t${DOTFILES}/${_path}\n\turl:\t${_url}"
+    echo -e "submodule ${_label}:\n\tpath:\t$DOTFILES/${_path}\n\turl:\t${_url}"
 
     echo -en "\tstatus:"
 
-    if [ -d "${DOTFILES}/${_path}" ]; then
+    if [ -d "$DOTFILES/${_path}" ]; then
         echo -en " updating..."
-        git submodule update --init "${DOTFILES}/${_path}"
+        git submodule update --init "$DOTFILES/${_path}"
     else
         echo -en " adding..."
-        git submodule add "${_url}" "${DOTFILES}/${_path}"
+        git submodule add "${_url}" "$DOTFILES/${_path}"
     fi
 
-    git config --global --add safe.directory "${DOTFILES}/${_path}"
+    git config --global --add safe.directory "$DOTFILES/${_path}"
 
     echo -e " done."
 done

@@ -5,7 +5,7 @@ function vpn_add_routes() {
 
     local file=${1:=$(last_backup_version vpn-routes csv)}
     [ -z "$file" ] && echo "no vpn-routes file found" && return
-    local new_file=$(echo $file | sed "s/[0-9]\+/${now}/g")
+    local new_file=$(echo $file | sed "s/[0-9]\+/$now/g")
     local total=$(wc -l < "$file")
 
     echo "🛡️ adding my routes from $file to VPN ($total)"

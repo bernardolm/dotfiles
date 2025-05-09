@@ -6,7 +6,7 @@ export ANTIGEN_PATH="$USER_TMP/antigen.zsh"
 
 $SHELL_DEBUG && antigen_purge
 
-test -d "$ANTIGEN_PATH" || . "${DOTFILES}/antigen/install"
+test -d "$ANTIGEN_PATH" || . "$DOTFILES/antigen/install"
 
 export ANTIGEN_WORKDIR="$HOME/.antigen"
 export ZSH="$ANTIGEN_WORKDIR/bundles/robbyrussell/oh-my-zsh"

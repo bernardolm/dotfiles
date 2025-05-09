@@ -1,8 +1,8 @@
 #!/usr/bin/env zsh
-source ~/.zshrc
+source "$HOME/.zshrc"
 
 function search() {
-	sudo find $HOME/Downloads/recovery \
+	sudo find "$HOME/Downloads/recovery" \
 		-name "*.java" \
 		-o -name "*.a" \
 		-o -name "*.ai" \

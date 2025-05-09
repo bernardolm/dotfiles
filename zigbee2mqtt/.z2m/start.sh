@@ -8,7 +8,7 @@ docker run -d \
     -e TZ=America/Sao_Paulo \
     -e Z2M_WATCHDOG=default \
     -p 8080:8080 \
-    -v "${HOME}/.z2m:/app/data" \
+    -v "$HOME/.z2m:/app/data" \
     -v /run/udev:/run/udev:ro \
     ghcr.io/koenkk/zigbee2mqtt
 

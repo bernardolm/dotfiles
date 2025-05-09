@@ -7,7 +7,7 @@ log start "ohmyzsh"
 
 start=$(date +%s%N)
 # shellcheck source=/dev/null
-. "${DOTFILES}/ohmyzsh/install"
+. "$DOTFILES/ohmyzsh/install"
 $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh install"
 
 start=$(date +%s%N)

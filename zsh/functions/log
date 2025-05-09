@@ -13,9 +13,9 @@ function log() {
 
     shift
 
-    . "${DOTFILES}/zsh/functions/caller"
+    . "$DOTFILES/zsh/functions/caller"
 
-    for f in $(find "${DOTFILES}/zsh/functions" -name "log_*"); do
+    for f in $(find "$DOTFILES/zsh/functions" -name "log_*"); do
         [[ -f $f ]] && source -- "$f"
     done
 

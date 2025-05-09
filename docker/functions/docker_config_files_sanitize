@@ -2,7 +2,7 @@
 
 function docker_install_config_files_sanitize() {
     echo "removing docker install files"
-    /bin/rm -rf ~/.docker
+    /bin/rm -rf "$HOME/.docker"
     sudo /bin/rm -rf /etc/apparmor.d/docker
     sudo /bin/rm -rf /etc/docker
     sudo /bin/rm -rf /etc/docker/daemon.json

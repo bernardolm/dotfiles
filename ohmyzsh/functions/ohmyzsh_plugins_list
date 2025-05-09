@@ -1,5 +1,5 @@
 #!/usr/bin/env zsh
 
 function ohmyzsh_plugins_list() {
-    plugins_list "${DOTFILES}/ohmyzsh/plugins.txt"
+    plugins_list "$DOTFILES/ohmyzsh/plugins.txt"
 }

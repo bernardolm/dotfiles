@@ -4,17 +4,17 @@ log start "linux setup"
 
 log info "calling dotbot to create sym links and others"
 
-CONFIG="${DOTFILES}/linux/links.yaml" \
+CONFIG="$DOTFILES/linux/links.yaml" \
     DOTBOT_DIR="git/submodules/dotbot" \
-    "${DOTFILES}/install" --exit-on-failure
+    "$DOTFILES/install" --exit-on-failure
 
-CONFIG="${DOTFILES}/linux/links-etc.yaml" \
+CONFIG="$DOTFILES/linux/links-etc.yaml" \
     DOTBOT_DIR="git/submodules/dotbot" \
-    "${DOTFILES}/install" \
-    -p "${DOTFILES}/git/submodules/dotbot-sudo/sudo.py" \
+    "$DOTFILES/install" \
+    -p "$DOTFILES/git/submodules/dotbot-sudo/sudo.py" \
     --exit-on-failure
 
-for f in "${DOTFILES}"/linux/install.d/*; do
+for f in "$DOTFILES"/linux/install.d/*; do
     [[ -f $f ]] && source -- "$f"
 done
 

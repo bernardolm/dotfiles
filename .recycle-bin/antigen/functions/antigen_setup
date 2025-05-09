@@ -4,7 +4,7 @@ function antigen_setup() {
     log info "antigen_setup"
 
     # shellcheck source=/dev/null
-    # . "${DOTFILES}/zsh/functions/shell.zsh"
+    # . "$DOTFILES/zsh/functions/shell.zsh"
 
     antigen_start
 
@@ -12,12 +12,12 @@ function antigen_setup() {
     antigen use oh-my-zsh
 
     local plugins
-    plugins=$(file_lines_2_inline "${DOTFILES}/zsh/plugins.txt")
+    plugins=$(file_lines_2_inline "$DOTFILES/zsh/plugins.txt")
     log info "zsh plugins: $plugins"
     antigen bundle "$plugins"
 
     local plugins
-    plugins=$(file_lines_2_inline "${DOTFILES}/ohmyzsh/plugins.txt")
+    plugins=$(file_lines_2_inline "$DOTFILES/ohmyzsh/plugins.txt")
     log info "ohmyzsh plugins: $plugins"
     antigen bundle "$plugins"
 

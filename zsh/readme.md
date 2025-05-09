@@ -7,10 +7,10 @@ print -rl -- $fpath
 # load sequence
 
 /etc/zshenv
-~/.zshenv
+$HOME/.zshenv
 /etc/zprofile
-~/.zprofile
+$HOME/.zprofile
 /etc/zshrc
-~/.zshrc
+$HOME/.zshrc
 /etc/zlogin
-~/.zlogin
+$HOME/.zlogin

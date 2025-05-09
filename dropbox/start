@@ -2,14 +2,14 @@
 
 if [ "$HOSTNAME" = "ubuntu-hyper-v" ]; then
     # shellcheck source=/dev/null
-    . "${DOTFILES}/dropbox/install"
+    . "$DOTFILES/dropbox/install"
 
-    # python3 "~/.local/bin/dropbox.py" start -i
+    # python3 "$HOME/.local/bin/dropbox.py" start -i
     dropbox.py running || dropbox.py start
 else
-    if [ -f "~/.local/bin/dropbox.py" ]; then
+    if [ -f "$HOME/.local/bin/dropbox.py" ]; then
         dropbox.py stop
-        frm ~/.local/bin/dropbox.py
+        frm $HOME/.local/bin/dropbox.py
     fi
-    frm ~/.dropbox*
+    frm $HOME/.dropbox*
 fi

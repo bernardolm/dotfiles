@@ -1,20 +1,21 @@
 #!/usr/bin/env zsh
 
 function gnome_conf_sanitize() {
-    old_gnome_config="${HOME}/tmp/old-gnome-config/${TODAY}/${NOW}/"
+    local now=$(date +"%Y%m%d%H%M%S")
+    old_gnome_config="$HOME/tmp/old-gnome-config/$TODAY/$now/"
 
     mkdir -p "$old_gnome_config"
 
     paths=(
-        "${HOME}/.cache"
-        "${HOME}/.config/dconf/*"
-        "${HOME}/.dbus"
-        "${HOME}/.dmrc"
-        "${HOME}/.gconf*"
-        "${HOME}/.gnome*"
-        "${HOME}/.metacity"
-        "${HOME}/.mission-control"
-        "${HOME}/.thumbnails"
+        "$HOME/.cache"
+        "$HOME/.config/dconf/*"
+        "$HOME/.dbus"
+        "$HOME/.dmrc"
+        "$HOME/.gconf*"
+        "$HOME/.gnome*"
+        "$HOME/.metacity"
+        "$HOME/.mission-control"
+        "$HOME/.thumbnails"
     )
 
     for item in "${paths[@]}"; do

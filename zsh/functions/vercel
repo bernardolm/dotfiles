@@ -5,7 +5,7 @@ function vercel {
         --name dockette-vercel \
         --rm \
         -it \
-        -v "${HOME}/.local/share/com.vercel.cli:/root/.local/share/com.vercel.cli" \
+        -v "$HOME/.local/share/com.vercel.cli:/root/.local/share/com.vercel.cli" \
         -v $(pwd)/srv \
         dockette/vercel \
         vercel $@

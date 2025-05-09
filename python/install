@@ -2,10 +2,10 @@
 
 log start "python setup"
 
-CONFIG="${DOTFILES}/python/pip.yaml" \
+CONFIG="$DOTFILES/python/pip.yaml" \
     DOTBOT_DIR="git/submodules/dotbot" \
-    "${DOTFILES}/install" \
-    -p "${DOTFILES}/git/submodules/dotbot-pip/pip.py" \
+    "$DOTFILES/install" \
+    -p "$DOTFILES/git/submodules/dotbot-pip/pip.py" \
     --exit-on-failure
 
 log finish "python setup"

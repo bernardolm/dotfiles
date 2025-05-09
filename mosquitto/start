@@ -11,9 +11,9 @@ if [ -z "$(docker images -q "${docker_image_name}" 2> /dev/null)" ]; then
 
     docker build \
         --build-arg "muid=${uid}" \
-        -f "${DOTFILES}/${docker_container_name}/Dockerfile" \
+        -f "$DOTFILES/${docker_container_name}/Dockerfile" \
         -t "${docker_image_name}" \
-        "${DOTFILES}/${docker_container_name}"
+        "$DOTFILES/${docker_container_name}"
 fi
 
 docker compose up -d

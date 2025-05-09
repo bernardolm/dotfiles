@@ -105,4 +105,4 @@ plugins=(git)
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-. "${DOTFILES}/zsh/start"
+. "$DOTFILES/zsh/start"
