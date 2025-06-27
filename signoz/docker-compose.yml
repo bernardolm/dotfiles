@@ -1,0 +1,22 @@
+services:
+
+  signoz:
+
+    command:
+      - "-retentionPeriod=8w"
+      - "-retention.maxDiskSpaceUsageBytes=10MiB"
+    container_name: signoz
+    env_file:
+      - $DOTFILES/signoz/.env
+    environment:
+      TZ: America/Sao_Paulo
+    image: victoriametrics/victoria-logs
+    network_mode: bridge
+    ports:
+      - 9428:9428
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /mnt/data/docker-volumes/signoz:/victoria-logs-data
+      # - $DOTFILES/signoz/my.cnf:/etc/mysql/conf.d/my.cnf:ro

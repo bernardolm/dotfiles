@@ -1,6 +1,8 @@
 # alias lsa='exa -lhFa --group-directories-first --icons --no-time'
 alias ack='ag && ag || ack'
-alias dclsa='docker container ls -a --format "table {{.ID}}\t{{.Names}}\t{{.State}}\t{{.Ports}}"'
+alias dclsa='docker container ls -a --format "table {{.Names}}\t{{.State}}\t{{.RunningFor}}\t{{.Ports}}" | tail -n+2 | sort'
+alias dcr='docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up --remove-orphans'
+alias dcrd='docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up -d --remove-orphans'
 alias dim="docker images -a"
 alias disk-usage='baobab'
 alias drm='docker_container_remove'

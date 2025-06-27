@@ -14,5 +14,5 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - /mnt/data/docker-volumes/maestral/dropbox:/dropbox
-      - $DOTFILES/maestral/maestral.ini:/dropbox/.config/maestral/maestral.ini:ro
+      - $HOME/sync/linux/maestral/maestral.$HOSTNAME.ini:/dropbox/.config/maestral/maestral.ini
       - $HOME/Dropbox:/dropbox-sync
