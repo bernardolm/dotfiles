@@ -8,11 +8,13 @@ services:
     environment:
       TZ: America/Sao_Paulo
     image: maestraldbx/maestral:latest
-    network_mode: bridge
+    # network_mode: bridge
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
+      - /mnt/data/docker-volumes/maestral/.cache:/dropbox/.cache
+      - /mnt/data/docker-volumes/maestral/.local:/dropbox/.local
+      - /mnt/data/docker-volumes/maestral/.maestral.cache:/dropbox-local-path/.maestral.cache
       - $HOME/Dropbox:/dropbox-local-path
-      - $HOME/Dropbox/linux/maestral/$HOSTNAME/.config:/dropbox/.config
-      - $HOME/tmp/.maestral.cache:/dropbox-local-path/.maestral.cache
+      - $HOME/Dropbox/linux/home/.config/maestral:/dropbox/.config/maestral
