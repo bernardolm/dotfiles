@@ -15,3 +15,4 @@ services:
       - /etc/timezone:/etc/timezone:ro
       - $HOME/Dropbox:/dropbox-local-path
       - $HOME/Dropbox/linux/maestral/$HOSTNAME/.config:/dropbox/.config
+      - $HOME/tmp/.maestral.cache:/dropbox-local-path/.maestral.cache
