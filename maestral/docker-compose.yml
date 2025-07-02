@@ -14,4 +14,4 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - $HOME/Dropbox:/dropbox-local-path
-      - $HOME/Dropbox/linux/maestral/$HOSTNAME:/dropbox
+      - $HOME/Dropbox/linux/maestral/$HOSTNAME/.config:/dropbox/.config
