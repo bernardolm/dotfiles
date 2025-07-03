@@ -13,8 +13,5 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - /mnt/data/docker-volumes/maestral/.cache:/dropbox/.cache
-      - /mnt/data/docker-volumes/maestral/.local:/dropbox/.local
-      - /mnt/data/docker-volumes/maestral/.maestral.cache:/dropbox-local-path/.maestral.cache
-      - $HOME/Dropbox:/dropbox-local-path
-      - $HOME/Dropbox/linux/home/.config/maestral:/dropbox/.config/maestral
+      - /mnt/data/docker-volumes/maestral:/dropbox
+      - $HOME/Dropbox:/dropbox/Dropbox
