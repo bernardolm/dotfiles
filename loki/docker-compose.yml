@@ -1,7 +1,7 @@
 services:
 
   loki:
-    command: -config.file=/mnt/config/loki-config.yaml
+    command: -config.file=/mnt/config/loki-config.yml
     container_name: loki
     env_file:
       - $DOTFILES/loki/.env
@@ -16,10 +16,10 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - /mnt/data/docker-volumes/loki:/loki
-      - $DOTFILES/loki/loki-config.yaml:/mnt/config/loki-config.yaml:ro
+      - $DOTFILES/loki/loki-config.yml:/mnt/config/loki-config.yml:ro
 
   promtail:
-    command: -config.file=/mnt/config/promtail-config.yaml
+    command: -config.file=/mnt/config/promtail-config.yml
     container_name: promtail
     env_file:
       - $DOTFILES/loki/.env
@@ -31,35 +31,5 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - $DOTFILES/loki/promtail-config.yaml:/mnt/config/promtail-config.yaml:ro
+      - $DOTFILES/loki/promtail-config.yml:/mnt/config/promtail-config.yml:ro
       # - /mnt/data/docker-volumes/loki:/var/lib/loki
-
-  # grafana:
-  #   environment:
-  #     - GF_PATHS_PROVISIONING=/etc/grafana/provisioning
-  #     - GF_AUTH_ANONYMOUS_ENABLED=true
-  #     - GF_AUTH_ANONYMOUS_ORG_ROLE=Admin
-  #     - GF_FEATURE_TOGGLES_ENABLE=alertingSimplifiedRouting,alertingQueryAndExpressionsStepMode
-  #   entrypoint:
-  #     - sh
-  #     - -euc
-  #     - |
-  #       mkdir -p /etc/grafana/provisioning/datasources
-  #       cat <<EOF > /etc/grafana/provisioning/datasources/ds.yaml
-  #       apiVersion: 1
-  #       datasources:
-  #       - name: Loki
-  #         type: loki
-  #         access: proxy
-  #         orgId: 1
-  #         url: http://loki:3100
-  #         basicAuth: false
-  #         isDefault: true
-  #         version: 1
-  #         editable: false
-  #       EOF
-  #       /run.sh
-  #   image: grafana/grafana:latest
-  #   ports:
-  #     - "3000:3000"
-  #   network_mode: bridge
