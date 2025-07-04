@@ -55,6 +55,7 @@ export ZSH_WAKATIME_PROJECT_DETECTION ; ZSH_WAKATIME_PROJECT_DETECTION=true
 
 export CURRENT_PUBLIC_IP ; CURRENT_PUBLIC_IP=$(curl -sL checkip.amazonaws.com)
 export DOTFILES ; DOTFILES="${DOTFILES:=$HOME/workspaces/bernardolm/dotfiles}" # 🧙‍♂️
+export GID="$GID"
 export GOPATH ; GOPATH="$HOME/gopath"
 export GPG_TTY ; GPG_TTY=$(tty)
 export HISTSIZE ; HISTSIZE="$SAVEHIST"
@@ -62,6 +63,7 @@ export HOSTNAME ; HOSTNAME=$(hostname)
 export IP_CURRENT ; IP_CURRENT=$(hostname -I | awk '{print $1}')
 export SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
 export TODAY ; TODAY=$(date "+%Y%m%d")
+export UID="$UID"
 export USER_TMP ; USER_TMP="$HOME/tmp"
 export VSCODE_CLI_DATA_DIR ; VSCODE_CLI_DATA_DIR="$HOME/.vscode-server/cli"
 export ZPLUG_HOME ; ZPLUG_HOME="$HOME/.zplug"

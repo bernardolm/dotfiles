@@ -10,6 +10,7 @@ services:
     image: maestraldbx/maestral:latest
     # network_mode: bridge
     restart: unless-stopped
+    user: $UID:$GID
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
