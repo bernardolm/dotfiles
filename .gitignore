@@ -21,3 +21,4 @@
 *venv/
 debian/*
 git/submodule/*
+maestral/Dockerfile
