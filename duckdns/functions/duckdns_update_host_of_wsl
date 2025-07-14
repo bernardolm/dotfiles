@@ -10,9 +10,8 @@ function duckdns_update_host_of_wsl() {
 
     host_domain=$(hostname.exe | tr -d ' |\r')
     log debug "host_domain=${host_domain}"
-    log debug "IP_RANGE_PREFIX=${IP_RANGE_PREFIX}"
 
-    host_ip=$(netsh.exe interface ipv4 show addresses | grep "IP" | grep "${IP_RANGE_PREFIX}" | cut -d: -f2 | tr -d ' |\r')
+    host_ip=$(ipconfig.exe | grep -a 'IPv4' | grep -a '192' | cut -d':' -f2 | tr -d ' |\r')
     log debug "host_ip=${host_ip}"
 
     if [ -z "${host_ip}" ]; then
