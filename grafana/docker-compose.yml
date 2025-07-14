@@ -12,7 +12,7 @@ services:
     image: grafana/grafana-oss
     network_mode: bridge
     ports:
-      - 3001:3000
+      - 3000:3000
     restart: unless-stopped
     volumes:
       - /etc/localtime:/etc/localtime:ro
