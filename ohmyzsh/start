@@ -2,7 +2,7 @@
 
 SHELL_DEBUG_relay=${SHELL_DEBUG} ; SHELL_DEBUG=true
 SHELL_PROFILE_relay=${SHELL_PROFILE} ; SHELL_PROFILE=true
-SHELL_TRACE_relay=${SHELL_TRACE} ; SHELL_TRACE=true
+# SHELL_TRACE_relay=${SHELL_TRACE} ; SHELL_TRACE=true
 
 log start "ohmyzsh"
 
@@ -41,4 +41,4 @@ log finish "ohmyzsh"
 
 SHELL_DEBUG=${SHELL_DEBUG_relay}
 SHELL_PROFILE=${SHELL_PROFILE_relay}
-SHELL_TRACE=${SHELL_TRACE_relay}
+# SHELL_TRACE=${SHELL_TRACE_relay}
