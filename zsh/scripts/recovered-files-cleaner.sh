@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-source "$HOME/.zshrc"
 
 function search() {
 	sudo find "$HOME/Downloads/recovery" \

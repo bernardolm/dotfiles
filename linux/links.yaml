@@ -21,6 +21,7 @@
     ~/.bash_history: $HOME/sync/linux/home/.bash_history
     ~/.config/maestral/maestral.ini: $HOME/sync/linux/home/.config/maestral/maestral.ini
     ~/.config/rclone/rclone.conf: $HOME/sync/linux/home/.config/rclone/rclone.conf
+    ~/.gitconfig: $HOME/sync/linux/home/.gitconfig
     ~/.wakatime.cfg: $HOME/sync/linux/home/.wakatime.cfg
     ~/.wget-hsts: $HOME/sync/linux/home/.wget-hsts
     ~/.zsh_history: $HOME/sync/linux/home/.zsh_history
@@ -28,7 +29,6 @@
 - link:
     ~/.bash_aliases: $DOTFILES/bash/.bash_aliases
     ~/.bashrc: $DOTFILES/bash/.bashrc
-    ~/.gitconfig: $DOTFILES/git/.gitconfig
     ~/.nano: $DOTFILES/git/submodules/nanorc
     ~/.zlogin: $DOTFILES/zsh/zdotdir/.zlogin
     ~/.zlogout: $DOTFILES/zsh/zdotdir/.zlogout

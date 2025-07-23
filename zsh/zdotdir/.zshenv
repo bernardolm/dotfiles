@@ -81,7 +81,7 @@ export TODOTXT_CFG_FILE ; TODOTXT_CFG_FILE="$TODO_DIR/zsh.cfg"
 
 if which git &>/dev/null; then
     export GITHUB_ORG ; GITHUB_ORG=$(git config --file \
-        "$HOME/sync/linux/git/.gitconfig.work" github.organization)
+        "$HOME/sync/shared/home/.gitconfig" github.organization)
     export GITHUB_USER ; GITHUB_USER=$(git config --file \
         "$DOTFILES/git/.gitconfig" github.user)
 fi

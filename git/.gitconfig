@@ -1,11 +1,8 @@
-[include]
-    path = ~/sync/linux/git/gitconfig
-
 [apply]
     whitespace = fix
 
 [commit]
-	gpgsign = true
+    gpgsign = true
 
 [diff]
     renames = copies
@@ -15,7 +12,7 @@
     user = bernardolm
 
 [gpg]
-	format = ssh
+    format = ssh
 
 [init]
     defaultBranch = main
@@ -24,11 +21,7 @@
     log = true
 
 [pull]
-	rebase = true
+    rebase = true
 
 [url "ssh://git@"]
-	insteadOf = https://
-
-[user]
-    name = Bernardo Loureiro
-    signingkey = ~/.ssh/id_ed25519.pub
+    insteadOf = https://

@@ -1,5 +1,4 @@
 #!/usr/bin/env zsh
-source $HOME/.zshrc
 
 local now=$(date +"%Y%m%d%H%M%S")
 local log_path=$HOME/tmp/refresh-all-git/$now

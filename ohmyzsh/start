@@ -1,7 +1,8 @@
 #!/usr/bin/env zsh
 
-# shell_debug_relay=${SHELL_DEBUG}
-# SHELL_DEBUG=false
+SHELL_DEBUG_relay=${SHELL_DEBUG} ; SHELL_DEBUG=true
+SHELL_PROFILE_relay=${SHELL_PROFILE} ; SHELL_PROFILE=true
+SHELL_TRACE_relay=${SHELL_TRACE} ; SHELL_TRACE=true
 
 log start "ohmyzsh"
 
@@ -26,13 +27,18 @@ log debug "oh-my-zsh plugins loaded: $plugins"
 $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh plugins list"
 
 start=$(date +%s%N)
-log debug "oh-my-zsh calling init script"
+log debug "ohmyzsh calling init script"
 # shellcheck source=/dev/null
-. "${ZSH}/oh-my-zsh.sh"
+$SHELL_TRACE && set -x
+source "${ZSH}/oh-my-zsh.sh"
+$SHELL_TRACE && set +x
+
 $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh init script"
 
 unalias sudo 2>/dev/null
 
 log finish "ohmyzsh"
 
-# SHELL_DEBUG=${shell_debug_relay}
+SHELL_DEBUG=${SHELL_DEBUG_relay}
+SHELL_PROFILE=${SHELL_PROFILE_relay}
+SHELL_TRACE=${SHELL_TRACE_relay}
