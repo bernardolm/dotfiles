@@ -6,8 +6,6 @@ docker compose \
     -f "$maestral_root/docker-compose.yml" \
     down --volumes --remove-orphans
 
-SCRIPT_PATH=$(readlink -f "$0")
-SCRIPT_DIR=$(dirname "${SCRIPT_PATH}")
 
 local github_repo="samschott/maestral"
 
@@ -20,6 +18,19 @@ local api_url="https://api.github.com/repos/$github_repo/releases/latest"
 export VERSION
 VERSION=$(curl -sL "${api_url}" | jq -r '.tag_name')
 
+[ -z "$VERSION" ] && {
+    echo "Failed to fetch the latest version from GitHub API."
+    exit 1
+}
+
+echo "Using Maestral version: $VERSION"
+
 docker compose \
     -f "$maestral_root/docker-compose.yml" \
     up -d --build --force-recreate --remove-orphans
+
+echo "Everything is fine, you will now see the logs"
+
+docker compose \
+    -f "$maestral_root/docker-compose.yml" \
+    logs --follow --timestamps --tail=100 maestral
