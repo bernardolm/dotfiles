@@ -19,16 +19,13 @@ log info "found docker compose files for:$found_containers"
 echo ""
 
 declare -a containers=(
+    grafana
     influxdb
+    loki
     maestral
     mariadb
     mosquitto
-    postgres
     redis
-
-    docmost
-    grafana
-    nextcloud
 )
 
 echo "DESTROY=$DESTROY"
@@ -36,9 +33,15 @@ echo "DESTROY=$DESTROY"
 for container in "${containers[@]}"; do
     [[ "$DESTROY" == "yes" ]] && (docker stop "$container" || true)
     [[ "$DESTROY" == "yes" ]] && (docker rm "$container" || true)
-    # cd "$DOTFILES/$container"
-    docker compose -f "$DOTFILES/$container/docker-compose.yml" up -d
-    echo ""
+    if [ -f "$DOTFILES/$container/start" ]; then
+        echo "Running $container start script"
+        bash "$DOTFILES/$container/start"
+    else
+        echo "No start script found for $container, using docker-compose command"
+        docker compose -f "$DOTFILES/$container/docker-compose.yml" up -d
+    fi
+
+    echo "done with $container"
 done
 
 # cd $CURRENT_PWD
