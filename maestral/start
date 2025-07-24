@@ -28,7 +28,8 @@ echo "Using Maestral version: $VERSION"
 
 docker compose \
     -f "$maestral_root/docker-compose.yml" \
-    up -d --build --force-recreate --remove-orphans
+    up -d --build --remove-orphans
+# --force-recreate
 
 echo "Everything is fine, you will now see the logs"
 
