@@ -12,6 +12,7 @@ else
     log info "mariadb data directory is already empty: $data_path"
 fi
 
-docker compose -f $DOTFILES/mariadb/docker-compose.yml up -d --force-recreate
+docker compose -f $DOTFILES/mariadb/docker-compose.yml up -d
+# --force-recreate
 
 docker compose -f $DOTFILES/mariadb/docker-compose.yml logs -n1000 -f
