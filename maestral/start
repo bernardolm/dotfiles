@@ -1,6 +1,6 @@
 #!/usr/bin/env zsh
 
-local maestral_root="$DOTFILES/maestral"
+maestral_root="$DOTFILES/maestral"
 
 docker compose \
     -f "$maestral_root/docker-compose.yml" \
@@ -8,13 +8,13 @@ docker compose \
 
 docker rmi bernardolm/maestral:latest
 
-local github_repo="samschott/maestral"
+github_repo="samschott/maestral"
 
 curl -s \
     -o "$maestral_root/Dockerfile" \
     https://raw.githubusercontent.com/$github_repo/refs/heads/main/Dockerfile
 
-local api_url="https://api.github.com/repos/$github_repo/releases/latest"
+api_url="https://api.github.com/repos/$github_repo/releases/latest"
 
 export VERSION
 VERSION=$(curl -sL "${api_url}" | jq -r '.tag_name')

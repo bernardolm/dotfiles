@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-local now=$(date +"%Y%m%d%H%M%S")
-local log_path=$HOME/tmp/refresh-all-git/$now
+now=$(date +"%Y%m%d%H%M%S")
+log_path=$HOME/tmp/refresh-all-git/$now
 [ ! -d $log_path ] && mkdir -p $log_path
 
 # Black        0;30     Dark Gray     1;30
@@ -14,24 +14,24 @@ local log_path=$HOME/tmp/refresh-all-git/$now
 # Light Gray   0;37     White         1;37
 
 setopt ksh_arrays
-local colorize[0]="\033[0;31m"
-local colorize[1]="\033[0;32m"
-local colorize[2]="\033[0;33m"
-local colorize[3]="\033[0;34m"
-local colorize[4]="\033[0;35m"
-local colorize[5]="\033[0;36m"
-local colorize[6]="\033[0;37m"
-local colorize[7]="\033[1;30m"
-local colorize[8]="\033[1;31m"
-local colorize[9]="\033[1;32m"
-local colorize[10]="\033[1;33m"
-local colorize[11]="\033[1;34m"
-local colorize[12]="\033[1;35m"
-local colorize[13]="\033[1;36m"
-local colorize[14]="\033[1;37m"
-local nc="\033[0m" # No Color
+colorize[0]="\033[0;31m"
+colorize[1]="\033[0;32m"
+colorize[2]="\033[0;33m"
+colorize[3]="\033[0;34m"
+colorize[4]="\033[0;35m"
+colorize[5]="\033[0;36m"
+colorize[6]="\033[0;37m"
+colorize[7]="\033[1;30m"
+colorize[8]="\033[1;31m"
+colorize[9]="\033[1;32m"
+colorize[10]="\033[1;33m"
+colorize[11]="\033[1;34m"
+colorize[12]="\033[1;35m"
+colorize[13]="\033[1;36m"
+colorize[14]="\033[1;37m"
+nc="\033[0m" # No Color
 
-local wait_for=0
+wait_for=0
 
 do_bkp() {
     local from="$1"

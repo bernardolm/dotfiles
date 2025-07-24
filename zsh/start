@@ -25,7 +25,7 @@ log start "zsh"
 # log env "SCRIPT_PATH"
 
 # shellcheck disable=SC2168
-local inits=()
+inits=()
 
 # shellcheck disable=SC2030
 # shellcheck disable=SC2086
@@ -41,7 +41,7 @@ find -L "$HOME/sync/linux" -maxdepth 3 -type f -path '*/init.d/*' | sort \
 startList=$(date +%s%N)
 # shellcheck disable=SC2031
 # shellcheck disable=SC2168
-local _init_order=(
+_init_order=(
     "$DOTFILES/zsh/functions/elapsed_time"
     "$DOTFILES/zsh/functions/zsh_autoload_paths"
     "$DOTFILES/zsh/config/autoload"
@@ -65,11 +65,11 @@ $SHELL_DEBUG && echo "$(elapsed_time ${startList}) all list"
 
 log finish "zsh"
 
-local now=$(date +"%Y%m%d%H%M%S")
+now=$(date +"%Y%m%d%H%M%S")
 
 # profiling shell
 if $SHELL_PROFILE; then
-    local shell_profile_file="$USER_TMP/shell_profile_$now.prf"
+    shell_profile_file="$USER_TMP/shell_profile_$now.prf"
     zprof > "$shell_profile_file"
     echo "a log profile file as created here $shell_profile_file"
 fi

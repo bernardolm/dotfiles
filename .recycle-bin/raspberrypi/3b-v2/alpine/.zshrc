@@ -1,4 +1,4 @@
-local pt_br='pt_BR.UTF-8'
+pt_br='pt_BR.UTF-8'
 
 export LANG="${pt_br}"
 export LANGUAGE="${pt_br}"

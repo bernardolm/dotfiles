@@ -28,7 +28,7 @@ done
 $SHELL_DEBUG && echo "$(elapsed_time $start) zplug source"
 
 start=$(date +%s%N)
-local to_load=($(zsh_plugins_list) $(zsh_completions_list))
+to_load=($(zsh_plugins_list) $(zsh_completions_list))
 $SHELL_DEBUG && echo "$(elapsed_time $start) zplug loading plugins list"
 
 start=$(date +%s%N)

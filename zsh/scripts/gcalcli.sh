@@ -1,18 +1,18 @@
 #!/usr/bin/env zsh
 
-local calendars=""
+calendars=""
 
 for item in "${GCALCLI_CALENDARS[@]}"; do
     calendars="$calendars --default-calendar=\"$item\""
 done
 
-local agenda="$@"
+agenda="$@"
 test -z $DEBUG || echo "agenda is $agenda"
 
-local agenda_cmd=""
+agenda_cmd=""
 
 if [ ! -z $DEBUG ]; then
-    local tmp_file="$HOME/tmp/gcalcli.cache"
+    tmp_file="$HOME/tmp/gcalcli.cache"
 
     if [ ! -f "$tmp_file" ]; then
         "$DOTFILES/zsh/scripts/gcalcli.sh" > "$tmp_file"
