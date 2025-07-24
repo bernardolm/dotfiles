@@ -1,9 +1,9 @@
 FROM alpine:3.19
 
-ARG muid
+ARG UID
 
-RUN addgroup -S -g $muid mosquitto && \
-    adduser -S -u $muid -D -H \
+RUN addgroup -S -g $UID mosquitto && \
+    adduser -S -u $UID -D -H \
         -h /var/empty \
         -s /sbin/nologin \
         -G mosquitto \

@@ -2,12 +2,18 @@ services:
 
   mosquitto:
 
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - UID=$UID
+
     container_name: mosquitto
     env_file:
       - $DOTFILES/mosquitto/.env
     environment:
       TZ: America/Sao_Paulo
-    image: $GITHUB_USER/mosquitto:latest
+    image: bernardolm/mosquitto:latest
     network_mode: bridge
     ports:
       - 1883:1883
