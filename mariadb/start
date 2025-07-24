@@ -3,7 +3,7 @@
 docker stop mariadb
 docker rm mariadb
 
-sudo rm -rfd /mnt/data/docker-volumes/mariadb/*
+sudo rm -rf '/mnt/data/docker-volumes/mariadb/*'
 
 docker compose -f $DOTFILES/mariadb/docker-compose.yml up -d --force-recreate
 
