@@ -26,9 +26,9 @@ services:
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
       - $DOTFILES/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf:ro
 
-  adminer:
+  mariadb_adminer:
 
-    container_name: mariadb-adminer
+    container_name: mariadb_adminer
     image: adminer
     ports:
       - 8306:8080
