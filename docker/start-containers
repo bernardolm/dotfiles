@@ -14,37 +14,33 @@ find "$DOTFILES" -name 'docker-compose.yml' | while read -r file; do
     # echo "\n"
 done
 
-log info "found docker compose files for:$found_containers"
+log info "found docker compose files for: $found_containers"
 
-echo ""
-
-declare -a containers=(
-    grafana
-    influxdb
-    loki
-    maestral
-    mariadb
-    mosquitto
-    redis
-)
+declare -a containers=("$found_containers")
 
 log debug "DESTROY=$DESTROY"
 
 for container in "${containers[@]}"; do
+    log debug "starting container proccess for $container"
+
+    [ -f "$DOTFILES/$container/.no-start" ] && {
+        log info "skipping $container as it has a .no-start file"
+        continue
+    }
+
     [[ "$DESTROY" == "yes" ]] && (docker stop "$container" || true)
     [[ "$DESTROY" == "yes" ]] && (docker rm "$container" || true)
+
     if [ -f "$DOTFILES/$container/start" ]; then
-        log info "Running $container start script"
+        log info "running $container start script"
         source "$DOTFILES/$container/start"
     else
-        log info "No start script found for $container, using docker-compose command"
+        log info "no start script found for $container, using docker-compose command"
         docker compose -f "$DOTFILES/$container/docker-compose.yml" up -d
     fi
 
     log debug "done with $container"
 done
-
-# cd $CURRENT_PWD
 
 docker container ls -a --format "table {{.Names}}\t{{.State}}\t{{.Ports}}"
 
