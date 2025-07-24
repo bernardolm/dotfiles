@@ -6,7 +6,7 @@ docker compose \
     -f "$maestral_root/docker-compose.yml" \
     down --volumes --remove-orphans
 
-docker rmi bernardolm/maestral:latest
+# docker rmi bernardolm/maestral:latest
 
 github_repo="samschott/maestral"
 
