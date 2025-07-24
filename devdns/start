@@ -1,7 +1,5 @@
 #!/usr/bin/env zsh
 
-reset
-
 image=bernardolm/devdns
 # image=ruudud/devdns
 

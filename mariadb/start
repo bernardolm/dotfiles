@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-reset
-
 docker stop mariadb
 docker rm mariadb
 
