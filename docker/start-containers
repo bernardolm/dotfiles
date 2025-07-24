@@ -4,39 +4,30 @@ log start 'docker start containers'
 
 CURRENT_PWD=$(pwd)
 
-found_containers=""
+declare -a found_containers=()
 
 find "$DOTFILES" -name 'docker-compose.yml' | while read -r file; do
     BASE_PATH=$(basename $(dirname $file))
-    found_containers="$found_containers $BASE_PATH"
-    # cd $BASE_PATH
-    # docker compose up -d
-    # echo "\n"
+    found_containers+=("$BASE_PATH")
 done
 
 log info "found docker compose files for: $found_containers"
 
-declare -a containers=("$found_containers")
-
-log debug "DESTROY=$DESTROY"
-
-for container in "${containers[@]}"; do
+for container in "${found_containers[@]}"; do
     log debug "starting container proccess for $container"
 
     [ -f "$DOTFILES/$container/.no-start" ] && {
-        log info "skipping $container as it has a .no-start file"
+        log warn "skipping $container as it has a .no-start file"
         continue
     }
-
-    [[ "$DESTROY" == "yes" ]] && (docker stop "$container" || true)
-    [[ "$DESTROY" == "yes" ]] && (docker rm "$container" || true)
 
     if [ -f "$DOTFILES/$container/start" ]; then
         log info "running $container start script"
         source "$DOTFILES/$container/start"
     else
         log info "no start script found for $container, using docker-compose command"
-        docker compose -f "$DOTFILES/$container/docker-compose.yml" up -d
+        docker compose -f "$DOTFILES/$container/docker-compose.yml" up -d \
+            --build --remove-orphans --force-recreate
     fi
 
     log debug "done with $container"
