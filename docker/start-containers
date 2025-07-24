@@ -28,20 +28,20 @@ declare -a containers=(
     redis
 )
 
-echo "DESTROY=$DESTROY"
+log debug "DESTROY=$DESTROY"
 
 for container in "${containers[@]}"; do
     [[ "$DESTROY" == "yes" ]] && (docker stop "$container" || true)
     [[ "$DESTROY" == "yes" ]] && (docker rm "$container" || true)
     if [ -f "$DOTFILES/$container/start" ]; then
-        echo "Running $container start script"
-        bash "$DOTFILES/$container/start"
+        log info "Running $container start script"
+        source "$DOTFILES/$container/start"
     else
-        echo "No start script found for $container, using docker-compose command"
+        log info "No start script found for $container, using docker-compose command"
         docker compose -f "$DOTFILES/$container/docker-compose.yml" up -d
     fi
 
-    echo "done with $container"
+    log debug "done with $container"
 done
 
 # cd $CURRENT_PWD
