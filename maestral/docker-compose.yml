@@ -9,7 +9,10 @@ services:
         - UID=$UID
         - GID=$GID
         - VERSION=$VERSION
-
+    # comment out "command" field below after first access
+    # run after reconnect dropbox accout:
+    # $ source $DOTFILES/maestral/start
+    # command: maestral auth link --relink
     container_name: maestral
     env_file:
       - $DOTFILES/maestral/.env
@@ -18,6 +21,8 @@ services:
     image: bernardolm/maestral:latest
     # network_mode: bridge
     restart: unless-stopped
+    # comment out "command" field below after first access
+    # tty: true
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
