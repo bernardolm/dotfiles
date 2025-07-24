@@ -9,29 +9,28 @@
       stdout: true
 
 - link:
-    ~/sync: $HOME/Dropbox/linux
-    ~/shared: $HOME/Dropbox/shared
+    $HOME/sync: $HOME/Dropbox/
 
 - link:
-    ~/.fonts: $HOME/shared/home/.fonts
-    ~/.ssh/authorized_keys: $HOME/shared/home/.ssh/authorized_keys
-    ~/.ssh/config: $HOME/shared/home/.ssh/config
+    $HOME/.fonts: $HOME/sync/shared/home/.fonts
+    $HOME/.ssh/authorized_keys: $HOME/sync/shared/home/.ssh/authorized_keys
+    $HOME/.ssh/config: $HOME/sync/shared/home/.ssh/config
 
 - link:
-    ~/.bash_history: $HOME/sync/linux/home/.bash_history
-    ~/.config/maestral/maestral.ini: $HOME/sync/linux/home/.config/maestral/maestral.ini
-    ~/.config/rclone/rclone.conf: $HOME/sync/linux/home/.config/rclone/rclone.conf
-    ~/.gitconfig: $HOME/sync/linux/home/.gitconfig
-    ~/.wakatime.cfg: $HOME/sync/linux/home/.wakatime.cfg
-    ~/.wget-hsts: $HOME/sync/linux/home/.wget-hsts
-    ~/.zsh_history: $HOME/sync/linux/home/.zsh_history
+    $HOME/.bash_history: $HOME/sync/linux/home/.bash_history
+    $HOME/.config/maestral/maestral.ini: $HOME/sync/linux/home/.config/maestral/maestral.ini
+    $HOME/.config/rclone/rclone.conf: $HOME/sync/linux/home/.config/rclone/rclone.conf
+    $HOME/.gitconfig: $HOME/sync/linux/home/.gitconfig
+    $HOME/.wakatime.cfg: $HOME/sync/linux/home/.wakatime.cfg
+    $HOME/.wget-hsts: $HOME/sync/linux/home/.wget-hsts
+    $HOME/.zsh_history: $HOME/sync/linux/home/.zsh_history
 
 - link:
-    ~/.bash_aliases: $DOTFILES/bash/.bash_aliases
-    ~/.bashrc: $DOTFILES/bash/.bashrc
-    ~/.nano: $DOTFILES/git/submodules/nanorc
-    ~/.zlogin: $DOTFILES/zsh/zdotdir/.zlogin
-    ~/.zlogout: $DOTFILES/zsh/zdotdir/.zlogout
-    ~/.zprofile: $DOTFILES/zsh/zdotdir/.zprofile
-    ~/.zshenv: $DOTFILES/zsh/zdotdir/.zshenv
-    ~/.zshrc: $DOTFILES/zsh/zdotdir/.zshrc
+    $HOME/.bash_aliases: $DOTFILES/bash/.bash_aliases
+    $HOME/.bashrc: $DOTFILES/bash/.bashrc
+    $HOME/.nano: $DOTFILES/git/submodules/nanorc
+    $HOME/.zlogin: $DOTFILES/zsh/zdotdir/.zlogin
+    $HOME/.zlogout: $DOTFILES/zsh/zdotdir/.zlogout
+    $HOME/.zprofile: $DOTFILES/zsh/zdotdir/.zprofile
+    $HOME/.zshenv: $DOTFILES/zsh/zdotdir/.zshenv
+    $HOME/.zshrc: $DOTFILES/zsh/zdotdir/.zshrc
