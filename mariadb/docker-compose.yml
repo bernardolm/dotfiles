@@ -22,14 +22,14 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - /mnt/data/docker-volumes/mariadb/backup:/backup
-      - /mnt/data/docker-volumes/mariadb/data:/var/lib/mysql
+      - /mnt/data/docker-volumes/mariadb/data:/var/lib/mysql:Z
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
       - $DOTFILES/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf:ro
 
   adminer:
 
+    container_name: mariadb-adminer
     image: adminer
     ports:
-      - 8306:8306
+      - 8306:8080
     restart: always
