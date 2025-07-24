@@ -6,7 +6,11 @@ services:
     env_file:
       - $DOTFILES/mariadb/.env
     environment:
+      MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: $MARIADB_ALLOW_EMPTY_ROOT_PASSWORD
+      MARIADB_AUTO_UPGRADE: $MARIADB_AUTO_UPGRADE
+      MARIADB_DATABASE: $MARIADB_DATABASE
       MARIADB_PASSWORD: $MARIADB_PASSWORD
+      MARIADB_RANDOM_ROOT_PASSWORD: $MARIADB_RANDOM_ROOT_PASSWORD
       MARIADB_ROOT_PASSWORD: $MARIADB_ROOT_PASSWORD
       MARIADB_USER: $MARIADB_USER
       TZ: America/Sao_Paulo
@@ -19,7 +23,13 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - /mnt/data/docker-volumes/mariadb/backup:/backup
-      - /mnt/data/docker-volumes/mariadb/data:/var/lib/mysql:Z
+      - /mnt/data/docker-volumes/mariadb/data:/var/lib/mysql
       - /sys/fs/cgroup/memory.pressure:/sys/fs/cgroup/memory.pressure
       - $DOTFILES/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf:ro
-      - $HOME/tmp/mariadb:/tmp
+
+  adminer:
+
+    image: adminer
+    ports:
+      - 8306:8306
+    restart: always

@@ -1,0 +1,9 @@
+#!/bin/zsh
+
+reset
+docker stop mariadb
+docker rm mariadb
+sudo rm -rfd /mnt/data/docker-volumes/mariadb/*
+docker compose -f $DOTFILES/mariadb/docker-compose.yml up -d --force-recreate
+
+docker logs -n1000 -f mariadb
