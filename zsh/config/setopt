@@ -22,6 +22,9 @@ unsetopt HIST_IGNORE_SPACE
 unsetopt PUSHD_MINUS
 unsetopt SHARE_HISTORY
 
+setopt noautomenu
+unsetopt AUTO_LIST
+
 $SHELL_DEBUG || (
     setopt PROMPT_SUBST ;
 )
