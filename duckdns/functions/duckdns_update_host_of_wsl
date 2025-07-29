@@ -11,7 +11,7 @@ function duckdns_update_host_of_wsl() {
     host_domain=$(hostname.exe | tr -d ' |\r')
     log debug "host_domain=${host_domain}"
 
-    host_ip=$(powershell.exe '(Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.InterfaceAlias -like "*Ethernet*" -and $_.IPAddress -notlike "172*"}).IPAddress' | tr -d ' |\r')
+    host_ip=$(powershell.exe '(Get-NetIPAddress -AddressFamily IPv4 | Where-Object {$_.InterfaceAlias -like "*Ethernet*" -and $_.IPAddress -like "192*"}).IPAddress' | tr -d ' |\r')
     log debug "host_ip=${host_ip}"
 
     if [ -z "${host_ip}" ]; then
