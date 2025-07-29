@@ -7,10 +7,6 @@ function duckdns_update() {
     ip4="$2"
     ip6="$3"
 
-    local now=$(date +"%Y%m%d%H%M%S")
-
-    log_file="${USER_TMP}/duckdns_${domain}_$now.log"
-
     duckdns_url="https://www.duckdns.org/update?verbose=true"
     duckdns_url+="&ip=${ip4}"
     duckdns_url+="&ipv6=${ip6}"
@@ -18,8 +14,6 @@ function duckdns_update() {
     duckdns_url+="&domains=${domain}"
 
     log info "updating duckdns domain ${domain}.duckdns.org with ${ip4}"
-    log debug "log file at ${log_file}"
 
-    curl -L --silent --insecure --output "${log_file}" "${duckdns_url}"
-    log_is_command_success
+    curl -L --silent --insecure --output /dev/null "${duckdns_url}" && log_is_command_success
 }
