@@ -1,4 +1,6 @@
 alias ack='ag && ag || ack'
+alias code-adc="code ~/sync/linux/adc.code-workspace"
+alias code-my="code ~/sync/linux/my.code-workspace"
 alias dclsa='docker container ls -a --format "table {{.Names}}\t{{.State}}\t{{.RunningFor}}\t{{.Ports}}" | tail -n+2 | sort'
 alias dcr='docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up --remove-orphans'
 alias dcrd='docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up -d --remove-orphans'
