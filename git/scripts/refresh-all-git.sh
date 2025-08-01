@@ -1,4 +1,4 @@
-now=$(date +"%Y%m%d%H%M%S")
+now=$(date +"%Y%m%d_%H%M%S_%3N")
 log_path=$HOME/tmp/refresh-all-git/$now
 [ ! -d $log_path ] && mkdir -p $log_path
 

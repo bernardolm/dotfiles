@@ -1,4 +1,4 @@
 function gnome_dconf_backup() {
-    local now=$(date +"%Y%m%d%H%M%S")
+    local now=$(date +"%Y%m%d_%H%M%S_%3N")
     dconf dump / > "$HOME/sync/linux/gnome/$now.txt"
 }

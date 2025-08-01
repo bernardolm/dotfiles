@@ -63,7 +63,7 @@ $SHELL_DEBUG && echo "$(elapsed_time ${startList}) all list"
 
 log finish "zsh"
 
-now=$(date +"%Y%m%d%H%M%S")
+now=$(date +"%Y%m%d_%H%M%S_%3N")
 
 # profiling shell
 if $SHELL_PROFILE; then

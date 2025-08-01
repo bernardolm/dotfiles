@@ -31,7 +31,7 @@ function vpn_add_route() {
 }
 
 function vpn_add_routes() {
-    local now=$(date +"%Y%m%d%H%M%S")
+    local now=$(date +"%Y%m%d_%H%M%S_%3N")
 
     local file=${1:=$(last_backup_version vpn-routes csv)}
     [ -z "$file" ] && echo "no vpn-routes file found" && return

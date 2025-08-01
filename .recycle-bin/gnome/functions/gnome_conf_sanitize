@@ -1,5 +1,5 @@
 function gnome_conf_sanitize() {
-    local now=$(date +"%Y%m%d%H%M%S")
+    local now=$(date +"%Y%m%d_%H%M%S_%3N")
     old_gnome_config="$HOME/tmp/old-gnome-config/$TODAY/$now/"
 
     mkdir -p "$old_gnome_config"

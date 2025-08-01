@@ -1,5 +1,5 @@
 function chrome_bookmarks_backup() {
-    local now=$(date +"%Y%m%d%H%M%S")
+    local now=$(date +"%Y%m%d_%H%M%S_%3N")
 
     [ ! -d "$HOME/sync/linux/chrome/bookmarks" ] && \
         mkdir -p "$HOME/sync/linux/chrome/bookmarks"

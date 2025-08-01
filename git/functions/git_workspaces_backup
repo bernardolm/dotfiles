@@ -3,7 +3,7 @@ function git_workspaces_backup() {
 
     local file=$(last_backup_version git-workspaces csv)
 
-    local now=$(date +"%Y%m%d%H%M%S")
+    local now=$(date +"%Y%m%d_%H%M%S_%3N")
 
     [ -f "${file}" ] && \
         mv "${file}" "$HOME/sync/linux/git-workspaces/${HOSTNAME}_$now.csv"
