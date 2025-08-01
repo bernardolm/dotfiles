@@ -1,4 +1,4 @@
-[ "$FORCED_INTERACTIVE" != "true" ] && [[ $- != *i* ]] && return
+(( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs && return
 
 $SHELL_DEBUG && echo "👾 zshenv"
 echo "🤖 you \"$(whoami)\" are in \"$(hostname)\" at \"$(hostname -I)\""
