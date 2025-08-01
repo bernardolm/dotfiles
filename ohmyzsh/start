@@ -1,12 +1,8 @@
-SHELL_DEBUG_relay=${SHELL_DEBUG} ; SHELL_DEBUG=true
-SHELL_PROFILE_relay=${SHELL_PROFILE} ; SHELL_PROFILE=true
-# SHELL_TRACE_relay=${SHELL_TRACE} ; SHELL_TRACE=true
-
 log start "ohmyzsh"
 
 start=$(date +%s%N)
 # shellcheck source=/dev/null
-. "$DOTFILES/ohmyzsh/install"
+source "$DOTFILES/ohmyzsh/install"
 $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh install"
 
 start=$(date +%s%N)
@@ -27,16 +23,15 @@ $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh plugins list"
 start=$(date +%s%N)
 log debug "ohmyzsh calling init script"
 # shellcheck source=/dev/null
-$SHELL_TRACE && set -x
+# ohmyzsh_xtrace_file="$HOME/tmp/oh-my-zsh_$(date +%Y%m%d_%H%M%S_%N).log"
+# exec 3>&2 2>$ohmyzsh_xtrace_file
+# setopt xtrace prompt_subst
 source "${ZSH}/oh-my-zsh.sh"
-$SHELL_TRACE && set +x
-
-$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh init script"
+# unsetopt xtrace
+# exec 2>&3 3>&-
+# unset ohmyzsh_xtrace_file
+echo "$(elapsed_time $start) ohmyzsh init script"
 
 unalias sudo 2>/dev/null
 
 log finish "ohmyzsh"
-
-SHELL_DEBUG=${SHELL_DEBUG_relay}
-SHELL_PROFILE=${SHELL_PROFILE_relay}
-# SHELL_TRACE=${SHELL_TRACE_relay}
