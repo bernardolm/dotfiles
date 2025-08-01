@@ -1,3 +1,23 @@
-[ ! -d $HOME/.local/bin ] && mkdir -p $HOME/.local/bin
+log start "starship install"
 
-command -v starship >/dev/null || (curl -sS https://starship.rs/install.sh | BIN_DIR=$HOME/.local/bin VERBOSE=1 sh)
+# to prune
+# rm -rf /home/bernardo/.local/bin/starship ~/.oh-my-zsh ~/.spaceship
+
+if ! command -v starship >/dev/null; then
+	log info "installing (downloading) starship"
+
+	[ ! -d $HOME/.local/bin ] && mkdir -p $HOME/.local/bin
+	# VERBOSE=1 \
+	BIN_DIR=$HOME/.local/bin \
+		sh -c "$(curl -fsSL https://starship.rs/install.sh)"
+
+	# git clone \
+	# 	https://github.com/spaceship-prompt/spaceship-prompt.git \
+	# 	"$ZSH_CUSTOM/themes/spaceship-prompt" \
+	# 	--depth=1
+	
+	# ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" \
+	# 	"$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+fi
+
+log finish "starship install"
