@@ -1,4 +1,9 @@
 function log_start() {
-    local now=$(date +"%Y-%m-%d %H:%M:%S")
-    log_echo "🚦 starting $@ at $now ⏱️ "
+    if [ ! -z "$___elapsed_time" ]; then
+        key=$@
+        ___elapsed_time["$key"]=$(date +%s%N)
+    fi
+    $SHELL_DEBUG && return
+    
+    log_echo "🚥 starting $@ "
 }

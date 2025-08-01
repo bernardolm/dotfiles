@@ -20,8 +20,8 @@ plugins=($(ohmyzsh_plugins_list))
 log debug "oh-my-zsh plugins loaded: $plugins"
 $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh plugins list"
 
-start=$(date +%s%N)
-log debug "ohmyzsh calling init script"
+# start=$(date +%s%N)
+log start "(source) ohmyzsh init script"
 # shellcheck source=/dev/null
 # ohmyzsh_xtrace_file="$HOME/tmp/oh-my-zsh_$(date +%Y%m%d_%H%M%S_%N).log"
 # exec 3>&2 2>$ohmyzsh_xtrace_file
@@ -30,7 +30,8 @@ source "${ZSH}/oh-my-zsh.sh"
 # unsetopt xtrace
 # exec 2>&3 3>&-
 # unset ohmyzsh_xtrace_file
-echo "$(elapsed_time $start) ohmyzsh init script"
+# $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh init script"
+log finish "(source) ohmyzsh init script"
 
 unalias sudo 2>/dev/null
 

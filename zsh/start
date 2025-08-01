@@ -1,11 +1,13 @@
-# shell_debug_relay=${SHELL_DEBUG}
-# SHELL_DEBUG=false
-
 # profiling shell
 if $SHELL_PROFILE; then
+    now=$(date +"%Y%m%d_%H%M%S_%3N")
     zmodload zsh/zprof
     $SHELL_DEBUG && echo "a zsh profile was started"
 fi
+
+declare -gA ___elapsed_time
+export ___elapsed_time
+___elapsed_time["started"]=true
 
 disable log &>/dev/null && function log() {
     for f in "$DOTFILES"/zsh/functions/log*; do
@@ -63,13 +65,9 @@ $SHELL_DEBUG && echo "$(elapsed_time ${startList}) all list"
 
 log finish "zsh"
 
-now=$(date +"%Y%m%d_%H%M%S_%3N")
-
 # profiling shell
 if $SHELL_PROFILE; then
     shell_profile_file="$USER_TMP/shell_profile_$now.prf"
     zprof > "$shell_profile_file"
     echo "a log profile file as created here $shell_profile_file"
 fi
-
-# SHELL_DEBUG=${shell_debug_relay}

@@ -1,4 +1,14 @@
 function log_finish() {
-    local now=$(date +"%Y-%m-%d %H:%M:%S")
-    log_echo "🛑 $@ was finished at $now ⏱️ "
+    key=$@
+    msg="🚥 $1 was finished "
+    since=$___elapsed_time["$key"]
+
+    if [[ ! -z "$since" ]] && command -v elapsed_time >/dev/null; then
+        msg+="⏱️ after "$(elapsed_time $since)
+    else
+        now=$(date +"%H:%M:%S in %Y-%m-%d")
+        msg+="⌚ at $now "
+    fi
+
+    log_echo $msg
 }
