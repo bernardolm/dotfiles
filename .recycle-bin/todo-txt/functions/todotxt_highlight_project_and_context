@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function todotxt_highlight_project_and_context() {
     local line
     while IFS= read -r line; do

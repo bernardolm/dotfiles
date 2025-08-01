@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function conky_restart() {
     # local instaces=$(conky_instances)
     # notify-send "conky (re)starting" "$(conky_instances) were running."

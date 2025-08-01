@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function duckdns_update_host_of_wsl() {
     log debug "WSL_SYSTEM=${WSL_SYSTEM}"
 

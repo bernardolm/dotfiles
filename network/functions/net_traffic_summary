@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function net_traffic_summary() {
     local interfaces=($1)
 

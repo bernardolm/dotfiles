@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function docker_containers_sanitize() {
     echo "removing docker containers"
     docker rm $(docker ps -a -f status=exited -f status=created -q)

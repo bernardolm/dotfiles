@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function git_config_mass_replace() {
     for DIR in ./*; do
         if [ -d "$DIR" ]; then

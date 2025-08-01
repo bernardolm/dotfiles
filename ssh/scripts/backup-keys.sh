@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 set -e
 
 function cp_from_to() {

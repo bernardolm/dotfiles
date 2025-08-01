@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 docker run \
     --name portainer \
     --restart always \

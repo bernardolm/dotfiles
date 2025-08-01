@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function vscode_sanitize() {
     /bin/rm -rf $HOME/.config/Code/Backups
     /bin/rm -rf $HOME/.config/Code/blob_storage

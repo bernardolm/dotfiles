@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function git_workspaces_backup() {
     [[ "$1" == "" ]] && echo "you need pass the root path and alias for this. i.e.: git_workspaces_backup $HOME/my_workspace_root_path" && return 1
 

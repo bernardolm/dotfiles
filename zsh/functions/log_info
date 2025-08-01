@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function log_info() {
     log_echo "💬 ${CLR_BG_CYAN} $@ ${NO_COLOR}"
 }

@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function ssh_fs_dpipe() {
     # ssh ${SSHFS_HOST_CLIENT} umount ${SSHFS_PATH_CLIENT}
 

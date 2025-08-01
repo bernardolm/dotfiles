@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 #
 # Usage: extract <file>
 # Description: extracts archived files / mounts disk images

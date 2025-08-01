@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function docker_local_ip_sanitize() {
     echo "reseting docker network config"
     current_docker0_ip=$(docker_network_ip)

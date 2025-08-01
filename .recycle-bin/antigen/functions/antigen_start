@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function antigen_start() {
     log info "antigen_start"
     . "$ANTIGEN_PATH"

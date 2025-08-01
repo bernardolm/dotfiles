@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 # zstyle ':omz:plugins:docker' legacy-completion yes
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 zstyle ':completion:*:*:docker:*' option-stacking yes

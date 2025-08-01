@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 log start "ubuntu setup"
 
 log info "calling dotbot to create sym links and others"

@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function dns_systemd_resolved_stop() {
     local x=$(sudo systemctl status systemd-resolved | grep 'Active: active' | wc -l | bc)
     if [ $x -gt 0 ]; then

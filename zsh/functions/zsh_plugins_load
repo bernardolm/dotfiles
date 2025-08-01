@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function zsh_plugins_load() {
     echo "zsh_plugins_load is DEPRECATED, using zplug"
     return

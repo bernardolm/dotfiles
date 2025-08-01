@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 calendars=""
 
 for item in "${GCALCLI_CALENDARS[@]}"; do

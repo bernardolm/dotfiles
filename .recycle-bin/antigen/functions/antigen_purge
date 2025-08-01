@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function antigen_purge() {
     log info "antigen_purge"
 

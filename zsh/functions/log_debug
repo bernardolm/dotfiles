@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function log_debug() {
     log_echo "🐞 ${CLR_BG_GREY} $@ ${NO_COLOR}"
 }

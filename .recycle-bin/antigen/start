@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 return
 
 export ANTIGEN_PATH="$USER_TMP/antigen.zsh"

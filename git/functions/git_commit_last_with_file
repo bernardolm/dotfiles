@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function git_commit_last_with_file() {
     FILE=$1
     LOG=$2

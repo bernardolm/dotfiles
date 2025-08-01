@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function db_migrate() {
     DOCKER_IMAGE_NAME=renatovico/simple-db-migrate
     docker build https://raw.githubusercontent.com/renatovico/simple-db-migrate-docker/master/Dockerfile -t ${DOCKER_IMAGE_NAME}:latest

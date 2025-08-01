@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function hibernate_now() {
 	# # echo code | sudo tee /sys/power/pm_test
 	# # echo devices | sudo tee /sys/power/pm_test

@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function docker_images_dangling_sanitize() {
     echo "removing dangling (untagged, '<none>') docker images"
     docker_install_check || return

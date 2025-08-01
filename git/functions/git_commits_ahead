@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function git_commits_ahead() {
     CURRENT_COMMIT=$1
     [[ "$CURRENT_COMMIT" == "" ]] && CURRENT_COMMIT=$(git_current_commit)

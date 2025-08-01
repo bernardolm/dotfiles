@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function docker_running_check() {
     # systemctl is-active --quiet docker && echo 1
     [[ $($DOCKER ps &>/dev/null | grep -c Cannot | bc) -eq 1 ]]

@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function duckdns_update_public() {
     log debug "ADC_PUBLIC_IP=${ADC_PUBLIC_IP}"
     log debug "CURRENT_PUBLIC_IP=${CURRENT_PUBLIC_IP}"

@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 now=$(date +"%Y%m%d%H%M%S")
 log_path=$HOME/tmp/refresh-all-git/$now
 [ ! -d $log_path ] && mkdir -p $log_path

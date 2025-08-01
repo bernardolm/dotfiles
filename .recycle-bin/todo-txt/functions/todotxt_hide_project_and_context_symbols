@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function todotxt_hide_project_and_context_symbols() {
     local line
     while IFS= read -r line; do

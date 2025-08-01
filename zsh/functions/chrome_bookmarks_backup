@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function chrome_bookmarks_backup() {
     local now=$(date +"%Y%m%d%H%M%S")
 

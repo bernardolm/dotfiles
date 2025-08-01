@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function docker_install_config_files_sanitize() {
     echo "removing docker install files"
     /bin/rm -rf "$HOME/.docker"

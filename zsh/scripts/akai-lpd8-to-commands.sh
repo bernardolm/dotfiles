@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 # amixer -q -D pulse sset Master toggle
 # amixer -q -D pulse sset Capture toggle
 

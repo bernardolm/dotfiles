@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function git_checkout_pristine() {
     NEXT_COMMIT=$1
     /usr/bin/git checkout .

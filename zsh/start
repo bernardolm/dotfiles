@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 # shell_debug_relay=${SHELL_DEBUG}
 # SHELL_DEBUG=false
 

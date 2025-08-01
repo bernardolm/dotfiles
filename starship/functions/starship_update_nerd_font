@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function starship_update_nerd_font() {
     starship preset nerd-font-symbols -o $DOTFILES/starship/theme/starship.nerd-font-symbols.toml
 }

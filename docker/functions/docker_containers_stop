@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function docker_containers_stop() {
     echo "stopping docker containers"
     docker_install_check || return

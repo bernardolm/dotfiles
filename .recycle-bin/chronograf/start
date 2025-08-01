@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 docker run \
     --health-start-period 5s \
     --name chronograf \

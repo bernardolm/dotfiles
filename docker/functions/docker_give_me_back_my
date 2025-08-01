@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function docker_give_me_back_my() {
     echo "recovering docker app control"
     docker_install_check || return

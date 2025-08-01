@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function ohmyzsh_start_plugins_duration() {
     # 1.000.000 ns = 1 ms
     for plugin ($plugins); do

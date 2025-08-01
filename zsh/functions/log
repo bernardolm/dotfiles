@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function log() {
     local level=$1
 

@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function ssh_agent_start() {
     log debug "starting ssh agent..."
 

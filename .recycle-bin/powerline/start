@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 . "${POWERLINE_ROOT}/bindings/zsh/powerline.zsh"
 
 function powerline_precmd() {

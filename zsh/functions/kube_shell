@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function kube_shell() {
     IMAGE=$(pwd)
     IMAGE=$(basename $IMAGE)

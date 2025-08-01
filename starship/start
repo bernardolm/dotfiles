@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 . "$DOTFILES/starship/install"
 
 unset STARSHIP_CONFIG

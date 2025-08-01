@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function gnome_conf_sanitize() {
     local now=$(date +"%Y%m%d%H%M%S")
     old_gnome_config="$HOME/tmp/old-gnome-config/$TODAY/$now/"

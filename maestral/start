@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 maestral_root="$DOTFILES/maestral"
 
 docker compose \

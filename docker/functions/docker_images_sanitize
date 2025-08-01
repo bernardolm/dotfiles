@@ -1,5 +1,3 @@
-#!/usr/bin/env zsh
-
 function docker_images_sanitize() {
     docker_install_check || return
     echo "removing docker images"
