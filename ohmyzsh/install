@@ -1,6 +1,6 @@
 log start "ohmyzsh install"
 
-if [ ! -d "${ZSH}" ]; then
+if [ ! -d "$ZSH" ]; then
     SHELL_DEBUG=true $SHELL_DEBUG && \
         log info "installing (downloading) oh-my-zsh"
 
@@ -11,20 +11,34 @@ if [ ! -d "${ZSH}" ]; then
     chsh -s $(which zsh)
 fi
 
-if [ ! -h "${ZSH_CUSTOM}/plugins/wakatime" ] \
-    && [ -d "${ZPLUG_HOME}/repos/sobolevn/wakatime-zsh-plugin" ]; then
+if [ ! -h "$ZSH_CUSTOM/plugins/wakatime" ] \
+    && [ -d "$ZPLUG_HOME/repos/sobolevn/wakatime-zsh-plugin" ]; then
     log info "(sym) linking wakatime-zsh-plugin"
-    rm -rf "${ZSH_CUSTOM}/plugins/wakatime" >/dev/null
-    ln -sf "${ZPLUG_HOME}/repos/sobolevn/wakatime-zsh-plugin" \
-        "${ZSH_CUSTOM}/plugins/wakatime"
+    rm -rf "$ZSH_CUSTOM/plugins/wakatime" >/dev/null
+    ln -sf "$ZPLUG_HOME/repos/sobolevn/wakatime-zsh-plugin" \
+        "$ZSH_CUSTOM/plugins/wakatime"
 fi
 
-if [ ! -h "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" ] \
-    && [ -d "${ZPLUG_HOME}/repos/zsh-users/zsh-autosuggestions" ]; then
+if [ ! -h "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] \
+    && [ -d "$ZPLUG_HOME/repos/zsh-users/zsh-autosuggestions" ]; then
     log info "(sym) linking zsh-autosuggestions"
-    rm -rf "${ZSH_CUSTOM}/plugins/zsh-autosuggestions" >/dev/null
-    ln -sf "${ZPLUG_HOME}/repos/zsh-users/zsh-autosuggestions" \
-        "${ZSH_CUSTOM}/plugins/zsh-autosuggestions"
+    rm -rf "$ZSH_CUSTOM/plugins/zsh-autosuggestions" >/dev/null
+    ln -sf "$ZPLUG_HOME/repos/zsh-users/zsh-autosuggestions" \
+        "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
+fi
+
+if [ ! -h "$ZSH_CUSTOM//themes/spaceship-prompt" ]; then
+    log info "(sym) linking spaceship-prompt"
+    
+    git clone \
+        https://github.com/spaceship-prompt/spaceship-prompt.git \
+        "$ZSH_CUSTOM/themes/spaceship-prompt" \
+        --depth=1
+
+    ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" \
+        "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+
+    export ZSH_THEME ; ZSH_THEME="spaceship"
 fi
 
 log finish "ohmyzsh install"

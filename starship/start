@@ -2,10 +2,11 @@
 
 unset STARSHIP_CONFIG
 
-export STARSHIP_CACHE="$HOME/.starship/cache"
+export STARSHIP_CACHE="$HOME/.cache/starship"
 export STARSHIP_CONFIG="$DOTFILES/starship/theme/starship.toml"
 
 # $SHELL_TRACE && env STARSHIP_LOG=debug starship module rust
 # $SHELL_TRACE && env STARSHIP_LOG=debug starship timings
 
-eval "$(starship init zsh)"
+# conflict with oh-my-zsh, choose one
+# eval "$(starship init zsh)"
