@@ -1,53 +1,26 @@
-# 1password # needs: 1password cli
-# alias-finder
-# aliases
-# colored-man-pages
-# colorize # needs: go install github.com/alecthomas/chroma/v2@latest
-# command-not-found
-# cp # needs: rsync
-# debian
-# dirpersist
-# dotenv
-# emoji
-# emoji-clock
-# emotty # emotty_set=choose-one [emoji, loral, love, nature, stellar, zodiac]
-# extract
-# gh
-# git-auto-fetch
-# git-prompt
-# golang
-# gpg-agent
-# history
-# isodate
-# man
-# nmap
-# perms
-# pip
-# postgres
-# procs
-# python
-# rsync
-# safe-paste
-# screen
-# systemd
-# themes
-# timer
-# tldr
-# tmux
-# ubuntu
-# z
-# zbell
-# zsh-autosuggestions # ohmyzsh custom
-# zsh-interactive-cd
 
+colored-man-pages
+colorize # needs: go install github.com/alecthomas/chroma/v2@latest
+command-not-found
 common-aliases
 docker
 docker-compose
+dotenv
 fzf
 git
+git-auto-fetch
+golang
+last-working-dir
+man
+pip
 pre-commit
+python
+screen
 ssh
 sudo
+systemd
 ufw
 wakatime # ohmyzsh custom
+zsh-autosuggestions # ohmyzsh custom
+zsh-interactive-cd
 zsh-navigation-tools

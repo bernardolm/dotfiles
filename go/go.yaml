@@ -11,14 +11,7 @@
       done;
 
 - go:
-    github.com/cortesi/modd/cmd/modd@latest
+    github.com/alecthomas/chroma/v2@latest
     github.com/go-delve/delve/cmd/dlv@latest
-    github.com/golangci/golangci-lint/cmd/golangci-lint@latest
-    github.com/liudng/dogo@latest
-    github.com/tsenart/vegeta@latest
-    golang.org/x/lint/golint@latest
     golang.org/x/tools/cmd/goimports@latest
-    golang.org/x/tools/cmd/gorename@latest
-    golang.org/x/tools/cmd/guru@latest
     golang.org/x/tools/gopls@latest
-    golang.org/x/perf/cmd/benchstat

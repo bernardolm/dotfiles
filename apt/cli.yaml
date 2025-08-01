@@ -16,7 +16,7 @@ add:
   - htop
   - jq
   - make
-  - man-db
+  - man-db # manuals by shell
   - nano
   - net-tools
   - nmap
