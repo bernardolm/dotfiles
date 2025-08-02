@@ -1,9 +1,11 @@
+command -v elapsed_time > /dev/null 2>&1 || source "$DOTFILES/zsh/functions/elapsed_time"
+
 function log_start() {
     if [ ! -z "$___elapsed_time" ]; then
         key=$@
         ___elapsed_time["$key"]=$(date +%s%N)
     fi
-    $SHELL_DEBUG && return
+    $SHELL_DEBUG || return
     
     log_echo "🚥 starting $@ "
 }

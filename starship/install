@@ -1,11 +1,11 @@
-log start "starship install"
+log start "starship: install"
 
 if ! command -v starship >/dev/null; then
-	log info "installing (downloading) starship"
+	log info "starship: installing (downloading) starship"
 
 	[ ! -d $HOME/.local/bin ] && mkdir -p $HOME/.local/bin
 	# VERBOSE=1
 	BIN_DIR=$HOME/.local/bin sh -c "$(curl -fsSL https://starship.rs/install.sh)"
 fi
 
-log finish "starship install"
+log finish "starship: install"

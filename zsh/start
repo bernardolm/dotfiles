@@ -18,7 +18,7 @@ disable log &>/dev/null && function log() {
     eval log "$@"
 }
 
-log start "zsh"
+log start "zsh start"
 
 # TODO: move to top zdotfile
 # export SCRIPT_PATH="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
@@ -29,41 +29,43 @@ inits=()
 
 # shellcheck disable=SC2030
 # shellcheck disable=SC2086
+log start "zsh start: adding dotfile init.d files"
 find -L "$DOTFILES/" -maxdepth 3 -type f -path '*/init.d/*' | sort \
     | while IFS="" read -r line; do inits+=("$line"); done
+log finish "zsh start: adding dotfile init.d files"
 
 # shellcheck disable=SC2030
 # shellcheck disable=SC2031
 # shellcheck disable=SC2086
+log start "zsh start: adding sync init.d files"
 find -L "$HOME/sync/linux" -maxdepth 3 -type f -path '*/init.d/*' | sort \
     | while IFS="" read -r line; do inits+=("$line"); done
+log finish "zsh start: adding sync init.d files"
 
-startList=$(date +%s%N)
 # shellcheck disable=SC2031
 # shellcheck disable=SC2168
+log start "zsh start: (source) init scripts"
 _init_order=(
     "$DOTFILES/zsh/functions/elapsed_time"
     "$DOTFILES/zsh/functions/zsh_autoload_paths"
     "$DOTFILES/zsh/config/autoload"
     "$DOTFILES/ssh/start"
     "$DOTFILES/zplug/start"
-    "$DOTFILES/ohmyzsh/start"
+    # "$DOTFILES/ohmyzsh/start"
     "$DOTFILES/starship/start"
     "$DOTFILES/zsh/aliases"
     "$DOTFILES/zsh/config/setopt"
     "$DOTFILES/zsh/config/zstyle"
     "${inits[@]}"
 ); for _f in "${_init_order[@]}"; do
-    startFile=$(date +%s%N)
+    log start "zsh start: (source) ${_f//$DOTFILES\/}"
     # shellcheck source=/dev/null
-    . "$_f"
+    source "$_f"
     # shellcheck disable=SC2086
-    $SHELL_DEBUG && echo "$(elapsed_time ${startFile}) $_f"
+    log finish "zsh start: (source) ${_f//$DOTFILES\/}"
 done
 # shellcheck disable=SC2086
-$SHELL_DEBUG && echo "$(elapsed_time ${startList}) all list"
-
-log finish "zsh"
+log finish "zsh start: (source) init scripts"
 
 # profiling shell
 if $SHELL_PROFILE; then
@@ -71,3 +73,5 @@ if $SHELL_PROFILE; then
     zprof > "$shell_profile_file"
     echo "a log profile file as created here $shell_profile_file"
 fi
+
+log finish "zsh start"

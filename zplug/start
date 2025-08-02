@@ -1,18 +1,16 @@
 # shell_debug_relay=${SHELL_DEBUG}
 # SHELL_DEBUG=false
 
-log start "zplug start"
+log start "zplug: start"
 
 # $SHELL_DEBUG \
 #     && log warn "in debug mode, everything related to zplug will be deleted" \
 #     && zplug_reset
 
-start=$(date +%s%N)
 # shellcheck source=/dev/null
 . "$DOTFILES/zplug/install"
-$SHELL_DEBUG && echo "$(elapsed_time $start) zplug install"
 
-start=$(date +%s%N)
+log start "zplug: waiting and sourcing init script"
 while true; do
     if [ -f "${ZPLUG_HOME}/init.zsh" ]; then
         log debug "zplug: sourcing init"
@@ -20,34 +18,29 @@ while true; do
         source "${ZPLUG_HOME}/init.zsh"
         break
     fi
-    log debug "zplug: waiting to be installed..."
+    log warn "zplug: waiting to be installed..."
     sleep 1
 done
-$SHELL_DEBUG && echo "$(elapsed_time $start) zplug source"
+log finish "zplug: waiting and sourcing init script"
 
-start=$(date +%s%N)
+log start "zplug: loading plugins list"
 to_load=($(zsh_plugins_list) $(zsh_completions_list))
-$SHELL_DEBUG && echo "$(elapsed_time $start) zplug loading plugins list"
-
-start=$(date +%s%N)
 for p in $to_load; do
     log debug "zplug: $p"
     zplug "$p"
 done
-$SHELL_DEBUG && echo "$(elapsed_time $start) zplug run from plugins list"
+log finish "zplug: loading plugins list"
 
-start=$(date +%s%N)
 if ! zplug check; then
-    log warn "zplug: installing new plugins"
+    log start "zplug: calling cmd zplug install"
     zplug install
-    $SHELL_DEBUG && echo "$(elapsed_time $start) zplug install plugins"
+    log finish "zplug: calling cmd zplug install"
 fi
 
-start=$(date +%s%N)
-log debug "zplug: loading"
+log start "zplug: loading"
 zplug load ${ZPLUG_VERBOSE}
-$SHELL_DEBUG && echo "$(elapsed_time $start) zplug load"
+log finish "zplug: loading"
 
-log finish "zplug start"
+log finish "zplug: start"
 
 # SHELL_DEBUG=${shell_debug_relay}

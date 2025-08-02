@@ -2,44 +2,44 @@
 # SHELL_DEBUG=true
 # ssh_agent_kill
 
-for f in $DOTFILES/ssh/functions/*; do source "$f"; done
+log start "ssh: start"
 
-log start "ssh setup"
+for f in $DOTFILES/ssh/functions/*; do source "$f"; done
 
 log env SSH_AUTH_SOCK
 log env SSH_AGENT_PID
 log env SSH_AGENT_OUTPUT_SCRIPT
-$SHELL_DEBUG && \
-    [ -f "${SSH_AGENT_OUTPUT_SCRIPT}" ] && \
-    log debug "ssh agent script below" && \
-    cat ${SSH_AGENT_OUTPUT_SCRIPT}
 
 if [ -f "${SSH_AGENT_OUTPUT_SCRIPT}" ]; then
-    log info "ssh agent script found, trying to source it"
+    log debug "ssh: agent script found"
+    $SHELL_DEBUG && cat ${SSH_AGENT_OUTPUT_SCRIPT}
+
+    log info "ssh: sourcing agent script"
     source ${SSH_AGENT_OUTPUT_SCRIPT}
+
     log env SSH_AUTH_SOCK
     log env SSH_AGENT_PID
 else
-    log debug "ssh agent script not found"
+    log debug "ssh: agent script not found"
 fi
 
-log debug "ssh_agent_state=$(ssh_agent_state)"
+log env ssh_agent_state
 
 if [ "$(ssh_agent_state)" = "no_connection" ]; then
-    log info "ssh kill"
+    log info "ssh: killing agent"
     ssh_agent_kill
 
-    log info "ssh start"
+    log info "ssh: starting agent"
     ssh_agent_start
 fi
 
 if [ "$(ssh_agent_state)" = "empty" ]; then
-    log info "ssh add"
+    log info "ssh: adding user's keys"
     ssh-add
 else
-    log info "ssh keys loaded: $(ssh-add -L | wc -l)"
+    log info "ssh: keys loaded #$(ssh-add -L | wc -l)"
 fi
 
-log finish "ssh setup"
+log finish "ssh: start"
 
 # SHELL_DEBUG=${shell_debug_relay}

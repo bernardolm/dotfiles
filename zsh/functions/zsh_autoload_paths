@@ -1,4 +1,6 @@
 function zsh_autoload_paths() {
+    log start "zsh autoload paths: adding custom functions to zsh autoload (fpath)"
+
     if [ ! -f "$HOME/tmp/zsh_autoload_paths.txt" ]; then
         _paths="$@"
         for _path in "${_paths[@]}"; do
@@ -17,4 +19,6 @@ function zsh_autoload_paths() {
     fi
 
     source "$HOME/tmp/zsh_autoload_paths.txt"
+
+    log finish "zsh autoload paths: adding custom functions to zsh autoload (fpath)"
 }

@@ -1,3 +1,5 @@
+log start "starship: start"
+
 . "$DOTFILES/starship/install"
 
 unset STARSHIP_CONFIG
@@ -9,4 +11,7 @@ export STARSHIP_CONFIG="$DOTFILES/starship/theme/starship.toml"
 # $SHELL_TRACE && env STARSHIP_LOG=debug starship timings
 
 # conflict with oh-my-zsh, choose one
-# eval "$(starship init zsh)"
+eval "$(starship init zsh)"
+
+log finish "starship: start"
+

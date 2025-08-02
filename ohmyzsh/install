@@ -30,11 +30,15 @@ fi
 if [ ! -h "$ZSH_CUSTOM//themes/spaceship-prompt" ]; then
     log info "(sym) linking spaceship-prompt"
     
-    git clone \
+    git clone --quiet \
         https://github.com/spaceship-prompt/spaceship-prompt.git \
         "$ZSH_CUSTOM/themes/spaceship-prompt" \
         --depth=1
 
+    if [[ -f "$ZSH_CUSTOM/themes/spaceship.zsh-theme" ]]; then
+        rm -rf "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+    fi
+    
     ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" \
         "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
 
