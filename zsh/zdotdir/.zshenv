@@ -1,3 +1,9 @@
+# If not running interactively, don't do anything
+case $- in
+    *i*) ;;
+      *) return;;
+esac
+
 (( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs && return
 
 $SHELL_DEBUG && echo "./zshenv"

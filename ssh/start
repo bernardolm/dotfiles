@@ -34,7 +34,7 @@ if [ "$(ssh_agent_state)" = "no_connection" ]; then
 fi
 
 if [ "$(ssh_agent_state)" = "empty" ]; then
-    log info "ssh: adding user's keys"
+    log info "ssh: adding user keys"
     ssh-add
 else
     log debug "ssh: keys loaded #$(ssh-add -L | wc -l)"
