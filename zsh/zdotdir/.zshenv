@@ -1,6 +1,6 @@
 (( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs && return
 
-$SHELL_DEBUG && echo "👾 zshenv"
+$SHELL_DEBUG && echo "./zshenv"
 echo "🤖 you \"$(whoami)\" are in \"$(hostname)\" at \"$(hostname -I)\""
 
 export BUILDKIT_STEP_LOG_MAX_SIZE ; BUILDKIT_STEP_LOG_MAX_SIZE=-1

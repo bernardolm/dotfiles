@@ -1,1 +1,1 @@
-$SHELL_DEBUG && echo "👾 zprofile"
+$SHELL_DEBUG && echo "./zprofile"

@@ -1,2 +1,2 @@
-$SHELL_DEBUG && echo "👾 zshrc"
+$SHELL_DEBUG && echo "./zshrc"
 source "$DOTFILES/zsh/start"
