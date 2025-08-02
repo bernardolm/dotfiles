@@ -14,7 +14,7 @@ if [ -f "${SSH_AGENT_OUTPUT_SCRIPT}" ]; then
     log debug "ssh: agent script found"
     $SHELL_DEBUG && cat ${SSH_AGENT_OUTPUT_SCRIPT}
 
-    log info "ssh: sourcing agent script"
+    log debug "ssh: sourcing agent script"
     source ${SSH_AGENT_OUTPUT_SCRIPT}
 
     log env SSH_AUTH_SOCK
@@ -37,7 +37,7 @@ if [ "$(ssh_agent_state)" = "empty" ]; then
     log info "ssh: adding user's keys"
     ssh-add
 else
-    log info "ssh: keys loaded #$(ssh-add -L | wc -l)"
+    log debug "ssh: keys loaded #$(ssh-add -L | wc -l)"
 fi
 
 log finish "ssh: start"

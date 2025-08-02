@@ -3,7 +3,7 @@ command -v elapsed_time > /dev/null 2>&1 || source "$DOTFILES/zsh/functions/elap
 function log_start() {
     if [ ! -z "$___elapsed_time" ]; then
         key=$@
-        ___elapsed_time["$key"]=$(date +%s%N)
+        ___elapsed_time["$key"]=$(date +"%s%3N")
     fi
     $SHELL_DEBUG || return
     

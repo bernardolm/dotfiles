@@ -1,11 +1,9 @@
 log start "ohmyzsh"
 
-start=$(date +%s%N)
 # shellcheck source=/dev/null
 source "$DOTFILES/ohmyzsh/install"
-$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh install"
 
-start=$(date +%s%N)
+log start "ohmyzsh: zstyle"
 zstyle ':omz:lib:directories' aliases no
 zstyle ':omz:lib:docker-compose' aliases no
 zstyle ':omz:lib:docker' aliases no
@@ -13,15 +11,14 @@ zstyle ':omz:lib:git' aliases yes
 zstyle ':omz:lib:sudo' aliases mo
 zstyle ':omz:lib:theme-and-appearance' aliases no
 zstyle ':omz:update' mode disabled
-$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh zstyle"
+log finish "ohmyzsh: zstyle"
 
-start=$(date +%s%N)
+log start "ohmyzsh: loading plugins list"
 plugins=($(ohmyzsh_plugins_list))
-log debug "oh-my-zsh plugins loaded: $plugins"
-$SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh plugins list"
+log debug "ohmyzsh plugins loaded: $plugins"
+log finish "ohmyzsh: loading plugins list"
 
-# start=$(date +%s%N)
-log start "(source) ohmyzsh init script"
+log start "ohmyzsh: sourcing init script"
 # shellcheck source=/dev/null
 # ohmyzsh_xtrace_file="$HOME/tmp/oh-my-zsh_$(date +%Y%m%d_%H%M%S_%N).log"
 # exec 3>&2 2>$ohmyzsh_xtrace_file
@@ -31,7 +28,7 @@ source "${ZSH}/oh-my-zsh.sh"
 # exec 2>&3 3>&-
 # unset ohmyzsh_xtrace_file
 # $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh init script"
-log finish "(source) ohmyzsh init script"
+log finish "ohmyzsh: sourcing init script"
 
 unalias sudo 2>/dev/null
 

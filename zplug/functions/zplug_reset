@@ -1,10 +1,10 @@
 function zplug_reset() {
-    start=$(date +%s%N)
+    log start "zplug: reset"
     (zplug clean 2>/dev/null || true) \
         && (zplug clear 2>/dev/null || true) \
         && /bin/rm -rf $HOME/.zplug $HOME/.cache/zplug \
         && export ZPLUG_LOG_LOAD_SUCCESS=true \
         && export ZPLUG_LOG_LOAD_FAILURE=true \
         && export ZPLUG_VERBOSE="--verbose"
-    echo "$(elapsed_time $start) zplug_reset"
+    log finish "zplug: reset"
 }

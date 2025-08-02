@@ -2,33 +2,39 @@ log start "ohmyzsh install"
 
 if [ ! -d "$ZSH" ]; then
     SHELL_DEBUG=true $SHELL_DEBUG && \
-        log info "installing (downloading) oh-my-zsh"
+        log info "ohmyzsh install: installing (downloading) oh-my-zsh"
 
     curl -fsSL "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh" | \
         KEEP_ZSHRC=yes RUNZSH=no CHSH=no bash
 
-    log warn "change default shell to zsh? input password"
+    log warn "ohmyzsh install: change default shell to zsh? input password"
     chsh -s $(which zsh)
 fi
 
 if [ ! -h "$ZSH_CUSTOM/plugins/wakatime" ] \
     && [ -d "$ZPLUG_HOME/repos/sobolevn/wakatime-zsh-plugin" ]; then
-    log info "(sym) linking wakatime-zsh-plugin"
+
+    log info "ohmyzsh install: (sym) linking wakatime-zsh-plugin"
+    
     rm -rf "$ZSH_CUSTOM/plugins/wakatime" >/dev/null
+
     ln -sf "$ZPLUG_HOME/repos/sobolevn/wakatime-zsh-plugin" \
         "$ZSH_CUSTOM/plugins/wakatime"
 fi
 
 if [ ! -h "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] \
     && [ -d "$ZPLUG_HOME/repos/zsh-users/zsh-autosuggestions" ]; then
-    log info "(sym) linking zsh-autosuggestions"
+
+    log info "ohmyzsh install: (sym) linking zsh-autosuggestions"
+    
     rm -rf "$ZSH_CUSTOM/plugins/zsh-autosuggestions" >/dev/null
+    
     ln -sf "$ZPLUG_HOME/repos/zsh-users/zsh-autosuggestions" \
         "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
 
 if [ ! -h "$ZSH_CUSTOM//themes/spaceship-prompt" ]; then
-    log info "(sym) linking spaceship-prompt"
+    log info "ohmyzsh install: (sym) linking spaceship-prompt"
     
     git clone --quiet \
         https://github.com/spaceship-prompt/spaceship-prompt.git \

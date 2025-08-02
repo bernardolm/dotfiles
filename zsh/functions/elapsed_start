@@ -1,3 +1,0 @@
-function elapsed_start() {
-    date +%s%N
-}

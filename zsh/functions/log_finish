@@ -1,10 +1,13 @@
+
 function log_finish() {
+    [[ -z "$color_nc" ]] && source $DOTFILES/zsh/init.d/05_colors.zsh
+    
     key=$@
-    msg="🚥 $1 was finished "
+    msg="🚥 $1 ${color_gray}was finished${color_nc} "
     since=$___elapsed_time["$key"]
 
     if [[ ! -z "$since" ]] && command -v elapsed_time >/dev/null; then
-        msg+="⏱️ after "$(elapsed_time $since)
+        msg+="⏱️ took "$(elapsed_time $since)
     else
         now=$(date +"%H:%M:%S in %Y-%m-%d")
         msg+="⌚ at $now "
