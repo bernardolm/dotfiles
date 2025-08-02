@@ -49,6 +49,7 @@ _init_order=(
     "$DOTFILES/zsh/functions/elapsed_time"
     "$DOTFILES/zsh/functions/zsh_autoload_paths"
     "$DOTFILES/zsh/config/autoload"
+    "$DOTFILES/go/start"
     "$DOTFILES/ssh/start"
     "$DOTFILES/zplug/start"
     "$DOTFILES/ohmyzsh/start"
