@@ -2,10 +2,8 @@ log start "starship: start"
 
 . "$DOTFILES/starship/install"
 
-unset STARSHIP_CONFIG
-
-export STARSHIP_CACHE="$HOME/.cache/starship"
 export STARSHIP_CONFIG="$DOTFILES/starship/theme/starship.toml"
+export STARSHIP_CACHE="$HOME/.cache/starship"
 
 # $SHELL_TRACE && env STARSHIP_LOG=debug starship module rust
 # $SHELL_TRACE && env STARSHIP_LOG=debug starship timings
@@ -14,4 +12,3 @@ export STARSHIP_CONFIG="$DOTFILES/starship/theme/starship.toml"
 eval "$(starship init zsh)"
 
 log finish "starship: start"
-

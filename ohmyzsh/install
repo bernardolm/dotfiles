@@ -33,7 +33,7 @@ if [ ! -h "$ZSH_CUSTOM/plugins/zsh-autosuggestions" ] \
         "$ZSH_CUSTOM/plugins/zsh-autosuggestions"
 fi
 
-if [ ! -h "$ZSH_CUSTOM//themes/spaceship-prompt" ]; then
+if [ ! -d "$ZSH_CUSTOM/themes/spaceship-prompt" ]; then
     log info "ohmyzsh install: (sym) linking spaceship-prompt"
     
     git clone --quiet \

@@ -51,7 +51,7 @@ _init_order=(
     "$DOTFILES/zsh/config/autoload"
     "$DOTFILES/ssh/start"
     "$DOTFILES/zplug/start"
-    # "$DOTFILES/ohmyzsh/start"
+    "$DOTFILES/ohmyzsh/start"
     "$DOTFILES/starship/start"
     "$DOTFILES/zsh/aliases"
     "$DOTFILES/zsh/config/setopt"

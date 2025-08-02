@@ -3,6 +3,8 @@ log start "ohmyzsh"
 # shellcheck source=/dev/null
 source "$DOTFILES/ohmyzsh/install"
 
+export ZSH_THEME=""
+
 log start "ohmyzsh: zstyle"
 zstyle ':omz:lib:directories' aliases no
 zstyle ':omz:lib:docker-compose' aliases no
