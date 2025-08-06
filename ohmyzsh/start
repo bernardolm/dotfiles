@@ -29,7 +29,6 @@ source "${ZSH}/oh-my-zsh.sh"
 # unsetopt xtrace
 # exec 2>&3 3>&-
 # unset ohmyzsh_xtrace_file
-# $SHELL_DEBUG && echo "$(elapsed_time $start) ohmyzsh init script"
 log finish "ohmyzsh: sourcing init script"
 
 unalias sudo 2>/dev/null
