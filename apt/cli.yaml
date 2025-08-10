@@ -1,11 +1,13 @@
 add:
   - '^openssh'
   - apt-transport-https
+  - bat
   - bc
   - build-essential
   - colorized-logs
   - curl
   - dnsutils
+  - duf
   - exa # jammy
   - expect
   - fonts-emojione
