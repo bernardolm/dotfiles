@@ -1,24 +1,24 @@
 services:
 
-  nodejs:
+  node:
 
     build:
-      context: $DOTFILES/nodejs
-      dockerfile: $DOTFILES/nodejs/Dockerfile
+      context: $DOTFILES/node
+      dockerfile: $DOTFILES/node/Dockerfile
       args:
         - UID=$UID
+    image: bernardolm/node:latest
 
     command: ash
-    container_name: nodejs
+    container_name: node
     env_file:
-      - $DOTFILES/nodejs/.env
+      - $DOTFILES/node/.env
     environment:
       TZ: America/Sao_Paulo
-    image: bernardolm/nodejs:latest
     stdin_open: true
     tty: true
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
-      - /mnt/data/docker-volumes/nodejs:/home/node
+      - /mnt/data/docker-volumes/node:/home/node
       - ${PWD}:/home/node/app

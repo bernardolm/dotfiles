@@ -1,0 +1,8 @@
+function node() {
+	COMPOSE_BAKE=true \
+	docker compose \
+		-f $DOTFILES/node/docker-compose.yml \
+		run --rm --remove-orphans \
+		node \
+		$@
+}

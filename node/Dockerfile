@@ -11,9 +11,12 @@ RUN addgroup -S -g $UID $USER && \
     -g $USER $USER && \
     chown -R $USER:$USER /home/$USER && \
     chmod -R ugo+rwX /home/$USER
-    
-WORKDIR /home/$USER/app
 
-RUN npm --loglevel=verbose install -g @google/gemini-cli
+RUN npm --loglevel=verbose install -g \
+    npm@11.5.2 \
+    @google/gemini-cli \
+    tldr
+
+WORKDIR /home/$USER/app
 
 USER $USER
