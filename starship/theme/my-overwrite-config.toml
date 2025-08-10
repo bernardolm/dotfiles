@@ -1,6 +1,19 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# Inserts a blank line between shell prompts
+# add_newline = true
+
+# Timeout for commands executed by starship (in milliseconds).
+# command_timeout = 3600000
+
+# Ignore global command_timeout setting and keep running external commands, no matter how long they take.
+ignore_timeout = true
+
+# Timeout for starship to scan files (in milliseconds).
+scan_timeout = 2000
+
+
 # [character]
 # format = 'out $symbol'
 # success_symbol = "🥳  "

@@ -1,6 +1,20 @@
 # Get editor completions based on the config schema
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# Inserts a blank line between shell prompts
+add_newline = false
+
+# Timeout for commands executed by starship (in milliseconds).
+command_timeout = 60000
+
+# Ignore global command_timeout setting and keep running external commands, no matter how long they take.
+# ignore_timeout = true
+
+# Timeout for starship to scan files (in milliseconds).
+# scan_timeout = 2000
+
+# ----------------------------------------------------------------------------------------------
+
 # Sets user-defined palette
 # Palettes must be defined _after_ this line
 palette = "adamdehaven"
