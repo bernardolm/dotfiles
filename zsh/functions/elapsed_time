@@ -8,9 +8,9 @@ function elapsed_time() {
     local m=$(((d_s / 60) % 60))
     local h=$((d_s / 3600))
 
-    if ((ms <= 350)); then return; fi
+    if ((ms <= 500)); then return; fi # no need to log everything
 
-    if ((ms < 0)); then ms=0 fi
+    if ((ms < 0)); then ms=0 fi # that doesn't exist
 
     if ((h > 0)); then elapsed="$color_red${h}h ${m}m ${s}s ${ms}ms$color_nc 🐢"
     elif ((m > 0)); then elapsed="$color_light_red${m}m ${s}s ${ms}ms$color_nc 🐢"

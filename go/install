@@ -1,4 +1,4 @@
-mv $DOTFILES/zsh/zdotdir $DOTFILES/zsh/zdotdir.bkp
+# mv $DOTFILES/zsh/zdotdir $DOTFILES/zsh/zdotdir.bkp
 
 export ZSH_NO_RCS=1
 
@@ -6,4 +6,4 @@ curl -sL https://raw.githubusercontent.com/udhos/update-golang/refs/heads/master
 
 unset ZSH_NO_RCS
 
-mv $DOTFILES/zsh/zdotdir.bkp $DOTFILES/zsh/zdotdir
+# mv $DOTFILES/zsh/zdotdir.bkp $DOTFILES/zsh/zdotdir
