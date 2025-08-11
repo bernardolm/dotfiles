@@ -1,8 +1,11 @@
-# zstyle ':omz:plugins:docker' legacy-completion yes
+zstyle ':omz:plugins:docker' legacy-completion yes
+
 zstyle ':completion:*:*:docker-*:*' option-stacking yes
 zstyle ':completion:*:*:docker:*' option-stacking yes
-zstyle ':completion:*' menu select
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*' menu select yes=long
 zstyle ':completion:*' verbose yes
+
 zstyle ':omz:plugins:alias-finder' autoload yes
 zstyle ':omz:plugins:alias-finder' cheaper yes
 zstyle ':omz:plugins:alias-finder' exact yes
