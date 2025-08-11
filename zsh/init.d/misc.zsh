@@ -4,4 +4,6 @@ $SHELL_DEBUG && localectl status 1>/dev/null
 
 bindkey "^s" emoji::cli
 
-unalias duf
+if alias duf >/dev/null 2>&1; then
+  unalias duf
+fi
