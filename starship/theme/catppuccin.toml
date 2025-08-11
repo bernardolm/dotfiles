@@ -13,11 +13,26 @@ command_timeout = 60000
 # Timeout for starship to scan files (in milliseconds).
 # scan_timeout = 2000
 
-# ----------------------------------------------------------------------------------------------
+format = '$line_break$all'
 
 # Sets user-defined palette
 # Palettes must be defined _after_ this line
 palette = "adamdehaven"
+
+[line_break]
+disabled = false
+
+[aws]
+disabled = true
+
+[gcloud]
+disabled = true
+
+# ----------------------------------------------------------------------------------------------
+
+# Sets user-defined palette
+# Palettes must be defined _after_ this line
+# palette = "adamdehaven"
 
 # Starship modules
 [character]
@@ -173,9 +188,3 @@ surface0 = "#363a4f"
 base = "#24273a"
 mantle = "#1e2030"
 crust = "#181926"
-
-[aws]
-disabled = true
-
-[gcloud]
-disabled = true

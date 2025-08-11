@@ -4,12 +4,12 @@ alias cat='batcat --show-all --number --force-colorization --theme=gruvbox-dark'
 alias cm="code-my"
 alias code-adc="code ~/sync/linux/adc.code-workspace"
 alias code-my="code ~/sync/linux/my.code-workspace"
-alias config='/usr/bin/git --git-dir=/home/bernardo/.dotfiles/ --work-tree=/home/bernardo'
 alias dclsa='docker container ls -a --format "table {{.Names}}\t{{.State}}\t{{.RunningFor}}\t{{.Ports}}" | tail -n+2 | sort'
 alias dcr='docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up --remove-orphans'
 alias dcrd='docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up -d --remove-orphans'
 alias df='duf'
 alias dim='docker images -a'
+alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias drm='docker_container_remove'
 alias errors='journalctl -b -p err | less'
 alias frm='/bin/rm -rf'
