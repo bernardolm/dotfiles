@@ -1,1 +1,1 @@
-docker run --rm -v "$HOME/sync/shared/fonts/NovaMono:/in:Z" -v "$HOME/sync/shared/fonts/patched:/out:Z" -e "PN=10" nerdfonts/patcher -c -ext ttf
+docker run --rm -v "$HOME/sync/shared/fonts/nerd_in:/in:Z" -v "$HOME/sync/shared/fonts/nerd_out:/out:Z" -e "PN=1" nerdfonts/patcher --debug=2 --complete --dry --progressbars -ext ttf
