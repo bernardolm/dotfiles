@@ -17,7 +17,7 @@ function extract() {
             *.tgz)      tar -zxvf $1                        ;;
             *.zip)      unzip $1                            ;;
             *.ZIP)      unzip $1                            ;;
-            *.pax)      cat $1 | pax -r                     ;;
+            *.pax)      /bin/cat $1 | pax -r                     ;;
             *.pax.Z)    uncompress $1 --stdout | pax -r     ;;
             *.rar)      unrar x $1                          ;;
             *.Z)        uncompress $1                       ;;

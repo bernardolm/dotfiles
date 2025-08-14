@@ -2,8 +2,10 @@
 
 log start "install apt"
 
-. "$DOTFILES/apt/functions/apt_list_absent_pub_key" ; apt_list_absent_pub_key
-. "$DOTFILES/apt/functions/apt_recovery_pub_keys" ; apt_recovery_pub_keys
+# . "$DOTFILES/apt/functions/apt_list_absent_pub_key" ; apt_list_absent_pub_key
+apt_list_absent_pub_key
+# . "$DOTFILES/apt/functions/apt_recovery_pub_keys" ; apt_recovery_pub_keys
+apt_recovery_pub_keys
 
 sudo apt update                                 # uncomment to commit
 sudo apt upgrade --yes --no-install-recommends  # uncomment to commit
@@ -11,17 +13,17 @@ sudo apt upgrade --yes --no-install-recommends  # uncomment to commit
 command -v yq >/dev/null || sudo apt install --yes --no-install-recommends yq
 
 sudo apt-get install --yes --no-install-recommends \
-	$(cat "$DOTFILES/apt/cli.yaml" \
+	$(/bin/cat "$DOTFILES/apt/cli.yaml" \
 		| grep -v '\s+#' \
 		| yq '.add.[]' \
 		| tr '\n' ' ' \
 		| tr '"' ' ')
 
 # sudo apt-get purge \
-# 	$(cat $DOTFILES/apt/cli.yaml | grep -v '\s+#' | yq '.remove.[]' | tr '\n' ' ' | tr '"' ' ')
+# 	$(/bin/cat $DOTFILES/apt/cli.yaml | grep -v '\s+#' | yq '.remove.[]' | tr '\n' ' ' | tr '"' ' ')
 
 # sudo apt-get install --yes --no-install-recommends \
-# 	$(cat $DOTFILES/apt/cli.yaml | grep -v '\s+#' | yq '.3rd-party.[]' | tr '\n' ' ' | tr '"' ' ')
+# 	$(/bin/cat $DOTFILES/apt/cli.yaml | grep -v '\s+#' | yq '.3rd-party.[]' | tr '\n' ' ' | tr '"' ' ')
 
 sudo apt-get autoremove --purge
 

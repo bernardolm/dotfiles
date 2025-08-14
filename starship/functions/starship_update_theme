@@ -1,11 +1,11 @@
 function starship_update_theme() {
     local root="$DOTFILES/starship/theme/"
 
-    cat ${root}/base_theme.toml > ${root}/starship.toml
+    /bin/cat ${root}/base_theme.toml > ${root}/starship.toml
 
     echo "\n\n\n\n" >> ${root}/starship.toml
 
     starship_update_nerd_font
 
-    cat ${root}/starship.nerd-font-symbols.toml >> ${root}/starship.toml
+    /bin/cat ${root}/starship.nerd-font-symbols.toml >> ${root}/starship.toml
 }

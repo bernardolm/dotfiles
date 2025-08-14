@@ -5,7 +5,7 @@ zsh_history_target="$HOME/.zsh_history"
 
 function zsh_history_merge() {
     [ "$1" = "${zsh_history_source}" ] && return
-    cat "$1" >> "${zsh_history_source}"
+    /bin/cat "$1" >> "${zsh_history_source}"
     /bin/rm -f "$1"
 
     lines_after=$(wc -l "${zsh_history_source}" | awk '{print $1}')
@@ -13,7 +13,7 @@ function zsh_history_merge() {
 }
 
 function zsh_history_uniq() {
-    cat "${zsh_history_source}" | sort | uniq >> "${zsh_history_source}.new"
+    /bin/cat "${zsh_history_source}" | sort | uniq >> "${zsh_history_source}.new"
     /bin/rm -f "${zsh_history_source}"
     mv -f "${zsh_history_source}.new" "${zsh_history_source}"
 
