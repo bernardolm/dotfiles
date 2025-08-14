@@ -1,11 +1,10 @@
-command -v elapsed_time > /dev/null 2>&1 || source "$DOTFILES/zsh/functions/elapsed_time"
+source_func $DOTFILES/zsh/functions/elapsed_time
 
 function log_start() {
-    if [ ! -z "$___elapsed_time" ]; then
-        key=$@
-        ___elapsed_time["$key"]=$(date +"%s%3N")
-    fi
-    $SHELL_DEBUG || return
-    
-    log_echo "🚥 starting $@ "
+	elapsed_time_set "$@"
+
+	(set +m ; log_waiting "$@" & ; set -m)
+
+	$SHELL_DEBUG \
+    && log_echo "🚥 starting $@"
 }

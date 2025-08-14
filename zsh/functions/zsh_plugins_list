@@ -1,3 +1,5 @@
+source_func $DOTFILES/zsh/functions/plugins_list
+
 function zsh_plugins_list() {
-    plugins_list "$DOTFILES/zsh/plugins.txt"
+  plugins_list "$DOTFILES/zsh/plugins.txt"
 }

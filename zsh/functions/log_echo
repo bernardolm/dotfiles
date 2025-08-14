@@ -1,44 +1,42 @@
+
 function log_echo() {
-    local fn_called
-    fn_called="$0"
+	local fn_called="$0"
+	local msg="$1"
 
-    local msg
-    msg="$1"
+	local loutput=0
+	local lcaller=0
+	local rpad=0
+	local space=""
+	local _caller=""
+	local _caller_end=""
+	local cols=$(tput cols)
 
-    local loutput=0
-    local lcaller=0
-    local rpad=0
-    local space=""
-    local _caller=""
-    local _caller_end=""
-    local cols=$(tput cols)
+	$SHELL_TRACE && _caller=$(caller)
 
-    $SHELL_TRACE && _caller=$(caller)
+	local output=$msg
 
-    local output=$msg
+	if ! which ansi2txt &>/dev/null; then
+		echo -e "${CLR_BG_RED} you need to install colorized-logs package: ${NO_COLOR}"
+		echo -e "${CLR_BG_RED} sudo apt-get install --no-install-recommends --yes colorized-logs ${NO_COLOR}"
+		function ansi2txt() {
+			echo $@
+		}
+	fi
 
-    if ! which ansi2txt &>/dev/null; then
-        echo -e "${CLR_BG_RED} you need to install colorized-logs package: ${NO_COLOR}"
-        echo -e "${CLR_BG_RED} sudo apt-get install --no-install-recommends --yes colorized-logs ${NO_COLOR}"
-        function ansi2txt() {
-            echo $@
-        }
-    fi
+	if [[ $cols -ge 80 ]]; then
+		loutput=$(echo " +++ ${output}" | ansi2txt | wc -L)
 
-    if [[ $cols -ge 80 ]]; then
-        loutput=$(echo " +++ ${output}" | ansi2txt | wc -L)
+		if [[ $loutput -gt $cols ]]; then
+			loutput=$(($loutput-$cols))
+		fi
 
-        if [[ $loutput -gt $cols ]]; then
-            loutput=$(($loutput-$cols))
-        fi
+		rpad=$(($cols-$loutput))
+		lcaller=$(echo "  ---  ${_caller}" | ansi2txt | wc -L)
+		rpad=$(($rpad-$lcaller))
+		if [[ "$fn_called" =~ "zsh" ]]; then
+			space=${(l:$rpad:: :)}
+		fi
+	fi
 
-        rpad=$(($cols-$loutput))
-        lcaller=$(echo "  ---  ${_caller}" | ansi2txt | wc -L)
-        rpad=$(($rpad-$lcaller))
-        if [[ "$fn_called" =~ "zsh" ]]; then
-            space=${(l:$rpad:: :)}
-        fi
-    fi
-
-    echo -e ${output}${space}${_caller}${_caller_end}
+	echo -e ${output}${space}${_caller}${_caller_end}
 }

@@ -8,7 +8,10 @@ log start "zplug: start"
 #     && zplug_reset
 
 # shellcheck source=/dev/null
-. "$DOTFILES/zplug/install"
+source "$DOTFILES/zplug/install"
+
+source_func $DOTFILES/zsh/functions/zsh_plugins_list
+source_func $DOTFILES/zsh/functions/zsh_completions_list
 
 log start "zplug: waiting and sourcing init script"
 while true; do

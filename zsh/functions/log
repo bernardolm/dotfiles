@@ -1,21 +1,23 @@
+# echo iterating
+for f in $DOTFILES/zsh/functions/log_*; do
+	# echo $f
+	source_func "$f"
+done
+# echo done iterating
+source_func $DOTFILES/zsh/functions/caller
+
 function log() {
-    local level=$1
+  local level="$1"
 
-    local silenced_levels=("debug" "env")
+	local silenced_levels=("debug" "env")
 
-    if [ ! "$SHELL_DEBUG" = "true" ]; then
-        if [[ ${silenced_levels[@]} =~ $level ]]; then
-            return
-        fi
-    fi
+	if [ ! "$SHELL_DEBUG" = "true" ]; then
+		if [[ ${silenced_levels[@]} =~ $level ]]; then
+			return
+		fi
+	fi
 
-    shift
+	shift
 
-    . "$DOTFILES/zsh/functions/caller"
-
-    for f in $(find "$DOTFILES/zsh/functions" -name "log_*"); do
-        [[ -f $f ]] && source -- "$f"
-    done
-
-    eval "log_$level '$@'"
+	eval "log_$level '$@'"
 }

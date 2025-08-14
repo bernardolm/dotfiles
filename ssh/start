@@ -4,7 +4,7 @@
 
 log start "ssh: start"
 
-for f in $DOTFILES/ssh/functions/*; do source "$f"; done
+for f in $DOTFILES/ssh/functions/*; do source_func "$f"; done
 
 log env SSH_AUTH_SOCK
 log env SSH_AGENT_PID

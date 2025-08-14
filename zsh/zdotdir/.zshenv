@@ -1,3 +1,6 @@
+reset
+set -e
+
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
@@ -6,7 +9,7 @@ esac
 (( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs && return
 
 $SHELL_DEBUG && echo ".zshenv"
-echo "🤖 you \"$(whoami)\" are in \"$(hostname)\" at \"$(hostname -I)\""
+echo "🤖 you \"$(whoami)\" are in \"$(hostname)\" at \"$(hostname -I | cut -d' ' -f1)\""
 
 export BUILDKIT_STEP_LOG_MAX_SIZE ; BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED ; BUILDKIT_STEP_LOG_MAX_SPEED=-1
@@ -76,6 +79,7 @@ export ZSH_CUSTOM ; ZSH_CUSTOM="$ZSH/custom"
 export ZSH_REPOS ; ZSH_REPOS="$HOME/.zsh"
 
 export DONE_FILE ; DONE_FILE="$HOME/sync/linux/todo-txt/done.txt"
+export ELAPSED_TIME_ROOT ; ELAPSED_TIME_ROOT="$USER_TMP/elapsed_time"
 export REPORT_FILE ; REPORT_FILE="$HOME/sync/linux/todo-txt/report.txt"
 export TODO_DIR ; TODO_DIR="$DOTFILES/todo-txt"
 export TODO_FILE ; TODO_FILE="$HOME/sync/linux/todo-txt/todo.txt"
@@ -94,21 +98,20 @@ fi
 export WORKSPACE_ORG ; WORKSPACE_ORG="$HOME/workspaces/$GITHUB_ORG"
 export WORKSPACE_USER ; WORKSPACE_USER="$HOME/workspaces/$GITHUB_USER"
 
-export PATH
-PATH="$PATH:/bin"
-PATH="$PATH:/home/linuxbrew/.linuxbrew/bin"
-PATH="$PATH:/mnt/c/WINDOWS/system32"
-PATH="$PATH:/snap/bin"
-PATH="$PATH:/usr/bin"
-PATH="$PATH:/usr/local/bin"
-PATH="$PATH:/usr/local/go/bin"
-PATH="$PATH:/usr/local/java/jre/bin"
-PATH="$PATH:$DOTFILES/bin"
-PATH="$PATH:$HOME/.cargo/bin"
-PATH="$PATH:$HOME/.local/bin"
-PATH="$PATH:$HOME/bin"
-PATH="$PATH:$HOME/gopath/bin"
-PATH="$PATH:$HOME/sync/linux/bin"
+PATH+=":/bin"
+PATH+=":/home/linuxbrew/.linuxbrew/bin"
+PATH+=":/mnt/c/WINDOWS/system32"
+PATH+=":/snap/bin"
+PATH+=":/usr/bin"
+PATH+=":/usr/local/bin"
+PATH+=":/usr/local/go/bin"
+PATH+=":/usr/local/java/jre/bin"
+PATH+=":$DOTFILES/bin"
+PATH+=":$HOME/.cargo/bin"
+PATH+=":$HOME/.local/bin"
+PATH+=":$HOME/bin"
+PATH+=":$HOME/gopath/bin"
+PATH+=":$HOME/sync/linux/bin"
 
 if [[ $(grep -i Microsoft /proc/version) ]]; then
     export WSL_SYSTEM ; WSL_SYSTEM=true

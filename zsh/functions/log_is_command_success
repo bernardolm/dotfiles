@@ -1,3 +1,4 @@
+
 function log_is_command_success() {
 	if [ $? -eq 0 ]; then
 		echo "${CLR_BG_GREEN}➿ 😉${NO_COLOR}"

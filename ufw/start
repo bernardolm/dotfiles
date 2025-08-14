@@ -1,1 +1,1 @@
-source "$DOTFILES/ufw/functions/ufw_start" ; ufw_start
+source_func "$DOTFILES/ufw/functions/ufw_start" ; ufw_start

@@ -1,21 +1,27 @@
+source $DOTFILES/zsh/init.d/05_colors.zsh
 
 function log_finish() {
-    [[ -z "$color_nc" ]] && source $DOTFILES/zsh/init.d/05_colors.zsh
+	local key=$@
+	local val=$(elapsed_time_get "$key")
 
-    key=$@
-    msg="🚥 $1 ${color_gray}was finished${color_nc} "
-    since=$___elapsed_time["$key"]
+	local msg="🚥 $1 ${color_gray}was finished${color_nc} "
+	local msg_suffix=""
 
-    if [[ ! -z "$since" ]] && command -v elapsed_time >/dev/null; then
-        result=$(elapsed_time $since)
-        if [ -z "$result" ]; then
-            return
-        fi
-        msg+="⏱️ took "$(elapsed_time $since)
-    else
-        now=$(date +"%H:%M:%S in %Y-%m-%d")
-        msg+="⌚ at $now "
-    fi
+	if [[ ! -z "$val" ]]; then
+		local result=$(elapsed_time $val)
+		if [ ! -z "$result" ]; then
+			msg_suffix+="⏱️ took $result"
+		fi
 
-    log_echo $msg
+	else
+		local now=$(date +"%H:%M:%S in %Y-%m-%d")
+		msg_suffix="⌚ at $now "
+
+	fi
+
+	elapsed_time_del "$key"
+
+	if [ ! -z "$msg_suffix" ]; then
+		log_echo "$msg$msg_suffix"
+	fi
 }

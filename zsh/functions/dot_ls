@@ -1,3 +1,4 @@
+
 function dot_ls() {
   if [[ "$#" -eq 0 ]]; then
     (cd /

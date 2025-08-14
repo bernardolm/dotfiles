@@ -1,6 +1,7 @@
+
 function log_env() {
-    [ -z "${pattern}" ] && return 0
-    local pattern="^$1=.*"
-    local result=$(printenv | grep -E "${pattern}")
-    log_echo "${CLR_BG_GREY} ${result} ${NO_COLOR}"
+	[ -z "${pattern}" ] && return 0
+	local pattern="^$1=.*"
+	local result=$(printenv | grep -E "${pattern}")
+	log_echo "${CLR_BG_GREY} ${result} ${NO_COLOR}"
 }

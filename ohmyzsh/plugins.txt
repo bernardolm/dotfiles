@@ -1,4 +1,3 @@
-
 colored-man-pages
 colorize # needs: go install github.com/alecthomas/chroma/v2@latest
 command-not-found

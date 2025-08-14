@@ -1,22 +1,22 @@
+set -e
+
 # profiling shell
+now=$(date +"%Y%m%d_%H%M%S_%3N")
+
 if $SHELL_PROFILE; then
-    now=$(date +"%Y%m%d_%H%M%S_%3N")
-    zmodload zsh/zprof
-    $SHELL_DEBUG && echo "a zsh profile was started"
+	zmodload zsh/zprof
+	$SHELL_DEBUG && echo "a zsh profile was started"
 fi
 
-declare -gA ___elapsed_time
-export ___elapsed_time
-___elapsed_time["started"]=true
-
-disable log &>/dev/null && function log() {
-    for f in "$DOTFILES"/zsh/functions/log*; do
-        # shellcheck source=/dev/null
-        . "$f"
-    done
-    # shellcheck disable=SC2294
-    eval log "$@"
+export source_func
+function source_func() {
+  if ! ( command -v $(basename "$@") >/dev/null ) ; then
+		source "$@"
+	fi
 }
+
+disable log &>/dev/null
+source_func $DOTFILES/zsh/functions/log
 
 log start "zsh start"
 
@@ -50,7 +50,7 @@ _init_order=(
     "$DOTFILES/zsh/functions/zsh_autoload_paths"
     "$DOTFILES/zsh/config/autoload"
     "$DOTFILES/go/start"
-    "$DOTFILES/ssh/start"
+    # "$DOTFILES/ssh/start"
     "$DOTFILES/zplug/start"
     "$DOTFILES/ohmyzsh/start"
     "$DOTFILES/starship/start"
@@ -74,5 +74,7 @@ if $SHELL_PROFILE; then
     zprof > "$shell_profile_file"
     echo "a log profile file as created here $shell_profile_file"
 fi
+
+source "$DOTFILES/ssh/start"
 
 log finish "zsh start"

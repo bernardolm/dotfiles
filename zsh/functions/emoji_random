@@ -1,5 +1,8 @@
 function emoji_random() {
-    local SELECTED_EMOJIS=(
+  local list=("$@")
+
+  if [ -z "$list" ]; then
+    list=(
         💩
         🐦
         🚀
@@ -32,8 +35,9 @@ function emoji_random() {
         🐓
         🍄
     )
+  fi
 
-    local index=$(($RANDOM%${#SELECTED_EMOJIS[@]}+1))
+    local index=$(($RANDOM%${#list[@]}+1))
 
-    echo -n ${SELECTED_EMOJIS[$index]}
+    echo -n ${list[$index]}
 }

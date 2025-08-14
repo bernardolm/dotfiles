@@ -2,13 +2,13 @@ function ohmyzsh_start_plugins_duration() {
     # 1.000.000 ns = 1 ms
     for plugin ($plugins); do
         log start "ohmyzsh: loading $plugin plugin"
-        
+
         if [ -f "${ZSH_CUSTOM}/plugins/$plugin/$plugin.plugin.zsh" ]; then
-            source "${ZSH_CUSTOM}/plugins/$plugin/$plugin.plugin.zsh"
+            source_func "${ZSH_CUSTOM}/plugins/$plugin/$plugin.plugin.zsh"
         elif [ -f "${ZSH_REPOS}/plugins/$plugin/$plugin.plugin.zsh" ]; then
-            source "${ZSH_REPOS}/plugins/$plugin/$plugin.plugin.zsh"
+            source_func "${ZSH_REPOS}/plugins/$plugin/$plugin.plugin.zsh"
         fi
-        
+
         log finish "ohmyzsh: loading $plugin plugin"
     done
 }

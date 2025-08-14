@@ -1,0 +1,10 @@
+source_func $DOTFILES/zsh/functions/slugify
+
+function elapsed_time_set() {
+	local key=$(slugify "$@")
+	local file_path="$ELAPSED_TIME_ROOT/$key"
+
+	mkdir -p "$ELAPSED_TIME_ROOT" >/dev/null
+
+	echo $(date +"%s%3N") > "$file_path"
+}

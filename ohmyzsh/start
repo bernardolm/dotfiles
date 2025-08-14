@@ -2,6 +2,7 @@ log start "ohmyzsh"
 
 # shellcheck source=/dev/null
 source "$DOTFILES/ohmyzsh/install"
+source_func $DOTFILES/ohmyzsh/functions/ohmyzsh_plugins_list
 
 export ZSH_THEME=""
 
