@@ -10,7 +10,9 @@ set -e
 		typeset -TUg +x FPATH=$funcs:$FPATH fpath
 
 		if [[ -d $funcs ]]; then
-			echo "> autoloading $funcs"
+			if [ -z "$(ls -A $funcs)" ]; then
+				continue
+			fi
 			autoload -Uz ${=$(cd "$funcs" && echo *)} 1>/dev/null || true
 		fi
 	done
