@@ -1,10 +1,3 @@
-# echo iterating
-for f in $DOTFILES/zsh/functions/log_*; do
-	# echo $f
-	source_func "$f"
-done
-# echo done iterating
-source_func $DOTFILES/zsh/functions/caller
 
 function log() {
   local level="$1"

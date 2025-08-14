@@ -1,5 +1,4 @@
 source $DOTFILES/zsh/init.d/05_colors.zsh
-source_func $DOTFILES/zsh/functions/emoji_random
 
 function log_waiting() {
 	local key=$@

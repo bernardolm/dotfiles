@@ -1,6 +1,19 @@
-_fpaths=(
-    "$HOME/sync/linux/**/functions"
-    "$DOTFILES/**/functions"
-)
+set -e
 
-zsh_autoload_paths $_fpaths || (echo 'autoload panic!' && exit 1)
+() {
+	local my_fpath=(
+		$(eval echo $HOME/sync/linux/**/functions)
+		$(eval echo $DOTFILES/**/functions)
+	)
+
+	for funcs in "$my_fpath[@]"; do
+		typeset -TUg +x FPATH=$funcs:$FPATH fpath
+
+		if [[ -d $funcs ]]; then
+			echo "> autoloading $funcs"
+			autoload -Uz ${=$(cd "$funcs" && echo *)} 1>/dev/null || true
+		fi
+	done
+}
+
+set +e

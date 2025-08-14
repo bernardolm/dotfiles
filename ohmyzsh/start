@@ -2,7 +2,6 @@ log start "ohmyzsh"
 
 # shellcheck source=/dev/null
 source "$DOTFILES/ohmyzsh/install"
-source_func $DOTFILES/ohmyzsh/functions/ohmyzsh_plugins_list
 
 export ZSH_THEME=""
 
@@ -17,7 +16,8 @@ zstyle ':omz:update' mode disabled
 log finish "ohmyzsh: zstyle"
 
 log start "ohmyzsh: loading plugins list"
-plugins=($(ohmyzsh_plugins_list))
+list=$(plugins_list $DOTFILES/ohmyzsh/plugins.txt)
+plugins+=(${(s: :)list})
 log debug "ohmyzsh plugins loaded: $plugins"
 log finish "ohmyzsh: loading plugins list"
 

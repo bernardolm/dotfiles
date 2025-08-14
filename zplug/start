@@ -10,9 +10,6 @@ log start "zplug: start"
 # shellcheck source=/dev/null
 source "$DOTFILES/zplug/install"
 
-source_func $DOTFILES/zsh/functions/zsh_plugins_list
-source_func $DOTFILES/zsh/functions/zsh_completions_list
-
 log start "zplug: waiting and sourcing init script"
 while true; do
     if [ -f "${ZPLUG_HOME}/init.zsh" ]; then
@@ -27,8 +24,12 @@ done
 log finish "zplug: waiting and sourcing init script"
 
 log start "zplug: loading plugins list"
-to_load=($(zsh_plugins_list) $(zsh_completions_list))
-for p in $to_load; do
+to_load=()
+list=$(plugins_list $DOTFILES/zsh/plugins.txt)
+to_load+=(${(s: :)list})
+list=$(plugins_list $DOTFILES/zsh/completions.txt)
+to_load+=(${(s: :)list})
+for p in "$to_load[@]"; do
     log debug "zplug: $p"
     zplug "$p"
 done

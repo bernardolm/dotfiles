@@ -1,4 +1,3 @@
-source_func $DOTFILES/zsh/functions/slugify
 
 function elapsed_time_del() {
 	local key=$(slugify "$@")

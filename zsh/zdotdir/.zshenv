@@ -11,6 +11,10 @@ esac
 $SHELL_DEBUG && echo ".zshenv"
 echo "🤖 you \"$(whoami)\" are in \"$(hostname)\" at \"$(hostname -I | cut -d' ' -f1)\""
 
+export SHELL_DEBUG ; SHELL_DEBUG=false
+export SHELL_PROFILE ; SHELL_PROFILE=false
+export SHELL_TRACE ; SHELL_TRACE=false
+
 export BUILDKIT_STEP_LOG_MAX_SIZE ; BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED ; BUILDKIT_STEP_LOG_MAX_SPEED=-1
 export CASE_SENSITIVE ; CASE_SENSITIVE=false
@@ -46,9 +50,6 @@ export NO_COLOR ; NO_COLOR="\e[0m"
 export PAGER ; PAGER="less"
 export POWERLINE_ROOT ; POWERLINE_ROOT="$HOME/.local/lib/python3.11/site-packages/powerline"
 export SAVEHIST ; SAVEHIST=999999
-export SHELL_DEBUG ; SHELL_DEBUG=false
-export SHELL_PROFILE ; SHELL_PROFILE=false
-export SHELL_TRACE ; SHELL_TRACE=false
 export SPACESHIP_EXEC_TIME_SHOW ; SPACESHIP_EXEC_TIME_SHOW=false
 export SSH_AGENT_PID ; SSH_AGENT_PID=-1
 export TERM ; TERM="xterm-256color"
