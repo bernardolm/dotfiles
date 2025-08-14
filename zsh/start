@@ -67,3 +67,5 @@ fi
 source "$DOTFILES/ssh/start"
 
 log finish "zsh start"
+
+set +e
