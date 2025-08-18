@@ -4,14 +4,16 @@ set -e
 now=$(date +"%Y%m%d_%H%M%S_%3N")
 
 if $SHELL_PROFILE; then
-	zmodload zsh/zprof
-	$SHELL_DEBUG && echo "a zsh profile was started"
+  zmodload zsh/zprof
+  $SHELL_DEBUG && echo "a zsh profile was started"
 fi
 
 disable log &>/dev/null
 source $DOTFILES/zsh/config/autoload
 
 log start "zsh start"
+
+source "$DOTFILES/ssh/start"
 
 # TODO: move to top zdotfile
 # export SCRIPT_PATH="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
@@ -63,8 +65,6 @@ if $SHELL_PROFILE; then
     zprof > "$shell_profile_file"
     echo "a log profile file as created here $shell_profile_file"
 fi
-
-source "$DOTFILES/ssh/start"
 
 log finish "zsh start"
 

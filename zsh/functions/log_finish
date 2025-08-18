@@ -1,8 +1,7 @@
 source $DOTFILES/zsh/init.d/05_colors.zsh
 
 function log_finish() {
-	local key=$@
-	local val=$(elapsed_time_get "$key")
+	local val=$(elapsed_time_get "$@")
 
 	local msg="🚥 $1 ${color_gray}was finished${color_nc} "
 	local msg_suffix=""
@@ -19,7 +18,7 @@ function log_finish() {
 
 	fi
 
-	elapsed_time_del "$key"
+	elapsed_time_del "$@"
 
 	if [ ! -z "$msg_suffix" ]; then
 		log_echo "$msg$msg_suffix"

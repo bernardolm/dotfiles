@@ -1,21 +1,19 @@
 source $DOTFILES/zsh/init.d/05_colors.zsh
 
 function log_waiting() {
-	local key=$@
 	local max=10
-	local val=$(elapsed_time_get "$key")
-	local wait_time=5s
+	local wait_time=7s
 
 	while true; do
 		sleep $wait_time
 
-		val=$(elapsed_time_get "$key")
+		local val=$(elapsed_time_get "$@")
 		[ "$val" = "" ] && break
 
 		max=$(expr $max - 1)
 		[ "$max" -le 0 ] && break
 
 		emoji=$(emoji_random 🦥 😴 💤 🥱)
-		log_echo "   $1 ${color_gray}still running${color_nc} $emoji"
+		log_echo "   $@ ${color_gray}is taking too long to load${color_nc} $emoji"
 	done
 }
