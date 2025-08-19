@@ -27,4 +27,4 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /etc/timezone:/etc/timezone:ro
       - /mnt/data/docker-volumes/maestral:/dropbox
-      - $HOME/Dropbox:/dropbox/Dropbox
+      - $HOME/sync:/dropbox/Dropbox

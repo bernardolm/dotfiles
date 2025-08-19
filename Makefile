@@ -21,7 +21,7 @@ test: reset
 		-e SYNC_DOTFILES=/home/${USER}/sync \
 		-e USER=${USER} \
 		-v /etc/apt/sources.list:/etc/apt/sources.list:ro \
-		-v ${HOME}/Dropbox:/home/${USER}/Dropbox:ro \
+		-v ${HOME}/sync:/home/${USER}/sync:ro \
 		-v ${PWD}:/home/${USER}/dotfiles:ro \
 		-v ${PWD}/.git:/home/${USER}/dotfiles/.git \
 		-v ${PWD}/git/modules:/home/${USER}/dotfiles/git/modules \
