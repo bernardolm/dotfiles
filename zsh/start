@@ -37,6 +37,16 @@ find -L "$HOME/sync/linux" -maxdepth 3 -type f -path '*/init.d/*' | sort \
   | while IFS="" read -r line; do init_d+=("$line"); done
 log finish "zsh start: adding sync init.d files"
 
+log start "zsh start: adding dotfiles aliases files"
+find -L "$HOME/sync/linux" -maxdepth 3 -type f -name 'aliases' | sort \
+  | while IFS="" read -r line; do init_d+=("$line"); done
+log finish "zsh start: adding dotfiles aliases files"
+
+log start "zsh start: adding sync aliases files"
+find -L "$DOTFILES/" -maxdepth 3 -type f -name 'aliases' | sort \
+  | while IFS="" read -r line; do init_d+=("$line"); done
+log finish "zsh start: adding sync aliases files"
+
 # shellcheck disable=SC2031
 # shellcheck disable=SC2168
 log start "zsh start: (source) init scripts"
@@ -45,7 +55,6 @@ _init_order=(
     "$DOTFILES/zplug/start"
     "$DOTFILES/ohmyzsh/start"
     "$DOTFILES/starship/start"
-    "$DOTFILES/zsh/aliases"
     "$DOTFILES/zsh/config/setopt"
     "$DOTFILES/zsh/config/zstyle"
     "${init_d[@]}"

@@ -1,19 +1,20 @@
-reset
 set -e
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+  *i*) ;;
+  *) return;;
 esac
-(( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs && return
+(( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs "$@" && exit
+
+reset
 
 $SHELL_DEBUG && echo ".zshenv"
 echo "🤖 you \"$(whoami)\" are in \"$(hostname)\" at \"$(hostname -I | cut -d' ' -f1)\""
 
-export SHELL_DEBUG ; SHELL_DEBUG=false
+export SHELL_DEBUG ; SHELL_DEBUG=true
 export SHELL_PROFILE ; SHELL_PROFILE=false
-export SHELL_TRACE ; SHELL_TRACE=false
+export SHELL_TRACE ; SHELL_TRACE=true
 
 export BUILDKIT_STEP_LOG_MAX_SIZE ; BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED ; BUILDKIT_STEP_LOG_MAX_SPEED=-1

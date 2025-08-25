@@ -5,5 +5,5 @@ function elapsed_time_get() {
 
 	[ -d "$file_path" ] && return
 
-	/bin/cat "$file_path" 2>/dev/null
+	/bin/cat "$file_path"
 }
