@@ -2,7 +2,7 @@
 function log_start() {
   elapsed_time_set "$@"
 
-  (set +m ; log_waiting "$@" & ; set -m)
+  # (log_waiting "$@" &)
 
   $SHELL_DEBUG \
     && log_echo "🚥 starting $@"

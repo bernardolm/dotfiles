@@ -5,15 +5,15 @@ source "$DOTFILES/ohmyzsh/install"
 
 export ZSH_THEME=""
 
-log start "ohmyzsh: zstyle"
-zstyle ':omz:lib:directories' aliases no
-zstyle ':omz:lib:docker-compose' aliases no
-zstyle ':omz:lib:docker' aliases no
-zstyle ':omz:lib:git' aliases yes
-zstyle ':omz:lib:sudo' aliases mo
-zstyle ':omz:lib:theme-and-appearance' aliases no
-zstyle ':omz:update' mode disabled
-log finish "ohmyzsh: zstyle"
+# log start "ohmyzsh: zstyle"
+# zstyle ':omz:lib:directories' aliases no
+# zstyle ':omz:lib:docker-compose' aliases no
+# zstyle ':omz:lib:docker' aliases no
+# zstyle ':omz:lib:git' aliases yes
+# zstyle ':omz:lib:sudo' aliases mo
+# zstyle ':omz:lib:theme-and-appearance' aliases no
+# zstyle ':omz:update' mode disabled
+# log finish "ohmyzsh: zstyle"
 
 log start "ohmyzsh: loading plugins list"
 list=$(plugins_list $DOTFILES/ohmyzsh/plugins.txt)
@@ -33,5 +33,7 @@ source "${ZSH}/oh-my-zsh.sh"
 log finish "ohmyzsh: sourcing init script"
 
 unalias sudo 2>/dev/null
+
+title "$(hostname)"
 
 log finish "ohmyzsh"

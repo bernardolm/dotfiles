@@ -1,12 +1,13 @@
-reset
 set -e
 
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+  *i*) ;;
+  *) return;;
 esac
-(( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs && return
+(( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs "$@" && exit
+
+reset
 
 $SHELL_DEBUG && echo ".zshenv"
 echo "🤖 you \"$(whoami)\" are in \"$(hostname)\" at \"$(hostname -I | cut -d' ' -f1)\""
@@ -117,3 +118,10 @@ PATH+=":$HOME/sync/linux/bin"
 if [[ $(grep -i Microsoft /proc/version) ]]; then
     export WSL_SYSTEM ; WSL_SYSTEM=true
 fi
+
+# Uncomment the following line to enable command auto-correction.
+export ENABLE_CORRECTION ; ENABLE_CORRECTION=true
+
+# export DISABLE_AUTO_TITLE ; DISABLE_AUTO_TITLE=true
+# export ZSH_THEME_TERM_TAB_TITLE_IDLE ; ZSH_THEME_TERM_TAB_TITLE_IDLE="%m (from env idle)"
+# export ZSH_THEME_TERM_TITLE_IDLE ; ZSH_THEME_TERM_TITLE_IDLE="%m (from env)"

@@ -26,3 +26,24 @@ unsetopt SHARE_HISTORY
 $SHELL_DEBUG || (
     setopt PROMPT_SUBST ;
 )
+
+
+
+### STAGING SETTINGS
+
+## OPTIONS
+setopt NO_CASE_GLOB       # Globbing and tab-completion to be case-insensitive.
+setopt GLOB_COMPLETE
+setopt AUTO_CD            # Enable changing to directories without typing cd first.
+
+setopt CORRECT            # enable command auto-correction
+setopt CORRECT_ALL
+
+# HISTORY
+setopt EXTENDED_HISTORY   # enable more detailed history (time, command, etc.)
+setopt SHARE_HISTORY      # share history across multiple zsh sessions
+setopt APPEND_HISTORY     # append to history
+setopt INC_APPEND_HISTORY # adds commands as they are typed, not at shell exit
+setopt HIST_VERIFY        # let you edit !$, !! and !* before executing the command
+setopt HIST_IGNORE_DUPS   # do not store duplications
+setopt HIST_REDUCE_BLANKS # removes blank lines from history

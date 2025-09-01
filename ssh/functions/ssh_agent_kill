@@ -1,7 +1,6 @@
 function ssh_agent_kill() {
     log debug "killing and cleaning ssh agent..."
     ssh-agent -k &>/dev/null
-    rm -rfd '/tmp/ssh-'
     rm -rf "${SSH_AGENT_OUTPUT_SCRIPT}"
     log debug "finish to killing and cleaning ssh agent"
 }

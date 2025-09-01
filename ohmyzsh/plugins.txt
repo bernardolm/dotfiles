@@ -4,7 +4,6 @@ command-not-found
 common-aliases
 docker
 docker-compose
-dotenv
 fzf
 git
 git-auto-fetch

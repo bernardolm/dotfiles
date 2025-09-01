@@ -28,6 +28,9 @@ disabled = true
 [gcloud]
 disabled = true
 
+[hostname]
+disabled = false
+
 # ----------------------------------------------------------------------------------------------
 
 # Sets user-defined palette

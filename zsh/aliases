@@ -1,9 +1,10 @@
 alias ack='ag && ag || ack'
-alias ca="code-adc"
-alias cat='batcat --show-all --number --force-colorization --theme=gruvbox-dark'
-alias cm="code-my"
-alias code-adc="code ~/sync/linux/adc.code-workspace"
-alias code-my="code ~/sync/linux/my.code-workspace"
+alias c='code .'
+alias ca='code-adc'
+alias cat='batcat --number --force-colorization'
+alias cm='code-my'
+alias code-adc='code ~/sync/linux/adc.code-workspace'
+alias code-my='code ~/sync/linux/my.code-workspace'
 alias dclsa='docker container ls -a --format "table {{.Names}}\t{{.State}}\t{{.RunningFor}}\t{{.Ports}}" | tail -n+2 | sort'
 alias dcr='docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up --remove-orphans'
 alias dcrd='docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up -d --remove-orphans'
@@ -47,6 +48,7 @@ alias tda='td add'
 alias tdls='td top'
 alias ubuntu-version='lsb_release -a'
 alias update-pip='/usr/bin/python3 -m pip install -U pip --upgrade --user'
+alias upgrade='sudo apt update --fix-missing --yes ; sudo apt upgrade --yes --no-install-recommends --no-install-suggests ; sudo apt autoremove --purge --yes'
 alias watch-docker-all='watch -d -c -n 1 -x docker ps --all --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.Status}}"'
 alias wget-force='wget -c --tries=100'
 alias wget='wget -v --show-progress'

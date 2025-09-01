@@ -10,3 +10,13 @@ zstyle ':omz:plugins:alias-finder' autoload yes
 zstyle ':omz:plugins:alias-finder' cheaper yes
 zstyle ':omz:plugins:alias-finder' exact yes
 zstyle ':omz:plugins:alias-finder' longer yes
+
+
+
+
+### STAGING SETTINGS
+
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+
+# default to file completion
+zstyle ':completion:*' completer _expand _complete _files _correct _approximate
