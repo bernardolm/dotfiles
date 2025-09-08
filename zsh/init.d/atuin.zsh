@@ -8,5 +8,5 @@ bindkey "^R" atuin-search
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward]]
 
-atuin import auto &>/dev/null
-atuin sync &>/dev/null
+atuin import auto &>/dev/null &
+atuin sync &>/dev/null &
