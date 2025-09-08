@@ -1,5 +1,3 @@
-source $DOTFILES/zsh/init.d/05_colors.zsh
-
 function log_waiting() {
 	local max=10
 	local wait_time=7s
