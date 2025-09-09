@@ -8,5 +8,11 @@ bindkey "^R" atuin-search
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward]]
 
-atuin import auto &>/dev/null &
-atuin sync &>/dev/null &
+function atuin_sync() {
+	log start "atuin: background syncing"
+	atuin import auto &>/dev/null
+	atuin sync &>/dev/null
+	log finish "atuin: background syncing"
+}
+
+atuin_sync &
