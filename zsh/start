@@ -55,6 +55,7 @@ _init_order=(
     "$DOTFILES/zplug/start"
     "$DOTFILES/ohmyzsh/start"
     "$DOTFILES/starship/start"
+    "$DOTFILES/zsh/config/inputrc"
     "$DOTFILES/zsh/config/setopt"
     "$DOTFILES/zsh/config/zstyle"
     "${init_d[@]}"

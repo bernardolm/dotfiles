@@ -13,6 +13,7 @@
 - go:
     github.com/alecthomas/chroma/v2@latest
     github.com/go-delve/delve/cmd/dlv@latest
+    github.com/jesseduffield/lazydocker@latest
     golang.org/x/tools/cmd/goimports@latest
     golang.org/x/tools/gopls@latest
 

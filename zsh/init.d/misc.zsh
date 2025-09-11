@@ -1,6 +1,8 @@
 $SHELL_DEBUG && localectl status 1>/dev/null
 
-[ -f "$HOME/.fzf.zsh" ] && . "$HOME/.fzf.zsh"
+[ -f "$HOME/.fzf.zsh" ] \
+	&& source "$HOME/.fzf.zsh" \
+	&& source /usr/share/fzf/completion.zsh
 
 bindkey "^s" emoji::cli
 

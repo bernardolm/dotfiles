@@ -7,15 +7,13 @@ case $- in
 esac
 (( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs "$@" && exit
 
-reset
-
 $SHELL_DEBUG && echo ".zshenv"
-echo "🤖 you \"$(whoami)\" are in \"$(hostname)\" at \"$(hostname -I | cut -d' ' -f1)\""
 
 export SHELL_DEBUG ; SHELL_DEBUG=false
 export SHELL_PROFILE ; SHELL_PROFILE=false
 export SHELL_TRACE ; SHELL_TRACE=false
 
+export ATUIN_NOBIND ; ATUIN_NOBIND="true"
 export BUILDKIT_STEP_LOG_MAX_SIZE ; BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED ; BUILDKIT_STEP_LOG_MAX_SPEED=-1
 export CASE_SENSITIVE ; CASE_SENSITIVE=false
@@ -55,6 +53,8 @@ export SPACESHIP_EXEC_TIME_SHOW ; SPACESHIP_EXEC_TIME_SHOW=false
 export SSH_AGENT_PID ; SSH_AGENT_PID=-1
 export TERM ; TERM="xterm-256color"
 export VISUAL ; VISUAL="nano"
+export ZELLIJ_AUTO_ATTACH ; ZELLIJ_AUTO_ATTACH=true
+export ZELLIJ_AUTO_EXIT ; ZELLIJ_AUTO_EXIT=false
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE ; ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="underline"
 export ZSH_COLORIZE_CHROMA_FORMATTER ; ZSH_COLORIZE_CHROMA_FORMATTER="terminal256"
 export ZSH_COLORIZE_TOOL ; ZSH_COLORIZE_TOOL="chroma"
@@ -91,10 +91,10 @@ export TODO_ACTIONS_DIR ; TODO_ACTIONS_DIR="$TODO_DIR/.todo.actions.d"
 export TODOTXT_CFG_FILE ; TODOTXT_CFG_FILE="$TODO_DIR/zsh.cfg"
 
 if which git &>/dev/null; then
-    export GITHUB_ORG ; GITHUB_ORG=$(git config --file \
-        "$HOME/sync/shared/home/.gitconfig" github.organization)
-    export GITHUB_USER ; GITHUB_USER=$(git config --file \
-        "$DOTFILES/git/.gitconfig" github.user)
+	export GITHUB_ORG ; GITHUB_ORG=$(git config --file \
+		"$HOME/sync/shared/home/.gitconfig" github.organization)
+	export GITHUB_USER ; GITHUB_USER=$(git config --file \
+		"$DOTFILES/git/.gitconfig" github.user)
 fi
 
 export WORKSPACE_ORG ; WORKSPACE_ORG="$HOME/workspaces/$GITHUB_ORG"
@@ -117,12 +117,9 @@ PATH+=":$HOME/gopath/bin"
 PATH+=":$HOME/sync/linux/bin"
 
 if [[ $(grep -i Microsoft /proc/version) ]]; then
-    export WSL_SYSTEM ; WSL_SYSTEM=true
+  export WSL_SYSTEM ; WSL_SYSTEM=true
 fi
 
-# Uncomment the following line to enable command auto-correction.
-export ENABLE_CORRECTION ; ENABLE_CORRECTION=true
+eval "$($HOME/sync/linux/bin/zellij setup --generate-auto-start zsh)"
 
-# export DISABLE_AUTO_TITLE ; DISABLE_AUTO_TITLE=true
-# export ZSH_THEME_TERM_TAB_TITLE_IDLE ; ZSH_THEME_TERM_TAB_TITLE_IDLE="%m (from env idle)"
-# export ZSH_THEME_TERM_TITLE_IDLE ; ZSH_THEME_TERM_TITLE_IDLE="%m (from env)"
+echo "🤖 you \"$(whoami)\" are in \"$(hostname)\" at \"$(hostname -I | cut -d' ' -f1)\""

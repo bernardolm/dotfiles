@@ -1,3 +1,5 @@
+return
+
 log debug "checking zsh_history"
 
 zsh_history_source="$HOME/sync/linux/home/.zsh_history"
