@@ -1,4 +1,4 @@
-set -e
+# set -e
 
 # If not running interactively, don't do anything
 case $- in
@@ -6,6 +6,9 @@ case $- in
   *) return;;
 esac
 (( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs "$@" && exit
+
+command -v zellij &>/dev/null || sudo ln -sf $HOME/sync/linux/bin/zellij /usr/local/bin/zellij
+eval "$(zellij setup --generate-auto-start zsh)"
 
 $SHELL_DEBUG && echo ".zshenv"
 
@@ -53,7 +56,7 @@ export SPACESHIP_EXEC_TIME_SHOW ; SPACESHIP_EXEC_TIME_SHOW=false
 export SSH_AGENT_PID ; SSH_AGENT_PID=-1
 export TERM ; TERM="xterm-256color"
 export VISUAL ; VISUAL="nano"
-export ZELLIJ_AUTO_ATTACH ; ZELLIJ_AUTO_ATTACH=true
+export ZELLIJ_AUTO_ATTACH ; ZELLIJ_AUTO_ATTACH=false
 export ZELLIJ_AUTO_EXIT ; ZELLIJ_AUTO_EXIT=false
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE ; ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="underline"
 export ZSH_COLORIZE_CHROMA_FORMATTER ; ZSH_COLORIZE_CHROMA_FORMATTER="terminal256"
@@ -119,7 +122,5 @@ PATH+=":$HOME/sync/linux/bin"
 if [[ $(grep -i Microsoft /proc/version) ]]; then
   export WSL_SYSTEM ; WSL_SYSTEM=true
 fi
-
-eval "$($HOME/sync/linux/bin/zellij setup --generate-auto-start zsh)"
 
 echo "🤖 you \"$(whoami)\" are in \"$(hostname)\" at \"$(hostname -I | cut -d' ' -f1)\""
