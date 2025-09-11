@@ -118,3 +118,5 @@ fi
 
 [ -f "$HOME/workspaces/misc/bash-wakatime/bash-wakatime.sh" ] \
     && source "$HOME/workspaces/misc/bash-wakatime/bash-wakatime.sh"
+
+# atuin init bash - just for atuin installation don't touch this file
