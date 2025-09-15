@@ -1,12 +1,12 @@
 function duckdns_update_public() {
-    log debug "ADC_PUBLIC_IP=${ADC_PUBLIC_IP}"
-    log debug "CURRENT_PUBLIC_IP=${CURRENT_PUBLIC_IP}"
-    log debug "DUCKDNS_DOMAIN=${DUCKDNS_DOMAIN}"
+	log debug "ADC_PUBLIC_IP=${ADC_PUBLIC_IP}"
+	log debug "CURRENT_PUBLIC_IP=${CURRENT_PUBLIC_IP}"
+	log debug "DUCKDNS_DOMAIN=${DUCKDNS_DOMAIN}"
 
-    if [ "${MY_PLACE}" = "work" ]; then
-        log warn "at ${MY_PLACE} does not need to update '${DUCKDNS_DOMAIN}'"
-        return
-    fi
+	if [ "${MY_PLACE}" = "work" ]; then
+		log warn "at ${MY_PLACE} does not need to update '${DUCKDNS_DOMAIN}'"
+		return
+	fi
 
-    duckdns_update "${DUCKDNS_DOMAIN}" "${CURRENT_PUBLIC_IP}"
+	duckdns_update "${DUCKDNS_DOMAIN}" "${CURRENT_PUBLIC_IP}"
 }
