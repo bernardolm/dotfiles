@@ -7,8 +7,8 @@ case $- in
 esac
 (( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs "$@" && exit
 
-command -v zellij &>/dev/null || sudo ln -sf $HOME/sync/linux/bin/zellij /usr/local/bin/zellij
-eval "$(zellij setup --generate-auto-start zsh)"
+#command -v zellij &>/dev/null || sudo ln -sf $HOME/sync/linux/bin/zellij /usr/local/bin/zellij
+#eval "$(zellij setup --generate-auto-start zsh)"
 
 $SHELL_DEBUG && echo ".zshenv"
 
