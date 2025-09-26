@@ -7,6 +7,6 @@ if [ ! $(command -v atuin &>/dev/null) ]; then
 > atuin register -u $GITHUB_USER -e $USER_EMAIL
 > atuin key
 > atuin import auto
-> atuin sync"
+> atuin sync
 EOF
 fi
