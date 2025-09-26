@@ -1,3 +1,6 @@
-command -v atuin &>/dev/null && eval "$(atuin init zsh)"
+command -v atuin &>/dev/null \
+	&& log start "atuin" \
+	&& eval "$(atuin init zsh)" \
+	&& log finish "atuin"
 
 # command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
