@@ -12,6 +12,8 @@ esac
 
 $SHELL_DEBUG && echo ".zshenv"
 
+SESSION_ID=$(date +%s%N)
+
 export SHELL_DEBUG ; SHELL_DEBUG=false
 export SHELL_PROFILE ; SHELL_PROFILE=false
 export SHELL_TRACE ; SHELL_TRACE=false
