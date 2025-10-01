@@ -120,6 +120,7 @@ PATH+=":$HOME/.local/bin"
 PATH+=":$HOME/bin"
 PATH+=":$HOME/gopath/bin"
 PATH+=":$HOME/sync/linux/bin"
+PATH+=":/opt/homebrew/opt/curl/bin"
 
 if [[ $(grep -i Microsoft /proc/version) ]]; then
   export WSL_SYSTEM ; WSL_SYSTEM=true
