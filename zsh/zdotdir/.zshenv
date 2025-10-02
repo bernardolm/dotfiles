@@ -12,7 +12,8 @@ esac
 
 $SHELL_DEBUG && echo ".zshenv"
 
-SESSION_ID=$(date +%s%N)
+source $HOME/workspaces/bernardolm/dotfiles/zsh/functions/now
+export SESSION_ID=$(now)
 
 export SHELL_DEBUG ; SHELL_DEBUG=false
 export SHELL_PROFILE ; SHELL_PROFILE=false
@@ -86,7 +87,7 @@ export ZSH_CUSTOM ; ZSH_CUSTOM="$ZSH/custom"
 export ZSH_REPOS ; ZSH_REPOS="$HOME/.zsh"
 
 export DONE_FILE ; DONE_FILE="$HOME/sync/linux/todo-txt/done.txt"
-export ELAPSED_TIME_ROOT ; ELAPSED_TIME_ROOT="$USER_TMP/elapsed_time"
+export ELAPSED_TIME_ROOT ; ELAPSED_TIME_ROOT="$USER_TMP/elapsed_time/$SESSION_ID"
 export REPORT_FILE ; REPORT_FILE="$HOME/sync/linux/todo-txt/report.txt"
 export TODO_DIR ; TODO_DIR="$DOTFILES/todo-txt"
 export TODO_FILE ; TODO_FILE="$HOME/sync/linux/todo-txt/todo.txt"

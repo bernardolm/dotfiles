@@ -1,10 +1,6 @@
 function crontab_backup() {
-    mkdir -p "$HOME/sync/linux/crontab/"
-
-    local now=$(date +"%Y%m%d_%H%M%S_%3N")
-
     if [ -f "$HOME/sync/linux/crontab/${HOSTNAME}_current.txt" ]; then
-        mv "$HOME/sync/linux/crontab/${HOSTNAME}_current.txt" "$HOME/sync/linux/crontab/${HOSTNAME}_$now.txt"
+        mv "$HOME/sync/linux/crontab/${HOSTNAME}_current.txt" "$HOME/sync/linux/crontab/${HOSTNAME}_$(now).txt"
     fi
 
     crontab -l > "$HOME/sync/linux/crontab/${HOSTNAME}_current.txt"

@@ -1,6 +1,5 @@
 
 function apt_list_absent_pub_key() {
-    [ ! -d "$HOME/tmp" ] && mkdir "$HOME/tmp"
     sudo apt-get update 2>/dev/null | sed -nr 's/^.*NO_PUBKEY\s(\w{16}).*$/\1/p' | sort | uniq > "$HOME/tmp/apt_list_absent_pub_key.txt"
     /bin/cat "$HOME/tmp/apt_list_absent_pub_key.txt"
 }

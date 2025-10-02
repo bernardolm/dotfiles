@@ -1,9 +1,7 @@
 function vpn_add_routes() {
-    local now=$(date +"%Y%m%d_%H%M%S_%3N")
-
     local file=${1:=$(last_backup_version vpn-routes csv)}
     [ -z "$file" ] && echo "no vpn-routes file found" && return
-    local new_file=$(echo $file | sed "s/[0-9]\+/$now/g")
+    local new_file=$(echo $file | sed "s/[0-9]\+/$(now)/g")
     local total=$(wc -l < "$file")
 
     echo "🛡️ adding my routes from $file to VPN ($total)"
@@ -37,9 +35,9 @@ function vpn_add_routes() {
         vpn_add_route $host
 
         if [ $? -eq 0 ]; then
-            echo $host";"$now";" | tee -a $new_file &>/dev/null
+            echo $host";"$(now)";" | tee -a $new_file &>/dev/null
         else
-            echo $host";"$up_at";"$now | tee -a $new_file &>/dev/null
+            echo $host";"$up_at";"$(now) | tee -a $new_file &>/dev/null
         fi
 
         [ `progress_bar` ] && progress_bar $count $total "$host"

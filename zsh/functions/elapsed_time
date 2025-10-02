@@ -1,18 +1,21 @@
 
 function elapsed_time() {
+	function now() {
+		echo $(date +"%s%3N")
+	}
+
 	local start=$1
-	local now=$(date +"%s%3N")
-	local d_ms=$(($now-$start))
+	local d_ms=$(($(now)-$start))
 	local d_s=$((d_ms / 1000))
 	local ms=$((d_ms % 1000))
 	local s=$((d_s % 60))
 	local m=$(((d_s / 60) % 60))
 	local h=$((d_s / 3600))
 
-  # no needs to log everything
-	if ((d_ms <= 500)); then
-    return
-  fi
+  # do you need to record everything? even the fastest ones?
+	# if ((d_ms <= 500)); then
+  #   return
+  # fi
 
   # no time machines
 	if ((ms < 0)); then

@@ -80,8 +80,7 @@ function git_clone_repos_by_url() {
     PAGE=$(echo $URL | /bin/sed -E 's/.*[^_]page=([0-9]+).*/\1/g')
     if [[ -z "${PAGE}" ]]; then echo "page can't be found, nothing to do by now"; return; fi
 
-    local now=$(date +"%Y%m%d_%H%M%S_%3N")
-    TMP=$USER_TMP/git-clone/$now
+    TMP=$USER_TMP/git-clone/$(now)
     TOKEN=$(git config github.token)
 
     echo "🌎 downloading page $PAGE from $URL to $DEST..."

@@ -11,8 +11,7 @@ function log_finish() {
 		fi
 
 	else
-		local now=$(date +"%H:%M:%S in %Y-%m-%d")
-		msg_suffix="⌚ at $now "
+		msg_suffix="⌚ at $(date +"%H:%M:%S.%3N") "
 
 	fi
 

@@ -1,7 +1,6 @@
 set -e
 
-# profiling shell
-now=$(date +"%Y%m%d_%H%M%S_%3N")
+source $DOTFILES/zsh/functions/now
 
 if $SHELL_PROFILE; then
   zmodload zsh/zprof
@@ -50,8 +49,10 @@ log finish "zsh start: adding sync aliases files"
 # shellcheck disable=SC2031
 # shellcheck disable=SC2168
 log start "zsh start: (source) init scripts"
+# TODO: search for files named 'start' in sync and dotfiles
+# and automatically include them in this list.
+# remember to ignore files already in the list.
 _init_order=(
-    "$DOTFILES/go/start"
     "$DOTFILES/zplug/start"
     "$DOTFILES/ohmyzsh/start"
     "$DOTFILES/starship/start"
@@ -71,7 +72,7 @@ log finish "zsh start: (source) init scripts"
 
 # profiling shell
 if $SHELL_PROFILE; then
-    shell_profile_file="$USER_TMP/shell_profile_$now.prf"
+    shell_profile_file="$USER_TMP/shell_profile_$(now).prf"
     zprof > "$shell_profile_file"
     echo "a log profile file as created here $shell_profile_file"
 fi

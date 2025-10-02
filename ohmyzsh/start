@@ -23,7 +23,7 @@ log finish "ohmyzsh: loading plugins list"
 
 log start "ohmyzsh: sourcing init script"
 # shellcheck source=/dev/null
-# ohmyzsh_xtrace_file="$HOME/tmp/oh-my-zsh_$(date +%Y%m%d_%H%M%S_%N).log"
+# ohmyzsh_xtrace_file="$HOME/tmp/oh-my-zsh_$(now).log"
 # exec 3>&2 2>$ohmyzsh_xtrace_file
 # setopt xtrace prompt_subst
 source "${ZSH}/oh-my-zsh.sh"

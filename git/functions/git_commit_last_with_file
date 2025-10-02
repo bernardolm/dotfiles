@@ -2,11 +2,9 @@ function git_commit_last_with_file() {
     FILE=$1
     LOG=$2
 
-    local now=$(date +"%Y%m%d_%H%M%S_%3N")
-
     if [[ "$LOG" == "" ]]; then
         echo "seeking last commit with file $FILE..."
-        LOG="$USER_TMP/git_commit_last_with_file_$now.log"
+        LOG="$USER_TMP/git_commit_last_with_file_$(now).log"
         touch $LOG
     fi
 

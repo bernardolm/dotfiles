@@ -3,8 +3,7 @@ log start "starship: install"
 if ! command -v starship >/dev/null; then
 	log info "starship: installing (downloading) starship"
 
-	[ ! -d $HOME/.local/bin ] && mkdir -p $HOME/.local/bin
-	# VERBOSE=1
+		# VERBOSE=1
 	BIN_DIR=$HOME/.local/bin sh -c "$(curl -sS https://starship.rs/install.sh)"
 fi
 

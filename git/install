@@ -10,8 +10,6 @@ log start "git setup"
 
 _git_submodules="$DOTFILES/.gitmodules"
 
-[ ! -d "$DOTFILES/git/modules" ] && mkdir -p "$DOTFILES/git/modules"
-
 log info "sanitizing git submodules"
 
 # $SHELL_DEBUG && git config --file "${_git_submodules}" --list | tr ' ' '\n'

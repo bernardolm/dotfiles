@@ -1,7 +1,7 @@
 
 function elapsed_time_del() {
 	local key=$(slugify "$@")
-	local file_path="$ELAPSED_TIME_ROOT/${SESSION_ID}_$key"
+	local file_path="$ELAPSED_TIME_ROOT/$key"
 
 	rm -f "$file_path"
 }
