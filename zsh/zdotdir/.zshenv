@@ -142,4 +142,4 @@ mkdir -m u=rwX,g=rX -p \
 	"$WORKSPACE_USER" \
   "$HOME/sync/linux/crontab/"
 
-echo "🤖 you \"$(whoami)\" are in \"$OS\" at \"$IP_CURRENT\""
+echo "🤖 \"$(whoami)\" using \"$OS\" at \"$IP_CURRENT\""
