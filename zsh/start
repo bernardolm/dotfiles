@@ -2,9 +2,9 @@ set -e
 
 source $DOTFILES/zsh/functions/now
 
-if $SHELL_PROFILE; then
+if ((SHELL_PROFILE)); then
   zmodload zsh/zprof
-  $SHELL_DEBUG && echo "a zsh profile was started"
+  echo "> a 'zsh profile' run was started to measure its execution stats"
 fi
 
 disable log &>/dev/null
@@ -71,10 +71,10 @@ done
 log finish "zsh start: (source) init scripts"
 
 # profiling shell
-if $SHELL_PROFILE; then
+if ((SHELL_PROFILE)); then
     shell_profile_file="$USER_TMP/shell_profile_$(now).prf"
     zprof > "$shell_profile_file"
-    echo "a log profile file as created here $shell_profile_file"
+    echo "> a log profile file as created here $shell_profile_file"
 fi
 
 log finish "zsh start"
