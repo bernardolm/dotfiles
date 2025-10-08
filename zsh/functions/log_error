@@ -1,4 +1,4 @@
 
 function log_error() {
-	log_echo "💣 ${CLR_BG_RED} $@ ${NO_COLOR}"
+	log_echo "💣 $(color bg_red) $@ $(color no)"
 }

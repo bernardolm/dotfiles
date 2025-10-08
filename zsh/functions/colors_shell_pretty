@@ -1,3 +1,0 @@
-function colors_shell_pretty() {
-    for code in {000..255}; do print -P -- "$code: %F{$code}Pretty%f"; done
-}

@@ -26,15 +26,6 @@ export BUILDKIT_STEP_LOG_MAX_SIZE ; BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED ; BUILDKIT_STEP_LOG_MAX_SPEED=-1
 # export CASE_SENSITIVE ; CASE_SENSITIVE=false
 export CLICOLOR ; CLICOLOR=true
-export CLR__BG_PURPLE ; CLR__BG_PURPLE="\e[38;5;15m\e[48;5;129m\e[1m"
-export CLR_BG_BLUE ; CLR_BG_BLUE="\e[38;5;15m\e[48;5;21m\e[1m"
-export CLR_BG_CYAN ; CLR_BG_CYAN="\e[38;5;235m\e[48;5;51m\e[1m"
-export CLR_BG_GREEN ; CLR_BG_GREEN="\e[38;5;235m\e[48;5;40m\e[1m"
-export CLR_BG_GREY ; CLR_BG_GREY="\e[38;5;235m\e[48;5;253m\e[1m"
-export CLR_BG_RED ; CLR_BG_RED="\e[38;5;235m\e[48;5;9m\e[1m"
-export CLR_BG_ROSE ; CLR_BG_ROSE="\e[38;5;15m\e[48;5;201m\e[1m"
-export CLR_BG_WHITE ; CLR_BG_WHITE="\e[38;5;235m\e[48;5;5m\e[1m"
-export CLR_BG_YELLOW ; CLR_BG_YELLOW="\e[38;5;235m\e[48;5;226m\e[1m"
 export COLORTERM ; COLORTERM=truecolor
 export COMPLETION_WAITING_DOTS ; COMPLETION_WAITING_DOTS=true
 export DISABLE_AUTO_TITLE ; DISABLE_AUTO_TITLE=true
@@ -53,7 +44,6 @@ export LC_CTYPE ; LC_CTYPE="en_US.UTF-8"
 export LESS ; LESS="-erX"
 export MICRO_TRUECOLOR ; MICRO_TRUECOLOR=1
 export MY_PLACE ; MY_PLACE=home
-export NO_COLOR ; NO_COLOR="\e[0m"
 export PAGER ; PAGER=less
 export POWERLINE_ROOT ; POWERLINE_ROOT="$HOME/.local/lib/python3.11/site-packages/powerline"
 export SAVEHIST ; SAVEHIST=999999
@@ -142,4 +132,5 @@ mkdir -m u=rwX,g=rX -p \
 	"$WORKSPACE_USER" \
   "$HOME/sync/linux/crontab/"
 
-echo "🤖 \"$(whoami)\" using \"$OS\" at \"$IP_CURRENT\""
+source "$DOTFILES/zsh/functions/color"
+echo "🤖 $(color cyan)$(whoami)$(color no) using $(color rose)$OS$(color no) at $(color light_green)$IP_CURRENT$(color no)"

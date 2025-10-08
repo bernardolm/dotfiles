@@ -1,4 +1,4 @@
 
 function log_info() {
-  log_echo "💬 ${CLR_BG_CYAN} $@ ${NO_COLOR}"
+  log_echo "💬 $(color bg_cyan) $@ $(color no)"
 }

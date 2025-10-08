@@ -1,8 +1,8 @@
 
 function log_is_command_success() {
 	if [ $? -eq 0 ]; then
-		echo "${CLR_BG_GREEN}➿ 😉${NO_COLOR}"
+		echo "$(color bg_green)➿ 😉$(color no)"
 	else
-		echo "${CLR_BG_RED}➿ 🤬${NO_COLOR}"
+		echo "$(color bg_red)➿ 🤬$(color no)"
 	fi
 }

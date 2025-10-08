@@ -19,28 +19,28 @@ function elapsed_time() {
   fi
 
 	if ((h > 0)); then
-    elapsed="$color_red${h}h ${m}m ${s}s ${ms}ms$color_nc 🐢"
+    elapsed="$(color purple)${h}h ${m}m ${s}s ${ms}ms$(color no) 🪦"
 
 	elif ((m > 0)); then
-    elapsed="$color_light_red${m}m ${s}s ${ms}ms$color_nc 🐢"
+    elapsed="$(color light_purple)${m}m ${s}s ${ms}ms$(color no) 🥶"
 
 	elif ((s >= 3)); then
-    elapsed="$color_yellow${s}s ${ms}ms$color_nc 🐢"
+    elapsed="$(color light_blue)${s}s ${ms}ms$(color no) 🐢"
 
   elif ((ms >= 2500)); then
-    elapsed="$color_yellow${s}s ${ms}ms$color_nc 🤔"
+    elapsed="$(color blue)${s}s ${ms}ms$(color no) 🤔"
 
   elif ((s > 0)); then
-    elapsed="$color_light_purple${s}s ${ms}ms$color_nc"
+    elapsed="$(color cyan)${s}s ${ms}ms$(color no) 🛺"
 
   elif ((ms >= 500)); then
-    elapsed="$color_light_cyan${ms}ms$color_nc"
+    elapsed="$(color light_cyan)${ms}ms$(color no) 🚗"
 
   elif ((ms > 100)); then
-    elapsed="$color_light_blue${ms}ms$color_nc"
+    elapsed="$(color light_green)${ms}ms$(color no) 🚁"
 
   else
-    elapsed="$color_green${ms}ms$color_nc 🚀"
+    elapsed="$(color green)${ms}ms$(color no) 🚀"
 
   fi
 

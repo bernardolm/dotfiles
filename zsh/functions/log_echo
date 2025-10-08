@@ -16,7 +16,7 @@ function log_echo() {
 	local output=$msg
 
 	if ! which ansi2txt &>/dev/null; then
-		echo "${CLR_BG_RED} > ansi2txt commnad not found ${NO_COLOR}"
+		echo "$(color yellow) > ansi2txt commnad not found $(color no)"
 		if ((IS_LINUX)); then
 			sudo apt install ansi2txt --no-install-recommends --yes
 		elif ((IS_DARWIN)); then

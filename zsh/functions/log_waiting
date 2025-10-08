@@ -12,6 +12,6 @@ function log_waiting() {
 		[ "$max" -le 0 ] && break
 
 		emoji=$(emoji_random 🦥 😴 💤 🥱)
-		log_echo "   $@ ${color_gray}is taking too long to load${color_nc} $emoji"
+		log_echo "   $@ $(color gray)is taking too long to load$(color no) $emoji"
 	done
 }
