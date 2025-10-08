@@ -5,8 +5,8 @@ log start "starship: start"
 export STARSHIP_CONFIG="$DOTFILES/starship/theme/catppuccin.toml"
 export STARSHIP_CACHE="$HOME/.cache/starship"
 
-# $SHELL_TRACE && env STARSHIP_LOG=debug starship module rust
-# $SHELL_TRACE && env STARSHIP_LOG=debug starship timings
+# ((SHELL_TRACE)) && env STARSHIP_LOG=debug starship module rust
+# ((SHELL_TRACE)) && env STARSHIP_LOG=debug starship timings
 
 # conflict with oh-my-zsh, choose one
 eval "$(starship init zsh)"

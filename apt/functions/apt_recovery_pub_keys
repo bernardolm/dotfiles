@@ -1,7 +1,4 @@
 function apt_recovery_pub_keys() {
-    # shell_debug_relay=${SHELL_DEBUG}
-    # SHELL_DEBUG=true
-
     log start "recovering apt pub keys"
 
     log info "individual pub keys"
@@ -91,6 +88,4 @@ function apt_recovery_pub_keys() {
     done
 
     log finish "recovering apt pub keys"
-
-    # SHELL_DEBUG=${shell_debug_relay}
 }

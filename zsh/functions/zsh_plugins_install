@@ -2,9 +2,6 @@ function zsh_plugins_install() {
     echo "zsh_plugins_install is DEPRECATED, using zplug"
     return
 
-    # shell_debug_relay=${SHELL_DEBUG}
-    # SHELL_DEBUG=true
-
     local _zsh_plugins_list=($(zsh_plugins_list))
 
     [ ! -d "${ZSH_CUSTOM}/plugins" ] && mkdir -p -m u=rwx,go=rx "${ZSH_CUSTOM}/plugins"
@@ -21,6 +18,4 @@ function zsh_plugins_install() {
         fi
         log info "$output"
     done
-
-    # SHELL_DEBUG=${shell_debug_relay}
 }

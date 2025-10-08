@@ -1,6 +1,8 @@
 function ssh_envs() {
-    $SHELL_DEBUG || return
+    ((SHELL_DEBUG)) || exit 0
+
     echo ""
+
     # log warn "you can be asked for superuser password to get pid from ssh-agent"
     log debug "pub_key=${pub_key}"
     log debug "ssh_agent_loaded_keys=$(ssh_agent_loaded_keys)"

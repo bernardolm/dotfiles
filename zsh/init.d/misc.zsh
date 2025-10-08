@@ -1,4 +1,4 @@
-$SHELL_DEBUG && localectl status 1>/dev/null
+((SHELL_DEBUG)) && ((IS_LINUX)) && localectl status 1>/dev/null
 
 [ -f "$HOME/.fzf.zsh" ] \
 	&& source "$HOME/.fzf.zsh" \

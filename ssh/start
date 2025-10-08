@@ -1,7 +1,3 @@
-# shell_debug_relay=${SHELL_DEBUG}
-# SHELL_DEBUG=true
-# ssh_agent_kill
-
 log start "ssh: start"
 
 log env SSH_AUTH_SOCK
@@ -10,7 +6,7 @@ log env SSH_AGENT_OUTPUT_SCRIPT
 
 if [ -f "${SSH_AGENT_OUTPUT_SCRIPT}" ]; then
     log debug "ssh: agent script found"
-    $SHELL_DEBUG && cat ${SSH_AGENT_OUTPUT_SCRIPT}
+    ((SHELL_DEBUG)) && cat ${SSH_AGENT_OUTPUT_SCRIPT}
 
     log debug "ssh: sourcing agent script"
     source ${SSH_AGENT_OUTPUT_SCRIPT}
@@ -39,5 +35,3 @@ else
 fi
 
 log finish "ssh: start"
-
-# SHELL_DEBUG=${shell_debug_relay}

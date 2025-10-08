@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
 
-# shell_debug_relay=${SHELL_DEBUG}
-# SHELL_DEBUG=false
-
 # shellcheck source=/dev/null
 . "$DOTFILES/zsh/functions/log"
 
@@ -12,7 +9,7 @@ _git_submodules="$DOTFILES/.gitmodules"
 
 log info "sanitizing git submodules"
 
-# $SHELL_DEBUG && git config --file "${_git_submodules}" --list | tr ' ' '\n'
+# ((SHELL_DEBUG)) && git config --file "${_git_submodules}" --list | tr ' ' '\n'
 command -v git >/dev/null || sudo apt install --yes --no-install-recommends git
 
 # shellcheck disable=SC2094
@@ -40,5 +37,3 @@ command -v git >/dev/null || sudo apt install --yes --no-install-recommends git
 done
 
 log finish "git setup"
-
-# SHELL_DEBUG=${shell_debug_relay}

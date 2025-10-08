@@ -1,9 +1,6 @@
-# shell_debug_relay=${SHELL_DEBUG}
-# SHELL_DEBUG=false
-
 log start "zplug: start"
 
-# $SHELL_DEBUG \
+# ((SHELL_DEBUG)) \
 #     && log warn "in debug mode, everything related to zplug will be deleted" \
 #     && zplug_reset
 
@@ -46,5 +43,3 @@ zplug load ${ZPLUG_VERBOSE}
 log finish "zplug: loading"
 
 log finish "zplug: start"
-
-# SHELL_DEBUG=${shell_debug_relay}

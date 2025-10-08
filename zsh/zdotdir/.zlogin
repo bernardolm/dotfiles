@@ -1,1 +1,1 @@
-$SHELL_DEBUG && echo ".zlogin"
+((SHELL_DEBUG)) && echo ".zlogin"
