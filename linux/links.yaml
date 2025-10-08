@@ -18,11 +18,11 @@
 
 - link:
     $HOME/.bash_history: $HOME/sync/linux/home/.bash_history
-    $HOME/.config/maestral/maestral.ini: $HOME/sync/linux/home/.config/maestral/maestral.ini
-    $HOME/.config/rclone/rclone.conf: $HOME/sync/linux/home/.config/rclone/rclone.conf
+    # $HOME/.config/maestral/maestral.ini: $HOME/sync/linux/home/.config/maestral/maestral.ini
+    # $HOME/.config/rclone/rclone.conf: $HOME/sync/linux/home/.config/rclone/rclone.conf
     $HOME/.gitconfig: $HOME/sync/linux/home/.gitconfig
     $HOME/.wakatime.cfg: $HOME/sync/linux/home/.wakatime.cfg
-    $HOME/.wget-hsts: $HOME/sync/linux/home/.wget-hsts
+    # $HOME/.wget-hsts: $HOME/sync/linux/home/.wget-hsts
     $HOME/.zsh_history: $HOME/sync/linux/home/.zsh_history
 
 - link:
