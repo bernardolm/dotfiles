@@ -3,5 +3,5 @@ function elapsed_time_del() {
 	local key=$(slugify "$@")
 	local file_path="$ELAPSED_TIME_ROOT/$key"
 
-	rm -f "$file_path"
+	/bin/rm -f "$file_path"
 }

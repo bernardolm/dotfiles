@@ -1,4 +1,6 @@
-# set -e
+reset
+
+set -e
 
 # If not running interactively, don't do anything
 case $- in
@@ -10,7 +12,7 @@ esac
 #command -v zellij &>/dev/null || sudo ln -sf $HOME/sync/linux/bin/zellij /usr/local/bin/zellij
 #eval "$(zellij setup --generate-auto-start zsh)"
 
-$SHELL_DEBUG && echo ".zshenv"
+((SHELL_DEBUG)) && echo ".zshenv"
 
 source $HOME/workspaces/bernardolm/dotfiles/zsh/functions/now
 export SESSION_ID=$(now)
@@ -70,14 +72,17 @@ export ZSH_WAKATIME_PROJECT_DETECTION ; ZSH_WAKATIME_PROJECT_DETECTION=true
 
 export CURRENT_PUBLIC_IP ; CURRENT_PUBLIC_IP=$(curl -sL checkip.amazonaws.com)
 export DOTFILES ; DOTFILES="${DOTFILES:=$HOME/workspaces/bernardolm/dotfiles}" # 🧙‍♂️
+
+# operating system specific
+export OS ; OS=$(uname | tr '[:upper:]' '[:lower:]')
+source "$DOTFILES/$OS/start"
+
 export GID ; GID=$(id -g)
 export GOPATH ; GOPATH="$HOME/gopath"
 export GPG_TTY ; GPG_TTY=$(tty)
 export HISTSIZE ; HISTSIZE="$SAVEHIST"
 export HOSTNAME ; HOSTNAME=$(hostname)
-export IP_CURRENT ; IP_CURRENT=$(hostname -I | awk '{print $1}')
 export SSH_AGENT_OUTPUT_SCRIPT ; SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
-export TODAY ; TODAY=$(date "+%Y%m%d")
 export UID ; UID=$(id -u)
 export USER_TMP ; USER_TMP="$HOME/tmp"
 export VSCODE_CLI_DATA_DIR ; VSCODE_CLI_DATA_DIR="$HOME/.vscode-server/cli"
@@ -123,8 +128,18 @@ PATH+=":$HOME/gopath/bin"
 PATH+=":$HOME/sync/linux/bin"
 PATH+=":/opt/homebrew/opt/curl/bin"
 
-if [[ $(grep -i Microsoft /proc/version) ]]; then
+if [[ $(test -f /proc/version && grep -i Microsoft /proc/version) ]]; then
   export WSL_SYSTEM ; WSL_SYSTEM=true
 fi
 
-echo "🤖 you \"$(whoami)\" are in \"$(hostname)\" at \"$(hostname -I | cut -d' ' -f1)\""
+mkdir -m u=rwX,g=rX -p \
+	"$DOTFILES/git/modules" \
+	"$ELAPSED_TIME_ROOT" \
+	"$GOPATH" \
+	"$HOME/.local/bin" \
+	"$USER_TMP" \
+	"$WORKSPACE_ORG" \
+	"$WORKSPACE_USER" \
+  "$HOME/sync/linux/crontab/"
+
+echo "🤖 you \"$(whoami)\" are in \"$OS\" at \"$IP_CURRENT\""

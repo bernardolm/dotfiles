@@ -1,11 +1,7 @@
 
 function elapsed_time() {
-	function now() {
-		echo $(date +"%s%3N")
-	}
-
 	local start=$1
-	local d_ms=$(($(now)-$start))
+	local d_ms=$(($(epoch)-$start))
 	local d_s=$((d_ms / 1000))
 	local ms=$((d_ms % 1000))
 	local s=$((d_s % 60))
