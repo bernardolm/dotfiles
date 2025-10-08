@@ -1,6 +1,6 @@
 log start "starship: start"
 
-. "$DOTFILES/starship/install"
+source "$DOTFILES/starship/install"
 
 export STARSHIP_CONFIG="$DOTFILES/starship/theme/catppuccin.toml"
 export STARSHIP_CACHE="$HOME/.cache/starship"

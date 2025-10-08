@@ -13,7 +13,7 @@ command_timeout = 60000
 # Timeout for starship to scan files (in milliseconds).
 # scan_timeout = 2000
 
-format = '$line_break$all'
+format = '$line_break$hostname$all'
 
 # Sets user-defined palette
 # Palettes must be defined _after_ this line
