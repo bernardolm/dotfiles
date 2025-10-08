@@ -1,0 +1,4 @@
+#!/bin/sh
+
+export IP_CURRENT ; IP_CURRENT=$(ipconfig getifaddr en0)
+export IS_DARWIN ; IS_DARWIN=true
