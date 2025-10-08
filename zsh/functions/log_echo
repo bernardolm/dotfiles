@@ -11,16 +11,23 @@ function log_echo() {
 	local _caller_end=""
 	local cols=$(tput cols)
 
-	$SHELL_TRACE && _caller=$(caller)
+	((SHELL_TRACE)) && _caller=$(caller)
 
 	local output=$msg
 
 	if ! which ansi2txt &>/dev/null; then
-		echo -e "${CLR_BG_RED} you need to install colorized-logs package: ${NO_COLOR}"
-		echo -e "${CLR_BG_RED} sudo apt-get install --no-install-recommends --yes colorized-logs ${NO_COLOR}"
-		function ansi2txt() {
-			echo $@
-		}
+		echo "${CLR_BG_RED} > ansi2txt commnad not found ${NO_COLOR}"
+		if ((IS_LINUX)); then
+			sudo apt install ansi2txt --no-install-recommends --yes
+		elif ((IS_DARWIN)); then
+			brew install gabe565/tap/ansi2txt
+		fi
+
+		if [ $? -ne 0 ]; then
+			function ansi2txt() {
+				echo $@
+			}
+		fi
 	fi
 
 	if [[ $cols -ge 80 ]]; then
