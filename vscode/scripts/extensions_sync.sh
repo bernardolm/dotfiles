@@ -1,5 +1,7 @@
 #!/bin/bash
 
+[[ -z "$(uname)" ]] && echo "> this script willn't works on windows" && exit 0
+
 command -v code_cli &>/dev/null || echo "code cli not found, sym linking... " && \
 	ln -sf $HOME/sync/shared/vscode/code_cli $HOME/.local/bin/code_cli
 
