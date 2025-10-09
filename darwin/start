@@ -1,4 +1,16 @@
 #!/bin/sh
 
+echo "> running darwin start"
+
 export IP_CURRENT ; IP_CURRENT=$(ipconfig getifaddr en0)
 export IS_DARWIN ; IS_DARWIN=true
+export LDFLAGS ; LDFLAGS+=" -I /opt/homebrew/opt/openssl@3.6/include -L /opt/homebrew/opt/openssl@3.6/lib "
+
+PATH+=":/opt/homebrew/bin"
+PATH+=":/opt/homebrew/opt/curl/bin"
+PATH+=":/opt/homebrew/opt/libpq/bin"
+# PATH+=":/opt/homebrew/opt/python@3.13/libexec/bin"
+PATH+=":/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+PATH+=":/Library/Frameworks/Python.framework/Versions/Current/bin"
+
+alias cat='bat'

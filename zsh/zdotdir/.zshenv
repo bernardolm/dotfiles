@@ -9,8 +9,8 @@ case $- in
 esac
 (( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs "$@" && exit
 
-#command -v zellij &>/dev/null || sudo ln -sf $HOME/sync/linux/bin/zellij /usr/local/bin/zellij
-#eval "$(zellij setup --generate-auto-start zsh)"
+# command -v zellij &>/dev/null || sudo ln -sf $HOME/sync/linux/bin/zellij /usr/local/bin/zellij
+# eval "$(zellij setup --generate-auto-start zsh)"
 
 ((SHELL_DEBUG)) && echo ".zshenv"
 
@@ -116,7 +116,6 @@ PATH+=":$HOME/.local/bin"
 PATH+=":$HOME/bin"
 PATH+=":$HOME/gopath/bin"
 PATH+=":$HOME/sync/linux/bin"
-PATH+=":/opt/homebrew/opt/curl/bin"
 
 if [[ $(test -f /proc/version && grep -i Microsoft /proc/version) ]]; then
   export WSL_SYSTEM ; WSL_SYSTEM=true

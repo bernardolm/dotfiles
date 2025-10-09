@@ -1,4 +1,8 @@
 #!/bin/sh
 
+echo "> running linux start"
+
 export IP_CURRENT ; IP_CURRENT=$(hostname -I | awk '{print $1}')
 export IS_LINUX ; IS_LINUX=true
+
+alias cat='batcat --number --force-colorization'
