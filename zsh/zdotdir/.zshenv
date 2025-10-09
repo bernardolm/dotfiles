@@ -45,7 +45,6 @@ export LESS ; LESS="-erX"
 export MICRO_TRUECOLOR ; MICRO_TRUECOLOR=1
 export MY_PLACE ; MY_PLACE=home
 export PAGER ; PAGER=less
-export POWERLINE_ROOT ; POWERLINE_ROOT="$HOME/.local/lib/python3.11/site-packages/powerline"
 export SAVEHIST ; SAVEHIST=999999
 export SPACESHIP_EXEC_TIME_SHOW ; SPACESHIP_EXEC_TIME_SHOW=false
 export SSH_AGENT_PID ; SSH_AGENT_PID=-1
@@ -72,6 +71,8 @@ export GOPATH ; GOPATH="$HOME/gopath"
 export GPG_TTY ; GPG_TTY=$(tty)
 export HISTSIZE ; HISTSIZE="$SAVEHIST"
 export HOSTNAME ; HOSTNAME=$(hostname)
+export POWERLINE_ROOT ; POWERLINE_ROOT="$HOME/.local/lib/python3.11/site-packages/powerline"
+export PYENV_ROOT ; PYENV_ROOT="$HOME/.pyenv"
 export SSH_AGENT_OUTPUT_SCRIPT ; SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
 export UID ; UID=$(id -u)
 export USER_TMP ; USER_TMP="$HOME/tmp"
@@ -116,6 +117,7 @@ PATH+=":$HOME/.local/bin"
 PATH+=":$HOME/bin"
 PATH+=":$HOME/gopath/bin"
 PATH+=":$HOME/sync/linux/bin"
+PATH+=":$PYENV_ROOT/bin"
 
 if [[ $(test -f /proc/version && grep -i Microsoft /proc/version) ]]; then
   export WSL_SYSTEM ; WSL_SYSTEM=true

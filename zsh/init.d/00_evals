@@ -4,3 +4,5 @@ command -v atuin &>/dev/null \
 	&& log finish "atuin"
 
 # command -v zoxide &>/dev/null && eval "$(zoxide init zsh)"
+
+command -v pyenv &>/dev/null && eval "$(pyenv init - zsh)"
