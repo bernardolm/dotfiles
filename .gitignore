@@ -22,3 +22,4 @@
 debian/*
 git/submodule/*
 maestral/Dockerfile
+zsh/zdotdir/.zsh_sessions/*
