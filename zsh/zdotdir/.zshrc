@@ -2,3 +2,4 @@
 source "$DOTFILES/zsh/start"
 
 # atuin init zsh - just for atuin installation don't touch this file
+# BUN_INSTALL - just for reflex installation don't touch this file
