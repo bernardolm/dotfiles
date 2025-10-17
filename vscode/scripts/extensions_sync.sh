@@ -9,7 +9,7 @@ total=$(jq '.recommendations | length' $HOME/sync/windows/home/AppData/Roaming/C
 count=0
 
 source $DOTFILES/zsh/functions/now
-log="$USER_TMP/code_extensions_sync.$(now).log"
+log="$HOME/tmp/code_extensions_sync.$(now).log"
 
 echo "> logging into $log"
 

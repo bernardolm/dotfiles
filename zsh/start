@@ -72,7 +72,7 @@ log finish "zsh start: (source) init scripts"
 
 # profiling shell
 if ((SHELL_PROFILE)); then
-    shell_profile_file="$USER_TMP/shell_profile_$(now).prf"
+    shell_profile_file="$HOME/tmp/shell_profile_$(now).prf"
     zprof > "$shell_profile_file"
     echo "> a log profile file as created here $shell_profile_file"
 fi

@@ -21,10 +21,10 @@ export SHELL_DEBUG ; SHELL_DEBUG=0
 export SHELL_PROFILE ; SHELL_PROFILE=0
 export SHELL_TRACE ; SHELL_TRACE=0
 
+# export CASE_SENSITIVE ; CASE_SENSITIVE=false
 export ATUIN_NOBIND ; ATUIN_NOBIND=true
 export BUILDKIT_STEP_LOG_MAX_SIZE ; BUILDKIT_STEP_LOG_MAX_SIZE=-1
 export BUILDKIT_STEP_LOG_MAX_SPEED ; BUILDKIT_STEP_LOG_MAX_SPEED=-1
-# export CASE_SENSITIVE ; CASE_SENSITIVE=false
 export CLICOLOR ; CLICOLOR=true
 export COLORTERM ; COLORTERM=truecolor
 export COMPLETION_WAITING_DOTS ; COMPLETION_WAITING_DOTS=true
@@ -59,35 +59,34 @@ export ZSH_DISABLE_COMPFIX ; ZSH_DISABLE_COMPFIX=true
 export ZSH_HIGHLIGHT_MAXLENGTH ; ZSH_HIGHLIGHT_MAXLENGTH=100
 export ZSH_WAKATIME_PROJECT_DETECTION ; ZSH_WAKATIME_PROJECT_DETECTION=true
 
-export CURRENT_PUBLIC_IP ; CURRENT_PUBLIC_IP=$(curl -sL checkip.amazonaws.com)
 export DOTFILES ; DOTFILES="${DOTFILES:=$HOME/workspaces/bernardolm/dotfiles}" # 🧙‍♂️
 
 # operating system specific
 export OS ; OS=$(uname | tr '[:upper:]' '[:lower:]')
 source "$DOTFILES/$OS/start"
 
+export CURRENT_PUBLIC_IP ; CURRENT_PUBLIC_IP=$(curl -sL checkip.amazonaws.com)
 export GID ; GID=$(id -g)
-export GOPATH ; GOPATH="$HOME/gopath"
 export GPG_TTY ; GPG_TTY=$(tty)
+export IP_CURRENT ; IP_CURRENT=$(hostname -I | awk '{print $1}')
+export UID ; UID=$(id -u)
+
+export DONE_FILE ; DONE_FILE="$HOME/sync/linux/todo-txt/done.txt"
+export ELAPSED_TIME_ROOT ; ELAPSED_TIME_ROOT="$HOME/tmp/elapsed_time/$SESSION_ID"
+export GOPATH ; GOPATH="$HOME/gopath"
 export HISTSIZE ; HISTSIZE="$SAVEHIST"
-export HOSTNAME ; HOSTNAME=$(hostname)
 export POWERLINE_ROOT ; POWERLINE_ROOT="$HOME/.local/lib/python3.11/site-packages/powerline"
 export PYENV_ROOT ; PYENV_ROOT="$HOME/.pyenv"
+export REPORT_FILE ; REPORT_FILE="$HOME/sync/linux/todo-txt/report.txt"
 export SSH_AGENT_OUTPUT_SCRIPT ; SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
-export UID ; UID=$(id -u)
-export USER_TMP ; USER_TMP="$HOME/tmp"
+export TODO_DIR ; TODO_DIR="$DOTFILES/todo-txt"
+export TODO_FILE ; TODO_FILE="$HOME/sync/linux/todo-txt/todo.txt"
 export VSCODE_CLI_DATA_DIR ; VSCODE_CLI_DATA_DIR="$HOME/.vscode-server/cli"
+export ZDOTDIR ; ZDOTDIR="$DOTFILES/zsh/zdotdir"
 export ZPLUG_HOME ; ZPLUG_HOME="$HOME/.zplug"
 export ZSH ; ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM ; ZSH_CUSTOM="$ZSH/custom"
 export ZSH_REPOS ; ZSH_REPOS="$HOME/.zsh"
-
-export DONE_FILE ; DONE_FILE="$HOME/sync/linux/todo-txt/done.txt"
-export ELAPSED_TIME_ROOT ; ELAPSED_TIME_ROOT="$USER_TMP/elapsed_time/$SESSION_ID"
-export REPORT_FILE ; REPORT_FILE="$HOME/sync/linux/todo-txt/report.txt"
-export TODO_DIR ; TODO_DIR="$DOTFILES/todo-txt"
-export TODO_FILE ; TODO_FILE="$HOME/sync/linux/todo-txt/todo.txt"
-export ZDOTDIR ; ZDOTDIR="$DOTFILES/zsh/zdotdir"
 
 export TODO_ACTIONS_DIR ; TODO_ACTIONS_DIR="$TODO_DIR/.todo.actions.d"
 export TODOTXT_CFG_FILE ; TODOTXT_CFG_FILE="$TODO_DIR/zsh.cfg"
@@ -128,7 +127,7 @@ mkdir -m u=rwX,g=rX -p \
 	"$ELAPSED_TIME_ROOT" \
 	"$GOPATH" \
 	"$HOME/.local/bin" \
-	"$USER_TMP" \
+	"$HOME/tmp" \
 	"$WORKSPACE_ORG" \
 	"$WORKSPACE_USER" \
   "$HOME/sync/linux/crontab/"
