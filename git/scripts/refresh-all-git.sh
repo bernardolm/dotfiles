@@ -33,7 +33,7 @@ wait_for=0
 
 do_bkp() {
     local from="$1"
-    local to="../_$2-bkp-$(now)"
+    local to="../_$2.bkp.$(now)"
     mv ${from} ${to}
 }
 

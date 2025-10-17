@@ -240,7 +240,7 @@ function dns_local_setup() {
 
         if [ -h /mnt/resolv.conf ]; then
             printf "  Removing resolv.conf managed by systemd-resolved\n"
-            ${super} mv -f /mnt/resolv.conf /mnt/resolv.conf.bkp
+            ${super} mv -f /mnt/resolv.conf /mnt/resolv.bkp.conf
             ${super} touch /mnt/resolv.conf
         fi
 

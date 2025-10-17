@@ -1,5 +1,7 @@
-include /usr/share/nano/*
-include ${HOME}/.nano/*.nanorc
+include /usr/share/nano/*.nanorc
+include /usr/share/nano/debian/*.nanorc
+include /usr/share/nano/extra/*.nanorc
+include /home/bernardo/.nano/*.nanorc
 
 # bind       ^H      backspace       main
 # bind       Del     delete      all
@@ -19,7 +21,7 @@ set linenumbers # Displaying the Current Line Number
 set positionlog
 set showcursor
 set softwrap
-set tabsize 4
+set tabsize 2
 set tabstospaces
 set trimblanks
 set unix
