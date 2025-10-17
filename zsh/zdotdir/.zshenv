@@ -68,7 +68,6 @@ source "$DOTFILES/$OS/start"
 export CURRENT_PUBLIC_IP ; CURRENT_PUBLIC_IP=$(curl -sL checkip.amazonaws.com)
 export GID ; GID=$(id -g)
 export GPG_TTY ; GPG_TTY=$(tty)
-export IP_CURRENT ; IP_CURRENT=$(hostname -I | awk '{print $1}')
 export UID ; UID=$(id -u)
 
 export DONE_FILE ; DONE_FILE="$HOME/sync/linux/todo-txt/done.txt"
