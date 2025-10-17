@@ -34,6 +34,6 @@ log finish "ohmyzsh: sourcing init script"
 
 unalias sudo 2>/dev/null
 
-title "$(hostname)"
+# title "$HOSTNAME"
 
 log finish "ohmyzsh"
