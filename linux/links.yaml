@@ -28,6 +28,7 @@
 - link:
     $HOME/.bash_aliases: $DOTFILES/bash/.bash_aliases
     $HOME/.bashrc: $DOTFILES/bash/.bashrc
+    $HOME/.nanorc: $DOTFILES/nano/.nanorc
     $HOME/.zlogin: $DOTFILES/zsh/zdotdir/.zlogin
     $HOME/.zlogout: $DOTFILES/zsh/zdotdir/.zlogout
     $HOME/.zprofile: $DOTFILES/zsh/zdotdir/.zprofile

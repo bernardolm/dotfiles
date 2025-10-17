@@ -1,5 +1,5 @@
 include /usr/share/nano/*
-include $HOME/.nano/*.nanorc
+include ${HOME}/.nano/*.nanorc
 
 # bind       ^H      backspace       main
 # bind       Del     delete      all

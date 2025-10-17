@@ -22,8 +22,3 @@
     active = true
     path = git/submodules/dotbot-brew
     url = https://github.com/d12frosted/dotbot-brew.git
-
-[submodule "git/submodules/nanorc"]
-    active = true
-    path = git/submodules/nanorc
-    url = https://github.com/scopatz/nanorc.git
