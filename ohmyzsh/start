@@ -5,16 +5,6 @@ source "$DOTFILES/ohmyzsh/install"
 
 export ZSH_THEME=""
 
-# log start "ohmyzsh: zstyle"
-# zstyle ':omz:lib:directories' aliases no
-# zstyle ':omz:lib:docker-compose' aliases no
-# zstyle ':omz:lib:docker' aliases no
-# zstyle ':omz:lib:git' aliases yes
-# zstyle ':omz:lib:sudo' aliases mo
-# zstyle ':omz:lib:theme-and-appearance' aliases no
-# zstyle ':omz:update' mode disabled
-# log finish "ohmyzsh: zstyle"
-
 log start "ohmyzsh: loading plugins list"
 list=$(plugins_list $DOTFILES/ohmyzsh/plugins.txt)
 plugins+=(${(s: :)list})
@@ -22,17 +12,11 @@ log debug "ohmyzsh plugins loaded: $plugins"
 log finish "ohmyzsh: loading plugins list"
 
 log start "ohmyzsh: sourcing init script"
-# shellcheck source=/dev/null
-# ohmyzsh_xtrace_file="$HOME/tmp/oh-my-zsh_$(now).log"
-# exec 3>&2 2>$ohmyzsh_xtrace_file
-# setopt xtrace prompt_subst
 source "${ZSH}/oh-my-zsh.sh"
-# unsetopt xtrace
-# exec 2>&3 3>&-
-# unset ohmyzsh_xtrace_file
 log finish "ohmyzsh: sourcing init script"
 
 unalias sudo 2>/dev/null
+unalias rm 2>/dev/null
 
 # title "$HOSTNAME"
 
