@@ -1,5 +1,5 @@
 source $DOTFILES/zsh/functions/now
-log_path=$HOME/tmp/refresh-all-git/$(now)
+log_path=$TMP_USER/refresh-all-git/$(now)
 [ ! -d $log_path ] && mkdir -p $log_path
 
 # Black        0;30     Dark Gray     1;30

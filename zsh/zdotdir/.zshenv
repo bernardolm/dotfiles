@@ -64,22 +64,20 @@ export DOTFILES ; DOTFILES="${DOTFILES:=$HOME/workspaces/bernardolm/dotfiles}" #
 export OS ; OS=$(uname | tr '[:upper:]' '[:lower:]')
 source "$DOTFILES/$OS/start"
 
-export CURRENT_PUBLIC_IP ; CURRENT_PUBLIC_IP=$(curl -sL checkip.amazonaws.com)
+export TMP_USER ; TMP_USER="$HOME/sync/tmp/$HOSTNAME"
+
+export IP_PUBLIC ; IP_PUBLIC=$(curl -sL checkip.amazonaws.com)
 export GID ; GID=$(id -g)
 export GPG_TTY ; GPG_TTY=$(tty)
 export UID ; UID=$(id -u)
 
-export DONE_FILE ; DONE_FILE="$HOME/sync/linux/todo-txt/done.txt"
-export ELAPSED_TIME_ROOT ; ELAPSED_TIME_ROOT="$HOME/tmp/elapsed_time/$SESSION_ID"
+export ELAPSED_TIME_ROOT ; ELAPSED_TIME_ROOT="$TMP_USER/elapsed_time/$SESSION_ID"
 export GOPATH ; GOPATH="$HOME/gopath"
 export HISTSIZE ; HISTSIZE="$SAVEHIST"
 export NANORC_FILE ; NANORC_FILE="$HOME/.nanorc"
 export POWERLINE_ROOT ; POWERLINE_ROOT="$HOME/.local/lib/python3.11/site-packages/powerline"
 export PYENV_ROOT ; PYENV_ROOT="$HOME/.pyenv"
-export REPORT_FILE ; REPORT_FILE="$HOME/sync/linux/todo-txt/report.txt"
 export SSH_AGENT_OUTPUT_SCRIPT ; SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
-export TODO_DIR ; TODO_DIR="$DOTFILES/todo-txt"
-export TODO_FILE ; TODO_FILE="$HOME/sync/linux/todo-txt/todo.txt"
 export VSCODE_CLI_DATA_DIR ; VSCODE_CLI_DATA_DIR="$HOME/.vscode-server/cli"
 export ZDOTDIR ; ZDOTDIR="$DOTFILES/zsh/zdotdir"
 export ZPLUG_HOME ; ZPLUG_HOME="$HOME/.zplug"
@@ -87,8 +85,12 @@ export ZSH ; ZSH="$HOME/.oh-my-zsh"
 export ZSH_CUSTOM ; ZSH_CUSTOM="$ZSH/custom"
 export ZSH_REPOS ; ZSH_REPOS="$HOME/.zsh"
 
-export TODO_ACTIONS_DIR ; TODO_ACTIONS_DIR="$TODO_DIR/.todo.actions.d"
-export TODOTXT_CFG_FILE ; TODOTXT_CFG_FILE="$TODO_DIR/zsh.cfg"
+# export DONE_FILE ; DONE_FILE="$HOME/sync/linux/todo-txt/done.txt"
+# export REPORT_FILE ; REPORT_FILE="$HOME/sync/linux/todo-txt/report.txt"
+# export TODO_ACTIONS_DIR ; TODO_ACTIONS_DIR="$HOME/sync/linux/todo-txt/.todo.actions.d"
+# export TODO_DIR ; TODO_DIR="$DOTFILES/todo-txt"
+# export TODO_FILE ; TODO_FILE="$HOME/sync/linux/todo-txt/todo.txt"
+# export TODOTXT_CFG_FILE ; TODOTXT_CFG_FILE="$HOME/sync/linux/todo-txt/zsh.cfg"
 
 if which git &>/dev/null; then
 	export GITHUB_ORG ; GITHUB_ORG=$(git config --file \
@@ -100,9 +102,15 @@ fi
 export WORKSPACE_ORG ; WORKSPACE_ORG="$HOME/workspaces/$GITHUB_ORG"
 export WORKSPACE_USER ; WORKSPACE_USER="$HOME/workspaces/$GITHUB_USER"
 
+PATH+=":/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
 PATH+=":/bin"
 PATH+=":/home/linuxbrew/.linuxbrew/bin"
+PATH+=":/Library/Frameworks/Python.framework/Versions/Current/bin"
 PATH+=":/mnt/c/WINDOWS/system32"
+PATH+=":/opt/homebrew/bin"
+PATH+=":/opt/homebrew/opt/curl/bin"
+PATH+=":/opt/homebrew/opt/libpq/bin"
+PATH+=":/opt/homebrew/opt/openssl@3.6/bin"
 PATH+=":/snap/bin"
 PATH+=":/usr/bin"
 PATH+=":/usr/local/bin"
@@ -114,6 +122,7 @@ PATH+=":$HOME/.cargo/bin"
 PATH+=":$HOME/.local/bin"
 PATH+=":$HOME/bin"
 PATH+=":$HOME/gopath/bin"
+PATH+=":$HOME/sync/bin"
 PATH+=":$HOME/sync/linux/bin"
 PATH+=":$PYENV_ROOT/bin"
 
@@ -126,7 +135,7 @@ mkdir -m u=rwX,g=rX -p \
 	"$ELAPSED_TIME_ROOT" \
 	"$GOPATH" \
 	"$HOME/.local/bin" \
-	"$HOME/tmp" \
+	"$TMP_USER" \
 	"$WORKSPACE_ORG" \
 	"$WORKSPACE_USER" \
   "$HOME/sync/linux/crontab/"

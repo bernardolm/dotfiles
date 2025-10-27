@@ -29,7 +29,7 @@ function git_clone_repos_by_url() {
     function git_clone() {
         REPO_NAME=$1
         REPO_SSH_URL=$2
-        THIS_LOG=$TMP/$REPO_NAME.log
+        THIS_LOG=$destination_path/$REPO_NAME.log
         touch $THIS_LOG
         start_log_file $THIS_LOG
 
@@ -54,7 +54,7 @@ function git_clone_repos_by_url() {
 
     function iterate_page_result() {
         PAGE=$1
-        /bin/cat $TMP/page_$PAGE.json | sed -r 's/\\"//g' | jq -r -c '.[]' | while read -r item; do
+        /bin/cat $destination_path/page_$PAGE.json | sed -r 's/\\"//g' | jq -r -c '.[]' | while read -r item; do
             git_clone $(jq -r -c '.name' <<<$item) $(jq -r -c '.ssh_url' <<<$item);
         done
     }
@@ -65,11 +65,11 @@ function git_clone_repos_by_url() {
 
     function fetch() {
         URL=$1
-        curl -s -u $GITHUB_USER:$TOKEN -D $TMP/page_$PAGE.txt -o $TMP/page_$PAGE.json $URL
+        curl -s -u $GITHUB_USER:$TOKEN -D $destination_path/page_$PAGE.txt -o $destination_path/page_$PAGE.json $URL
     }
 
     function next_page() {
-        /bin/cat $TMP/page_$PAGE.txt | grep 'link:' | sed -ne 's/.*\(http[^"]*\)>;\srel="next".*/\1/p'
+        /bin/cat $destination_path/page_$PAGE.txt | grep 'link:' | sed -ne 's/.*\(http[^"]*\)>;\srel="next".*/\1/p'
     }
 
     URL=$1
@@ -80,12 +80,12 @@ function git_clone_repos_by_url() {
     PAGE=$(echo $URL | /bin/sed -E 's/.*[^_]page=([0-9]+).*/\1/g')
     if [[ -z "${PAGE}" ]]; then echo "page can't be found, nothing to do by now"; return; fi
 
-    TMP=$HOME/tmp/git-clone/$(now)
+    destination_path=$TMP_USER/git-clone/$(now)
     TOKEN=$(git config github.token)
 
     echo "🌎 downloading page $PAGE from $URL to $DEST..."
 
-    mkdir -p $TMP
+    mkdir -p $destination_path
     fetch $URL
 
     iterate_page_result $PAGE $DEST

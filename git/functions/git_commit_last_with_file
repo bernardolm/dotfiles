@@ -4,7 +4,7 @@ function git_commit_last_with_file() {
 
     if [[ "$LOG" == "" ]]; then
         echo "seeking last commit with file $FILE..."
-        LOG="$HOME/tmp/git_commit_last_with_file_$(now).log"
+        LOG="$TMP_USER/git_commit_last_with_file_$(now).log"
         touch $LOG
     fi
 

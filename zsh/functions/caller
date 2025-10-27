@@ -10,6 +10,8 @@ function caller() {
 		local _sep="$(tput setab 237)$(tput setaf 14)\e[1m>${_reset_color}"
 
 		for f in $funcfiletrace; do
+			[ ! -r "$f" ] && return
+
 			if [[ ! $f =~ "/log_" ]]; then
 				f=$(basename $f)
 				if [[ ! -z $_stack ]]; then

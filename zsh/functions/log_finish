@@ -1,7 +1,7 @@
 function log_finish() {
 	local val=$(elapsed_time_get "$@")
 
-	local msg="🚥 $1 $(color gray)was finished$(color no) "
+	local msg="🚥 $1 $(color light_cyan)was finished$(color no) "
 	local msg_suffix=""
 
 	if [[ ! -z "$val" ]]; then

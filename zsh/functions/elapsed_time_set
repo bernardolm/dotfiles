@@ -6,5 +6,5 @@ function elapsed_time_set() {
 	# NOTE: time used to calc time delta
 	epoch > "$file_path"
 
-	((SHELL_DEBUG)) && elapsed_time_status
+	# ((SHELL_DEBUG)) && elapsed_time_status
 }

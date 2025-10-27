@@ -19,5 +19,5 @@ function autoclean() {
 
     rm -rf $HOME/.cache/*
     rm -rf $HOME/gopath/pkg/mod/cache/*
-    rm -rf $HOME/tmp/*
+    rm -rf $TMP_USER/*
 }

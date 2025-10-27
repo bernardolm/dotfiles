@@ -1,5 +1,5 @@
 function gnome_conf_sanitize() {
-    old_gnome_config="$HOME/tmp/old-gnome-config/$(now)/"
+    old_gnome_config="$TMP_USER/old-gnome-config/$(now)/"
 
     mkdir -p "$old_gnome_config"
 

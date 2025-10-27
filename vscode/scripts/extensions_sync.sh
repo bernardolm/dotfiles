@@ -9,7 +9,7 @@ total=$(jq '.recommendations | length' $HOME/sync/windows/home/AppData/Roaming/C
 count=0
 
 source $DOTFILES/zsh/functions/now
-log="$HOME/tmp/code_extensions_sync.$(now).log"
+log="$TMP_USER/code_extensions_sync.$(now).log"
 
 echo "> logging into $log"
 
@@ -26,16 +26,22 @@ jq -r '.recommendations[]' $HOME/sync/windows/home/AppData/Roaming/Code/User/ext
 		if [[ "$ext" =~ ^"-" ]] ; then
 			ext=${ext:1}
 			text+="removing"
-			code_cli --log error \
+			code_cli \
 				--extensions-dir $HOME/.vscode-server/extensions \
+				--force \
+				--log error \
+				--uninstall-extension $ext \
 				--user-data-dir $HOME/.vscode-server/data \
-				--uninstall-extension $ext &>> $log || true;
+				&>> $log || true ;
 		else
 			text+="adding"
-			code_cli --log error \
+			code_cli \
 				--extensions-dir $HOME/.vscode-server/extensions \
+				--force \
+				--install-extension $ext \
+				--log error \
 				--user-data-dir $HOME/.vscode-server/data \
-				--install-extension $ext &>> $log || true;
+				&>> $log || true ;
 		fi
 
 		text+=" $ext"

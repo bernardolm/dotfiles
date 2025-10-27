@@ -10,13 +10,13 @@ test -z $DEBUG || echo "agenda is $agenda"
 agenda_cmd=""
 
 if [ ! -z $DEBUG ]; then
-    tmp_file="$HOME/tmp/gcalcli.cache"
+    gcalcli_cache_path="$TMP_USER/gcalcli.cache"
 
-    if [ ! -f "$tmp_file" ]; then
-        "$DOTFILES/zsh/scripts/gcalcli.sh" > "$tmp_file"
+    if [ ! -f "$gcalcli_cache_path" ]; then
+        "$DOTFILES/zsh/scripts/gcalcli.sh" > "$gcalcli_cache_path"
     fi
 
-    agenda_cmd+=" cat $tmp_file "
+    agenda_cmd+=" cat $gcalcli_cache_path "
 else
     agenda_cmd+=" PYTHONIOENCODING=utf8 "
     agenda_cmd+=" gcalcli --lineart=ascii "

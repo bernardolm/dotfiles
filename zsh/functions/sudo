@@ -1,7 +1,6 @@
 function sudo() {
 	# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_12_02.html
 
-
 	# shellcheck disable=SC2312
 	if [ "$(id -u)" -eq 0 ]; then
 		echo "Hi $USER"
