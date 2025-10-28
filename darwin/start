@@ -2,9 +2,8 @@
 
 echo "> running darwin start"
 
-# export IP_CURRENT ; IP_CURRENT=$(ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' || ipconfig getifaddr en0)
 export HOSTNAME ; HOSTNAME=$(hostname -s)
-export IP_CURRENT ; IP_CURRENT=$(hostname -i)
+export IP_CURRENT ; IP_CURRENT=$(ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' || ipconfig getifaddr en0)
 export IS_DARWIN ; IS_DARWIN=true
 export LDFLAGS ; LDFLAGS+=" -I /opt/homebrew/opt/openssl@3.6/include -L /opt/homebrew/opt/openssl@3.6/lib "
 
