@@ -1,1 +1,1 @@
-((SHELL_DEBUG)) && echo ".zlogout"
+echo ".zlogout"

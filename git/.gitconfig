@@ -1,27 +1,27 @@
 [apply]
-    whitespace = fix
+	whitespace = fix
 
 [commit]
-    gpgsign = true
+	gpgsign = true
 
 [diff]
-    renames = copies
-    colorMoved = zebra
+	renames = copies
+	colorMoved = zebra
 
 [github]
-    user = bernardolm
+	user = bernardolm
 
 [gpg]
-    format = ssh
+	format = ssh
 
 [init]
-    defaultBranch = main
+	defaultBranch = main
 
 [merge]
-    log = true
+	log = true
 
 [pull]
-    rebase = true
+	rebase = true
 
 [url "ssh://git@"]
-    insteadOf = https://
+	insteadOf = https://

@@ -1,4 +1,3 @@
-
 function log() {
   local level="$1"
 

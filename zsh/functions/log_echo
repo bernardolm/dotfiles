@@ -1,4 +1,3 @@
-
 function log_echo() {
 	local fn_called="$0"
 	local msg="$1"

@@ -1,4 +1,3 @@
-
 function log_start() {
   elapsed_time_set "$@"
 

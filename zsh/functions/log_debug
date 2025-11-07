@@ -1,4 +1,3 @@
-
 function log_debug() {
-	log_echo "🐞 $(color bg_grey) $@ $(color no)"
+	log_echo "🐞 $(color bg_grey)$@ $(color no)"
 }

@@ -1,4 +1,3 @@
-
 function elapsed_time() {
 	local start=$1
 	local d_ms=$(($(epoch)-$start))
