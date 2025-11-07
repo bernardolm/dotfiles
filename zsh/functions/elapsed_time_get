@@ -1,9 +1,8 @@
-
 function elapsed_time_get() {
 	local key=$(slugify "$@")
 	local file_path="$ELAPSED_TIME_ROOT/$key"
 
-	[ -d "$file_path" ] && return
+	[ -d "$file_path" ] || [ ! -f "$file_path" ] && return
 
 	/bin/cat "$file_path"
 }
