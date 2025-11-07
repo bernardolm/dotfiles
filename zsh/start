@@ -36,8 +36,8 @@ find -L "$HOME/sync/linux" -maxdepth 3 -type f -path '*/init.d/*' | sort \
   | while IFS="" read -r line; do init_d+=("$line"); done
 log finish "zsh start: adding sync init.d files"
 
-log start "zsh start: adding dotfiles aliases files"
-find -L "$HOME/sync/linux" -maxdepth 3 -type f -name 'aliases' | sort \
+log start "zsh start: adding dotfiles aliases files for $OS"
+find -L "$HOME/sync/$OS" -maxdepth 3 -type f -name 'aliases' | sort \
   | while IFS="" read -r line; do init_d+=("$line"); done
 log finish "zsh start: adding dotfiles aliases files"
 

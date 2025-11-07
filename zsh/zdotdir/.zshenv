@@ -1,5 +1,3 @@
-reset
-
 set -e
 
 # If not running interactively, don't do anything
@@ -8,6 +6,8 @@ case $- in
   *) return;;
 esac
 (( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs "$@" && exit
+
+reset
 
 # command -v zellij &>/dev/null || sudo ln -sf $HOME/sync/linux/bin/zellij /usr/local/bin/zellij
 # eval "$(zellij setup --generate-auto-start zsh)"
@@ -63,6 +63,7 @@ export DOTFILES ; DOTFILES="${DOTFILES:=$HOME/workspaces/bernardolm/dotfiles}" #
 # operating system specific
 export OS ; OS=$(uname | tr '[:upper:]' '[:lower:]')
 source "$DOTFILES/$OS/start"
+source "$HOME/sync/$OS/scripts/start"
 
 export TMP_USER ; TMP_USER="$HOME/sync/tmp/$HOSTNAME"
 
