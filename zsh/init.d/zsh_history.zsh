@@ -1,4 +1,4 @@
-return
+return # using atuin
 
 log debug "checking zsh_history"
 

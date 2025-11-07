@@ -1,0 +1,3 @@
+((SHELL_DEBUG)) && ((IS_LINUX)) && localectl status 1>/dev/null
+
+bindkey "^s" emoji::cli
