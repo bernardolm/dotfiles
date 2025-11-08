@@ -1,37 +1,37 @@
 log start "ssh: start"
 
-log env SSH_AUTH_SOCK
-log env SSH_AGENT_PID
-log env SSH_AGENT_OUTPUT_SCRIPT
+ssh_envs
 
 if [ -f "${SSH_AGENT_OUTPUT_SCRIPT}" ]; then
-    log debug "ssh: agent script found"
-    ((SHELL_DEBUG)) && cat ${SSH_AGENT_OUTPUT_SCRIPT}
+	log debug "ssh: agent script found"
+	((SHELL_DEBUG)) && cat ${SSH_AGENT_OUTPUT_SCRIPT}
 
-    log debug "ssh: sourcing agent script"
-    source ${SSH_AGENT_OUTPUT_SCRIPT}
-
-    log env SSH_AUTH_SOCK
-    log env SSH_AGENT_PID
+	log debug "ssh: sourcing agent script"
+	source ${SSH_AGENT_OUTPUT_SCRIPT}
 else
-    log debug "ssh: agent script not found"
+	log debug "ssh: agent script not found"
 fi
+
+ssh_envs
 
 log env ssh_agent_state
 
 if [ "$(ssh_agent_state)" = "no_connection" ]; then
-    log info "ssh: killing agent"
-    ssh_agent_kill
-
-    log info "ssh: starting agent"
-    ssh_agent_start
+	ssh_agent_kill
+	ssh_agent_start
 fi
+
+ssh_envs
 
 if [ "$(ssh_agent_state)" = "empty" ]; then
-    log info "ssh: adding user keys"
-    ssh-add
+	log info "ssh: adding user keys"
+	ssh-add -c -vv
+	ssh-add -L
+	ssh-add -l
 else
-    log debug "ssh: keys loaded #$(ssh-add -L | wc -l)"
+	log debug "ssh: keys loaded #$(ssh-add -L | wc -l)"
 fi
+
+ssh_envs
 
 log finish "ssh: start"

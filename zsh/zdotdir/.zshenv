@@ -12,14 +12,17 @@ reset
 # command -v zellij &>/dev/null || sudo ln -sf $HOME/sync/linux/bin/zellij /usr/local/bin/zellij
 # eval "$(zellij setup --generate-auto-start zsh)"
 
-((SHELL_DEBUG)) && echo ".zshenv"
+echo ".zshenv"
 
 source $HOME/workspaces/bernardolm/dotfiles/zsh/functions/now
 export SESSION_ID=$(now)
 
-export SHELL_DEBUG ; SHELL_DEBUG=0
-export SHELL_PROFILE ; SHELL_PROFILE=0
-export SHELL_TRACE ; SHELL_TRACE=0
+export SHELL_DEBUG ; SHELL_DEBUG=1 ; \
+	((SHELL_DEBUG)) && echo '> shell debug activated'
+export SHELL_PROFILE ; SHELL_PROFILE=0 ; \
+	((SHELL_PROFILE)) && echo '> shell profile activated'
+export SHELL_TRACE ; SHELL_TRACE=1 ; \
+	((SHELL_TRACE)) && echo '> shell trace activated'
 
 export ATUIN_NOBIND ; ATUIN_NOBIND=true
 export BUILDKIT_STEP_LOG_MAX_SIZE ; BUILDKIT_STEP_LOG_MAX_SIZE=-1
@@ -78,7 +81,7 @@ export HISTSIZE ; HISTSIZE="$SAVEHIST"
 export NANORC_FILE ; NANORC_FILE="$HOME/.nanorc"
 export POWERLINE_ROOT ; POWERLINE_ROOT="$HOME/.local/lib/python3.11/site-packages/powerline"
 export PYENV_ROOT ; PYENV_ROOT="$HOME/.pyenv"
-export SSH_AGENT_OUTPUT_SCRIPT ; SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
+# export SSH_AGENT_OUTPUT_SCRIPT ; SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
 export VSCODE_CLI_DATA_DIR ; VSCODE_CLI_DATA_DIR="$HOME/.vscode-server/cli"
 export ZDOTDIR ; ZDOTDIR="$DOTFILES/zsh/zdotdir"
 export ZPLUG_HOME ; ZPLUG_HOME="$HOME/.zplug"
