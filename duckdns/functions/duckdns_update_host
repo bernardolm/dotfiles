@@ -1,9 +1,9 @@
 function duckdns_update_host() {
     domain_suffix=""
 
-    if [ "${WSL_SYSTEM}" = 'true' ]; then
-        domain_suffix="-wsl"
-    fi
+    if ((WSL_SYSTEM)); then
+			domain_suffix="-wsl"
+		fi
 
     duckdns_update "${GITHUB_USER}--${HOSTNAME}${domain_suffix}" "${IP_CURRENT}"
 }
