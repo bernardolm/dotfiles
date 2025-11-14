@@ -1,5 +1,5 @@
 
-function caller() {
+function caller_function() {
 	if [[ $BASH_VERSION ]]; then
 		local file=${BASH_SOURCE[1]} func=${FUNCNAME[1]} line=${BASH_LINENO[0]}
 	else

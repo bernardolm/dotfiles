@@ -8,9 +8,9 @@ function elapsed_time() {
 	local h=$((d_s / 3600))
 
   # do you need to record everything? even the fastest ones?
-	# if ((d_ms <= 500)); then
-  #   return
-  # fi
+	if ((d_ms < 300)); then
+    return
+  fi
 
   # no time machines
 	if ((ms < 0)); then

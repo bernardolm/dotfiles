@@ -7,11 +7,11 @@ function log_finish() {
 	if [[ ! -z "$val" ]]; then
 		local result=$(elapsed_time $val)
 		if [ ! -z "$result" ]; then
-			msg_suffix+="⏱️ took $result"
+			msg_suffix+="⏱️  took $result"
 		fi
 
 	else
-		msg_suffix="⌚ at $(date +"%H:%M:%S.%N") "
+		msg_suffix="⌚ at $(color yellow)$(date +"%H:%M")$(color gray)$(date +":%S.%N")$(color no) "
 
 	fi
 

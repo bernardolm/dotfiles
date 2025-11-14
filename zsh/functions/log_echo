@@ -10,7 +10,9 @@ function log_echo() {
 	local _caller_end=""
 	local cols=$(tput cols)
 
-	((SHELL_TRACE)) && _caller=$(caller)
+	if ((SHELL_TRACE)); then
+		_caller=$(caller_function)
+	fi
 
 	local output=$msg
 
