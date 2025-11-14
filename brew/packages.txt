@@ -1,0 +1,57 @@
+--cask docker-ce
+--cask docker-desktop
+--cask gcloud-cli
+--cask multitouch
+--cask rectangle
+--cask superkey
+1password-cli
+android-platform-tools
+ansi2txt
+atuin
+bat
+batcat
+cat
+chroma
+code-cli
+colorized-logs
+cron
+crontab
+dbeaver
+docker-ce
+docker-clean
+docker-compose
+docker-compose-langserver
+docker-desktop
+docker-ls
+dockerfile-language-server
+dockerfmt
+dockerize
+dropbox
+duf
+eza
+fortune
+fzf
+gcloud
+gh
+libpq
+make
+openssl@3
+postgrest
+procs
+pyenv
+python-is-python3
+python-setuptools
+python3
+python3-setuptools
+python3-venv
+rust
+rustc
+ssh-audit
+ssh-keys
+sublime
+sublime-text
+taskwarrior
+taskwarrior-tui
+tree
+upx
+zsh
