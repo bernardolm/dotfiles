@@ -1,4 +1,3 @@
-agkozak/zsh-z # for z ohmyzsh plugin
 b4b4r07/emoji-cli # for z ohmyzsh plugin
 sobolevn/wakatime-zsh-plugin # only zplug, with project detection
 zsh-users/zsh-autosuggestions # for z ohmyzsh plugin
