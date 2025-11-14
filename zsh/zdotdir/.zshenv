@@ -17,7 +17,7 @@ echo ".zshenv"
 source $HOME/workspaces/bernardolm/dotfiles/zsh/functions/now
 export SESSION_ID=$(now)
 
-export SHELL_DEBUG ; SHELL_DEBUG=1 ; \
+export SHELL_DEBUG ; SHELL_DEBUG=0 ; \
 	((SHELL_DEBUG)) && echo '> shell debug activated'
 export SHELL_PROFILE ; SHELL_PROFILE=0 ; \
 	((SHELL_PROFILE)) && echo '> shell profile activated'
@@ -106,18 +106,7 @@ fi
 export WORKSPACE_ORG ; WORKSPACE_ORG="$HOME/workspaces/$GITHUB_ORG"
 export WORKSPACE_USER ; WORKSPACE_USER="$HOME/workspaces/$GITHUB_USER"
 
-PATH+=":/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
-PATH+=":/bin"
-PATH+=":/home/linuxbrew/.linuxbrew/bin"
-PATH+=":/Library/Frameworks/Python.framework/Versions/Current/bin"
-PATH+=":/mnt/c/WINDOWS/system32"
-PATH+=":/opt/homebrew/bin"
-PATH+=":/opt/homebrew/opt/curl/bin"
-PATH+=":/opt/homebrew/opt/libpq/bin"
-PATH+=":/opt/homebrew/opt/openssl@3.6/bin"
-PATH+=":/snap/bin"
-PATH+=":/usr/bin"
-PATH+=":/usr/local/bin"
+PATH+=":/bin:/usr/bin:/usr/sbin:/usr/local/bin:/sbin"
 PATH+=":/usr/local/go/bin"
 PATH+=":/usr/local/java/jre/bin"
 PATH+=":$DOTFILES/bin"
@@ -126,12 +115,13 @@ PATH+=":$HOME/.cargo/bin"
 PATH+=":$HOME/.local/bin"
 PATH+=":$HOME/bin"
 PATH+=":$HOME/gopath/bin"
+PATH+=":$HOME/sync/$OS/bin"
 PATH+=":$HOME/sync/bin"
-PATH+=":$HOME/sync/linux/bin"
 PATH+=":$PYENV_ROOT/bin"
+export PATH
 
 if [[ $(test -f /proc/version && grep -i Microsoft /proc/version) ]]; then
-  export WSL_SYSTEM ; WSL_SYSTEM=true
+  export WSL_SYSTEM ; WSL_SYSTEM=1
 fi
 
 mkdir -m u=rwX,g=rX -p \
@@ -145,4 +135,5 @@ mkdir -m u=rwX,g=rX -p \
   "$HOME/sync/linux/crontab/"
 
 source "$DOTFILES/zsh/functions/color"
-echo "🤖 $(color cyan)$(whoami)$(color no) using $(color rose)$OS$(color no) at $(color light_green)$IP_CURRENT$(color no)"
+# 🌐📡📶
+echo "👤 $(color cyan)$(whoami)$(color no) is using 💽 $(color rose)$OS$(color no) at 📍 $(color light_green)$IP_CURRENT$(color no)"

@@ -2,9 +2,16 @@
 
 echo "> linux start"
 
+if ((WSL_SYSTEM)); then
+	PATH+=":/mnt/c/WINDOWS/system32"
+fi
+PATH+=":/snap/bin" # ubuntu
+PATH+=":$HOME/sync/linux/bin"
+export PATH
+
 export HOSTNAME ; HOSTNAME=$(hostname)
 export IP_CURRENT ; IP_CURRENT=$(hostname -I | awk '{print $1}')
-export IS_LINUX ; IS_LINUX=true
+export IS_LINUX ; IS_LINUX=1
 
 alias cat='batcat --number --force-colorization'
 

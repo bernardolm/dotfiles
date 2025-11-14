@@ -12,8 +12,6 @@ source $DOTFILES/zsh/config/autoload
 
 log start "zsh start"
 
-# SHELL_DEBUG=1 SHELL_TRACE=1 source "$DOTFILES/ssh/start"
-
 # TODO: move to top zdotfile
 # export SCRIPT_PATH="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
 # log env "SCRIPT_PATH"
