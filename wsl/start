@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo "> wsl start"
+
+PATH+=":/mnt/c/Users/bernardo/AppData/Local/Microsoft/WindowsApps"
+PATH+=":/mnt/c/WINDOWS/system32"
+export PATH
+
+export HOSTNAME ; HOSTNAME=$(hostname.exe | tr -d ' |\r')
+export IP_CURRENT ; IP_CURRENT=$(powershell.exe '(Get-NetIPAddress -AddressFamily IPv4 | Where-Object {($_.InterfaceAlias -like "Wi-Fi" -or $_.InterfaceAlias -like "*Externo*") -and $_.IPAddress -like "192*"}).IPAddress' | tr -d ' |\r')
+
+alias ssh='ssh.exe'
+alias ssh-add='ssh-add.exe'
+
+echo "> wsl finish"

@@ -2,11 +2,7 @@
 
 echo "> linux start"
 
-if ((WSL_SYSTEM)); then
-	PATH+=":/mnt/c/WINDOWS/system32"
-fi
-PATH+=":/snap/bin" # ubuntu
-PATH+=":$HOME/sync/linux/bin"
+PATH+=":/snap/bin"
 export PATH
 
 export HOSTNAME ; HOSTNAME=$(hostname)
@@ -14,5 +10,9 @@ export IP_CURRENT ; IP_CURRENT=$(hostname -I | awk '{print $1}')
 export IS_LINUX ; IS_LINUX=1
 
 alias cat='batcat --number --force-colorization'
+
+if ((IS_WSL)); then
+	exec "$DOTFILES/wsl/start"
+fi
 
 echo "> linux finish"

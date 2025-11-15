@@ -121,7 +121,7 @@ PATH+=":$PYENV_ROOT/bin"
 export PATH
 
 if [[ $(test -f /proc/version && grep -i Microsoft /proc/version) ]]; then
-  export WSL_SYSTEM ; WSL_SYSTEM=1
+  export IS_WSL ; IS_WSL=1
 fi
 
 mkdir -m u=rwX,g=rX -p \
