@@ -51,28 +51,29 @@ log start "zsh start: (source) init scripts"
 # and automatically include them in this list.
 # remember to ignore files already in the list.
 _init_order=(
-    "$DOTFILES/zplug/start"
-    "$DOTFILES/ohmyzsh/start"
-    "$DOTFILES/starship/start"
-    "$DOTFILES/zsh/config/inputrc"
-    "$DOTFILES/zsh/config/setopt"
-    "$DOTFILES/zsh/config/zstyle"
-    "${init_d[@]}"
+	"$DOTFILES/zplug/start"
+	"$DOTFILES/zsh/init.d/10_pyenv.zsh"
+	"$DOTFILES/ohmyzsh/start"
+	"$DOTFILES/starship/start"
+	"$DOTFILES/zsh/config/inputrc"
+	"$DOTFILES/zsh/config/setopt"
+	"$DOTFILES/zsh/config/zstyle"
+	"${init_d[@]}"
 ); for _f in "${_init_order[@]}"; do
-    log start "zsh start: (source) ${_f//$DOTFILES\/}"
-    # shellcheck source=/dev/null
-    source "$_f"
-    # shellcheck disable=SC2086
-    log finish "zsh start: (source) ${_f//$DOTFILES\/}"
+	log start "zsh start: (source) ${_f//$DOTFILES\/}"
+	# shellcheck source=/dev/null
+	source "$_f"
+	# shellcheck disable=SC2086
+	log finish "zsh start: (source) ${_f//$DOTFILES\/}"
 done
 # shellcheck disable=SC2086
 log finish "zsh start: (source) init scripts"
 
 # profiling shell
 if ((SHELL_PROFILE)); then
-    shell_profile_file="$TMP_USER/shell_profile_$(now).prf"
-    zprof > "$shell_profile_file"
-    echo "> a log profile file as created here $shell_profile_file"
+	shell_profile_file="$TMP_USER/shell_profile_$(now).prf"
+	zprof > "$shell_profile_file"
+	echo "> a log profile file as created here $shell_profile_file"
 fi
 
 log finish "zsh start"

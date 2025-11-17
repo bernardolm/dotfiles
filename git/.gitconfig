@@ -4,13 +4,6 @@
 [commit]
 	gpgsign = true
 
-[diff]
-	renames = copies
-	colorMoved = zebra
-
-[github]
-	user = bernardolm
-
 [gpg]
 	format = ssh
 

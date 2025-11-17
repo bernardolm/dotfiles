@@ -1,1 +1,1 @@
-command -v pyenv &>/dev/null && eval "$(pyenv init - zsh)"
+eval "$(pyenv init --path --zsh)"

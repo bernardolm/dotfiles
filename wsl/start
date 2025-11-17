@@ -9,7 +9,9 @@ export PATH
 export HOSTNAME ; HOSTNAME=$(hostname.exe | tr -d ' |\r')
 export IP_CURRENT ; IP_CURRENT=$(powershell.exe '(Get-NetIPAddress -AddressFamily IPv4 | Where-Object {($_.InterfaceAlias -like "Wi-Fi" -or $_.InterfaceAlias -like "*Externo*") -and $_.IPAddress -like "192*"}).IPAddress' | tr -d ' |\r')
 
-alias ssh='ssh.exe'
+alias op='op.exe'
 alias ssh-add='ssh-add.exe'
+alias ssh-agent='ssh-agent.exe'
+alias ssh='ssh.exe'
 
 echo "> wsl finish"
