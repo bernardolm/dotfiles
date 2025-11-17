@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env /bin/zsh
 # Lists as many items as can fit in the terminal, no wrapping or scrolling.
 
 if [ -n "$1" ]; then

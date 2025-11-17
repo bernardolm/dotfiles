@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env /bin/zsh
 
 # log start "pre install linux" # don't work at this point
 

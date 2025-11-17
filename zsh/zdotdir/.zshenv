@@ -17,7 +17,7 @@ echo ".zshenv"
 source $HOME/workspaces/bernardolm/dotfiles/zsh/functions/now
 export SESSION_ID=$(now)
 
-export SHELL_DEBUG ; SHELL_DEBUG=0 ; \
+export SHELL_DEBUG ; SHELL_DEBUG=1 ; \
 	((SHELL_DEBUG)) && echo '> shell debug activated'
 export SHELL_PROFILE ; SHELL_PROFILE=0 ; \
 	((SHELL_PROFILE)) && echo '> shell profile activated'

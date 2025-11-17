@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env /bin/zsh
 
 #
 # Basically, its function is to raise a local name server (DNS) inside a docker

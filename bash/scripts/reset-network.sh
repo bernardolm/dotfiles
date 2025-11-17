@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env /bin/zsh
 
 sudo dhclient -r || true
 sudo iptables -F || true

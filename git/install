@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env /bin/zsh
 
 # shellcheck source=/dev/null
 . "$DOTFILES/zsh/functions/log"

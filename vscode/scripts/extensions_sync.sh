@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env /bin/zsh
 
 [[ -z "$(uname)" ]] && echo "> this script willn't works on windows" && exit 0
 

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env /bin/zsh
 # Ekimia.fr 2021
 # Enables Hibernation with swap file with menus on Ubuntu 20.04
 

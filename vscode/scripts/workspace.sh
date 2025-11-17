@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env /bin/zsh
 
 if [ "$OS" = "windows" ]; then
 	echo "> I don't know what to do :("

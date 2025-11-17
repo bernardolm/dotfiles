@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env /bin/zsh
 
 # Configuration
 disk_uuid=D6623F1C623F00B3
