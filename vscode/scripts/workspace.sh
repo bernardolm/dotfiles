@@ -6,5 +6,5 @@ if [ "$OS" = "windows" ]; then
 	exit 0
 fi
 
-envsubst < ~/sync/shared/vs.code-workspace > ~/sync/$OS/vs.code-workspace
-code ~/sync/$OS/vs.code-workspace
+envsubst < ~/sync/shared/default.code-workspace > ~/sync/$OS/$OS.code-workspace
+code ~/sync/$OS/$OS.code-workspace
