@@ -78,4 +78,6 @@ fi
 
 log finish "zsh start"
 
+title "$HOSTNAME | $OS | $(basename "$(pwd)")"
+
 set +e

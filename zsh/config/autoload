@@ -1,21 +1,20 @@
-set -e
-
 () {
-	local my_fpath=(
+	local my_functions_paths=(
 		$(eval echo $HOME/sync/linux/**/functions)
 		$(eval echo $DOTFILES/**/functions)
 	)
+	echo -e "${#my_functions_paths[@]} autoload functions paths"
 
-	for funcs in "$my_fpath[@]"; do
-		typeset -TUg +x FPATH=$funcs:$FPATH fpath
+	fpath=($fpath $my_functions_paths)
 
-		if [[ -d $funcs ]]; then
-			if [ -z "$(ls -A $funcs)" ]; then
-				continue
-			fi
-			autoload -Uz ${=$(cd "$funcs" && echo *)} 1>/dev/null || true
-		fi
+	local my_functions=()
+
+	for f in "$my_functions_paths[@]"; do
+		[ ! -d $f ] && echo "skipping empty folder '$f' to autoload" && continue
+		my_functions+=($(/bin/ls -A $f))
 	done
-}
+	echo "${#my_functions[@]} autoload functions"
 
-set +e
+	autoload -Uz $my_functions
+	compinit
+}
