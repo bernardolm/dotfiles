@@ -1,17 +1,17 @@
 [apply]
-	whitespace = fix
+  whitespace = fix
 
 [commit]
-	gpgsign = true
+  gpgsign = true
 
 [gpg]
-	format = ssh
+  format = ssh
 
 [init]
-	defaultBranch = main
+  defaultBranch = main
 
 [merge]
-	log = true
+  log = true
 
 [pull]
-	rebase = true
+  rebase = true

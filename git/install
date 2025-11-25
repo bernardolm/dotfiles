@@ -1,7 +1,7 @@
 #!/usr/bin/env /bin/zsh
 
 # shellcheck source=/dev/null
-. "$DOTFILES/zsh/functions/log"
+source "$DOTFILES/zsh/functions/log"
 
 log start "git setup"
 

@@ -3,8 +3,7 @@ log start "ohmyzsh install"
 if [ ! -d "$ZSH" ]; then
     log info "ohmyzsh install: installing (downloading) oh-my-zsh"
 
-		url="https://raw.githubusercontent.com" \
-			+ "/ohmyzsh/ohmyzsh/master/tools/install.sh"
+		url="https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh"
     curl -fsSL "$url" | KEEP_ZSHRC=yes RUNZSH=no CHSH=no bash
 
     log warn "ohmyzsh install: change default shell to zsh? input password"

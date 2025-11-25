@@ -24,7 +24,7 @@ genpass
 gh
 git
 git-auto-fetch
-git-commit
+# git-commit # create stupid aliases in .gitconfig
 git-extras
 git-prompt
 gitfast

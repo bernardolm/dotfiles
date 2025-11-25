@@ -2,12 +2,8 @@
 
 echo "> wsl start"
 
-# echo $PATH | tr ':' '\n' | sort
-PATH="$PATH:/bin"
-PATH+=":bin"
 PATH="$PATH:/mnt/c/Users/bernardo/AppData/Local/Microsoft/WindowsApps"
-# PATH+=":/mnt/c/Users/bernardo/AppData/Local/Microsoft/WindowsApps"
-# PATH+=":/mnt/c/WINDOWS/system32"
+PATH="$PATH:/mnt/c/WINDOWS/system32"
 export PATH
 
 export HOSTNAME ; HOSTNAME=$(hostname.exe | tr -d ' |\r')

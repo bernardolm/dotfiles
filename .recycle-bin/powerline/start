@@ -1,4 +1,4 @@
-. "${POWERLINE_ROOT}/bindings/zsh/powerline.zsh"
+source "${POWERLINE_ROOT}/bindings/zsh/powerline.zsh"
 
 function powerline_precmd() {
     PS1="$(powerline-shell --shell zsh $?)"

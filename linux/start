@@ -12,7 +12,7 @@ export IS_LINUX ; IS_LINUX=1
 alias cat='batcat --number --force-colorization'
 
 if ((IS_WSL)); then
-	exec "$DOTFILES/wsl/start"
+	source "$DOTFILES/wsl/start"
 fi
 
 echo "> linux finish"

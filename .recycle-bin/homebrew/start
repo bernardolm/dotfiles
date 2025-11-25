@@ -1,1 +1,1 @@
-. $DOTFILES/homebrew/install
+source $DOTFILES/homebrew/install
