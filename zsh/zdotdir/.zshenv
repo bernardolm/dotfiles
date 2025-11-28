@@ -14,11 +14,11 @@ echo ".zshenv"
 source "$HOME/workspaces/bernardolm/dotfiles/zsh/functions/now"
 export SESSION_ID=$(now)
 
-export SHELL_DEBUG ; SHELL_DEBUG=1 ; \
+export SHELL_DEBUG ; SHELL_DEBUG=0 ; \
 	((SHELL_DEBUG)) && echo '> shell debug activated'
 export SHELL_PROFILE ; SHELL_PROFILE=0 ; \
 	((SHELL_PROFILE)) && echo '> shell profile activated'
-export SHELL_TRACE ; SHELL_TRACE=1 ; \
+export SHELL_TRACE ; SHELL_TRACE=0 ; \
 	((SHELL_TRACE)) && echo '> shell trace activated'
 
 export ATUIN_NOBIND ; ATUIN_NOBIND=true
@@ -56,6 +56,7 @@ export ZSH_COLORIZE_CHROMA_FORMATTER ; ZSH_COLORIZE_CHROMA_FORMATTER=terminal256
 export ZSH_COLORIZE_TOOL ; ZSH_COLORIZE_TOOL=chroma
 export ZSH_DISABLE_COMPFIX ; ZSH_DISABLE_COMPFIX=true
 export ZSH_HIGHLIGHT_MAXLENGTH ; ZSH_HIGHLIGHT_MAXLENGTH=100
+export ZSH_PYENV_QUIET ; ZSH_PYENV_QUIET=true
 export ZSH_WAKATIME_PROJECT_DETECTION ; ZSH_WAKATIME_PROJECT_DETECTION=true
 
 export DOTFILES ; DOTFILES="${DOTFILES:-$HOME/workspaces/bernardolm/dotfiles}" # 🧙‍♂️

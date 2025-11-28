@@ -4,10 +4,11 @@ echo "> wsl start"
 
 PATH="$PATH:/mnt/c/Users/bernardo/AppData/Local/Microsoft/WindowsApps"
 PATH="$PATH:/mnt/c/WINDOWS/system32"
+PATH="$PATH:/mnt/c/WINDOWS/System32/OpenSSH"
 export PATH
 
 export HOSTNAME ; HOSTNAME=$(hostname.exe | tr -d ' |\r')
-export IP_CURRENT ; IP_CURRENT=$(powershell.exe '(Get-NetIPAddress -AddressFamily IPv4 | Where-Object {($_.InterfaceAlias -like "Wi-Fi" -or $_.InterfaceAlias -like "*Externo*") -and $_.IPAddress -like "192*"}).IPAddress' | tr -d ' |\r')
+export IP_CURRENT ; IP_CURRENT=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
 
 alias op='op.exe'
 alias ssh-add='ssh-add.exe'
