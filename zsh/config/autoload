@@ -1,5 +1,6 @@
 () {
 	local my_functions_paths=(
+		/opt/homebrew/share/zsh/functions
 		/usr/local/share/zsh/site-functions
 		/usr/share/zsh/5.9/functions
 		/usr/share/zsh/5.9/help/functions
