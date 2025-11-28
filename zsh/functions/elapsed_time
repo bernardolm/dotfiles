@@ -8,7 +8,7 @@ function elapsed_time() {
 	local h=$((d_s / 3600))
 
   # do you need to record everything? even the fastest ones?
-	if ((d_ms < 300)); then
+	if ((d_ms <= 500)); then
     return
   fi
 
@@ -32,7 +32,7 @@ function elapsed_time() {
   elif ((s > 0)); then
     elapsed="$(color cyan)${s}s ${ms}ms$(color no) 🛺"
 
-  elif ((ms >= 500)); then
+  elif ((ms > 500)); then
     elapsed="$(color light_cyan)${ms}ms$(color no) 🚗"
 
   elif ((ms > 100)); then
