@@ -1,1 +1,1 @@
-eval "$(pyenv init --zsh)"
+eval "$(pyenv init --detect-shell)"
