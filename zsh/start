@@ -1,3 +1,5 @@
+#!/usr/bin/env /bin/zsh
+
 set -e
 
 source $DOTFILES/zsh/functions/now

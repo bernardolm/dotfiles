@@ -9,12 +9,9 @@ esac
 
 reset
 
-# command -v zellij &>/dev/null || sudo ln -sf $HOME/sync/linux/bin/zellij /usr/local/bin/zellij
-# eval "$(zellij setup --generate-auto-start zsh)"
-
 echo ".zshenv"
 
-source $HOME/workspaces/bernardolm/dotfiles/zsh/functions/now
+source "$HOME/workspaces/bernardolm/dotfiles/zsh/functions/now"
 export SESSION_ID=$(now)
 
 export SHELL_DEBUG ; SHELL_DEBUG=1 ; \
@@ -61,12 +58,14 @@ export ZSH_DISABLE_COMPFIX ; ZSH_DISABLE_COMPFIX=true
 export ZSH_HIGHLIGHT_MAXLENGTH ; ZSH_HIGHLIGHT_MAXLENGTH=100
 export ZSH_WAKATIME_PROJECT_DETECTION ; ZSH_WAKATIME_PROJECT_DETECTION=true
 
-export DOTFILES ; DOTFILES="${DOTFILES:=$HOME/workspaces/bernardolm/dotfiles}" # 🧙‍♂️
+export DOTFILES ; DOTFILES="${DOTFILES:-$HOME/workspaces/bernardolm/dotfiles}" # 🧙‍♂️
 
 # operating system specific
-export OS ; OS=$(uname | tr '[:upper:]' '[:lower:]')
-source "$DOTFILES/$OS/start"
-source "$HOME/sync/$OS/scripts/start"
+source "$DOTFILES/zsh/scripts/os-resolver.sh"
+[ -f "$DOTFILES/$OS/start" ] \
+	&& source "$DOTFILES/$OS/start"
+[ -f "$HOME/sync/$OS/scripts/start" ] \
+	&& source "$HOME/sync/$OS/scripts/start"
 
 export TMP_USER ; TMP_USER="$HOME/sync/tmp/$HOSTNAME"
 
@@ -118,10 +117,6 @@ PATH+=":$HOME/sync/$OS/bin"
 PATH+=":$HOME/sync/bin"
 PATH+=":$PYENV_ROOT/bin"
 export PATH
-
-if [[ $(test -f /proc/version && grep -i Microsoft /proc/version) ]]; then
-  export IS_WSL ; IS_WSL=1
-fi
 
 mkdir -m u=rwX,g=rX -p \
 	"$DOTFILES/git/modules" \

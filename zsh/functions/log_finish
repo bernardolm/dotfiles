@@ -11,7 +11,7 @@ function log_finish() {
 		fi
 
 	else
-		msg_suffix="⌚ at $(color yellow)$(date +"%H:%M")$(color gray)$(date +":%S.%N")$(color no) "
+		msg_suffix="⌚ at $(color yellow)$(date +"%H:%M") $(color gray)$(date +"%S.%N")$(color no) "
 
 	fi
 

@@ -3,7 +3,7 @@
 		$(eval echo $HOME/sync/linux/**/functions)
 		$(eval echo $DOTFILES/**/functions)
 	)
-	echo -e "${#my_functions_paths[@]} autoload functions paths"
+	echo -e "${#my_functions_paths[@]} autoload function paths"
 
 	fpath=($fpath $my_functions_paths)
 
