@@ -67,6 +67,8 @@ source "$DOTFILES/zsh/scripts/os-resolver.sh"
 	&& source "$DOTFILES/$OS/start"
 [ -f "$HOME/sync/$OS/scripts/start" ] \
 	&& source "$HOME/sync/$OS/scripts/start"
+[ -f "$HOME/sync/zsh_profiles_by_hostname/$HOSTNAME" ] \
+	&& source "$HOME/sync/zsh_profiles_by_hostname/$HOSTNAME"
 
 export TMP_USER ; TMP_USER="$HOME/sync/tmp/$HOSTNAME"
 

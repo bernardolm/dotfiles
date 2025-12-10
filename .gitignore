@@ -12,6 +12,7 @@
 *.zip
 *.zsh.zwc
 **/__pycache__
+**/.DS_Store
 **/*.pid
 **/micro/buffers
 **/micro/plug
