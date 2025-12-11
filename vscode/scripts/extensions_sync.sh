@@ -10,7 +10,7 @@ echo "> home: $HOME"
 
 [[ -z "$OS" ]] && echo "> os unknown" && exit 0
 
-([[ "$OS" = "windows" ]] || [[ "$OS" = "wsl" ]]) \
+[[ "$OS" = "windows" ]] \
 	&& echo "> this script willn't works on windows" && exit 0
 
 total=$(/bin/cat $DOTFILES/vscode/extensions.json | grep -v '//' | jq '. | length')
