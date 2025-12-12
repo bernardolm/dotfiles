@@ -1,5 +1,5 @@
 function antigen_setup() {
-    log info "antigen_setup"
+    log info "setting up antigen"
 
     # shellcheck source=/dev/null
     # . "$DOTFILES/zsh/functions/shell.zsh"

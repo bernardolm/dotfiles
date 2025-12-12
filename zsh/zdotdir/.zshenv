@@ -7,8 +7,6 @@ case $- in
 esac
 (( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs "$@" && exit
 
-reset
-
 echo ".zshenv"
 
 source "$HOME/workspaces/bernardolm/dotfiles/zsh/functions/now"
