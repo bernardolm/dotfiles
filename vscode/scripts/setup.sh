@@ -10,12 +10,30 @@ echo "> code setup root: $ROOT"
 
 case $OS in
 windows)
-	echo "> this script will not works on windows"
+	# CODE_CLI_DIR="$HOME/bin"
+	CODE_CLI_DIR="/mnt/c/Users/bernardo/bin" # "C:/Users/bernardo/bin"
 
-	# c:\Users\bernardo\AppData\Roaming\Code\User
-	# c:\Users\bernardo\AppData\Local\Programs\Microsoft VS Code\bin\code-tunnel.exe
-	# c:/Users/bernardo/.vscode/extensions
-	return
+	CODE_CLI_BIN="$CODE_CLI_DIR/code-cli.exe"
+	CODE_CLI_FILE="$CODE_CLI_DIR/code.exe"
+	CODE_CLI_FILE_C="$CODE_CLI_DIR/code-cli.zip"
+	CODE_CLI_URL="https://code.visualstudio.com/sha/download?build=stable&os=cli-win32-x64"
+
+	# CODE_EXTENSIONS_DIR="/mnt/c/Users/bernardo/.vscode/extensions" # "C:/Users/bernardo/.vscode/extensions"
+	# CODE_EXTENSIONS_DIR="c:\\Users\\bernardo\\.vscode\\extensions" # "C:/Users/bernardo/.vscode/extensions"
+	CODE_EXTENSIONS_DIR="c:/Users/bernardo/.vscode/extensions" # "C:/Users/bernardo/.vscode/extensions"
+	# CODE_USER_DATA_DIR="/mnt/c/Users/bernardo/AppData/Roaming/Code/User" # "C:/Users/bernardo/AppData/Roaming/Code/User"
+	# CODE_USER_DATA_DIR="c:\\Users\\bernardo\\AppData\\Roaming\\Code\\User" # "C:/Users/bernardo/AppData/Roaming/Code/User"
+	CODE_USER_DATA_DIR="c:/Users/bernardo/AppData/Roaming/Code/User" # "C:/Users/bernardo/AppData/Roaming/Code/User"
+	# CODE_USE_VERSION=" --use-version '/mnt/c/Users/bernardo/AppData/Local/Programs/Microsoft\ VS\ Code' "
+	# CODE_USE_VERSION=" --use-version 'c:\\Users\\bernardo\\AppData\\Local\\Programs\\Microsoft\\ VS\\ Code' "
+	CODE_USE_VERSION=" --use-version 'c:/Users/bernardo/AppData/Local/Programs/Microsoft\ VS\ Code' "
+
+	# c:\Users\bernardo\AppData\Local\Programs\Microsoft VS Code\bin
+	# C:\Users\bernardo\AppData\Local\Programs\Microsoft VS Code\Code.exe # SEM CONSOLE
+
+	# WORKS
+	# C:\Users\bernardo\Dropbox\windows\bin\code.exe --extensions-dir "C:\Users\bernardo\.vscode\extensions" --user-data-dir "C:\Users\bernardo\AppData\Roaming\Code\User" --use-version "C:\Users\bernardo\AppData\Local\Programs\Microsoft VS Code" --install-extension ms-dotnettools.csharp
+
 	;;
 wsl)
 	# run before:
@@ -72,7 +90,7 @@ echo "> code_extensions_dir: $CODE_EXTENSIONS_DIR"
 echo "> code_user_data_dir: $CODE_USER_DATA_DIR"
 
 case $OS in
-darwin | linux | wsl)
+darwin | linux | wsl | windows)
 	[ ! -d "$CODE_CLI_DIR" ] && mkdir -p "$CODE_CLI_DIR"
 	((SHELL_DEBUG)) && /bin/rm -f $CODE_CLI_DIR/* || true
 
@@ -94,24 +112,23 @@ darwin | linux | wsl)
 			return
 		fi
 
-		if [[ "$CODE_CLI_FILE" != *".exe" ]]; then
-			chmod u+x "$CODE_CLI_FILE"
-		fi
+		# if [[ "$CODE_CLI_FILE" != *".exe" ]]; then
+		chmod u+x "$CODE_CLI_FILE"
+		# fi
 
 		/bin/mv "$CODE_CLI_FILE" "$CODE_CLI_BIN"
 		"$CODE_CLI_BIN" --status | sed -n '2,2p'
 		# /bin/rm -f "$CODE_CLI_FILE"
 	fi
 
-	PATH="$PATH:$CODE_CLI_DIR"
+	export PATH="$CODE_CLI_DIR:$PATH"
 
-	export PATH
 	export CODE_CLI_BIN
 	export CODE_EXTENSIONS_DIR
 	export CODE_USER_DATA_DIR
 	;;
 *)
-	echo "> don't know install code cli for $OS"
+	echo "> I don't know install code cli for $OS"
 	return
 	;;
 esac

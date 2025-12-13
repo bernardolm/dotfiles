@@ -5,7 +5,7 @@ DOTFILES=$(realpath "${0:A:h}/../../")
 echo "> dotfiles: $DOTFILES"
 [[ -z "$DOTFILES" ]] && echo "> dotfiles dir unknown" && return
 
-source $DOTFILES/zsh/scripts/os-resolver.sh
+[[ -z "$OS" ]] && source $DOTFILES/zsh/scripts/os-resolver.sh
 echo "> os: $OS"
 [[ -z "$OS" ]] && echo "> os unknown" && return
 
@@ -14,11 +14,13 @@ source $DOTFILES/vscode/scripts/setup.sh || return
 echo "> code cli path: $CODE_CLI_BIN"
 [[ ! -f "$CODE_CLI_BIN" ]] && echo "> code path unknown" && return
 
-echo "> code user data dir: $CODE_USER_DATA_DIR"
-[[ ! -d "$CODE_USER_DATA_DIR" ]] && echo '> code user data dir unknown' && return
+if [[ "$OS" != "windows" ]]; then
+	echo "> code user data dir: $CODE_USER_DATA_DIR"
+	[[ ! -d "$CODE_USER_DATA_DIR" ]] && echo '> code user data dir unknown' && return
 
-echo "> code extensions dir: $CODE_EXTENSIONS_DIR"
-[[ ! -d "$CODE_EXTENSIONS_DIR" ]] && echo "> code extensions dir unknown" && return
+	echo "> code extensions dir: $CODE_EXTENSIONS_DIR"
+	[[ ! -d "$CODE_EXTENSIONS_DIR" ]] && echo "> code extensions dir unknown" && return
+fi
 
 source $DOTFILES/zsh/functions/now
 source $DOTFILES/zsh/functions/progress_bar
@@ -66,10 +68,10 @@ filter_stderr() {
 
 		echo -e "> $signal $ext [$count/$total]"
 
-		$CODE_CLI_BIN \
-			--force \
-			--log critical \
-			--extensions-dir $CODE_EXTENSIONS_DIR \
-			--user-data-dir $CODE_USER_DATA_DIR \
-			$code_arg $ext 2>&1 | filter_stderr || true
+		local cmd="$CODE_CLI_BIN $CODE_USE_VERSION --force --log critical --extensions-dir '$CODE_EXTENSIONS_DIR' --user-data-dir '$CODE_USER_DATA_DIR' $code_arg $ext"
+
+		echo -e "$cmd\n"
+
+		eval "$cmd" || true
+
 	done
