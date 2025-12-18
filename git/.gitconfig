@@ -4,6 +4,9 @@
 [commit]
   gpgsign = true
 
+[core]
+	editor = nano
+
 [gpg]
   format = ssh
 

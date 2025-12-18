@@ -1,9 +1,9 @@
 #!/usr/bin/env /bin/zsh
 
-log start 'docker setup'
+log start 'setting up docker'
 
 sudo groupadd docker
 sudo usermod -aG docker "$USER"
 newgrp docker
 
-log finish 'docker setup'
+log finish 'setting up docker'

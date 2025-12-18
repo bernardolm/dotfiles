@@ -1,58 +1,60 @@
 #!/usr/bin/env /bin/zsh
+((SHELL_DEBUG)) || set -e
 
-source "$DOTFILES/zsh/functions/now"
-source "$DOTFILES/zsh/functions/progress_bar"
+DOTFILES=$(realpath "${0:A:h}/../../")
+echo "> dotfiles: $DOTFILES"
+[[ -z "$DOTFILES" ]] && echo "> dotfiles dir unknown" && return
 
-zsh --no-rcs "$DOTFILES/zsh/scripts/os-resolver.sh"
-
+[[ -z "$OS" ]] && source $DOTFILES/zsh/scripts/os-resolver.sh
 echo "> os: $OS"
-echo "> home: $HOME"
+[[ -z "$OS" ]] && echo "> os unknown" && return
 
-[[ -z "$OS" ]] && echo "> os unknown" && exit 0
+source $DOTFILES/vscode/scripts/setup.sh || return
 
-[[ "$OS" = "windows" ]] \
-	&& echo "> this script willn't works on windows" && exit 0
+echo "> code cli path: $CODE_CLI_BIN"
+[[ ! -f "$CODE_CLI_BIN" ]] && echo "> code path unknown" && return
+
+if [[ "$OS" != "windows" ]]; then
+	echo "> code user data dir: $CODE_USER_DATA_DIR"
+	[[ ! -d "$CODE_USER_DATA_DIR" ]] && echo '> code user data dir unknown' && return
+
+	echo "> code extensions dir: $CODE_EXTENSIONS_DIR"
+	[[ ! -d "$CODE_EXTENSIONS_DIR" ]] && echo "> code extensions dir unknown" && return
+fi
+
+source $DOTFILES/zsh/functions/now
+source $DOTFILES/zsh/functions/progress_bar
 
 total=$(/bin/cat $DOTFILES/vscode/extensions.json | grep -v '//' | jq '. | length')
 count=0
 
-log="$TMP_USER/code_extensions_sync.$(now).log"
+/bin/cat $DOTFILES/vscode/extensions.json | grep -v '//' | jq -r '.[]' |
+	while read ext; do
+		[ -z "$ext" ] && continue
 
-echo "> logging into $log"
+		count=$((count + 1))
 
-/bin/cat $DOTFILES/vscode/extensions.json | grep -v '//' | jq -r '.[]' | \
-	while read ext ; do
-		count=$((count+1))
+		code_arg="--install-extension"
+		signal=+
 
-		echo -e "\n\n_ $ext\n" >> $log
-
-		text=""
-
-		if [[ "$ext" =~ ^"-" ]] ; then
+		if [[ "$ext" =~ ^"-" ]]; then
+			code_arg="--uninstall-extension"
+			signal=-
 			ext=${ext:1}
-			text=-
-				# --extensions-dir $HOME/.vscode-server/extensions \
-				# --user-data-dir $HOME/.vscode-server/data \
-			code-cli \
-				--force \
-				--log error \
-				--uninstall-extension $ext \
-				&>> $log || true ;
-		else
-			text=+
-				# --extensions-dir $HOME/.vscode-server/extensions \
-				# --user-data-dir $HOME/.vscode-server/data \
-			code-cli \
-				--force \
-				--install-extension $ext \
-				--log error \
-				&>> $log || true ;
 		fi
 
-		text+=" $ext"
+		echo -e "> $signal $ext [$count/$total]"
 
-		echo -e "> $count\t$total\t$text"
-		# progress_bar $count $total "$text"
+		local cmd="$CODE_CLI_BIN $CODE_USE_VERSION --force --log critical --extensions-dir '$CODE_EXTENSIONS_DIR' --user-data-dir '$CODE_USER_DATA_DIR' $code_arg $ext"
+
+		((SHELL_DEBUG)) && echo -e "$cmd"
+
+		eval $cmd 2>&1 \
+			| grep -v 'is not installed' \
+			| grep -v 'Make sure' \
+			| grep -v 'already installed.' \
+			|| true
+
+		((SHELL_DEBUG)) && [[ "$count" -ge "3" ]] && break
+
 	done
-
-cat $log

@@ -1,4 +1,4 @@
-log start "ubuntu setup"
+log start "setting up ubuntu"
 
 log info "calling dotbot to create sym links and others"
 
@@ -10,4 +10,4 @@ for f in "$DOTFILES/ubuntu/install.d"/*; do
     [[ -f $f ]] && source -- "$f"
 done
 
-log finish "ubuntu setup"
+log finish "setting up ubuntu"

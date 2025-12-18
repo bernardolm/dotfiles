@@ -1,6 +1,5 @@
 function ssh_agent_start() {
 	log debug "starting ssh agent..."
-	local ssh_ttl=86400 # twenty four hours in seconds
-	eval "$(ssh-agent -s -t ${ssh_ttl})"
+	eval "$(ssh-agent -s)"
 	log debug "ssh agent have been started"
 }

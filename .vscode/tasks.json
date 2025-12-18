@@ -1,0 +1,30 @@
+{
+  // See https://go.microsoft.com/fwlink/?LinkId=733558
+  // for the documentation about the tasks.json format
+  // https://code.visualstudio.com/docs/reference/tasks-appendix
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "command": "zsh --no-rcs -c ~/workspaces/bernardolm/dotfiles/vscode/scripts/extensions_sync.sh",
+      "label": "Refresh my extensions",
+      "type": "shell",
+      "windows": {
+        "command": "wsl -e zsh --no-rcs -c 'export OS=windows ; ~/workspaces/bernardolm/dotfiles/vscode/scripts/extensions_sync.sh'",
+        "options": {
+          "shell": {
+            "args": ["-NoProfile"]
+          }
+        }
+      },
+      "presentation": {
+        "clear": true
+      },
+      "group": "none",
+      "runOptions": {
+        "instanceLimit": 1,
+        "instancePolicy": "warn"
+      },
+      "problemMatcher": []
+    }
+  ]
+}

@@ -4,15 +4,10 @@ echo "> wsl start"
 
 PATH="$PATH:/mnt/c/Users/bernardo/AppData/Local/Microsoft/WindowsApps"
 PATH="$PATH:/mnt/c/WINDOWS/system32"
-PATH="$PATH:/mnt/c/WINDOWS/System32/OpenSSH"
 export PATH
 
 export HOSTNAME ; HOSTNAME=$(hostname.exe | tr -d ' |\r')
 export IP_CURRENT ; IP_CURRENT=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
-
-alias op='op.exe'
-alias ssh-add='ssh-add.exe'
-alias ssh-agent='ssh-agent.exe'
-alias ssh='ssh.exe'
+export SSH_AGENT_OUTPUT_SCRIPT ; SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
 
 echo "> wsl finish"

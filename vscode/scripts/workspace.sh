@@ -6,5 +6,10 @@ if [ "$OS" = "windows" ]; then
 	exit 0
 fi
 
-envsubst < ~/sync/shared/default.code-workspace > ~/sync/$OS/$OS.code-workspace
-code ~/sync/$OS/$OS.code-workspace
+template_file="$HOME/sync/shared/default.code-workspace"
+target_file="$HOME/sync/$OS/$OS.code-workspace"
+
+envsubst < "$template_file" > "$target_file"
+ls -lah "$target_file"
+cat "$target_file"
+code "$target_file"

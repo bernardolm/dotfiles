@@ -16,6 +16,6 @@
     github.com/jesseduffield/lazydocker@latest
     golang.org/x/tools/cmd/goimports@latest
     golang.org/x/tools/gopls@latest
-
+    mvdan.cc/sh/v3/cmd/shfmt@latest
 
 # github.com/muesli/duf@latest

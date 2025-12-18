@@ -3,7 +3,7 @@
 # shellcheck source=/dev/null
 source "$DOTFILES/zsh/functions/log"
 
-log start "git setup"
+log start "setting up git"
 
 _git_submodules="$DOTFILES/.gitmodules"
 
@@ -36,4 +36,4 @@ command -v git >/dev/null || sudo apt install --yes --no-install-recommends git
     echo -e " done."
 done
 
-log finish "git setup"
+log finish "setting up git"

@@ -20,4 +20,7 @@ export SSH_AUTH_SOCK ; SSH_AUTH_SOCK=~/Library/Group\ Containers/2BUA8C4S2C.com.
 alias cat='bat'
 alias mv='/bin/mv'
 
+[ -f ~/.config/op/plugins.sh ] \
+	&& source ~/.config/op/plugins.sh
+
 echo "> darwin finish"

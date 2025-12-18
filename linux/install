@@ -1,6 +1,6 @@
 #!/usr/bin/env /bin/zsh
 
-log start "linux setup"
+log start "setting up linux"
 
 log info "calling dotbot to create sym links and others"
 
@@ -18,4 +18,4 @@ for f in "$DOTFILES/linux/install.d"/*; do
     [[ -f $f ]] && source -- "$f"
 done
 
-log finish "linux setup"
+log finish "setting up linux"

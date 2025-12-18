@@ -25,7 +25,7 @@ ssh_envs
 
 if [ "$(ssh_agent_state)" = "empty" ]; then
 	log info "ssh: adding user keys"
-	ssh-add -c -vv
+	ssh-add -vvv
 	ssh-add -L
 	ssh-add -l
 else

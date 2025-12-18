@@ -7,8 +7,6 @@ case $- in
 esac
 (( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs "$@" && exit
 
-reset
-
 echo ".zshenv"
 
 source "$HOME/workspaces/bernardolm/dotfiles/zsh/functions/now"
@@ -46,7 +44,6 @@ export MY_PLACE ; MY_PLACE=home
 export PAGER ; PAGER=less
 export SAVEHIST ; SAVEHIST=999999
 export SPACESHIP_EXEC_TIME_SHOW ; SPACESHIP_EXEC_TIME_SHOW=false
-export SSH_AGENT_PID ; SSH_AGENT_PID=-1
 export TERM ; TERM="xterm-256color"
 export VISUAL ; VISUAL=nano
 export ZELLIJ_AUTO_ATTACH ; ZELLIJ_AUTO_ATTACH=false
