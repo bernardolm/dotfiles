@@ -9,7 +9,7 @@
       "label": "Refresh my extensions",
       "type": "shell",
       "windows": {
-        "command": "wsl -e zsh --no-rcs -c 'export OS=windows ; ~/workspaces/bernardolm/dotfiles/vscode/scripts/extensions_sync.sh'",
+        "command": "wsl -e \"zsh --no-rcs -c 'SHELL_DEBUG=1 OS=windows ~/workspaces/bernardolm/dotfiles/vscode/scripts/extensions_sync.sh'\"",
         "options": {
           "shell": {
             "args": ["-NoProfile"]

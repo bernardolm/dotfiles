@@ -1,5 +1,5 @@
 #!/usr/bin/env /bin/zsh
-# ((SHELL_DEBUG)) || set -e
+((SHELL_DEBUG)) && echo "> debug mode on" #|| set -e
 
 echo "> code setup os: $OS"
 [[ -z "$OS" ]] && echo "> os unknown" && return
@@ -81,18 +81,26 @@ linux)
 	;;
 esac
 
+export PATH="$PATH:$CODE_CLI_DIR"
+
 echo "> code_cli_bin: $CODE_CLI_BIN"
 echo "> code_cli_dir: $CODE_CLI_DIR"
-echo "> code_cli_file: $CODE_CLI_FILE"
 echo "> code_cli_file_c: $CODE_CLI_FILE_C"
+echo "> code_cli_file: $CODE_CLI_FILE"
 echo "> code_cli_url: $CODE_CLI_URL"
 echo "> code_extensions_dir: $CODE_EXTENSIONS_DIR"
+echo "> code_use_version: $CODE_USE_VERSION"
 echo "> code_user_data_dir: $CODE_USER_DATA_DIR"
 
 case $OS in
 darwin | linux | wsl | windows)
-	[ ! -d "$CODE_CLI_DIR" ] && mkdir -p "$CODE_CLI_DIR"
-	((SHELL_DEBUG)) && /bin/rm -f $CODE_CLI_DIR/* || true
+	echo "> set uping $OS"
+
+	if [ ! -d "$CODE_CLI_DIR" ]; then
+		mkdir -p "$CODE_CLI_DIR"
+	else
+		((SHELL_DEBUG)) && eval /bin/rm -vf "$CODE_CLI_DIR/code*" || true
+	fi
 
 	if ! test -f "$CODE_CLI_BIN"; then
 		echo "> code cli not found"
@@ -117,11 +125,9 @@ darwin | linux | wsl | windows)
 		# fi
 
 		/bin/mv "$CODE_CLI_FILE" "$CODE_CLI_BIN"
-		"$CODE_CLI_BIN" --status | sed -n '2,2p'
-		# /bin/rm -f "$CODE_CLI_FILE"
-	fi
 
-	export PATH="$CODE_CLI_DIR:$PATH"
+		"$CODE_CLI_BIN" --status | sed -n '2,2p'
+	fi
 
 	export CODE_CLI_BIN
 	export CODE_EXTENSIONS_DIR

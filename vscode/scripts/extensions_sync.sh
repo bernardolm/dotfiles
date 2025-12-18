@@ -1,5 +1,5 @@
 #!/usr/bin/env /bin/zsh
-((SHELL_DEBUG)) || set -e
+((SHELL_DEBUG)) && echo "> debug mode on" #|| set -e
 
 DOTFILES=$(realpath "${0:A:h}/../../")
 echo "> dotfiles: $DOTFILES"
@@ -49,11 +49,13 @@ count=0
 
 		((SHELL_DEBUG)) && echo -e "$cmd"
 
-		eval $cmd 2>&1 \
+		(eval $cmd 2>&1 \
 			| grep -v 'is not installed' \
 			| grep -v 'Make sure' \
 			| grep -v 'already installed.' \
-			|| true
+		) || true
+
+		echo done
 
 		((SHELL_DEBUG)) && [[ "$count" -ge "3" ]] && break
 
