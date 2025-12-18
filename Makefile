@@ -51,3 +51,8 @@ pre:
 # 		-p git/modules/dotbot-sudo/sudo.py
 
 # setup: reset pre base apt pip snap golang post
+
+fix-permissons:
+	find -E . -type f -regex '.*\.(sh|zsh)$$' -exec chmod u+x {} \;
+	find . -type f -name 'start' -or -name 'install' -exec chmod u+x {} \;
+	find . -type f -wholename '*/functions/*' -exec chmod u+x {} \;
