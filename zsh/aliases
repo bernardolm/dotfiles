@@ -9,7 +9,6 @@ alias dcr='docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd))
 alias dcrd='docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up -d --remove-orphans'
 alias df='duf'
 alias dim='docker images -a'
-alias dot='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias drm='docker_container_remove'
 alias errors='journalctl -b -p err | less'
 alias frm='/bin/rm -rf'
