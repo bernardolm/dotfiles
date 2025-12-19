@@ -21,29 +21,42 @@ log start "zsh start"
 # shellcheck disable=SC2168
 init_d=()
 
+_collect_sorted() {
+  local -a results=()
+  while IFS= read -r -d '' line; do
+    results+=("$line")
+  done < <(find "$@" -print0 2>/dev/null)
+  results=("${(@o)results}")
+  printf '%s\n' "${results[@]}"
+}
+
 # shellcheck disable=SC2030
 # shellcheck disable=SC2086
 log start "zsh start: adding dotfile init.d files"
-find -L "$DOTFILES/" -maxdepth 3 -type f -path '*/init.d/*' | sort \
-  | while IFS="" read -r line; do init_d+=("$line"); done
+while IFS= read -r line; do
+  init_d+=("$line")
+done < <(_collect_sorted -L "$DOTFILES/" -maxdepth 3 -type f -path '*/init.d/*')
 log finish "zsh start: adding dotfile init.d files"
 
 # shellcheck disable=SC2030
 # shellcheck disable=SC2031
 # shellcheck disable=SC2086
 log start "zsh start: adding sync init.d files"
-find -L "$HOME/sync/linux" -maxdepth 3 -type f -path '*/init.d/*' | sort \
-  | while IFS="" read -r line; do init_d+=("$line"); done
+while IFS= read -r line; do
+  init_d+=("$line")
+done < <(_collect_sorted -L "$HOME/sync/linux" -maxdepth 3 -type f -path '*/init.d/*')
 log finish "zsh start: adding sync init.d files"
 
 log start "zsh start: adding dotfiles aliases files for $OS"
-find -L "$HOME/sync/$OS" -maxdepth 3 -type f -name 'aliases' | sort \
-  | while IFS="" read -r line; do init_d+=("$line"); done
+while IFS= read -r line; do
+  init_d+=("$line")
+done < <(_collect_sorted -L "$HOME/sync/$OS" -maxdepth 3 -type f -name 'aliases')
 log finish "zsh start: adding dotfiles aliases files"
 
 log start "zsh start: adding sync aliases files"
-find -L "$DOTFILES/" -maxdepth 3 -type f -name 'aliases' | sort \
-  | while IFS="" read -r line; do init_d+=("$line"); done
+while IFS= read -r line; do
+  init_d+=("$line")
+done < <(_collect_sorted -L "$DOTFILES/" -maxdepth 3 -type f -name 'aliases')
 log finish "zsh start: adding sync aliases files"
 
 # shellcheck disable=SC2031
@@ -62,6 +75,10 @@ _init_order=(
 	"$DOTFILES/zsh/config/zstyle"
 	"${init_d[@]}"
 ); for _f in "${_init_order[@]}"; do
+	if [[ -z "$_f" ]]; then
+		log error "zsh start: init script not found at '$_f'"
+		continue
+	fi
 	log start "zsh start: (source) ${_f//$DOTFILES\/}"
 	# shellcheck source=/dev/null
 	source "$_f"
