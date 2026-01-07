@@ -5,7 +5,7 @@
   gpgsign = true
 
 [core]
-	editor = nano
+  editor = nano
 
 [gpg]
   format = ssh
