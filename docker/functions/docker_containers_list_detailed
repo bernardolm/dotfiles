@@ -1,3 +1,0 @@
-function docker_containers_list_detailed() {
-    docker ps --all --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.Status}}" $@
-}

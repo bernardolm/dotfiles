@@ -1,4 +1,0 @@
-function git_current_commit() {
-    CURRENT_COMMIT=$(/usr/bin/git rev-parse --short HEAD)
-    echo $CURRENT_COMMIT
-}

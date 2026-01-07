@@ -1,3 +1,0 @@
-function log_warn() {
-  log_echo "🚧 $(color bg_yellow)$@ $(color no)"
-}

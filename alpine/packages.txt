@@ -1,7 +1,0 @@
-bash
-curl
-git
-nano
-rsync
-sudo
-zsh

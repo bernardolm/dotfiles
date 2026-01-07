@@ -1,6 +1,0 @@
-[wsl2]
-autoProxy=true
-dnsTunneling=true
-firewall=false
-networkingMode=mirrored
-vmSwitch=Externo

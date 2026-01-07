@@ -1,8 +1,0 @@
-function docker_give_me_back_my() {
-    echo "recovering docker app control"
-    docker_install_check || return
-    docker_containers_list | while read -r id; do
-        docker update --restart=no ${id}
-        docker_container_stop ${id}
-    done
-}

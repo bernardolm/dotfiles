@@ -1,3 +1,0 @@
-function vpn_ip() {
-    ip -o addr show up type ppp | /bin/awk '{print $4}'
-}

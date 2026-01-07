@@ -1,6 +1,0 @@
-function todotxt_hide_footer() {
-    local line
-    while IFS= read -r line; do
-        echo "$line" | grep -vE '^(--|TODO:)'
-    done
-}

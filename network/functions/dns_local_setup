@@ -1,3 +1,0 @@
-function dns_local_setup() {
-    bash -c "DOMAIN=local CONTAINER_NAME=devdns custom_fallback_dns=1.1.1.1 $DOTFILES/bash/scripts/dns_local_setup/dns_local_setup.sh"
-}

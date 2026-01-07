@@ -1,3 +1,0 @@
-function docker_container_stop() {
-    docker stop $@ || true
-}

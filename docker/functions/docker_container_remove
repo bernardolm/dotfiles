@@ -1,4 +1,0 @@
-function docker_container_remove() {
-    docker_container_stop $@
-    docker rm $@
-}

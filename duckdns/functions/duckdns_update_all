@@ -1,4 +1,0 @@
-function duckdns_update_all() {
-	duckdns_update_host
-	duckdns_update_public
-}

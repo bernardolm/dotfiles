@@ -1,5 +1,0 @@
-#!/usr/bin/env /bin/zsh
-
-log start "pre install ubuntu"
-
-log finish "pre install ubuntu"
