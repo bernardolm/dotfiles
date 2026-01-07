@@ -1,0 +1,30 @@
+log start "zimfw: start"
+
+: "${ZIM_HOME:=$HOME/.zim}"
+: "${ZIM_CONFIG_FILE:=$ZDOTDIR/.zimrc}"
+
+if [[ ! -f "$ZIM_HOME/zimfw.zsh" ]]; then
+	log warn "zimfw: missing $ZIM_HOME/zimfw.zsh"
+	log warn "zimfw: run bootstrap to install zimfw"
+	log finish "zimfw: start"
+	return 0
+fi
+
+# shellcheck source=/dev/null
+source "$ZIM_HOME/zimfw.zsh"
+
+if [[ ! -f "$ZIM_HOME/init.zsh" || "$ZIM_HOME/zimfw.zsh" -nt "$ZIM_HOME/init.zsh" ]]; then
+	log info "zimfw: generating init"
+	if ! zimfw init -q; then
+	log warn "zimfw: init failed"
+	log finish "zimfw: start"
+	return 0
+	fi
+fi
+
+if [[ -f "$ZIM_HOME/init.zsh" ]]; then
+	# shellcheck source=/dev/null
+	source "$ZIM_HOME/init.zsh"
+fi
+
+log finish "zimfw: start"

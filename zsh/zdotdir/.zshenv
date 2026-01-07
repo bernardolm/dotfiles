@@ -2,14 +2,20 @@ set -e
 
 # If not running interactively, don't do anything
 case $- in
-  *i*) ;;
-  *) return;;
+	*i*) ;;
+	*) return;;
 esac
 (( $+ZSH_NO_RCS )) && tput init && zsh --no-rcs "$@" && exit
 
 echo ".zshenv"
 
-source "$HOME/workspaces/bernardolm/dotfiles/zsh/functions/now"
+if [[ -z "$DOTFILES" ]]; then
+	_zshenv_path="${(%):-%N}"
+	DOTFILES="${_zshenv_path:A:h:h}"
+fi
+export DOTFILES
+
+source "$DOTFILES/zsh/functions/now"
 export SESSION_ID=$(now)
 
 export SHELL_DEBUG ; SHELL_DEBUG=0 ; \
@@ -56,8 +62,6 @@ export ZSH_HIGHLIGHT_MAXLENGTH ; ZSH_HIGHLIGHT_MAXLENGTH=100
 export ZSH_PYENV_QUIET ; ZSH_PYENV_QUIET=true
 export ZSH_WAKATIME_PROJECT_DETECTION ; ZSH_WAKATIME_PROJECT_DETECTION=true
 
-export DOTFILES ; DOTFILES="${DOTFILES:-$HOME/workspaces/bernardolm/dotfiles}" # 🧙‍♂️
-
 # operating system specific
 source "$DOTFILES/zsh/scripts/os-resolver.sh"
 [ -f "$DOTFILES/$OS/start" ] \
@@ -82,10 +86,8 @@ export POWERLINE_ROOT ; POWERLINE_ROOT="$HOME/.local/lib/python3.11/site-package
 export PYENV_ROOT ; PYENV_ROOT="$HOME/.pyenv"
 export VSCODE_CLI_DATA_DIR ; VSCODE_CLI_DATA_DIR="$HOME/.vscode-server/cli"
 export ZDOTDIR ; ZDOTDIR="$DOTFILES/zsh/zdotdir"
-export ZPLUG_HOME ; ZPLUG_HOME="$HOME/.zplug"
-export ZSH ; ZSH="$HOME/.oh-my-zsh"
-export ZSH_CUSTOM ; ZSH_CUSTOM="$ZSH/custom"
-export ZSH_REPOS ; ZSH_REPOS="$HOME/.zsh"
+export ZIM_HOME ; ZIM_HOME="${ZIM_HOME:-$HOME/.zim}"
+export ZIM_CONFIG_FILE ; ZIM_CONFIG_FILE="${ZIM_CONFIG_FILE:-$ZDOTDIR/.zimrc}"
 
 # export DONE_FILE ; DONE_FILE="$HOME/sync/linux/todo-txt/done.txt"
 # export REPORT_FILE ; REPORT_FILE="$HOME/sync/linux/todo-txt/report.txt"
@@ -96,9 +98,9 @@ export ZSH_REPOS ; ZSH_REPOS="$HOME/.zsh"
 
 if which git &>/dev/null; then
 	export GITHUB_ORG ; GITHUB_ORG=$(git config --file \
-		"$HOME/sync/shared/home/.gitconfig" github.organization)
+	"$HOME/sync/shared/home/.gitconfig" github.organization)
 	export GITHUB_USER ; GITHUB_USER=$(git config --file \
-		"$DOTFILES/git/.gitconfig" github.user)
+	"$DOTFILES/git/.gitconfig" github.user)
 fi
 
 export WORKSPACE_ORG ; WORKSPACE_ORG="$HOME/workspaces/$GITHUB_ORG"
@@ -126,7 +128,7 @@ mkdir -m u=rwX,g=rX -p \
 	"$TMP_USER" \
 	"$WORKSPACE_ORG" \
 	"$WORKSPACE_USER" \
-  "$HOME/sync/linux/crontab/"
+	"$HOME/sync/linux/crontab/"
 
 source "$DOTFILES/zsh/functions/color"
 # 🌐📡📶

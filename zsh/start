@@ -5,8 +5,8 @@ set -e
 source $DOTFILES/zsh/functions/now
 
 if ((SHELL_PROFILE)); then
-  zmodload zsh/zprof
-  echo "> a 'zsh profile' run was started to measure its execution stats"
+	zmodload zsh/zprof
+	echo "> a 'zsh profile' run was started to measure its execution stats"
 fi
 
 disable log &>/dev/null
@@ -22,19 +22,19 @@ log start "zsh start"
 init_d=()
 
 _collect_sorted() {
-  local -a results=()
-  while IFS= read -r -d '' line; do
-    results+=("$line")
-  done < <(find "$@" -print0 2>/dev/null)
-  results=("${(@o)results}")
-  printf '%s\n' "${results[@]}"
+	local -a results=()
+	while IFS= read -r -d '' line; do
+		results+=("$line")
+	done < <(find "$@" -print0 2>/dev/null)
+	results=("${(@o)results}")
+	printf '%s\n' "${results[@]}"
 }
 
 # shellcheck disable=SC2030
 # shellcheck disable=SC2086
 log start "zsh start: adding dotfile init.d files"
 while IFS= read -r line; do
-  init_d+=("$line")
+	init_d+=("$line")
 done < <(_collect_sorted -L "$DOTFILES/" -maxdepth 3 -type f -path '*/init.d/*')
 log finish "zsh start: adding dotfile init.d files"
 
@@ -43,19 +43,19 @@ log finish "zsh start: adding dotfile init.d files"
 # shellcheck disable=SC2086
 log start "zsh start: adding sync init.d files"
 while IFS= read -r line; do
-  init_d+=("$line")
+	init_d+=("$line")
 done < <(_collect_sorted -L "$HOME/sync/linux" -maxdepth 3 -type f -path '*/init.d/*')
 log finish "zsh start: adding sync init.d files"
 
 log start "zsh start: adding dotfiles aliases files for $OS"
 while IFS= read -r line; do
-  init_d+=("$line")
+	init_d+=("$line")
 done < <(_collect_sorted -L "$HOME/sync/$OS" -maxdepth 3 -type f -name 'aliases')
 log finish "zsh start: adding dotfiles aliases files"
 
 log start "zsh start: adding sync aliases files"
 while IFS= read -r line; do
-  init_d+=("$line")
+	init_d+=("$line")
 done < <(_collect_sorted -L "$DOTFILES/" -maxdepth 3 -type f -name 'aliases')
 log finish "zsh start: adding sync aliases files"
 
@@ -66,9 +66,7 @@ log start "zsh start: (source) init scripts"
 # and automatically include them in this list.
 # remember to ignore files already in the list.
 _init_order=(
-	"$DOTFILES/zplug/start"
-	"$DOTFILES/zsh/init.d/10_pyenv.zsh"
-	"$DOTFILES/ohmyzsh/start"
+	"$DOTFILES/zimfw/start"
 	"$DOTFILES/starship/start"
 	"$DOTFILES/zsh/config/inputrc"
 	"$DOTFILES/zsh/config/setopt"
