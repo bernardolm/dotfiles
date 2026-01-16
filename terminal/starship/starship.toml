@@ -1,5 +1,6 @@
 add_newline = true
-command_timeout = 2000
+command_timeout = 3000
+scan_timeout = 3000
 
 [character]
 success_symbol = ">"
