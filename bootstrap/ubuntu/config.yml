@@ -1,0 +1,118 @@
+package-manager: apt
+
+aliases:
+  cat: batcat --number --force-colorization
+  mv: mv --backup=t
+
+envs:
+  # export HOSTNAME ; HOSTNAME=$(hostname)
+  # export IP_CURRENT ; IP_CURRENT=$(hostname -I | awk '{print $1}')
+
+packages:
+  - apt-transport-https
+  - batcat
+  - bc
+  - build-essential
+  - calcurse
+  - colorized-logs
+  - command-not-found
+  - curl
+  - diffutils
+  - dnsutils
+  - duf
+  - exa
+  - expect
+  - eza
+  - fonts-emojione
+  - fonts-noto-color-emoji
+  - fonts-symbola
+  - fzf
+  - gdu
+  - gh
+  - git
+  - htop
+  - install
+  - jq
+  - less
+  - linux-firmware
+  - linux-generic
+  - linux-image-generic
+  - linuxinfo
+  - logrotate
+  - make
+  - man-db
+  - nano
+  - neovim
+  - net-tools
+  - nmap
+  - openssh-client
+  - openssh-server
+  - parted
+  - pipx
+  - postgresql-client
+  - powerline-fonts
+  - pro
+  - python-is-python3
+  - python3-all-dev
+  - python3-argcomplete
+  - python3-dev
+  - python3-distutils
+  - python3-full
+  - python3-pip
+  - python3-pygments
+  - python3-setuptools
+  - screen
+  - shellcheck
+  - silversearcher-ag
+  - smbclient
+  - ssh-audit
+  - sshfs
+  - sudo
+  - tmux
+  - traceroute
+  - ubuntu-server
+  - ufw
+  - unzip
+  - upx-ucl
+  - wget
+  - whois
+  - yq
+  - zip
+  - zoxide
+  - zsh
+  - gnome:
+    action: purge
+  - gtk:
+    action: purge
+  - icon:
+    action: purge
+  - libreoffice:
+    action: purge
+  - theme:
+    action: purge
+  - unity:
+    action: purge
+  - wayland:
+    action: purge
+  - x-server:
+    action: purge
+  - x11:
+    action: purge
+  - xserver:
+    action: purge
+
+path:
+  /snap/bin
+
+symbolic_links:
+  # $HOME/.config/maestral/maestral.ini: $HOME/sync/linux/home/.config/maestral/maestral.ini
+  # $HOME/.config/rclone/rclone.conf: $HOME/sync/linux/home/.config/rclone/rclone.conf
+  # $HOME/.wget-hsts: $HOME/sync/linux/home/.wget-hsts
+  # $HOME/.zsh_history: $HOME/sync/linux/home/.zsh_history
+  $HOME/.fonts: $HOME/sync/shared/home/.fonts
+  $HOME/.gitconfig: $HOME/sync/$PLATFORM/home/.gitconfig
+  $HOME/.nanorc: $DOTFILES/nano/.nanorc
+  $HOME/.ssh/authorized_keys: $HOME/sync/shared/home/.ssh/authorized_keys
+  $HOME/.ssh/config: $HOME/sync/shared/home/.ssh/config
+  $HOME/.wakatime.cfg: $HOME/sync/$PLATFORM/home/.wakatime.cfg
+  $HOME/sync: $HOME/Dropbox

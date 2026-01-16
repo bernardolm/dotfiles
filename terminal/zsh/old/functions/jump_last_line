@@ -1,0 +1,3 @@
+function jump_last_line() {
+    echo -ne '\e[1A\e[K'
+}

@@ -1,0 +1,18 @@
+add_newline = true
+command_timeout = 2000
+
+[character]
+success_symbol = ">"
+error_symbol = "!"
+
+[git_branch]
+symbol = "git:"
+
+[git_status]
+format = "([$all_status$ahead_behind] )"
+
+[python]
+format = "py:$version "
+
+[golang]
+format = "go:$version "

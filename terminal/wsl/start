@@ -1,0 +1,13 @@
+#!/usr/bin/env /bin/zsh
+
+echo "> wsl start"
+
+PATH="$PATH:/mnt/c/Users/bernardo/AppData/Local/Microsoft/WindowsApps"
+PATH="$PATH:/mnt/c/WINDOWS/system32"
+export PATH
+
+export HOSTNAME ; HOSTNAME=$(hostname.exe | tr -d ' |\r')
+export IP_CURRENT ; IP_CURRENT=$(ip -4 addr show eth0 | grep -oP '(?<=inet\s)\d+(\.\d+){3}')
+export SSH_AGENT_OUTPUT_SCRIPT ; SSH_AGENT_OUTPUT_SCRIPT="$HOME/.ssh/ssh-agent"
+
+echo "> wsl finish"

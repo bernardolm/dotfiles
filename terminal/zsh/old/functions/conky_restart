@@ -1,0 +1,7 @@
+function conky_restart() {
+    # local instaces=$(conky_instances)
+    # notify-send "conky (re)starting" "$(conky_instances) were running."
+    conky_kill
+    sleep 1
+    conky_start
+}

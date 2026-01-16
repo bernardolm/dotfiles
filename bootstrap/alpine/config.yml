@@ -1,0 +1,42 @@
+multiplexer: tmux
+package-manager: pkg
+shell-manager: zimfw
+shell: zsh
+
+envs:
+  FOO: bar
+  LANG: pt_BR.UTF-8
+  LANGUAGE: pt_BR.UTF-8
+  LC_ALL: pt_BR.UTF-8
+  LC_COLLATE: C
+  TZ: America/Sao_Paulo
+
+packages:
+  - bash
+  - curl
+  - git
+  - nano
+  - rsync
+  - sudo
+  - zsh
+  - busybox-extras
+  - curl
+  - git
+  - icu # locale needs
+  - icu-data-full # locale needs
+  - icu-dev # locale needs
+  - icu-libs # locale needs
+  - libintl # locale needs
+  - man-pages
+  - musl-dev # locale needs
+  - musl-locales # locale needs
+  - musl-locales-lang # locale needs
+  - nano
+  - openrc
+  - openssh
+  - rsync
+  - screen
+  - sed
+  - sudo
+  - tzdata
+  - zsh

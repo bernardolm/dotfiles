@@ -1,0 +1,10 @@
+function shell_folder_summary() {
+    local files=$(find . -maxdepth 1 -type f | wc -l)
+    local folders=$(find . -maxdepth 1 -type d | wc -l)
+    local hiddenFiles=$(find . -maxdepth 1 -type f | egrep "^\./\." | wc -l)
+    local print_this="$(color bg_white) $PWD $(color no)"
+    print_this+="$(color bg_purple) 📂 $folders $(color no)"
+    print_this+="$(color bg_rose) 📄 $files $(color no)"
+    print_this+="$(color bg_green) 🗄️ $hiddenFiles $(color no)"
+    echo -ne "$print_this"
+}

@@ -1,0 +1,26 @@
+function zsh_autoload_paths() {
+    log start "zsh autoload paths: adding custom functions to zsh autoload (fpath)"
+
+		autoload_path="$TMP_USER/zsh_autoload_paths.txt"
+
+    if [ ! -f "$autoload_path" ]; then
+        _paths="$@"
+        for _path in "${_paths[@]}"; do
+            _path=($(eval echo $_path))
+
+            echo "eval \"fpath=( $_path "'${fpath[@]}'" )\"" >> "$autoload_path"
+
+            for folder in "${_path[@]}"; do
+                for file in $folder/*; do
+                    name=$(basename $file)
+                    [ "${name}" = "*" ] && continue
+                    echo "autoload -Uz $name" >> "$autoload_path"
+                done
+            done
+        done
+    fi
+
+    source "$autoload_path"
+
+    log finish "zsh autoload paths: adding custom functions to zsh autoload (fpath)"
+}

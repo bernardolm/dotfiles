@@ -1,0 +1,363 @@
+multiplexer: tmux
+package-manager: brew
+shell-manager: zimfw
+shell: zsh
+terminal: wezterm
+
+aliases:
+  # ls: ls_2_exa'
+  # lsa: ls -lah'
+  # maestral: docker exec -it maestral maestral'
+  ack: ag && ag || ack
+  c: code .
+  cat: bat
+  cloud-sql-proxy: $HOME/Applications/cloud-sql-proxy --config-file=$HOME/sync/shared/gcp-cloud-proxy-sql.toml
+  cw: $DOTFILES/vscode/scripts/workspace.sh
+  dclsa: docker container ls -a --format "table {{.Names}}\t{{.State}}\t{{.RunningFor}}\t{{.Ports}}" | tail -n+2 | sort
+  dcr: docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up --remove-orphans
+  dcra: docker ps -aq | xargs docker rm
+  dcraf: docker ps -aq | xargs docker rm -f
+  dcrd: docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up -d --remove-orphans
+  dcsa: docker ps -q | xargs docker stop
+  df: duf
+  dim: docker images -a
+  dira: docker images | grep none | col 3 | xargs docker rmi -f
+  docker-ls-quiet: docker ps -a | sed -r 's/.*([0-9]]{1,3}\.[0-9]]{1,3}\.[0-9]]{1,3}\.[0-9]]{1,3}).*/\n\t\t\1/g' | sed -r "s/^([0-9a-z]{12})/\n\1/g"
+  drm: docker_container_remove
+  errors: journalctl -b -p err | less
+  frm: /bin/rm -rf
+  gc: git commit --verbose -S
+  gd: git diff --indent-heuristic --minimal --numstat
+  gdu: gdu /mnt/root -L -i /mnt/c -C --si -t 15 -a
+  gfp: git fetch --all --prune
+  ggsync: gfp ; git stash ; ggpull ; ggpush ; git stash pop
+  go-fix: goimports -w ./.. ; go mod tidy
+  go-test: go-fix ; go clean -testcache ; go test ./...
+  gotop: gotop-cjbassi
+  gsl: git stash list
+  gst: git status --branch --show-stash --untracked-files=all --ignore-submodules=untracked --column=always --renames --find-renames=70%
+  gt: go test ./...
+  la: eza -la --icons --color=auto --group-directories-first
+  ll: eza -l --icons --color=auto --group-directories-first
+  ls: eza --icons --color=auto --group-directories-first
+  mv: /bin/mv
+  new-guid: uuidgen | tr "[A-Z]" "[a-z]"
+  path: echo -e ${PATH//:/\\n}
+  penv: printenv | grep -w
+  ports: sudo lsof -i -P -n | grep LISTEN
+  python: python3
+  reload: exec ${SHELL} -l
+  s: screen
+  saa: sudo apt-get autoremove --purge --yes
+  sai: sudo apt-get install
+  sau: sudo apt-get update
+  sauu: sau ; sudo apt-get upgrade --no-install-recommends --yes ; saa
+  sl: screen -list
+  sr: screen -r
+  td: todo_zsh
+  tda: td add
+  tdls: td top
+  ubuntu-version: lsb_release -a
+  update-pip: /usr/bin/python3 -m pip install -U pip --upgrade --user
+  upgrade: sudo apt update --fix-missing --yes ; sudo apt upgrade --yes --no-install-recommends --no-install-suggests ; sudo apt autoremove --purge --yes
+  watch-docker-all: watch -d -c -n 1 -x docker ps --all --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.Status}}"
+
+envs:
+  # HOSTNAME: $(hostname -s)
+  # IP_CURRENT: $(ipconfig getifaddr en0 || ifconfig | grep "inet " | grep -Fv 127.0.0.1 | awk '{print $2}' | head -1)
+  # GID: $(id -g)
+  # GPG_TTY: $(tty)
+  # IP_PUBLIC: $(curl -sL checkip.amazonaws.com)
+  # UID: $(id -u)
+  0:
+    ATUIN_NOBIND: true
+    BUILDKIT_STEP_LOG_MAX_SIZE: -1
+    BUILDKIT_STEP_LOG_MAX_SPEED: -1
+    CLICOLOR: true
+    COLORTERM: truecolor
+    COMPLETION_WAITING_DOTS: true
+    DISABLE_AUTO_TITLE: true
+    DISABLE_LS_COLORS: false
+    EDITOR: nano
+    EMOJI_CLI_KEYBIND: ^e
+    ENABLE_CORRECTION: false
+    GIT_DISCOVERY_ACROSS_FILESYSTEM: true
+    GREP_COLORS: mt=30;103
+    HISTDUP: erase # erase duplicates in the history file
+    HOMEBREW_NO_ENV_HINTS: 1
+    HYPHEN_INSENSITIVE: true
+    LANG: en_US.UTF-8
+    LANGUAGE: en_US.UTF-8
+    LC_ALL: en_US.UTF-8
+    LC_CTYPE: en_US.UTF-8
+    LDFLAGS: -I /opt/homebrew/opt/openssl@3.6/include -L /opt/homebrew/opt/openssl@3.6/lib
+    LESS: -erX
+    MICRO_TRUECOLOR: 1
+    MY_PLACE: home
+    OS: darwin
+    PAGER: less
+    SAVEHIST: 999999
+    SHELL_DEBUG: 0
+    SHELL_PROFILE: 0
+    SHELL_TRACE: 0
+    SPACESHIP_EXEC_TIME_SHOW: false
+    SSH_AUTH_SOCK: ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+    TERM: xterm-256color
+    VISUAL: nano
+  1:
+    DOTFILES: $HOME/.dotfiles
+    GOPATH: $HOME/gopath
+    HISTSIZE: $SAVEHIST
+    NANORC_FILE: $HOME/.nanorc
+    POWERLINE_ROOT: $HOME/.local/lib/python3.11/site-packages/powerline
+    PYENV_ROOT: $HOME/.pyenv
+    STARSHIP_CACHE: $HOME/.cache/starship
+    TMP_USER: $HOME/sync/tmp/$HOSTNAME
+    VSCODE_CLI_DATA_DIR: $HOME/.vscode-server/cli
+    ZDOTDIR: $HOME/.dotfiles/zdotdir
+  2:
+    ELAPSED_TIME_ROOT: $TMP_USER/elapsed_time/$SESSION_ID
+    STARSHIP_CONFIG: $DOTFILES/terminal/starship/theme/catppuccin.toml
+
+# packages field below - how to use
+#   exemple:
+#     - package-name:
+#       action: install|remove|purge (install is default).
+#       command: used when installer is a custom shell command. this fields ignores manager field.
+#       curl_url: used when curl is choose.
+#       dest: used when installation path needs a different location.
+#       manager: curl|brew|pip|apt|winget|go|npm|git|brew-cask (default in top field 'package-manager').
+#       url: used when installation needs a custom URL location.
+#       version: used when needs diferent version from latest.
+
+packages:
+  - 1password-cli
+  - aha
+  - android-platform-tools
+  - ansi2txt
+  - aom
+  - atuin
+  - autoconf
+  - bat
+  - batcat
+  - brotli
+  - btop
+  - ca-certificates
+  - cairo
+  - cat
+  - certifi
+  - chroma
+  - code-cli
+  - colorized-logs
+  - coreutils
+  - cron
+  - crontab
+  - curl
+  - dav1d
+  - dbeaver
+  - delta
+  - docker
+  - docker-buildx
+  - docker-ce
+  - docker-clean
+  - docker-compose
+  - docker-compose-langserver
+  - docker-desktop
+  - docker-ls
+  - dockerfile-language-server
+  - dockerfmt
+  - dockerize
+  - dropbox
+  - duf
+  - expect
+  - eza
+  - fastfetch
+  - fontconfig
+  - fortune
+  - freetype
+  - fribidi
+  - fzf
+  - gcalcli
+  - gcloud
+  - gd
+  - gdk-pixbuf
+  - gettext
+  - gh
+  - giflib
+  - git
+  - git-delta
+  - git-filter-repo
+  - glib
+  - gmp
+  - go
+  - graphite2
+  - graphviz
+  - gts
+  - harfbuzz
+  - highway
+  - htop
+  - icu4c@78
+  - imath
+  - jasper
+  - jpeg-turbo
+  - jpeg-xl
+  - krb5
+  - libavif
+  - libdeflate
+  - libgit2
+  - libiconv
+  - libidn2
+  - libnghttp2
+  - libnghttp3
+  - libngtcp2
+  - libpng
+  - libpq
+  - librsvg
+  - libssh2
+  - libtiff
+  - libtool
+  - libunistring
+  - libuv
+  - libvmaf
+  - libx11
+  - libxau
+  - libxcb
+  - libxdmcp
+  - libxext
+  - libxrender
+  - little-cms2
+  - llvm
+  - lpeg
+  - luajit
+  - luv
+  - lz4
+  - lzo
+  - m4
+  - mackup
+  - make
+  - micro
+  - mole
+  - mpdecimal
+  - nano
+  - ncurses
+  - neovim
+  - netpbm
+  - oniguruma
+  - openexr
+  - openjph
+  - openssl@3
+  - pango
+  - pcre
+  - pcre2
+  - pixman
+  - pkgconf
+  - postgrest
+  - procs
+  - pydantic
+  - pyenv
+  - python-is-python3
+  - python-setuptools
+  - python@3.13
+  - python@3.14
+  - python3
+  - python3-setuptools
+  - python3-venv
+  - readline
+  - rtmpdump
+  - rust
+  - rustc
+  - screen
+  - spotify
+  - sqlite
+  - ssh
+  - ssh-audit
+  - ssh-keys
+  - starship
+  - sublime
+  - sublime-text
+  - tabby
+  - task
+  - taskwarrior
+  - taskwarrior-tui
+  - tcl-tk@8
+  - terraform
+  - the_silver_searcher
+  - tldr
+  - tlrc
+  - tmux
+  - tree
+  - tree-sitter@0.25
+  - tuios
+  - unibilium
+  - uniclip
+  - upx
+  - utf8proc
+  - webp
+  - wget
+  - xorgproto
+  - xz
+  - yyjson
+  - z3
+  - zimfw
+  - zsh
+  - zstd
+  - docker-ce:
+    manager: brew-cask
+  - docker-desktop:
+    manager: brew-cask
+  - gcloud-cli:
+    manager: brew-cask
+  - multitouch:
+    manager: brew-cask
+  - rectangle:
+    manager: brew-cask
+  - superkey:
+    manager: brew-cask
+  - nanorc:
+    manager: git
+    url: git@github.com:scopatz/nanorc.git
+    dest: $HOME/.nano
+  - 1password-cli:
+    manager: brew-cask
+  - alacritty:
+    manager: brew-cask
+  - android-platform-tools:
+    manager: brew-cask
+  - docker-desktop:
+    manager: brew-cask
+  - dropbox:
+    manager: brew-cask
+  - gcloud-cli:
+    manager: brew-cask
+  - krita:
+    manager: brew-cask
+  - sublime-text:
+    manager: brew-cask
+  - tabby:
+    manager: brew-cask
+  - wezterm:
+    manager: brew-cask
+
+path:
+  - /Applications/Visual Studio Code.app/Contents/Resources/app/bin
+  - /home/linuxbrew/.linuxbrew/bin
+  - /Library/Frameworks/Python.framework/Versions/Current/bin
+  - /opt/homebrew/bin
+  - /opt/homebrew/opt/curl/bin
+  - /opt/homebrew/opt/libpq/bin
+  - /opt/homebrew/opt/openssl@3.6/bin
+
+symbolic_links:
+  # $HOME/.config/maestral/maestral.ini: $HOME/sync/linux/home/.config/maestral/maestral.ini
+  # $HOME/.config/rclone/rclone.conf: $HOME/sync/linux/home/.config/rclone/rclone.conf
+  # $HOME/.wget-hsts: $HOME/sync/linux/home/.wget-hsts
+  # $HOME/.zsh_history: $HOME/sync/linux/home/.zsh_history
+  $HOME/.fonts: $HOME/sync/shared/home/.fonts
+  $HOME/.gitconfig: $HOME/sync/$PLATFORM/home/.gitconfig
+  $HOME/.nanorc: $DOTFILES/nano/.nanorc
+  $HOME/.ssh/authorized_keys: $HOME/sync/shared/home/.ssh/authorized_keys
+  $HOME/.ssh/config: $HOME/sync/shared/home/.ssh/config
+  $HOME/.wakatime.cfg: $HOME/sync/$PLATFORM/home/.wakatime.cfg
+  $HOME/Library/CloudStorage/Dropbox: $HOME/sync
+  $HOME/sync: $HOME/Dropbox
+  $HOME/workspaces/bernardolm/dotfiles: $HOME/.dotfiles

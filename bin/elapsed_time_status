@@ -1,0 +1,51 @@
+
+function elapsed_time_status() {
+	local col_separator="\t"
+	local key_size=0
+	local key="key"
+	local val_size=0
+	local value="value"
+
+	for f in "$ELAPSED_TIME_ROOT"/*; do
+		[ -d "$f" ] && continue
+
+		local k=$(basename "$f")
+		local v=$(/bin/cat "$f")
+
+		if [[ ${#k} -gt ${key_size} ]]; then
+			key_size=${#k}
+		fi
+
+		if [[ ${#v} -gt ${val_size} ]]; then
+			val_size=${#v}
+		fi
+	done
+
+	local key_format="%-${key_size}s"
+	local val_format="%-${val_size}s"
+
+	local table=""
+
+	table+=$(printf "$key_format" "$key")
+	table+=$col_separator
+	table+=$(printf "$val_format" "$value")
+	table+="\n"
+	table+=$(printf -- '-%0.s' {1..$key_size})
+	table+=$col_separator
+	table+=$(printf -- '-%0.s' {1..$val_size})
+  table+="\n"
+
+	for f in "$ELAPSED_TIME_ROOT"/*; do
+		[ -d "$f" ] && continue
+
+		local k=$(basename "$f")
+		local v=$(/bin/cat "$f")
+
+		table+=$(printf "$key_format" "$k")
+		table+=$col_separator
+		table+=$(printf "$val_format" "$v")
+		table+="\n"
+	done
+
+	echo "$table"
+}

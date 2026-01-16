@@ -1,0 +1,4 @@
+colorama
+gcalcli
+dotenv
+pprint

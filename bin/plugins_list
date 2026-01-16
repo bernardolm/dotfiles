@@ -1,0 +1,4 @@
+
+function plugins_list() {
+  /bin/cat "$1" | grep "^[^#;]" | awk '{print $1}' | tr '\n' ' '
+}

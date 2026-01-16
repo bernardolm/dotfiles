@@ -1,0 +1,47 @@
+function elapsed_time() {
+	local start=$1
+	local d_ms=$(($(epoch)-$start))
+	local d_s=$((d_ms / 1000))
+	local ms=$((d_ms % 1000))
+	local s=$((d_s % 60))
+	local m=$(((d_s / 60) % 60))
+	local h=$((d_s / 3600))
+
+  # do you need to record everything? even the fastest ones?
+	if ((d_ms <= 500)); then
+    return
+  fi
+
+  # no time machines
+	if ((ms < 0)); then
+    ms=0
+  fi
+
+	if ((h > 0)); then
+    elapsed="$(color purple)${h}h ${m}m ${s}s ${ms}ms$(color no) 🪦"
+
+	elif ((m > 0)); then
+    elapsed="$(color light_purple)${m}m ${s}s ${ms}ms$(color no) 🥶"
+
+	elif ((s >= 3)); then
+    elapsed="$(color light_blue)${s}s ${ms}ms$(color no) 🐢"
+
+  elif ((ms >= 2500)); then
+    elapsed="$(color blue)${s}s ${ms}ms$(color no) 🤔"
+
+  elif ((s > 0)); then
+    elapsed="$(color cyan)${s}s ${ms}ms$(color no) 🛺"
+
+  elif ((ms > 500)); then
+    elapsed="$(color light_cyan)${ms}ms$(color no) 🚗"
+
+  elif ((ms > 100)); then
+    elapsed="$(color light_green)${ms}ms$(color no) 🚁"
+
+  else
+    elapsed="$(color green)${ms}ms$(color no) 🚀"
+
+  fi
+
+	echo "${elapsed}"
+}

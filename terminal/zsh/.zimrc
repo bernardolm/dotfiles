@@ -1,0 +1,19 @@
+# Minimal zimfw setup. Starship handles the prompt.
+
+zmodule agkozak/zsh-z
+zmodule completion
+zmodule duration-info
+zmodule environment
+zmodule git
+zmodule git-info
+zmodule input
+zmodule mrjohannchang/zsh-interactive-cd
+zmodule ohmyzsh/ohmyzsh --source lib/git.zsh
+zmodule sobolevn/wakatime-zsh-plugin
+zmodule termtitle
+zmodule utility
+zmodule z-shell/zsh-navigation-tools
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-completions
+zmodule zsh-users/zsh-history-substring-search
+zmodule zsh-users/zsh-syntax-highlighting

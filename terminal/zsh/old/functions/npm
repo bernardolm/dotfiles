@@ -1,0 +1,3 @@
+function npm {
+    docker_run "node" "alpine" "npm" $@
+}

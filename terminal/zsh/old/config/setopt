@@ -1,0 +1,100 @@
+# https://zsh.sourceforge.io/Doc/Release/Options.html#Options
+
+# If this is set, zsh sessions will append their history list to the history file, rather than replace it. Thus, multiple parallel zsh sessions will all have the new entries from their history lists added to the history file, in the order that they exit. The file will still be periodically re-written to trim it when the number of lines grows 20% beyond the value specified by $SAVEHIST (see also the HIST_SAVE_BY_COPY option).
+setopt append_history
+
+# If a command is issued that can't be executed as a normal command, and the command is the name of a directory, perform the cd command to that directory. This option is only applicable if the option SHIN_STDIN is set, i.e. if commands are being read from standard input. The option is designed for interactive use; it is recommended that cd be used explicitly in scripts to avoid ambiguity.
+setopt auto_cd
+
+# Prevents aliases on the command line from being internally substituted before completion is attempted. The effect is to make the alias a distinct command for completion purposes.
+unsetopt complete_aliases
+
+# If unset, the cursor is set to the end of the word if completion is started. Otherwise it stays there and completion is done from both ends.
+setopt complete_in_word
+
+# Try to correct the spelling of commands. Note that, when the HASH_LIST_ALL option is not set or when some directories in the path are not readable, this may falsely report spelling errors the first time some commands are used. The shell variable CORRECT_IGNORE may be set to a pattern to match words that will never be offered as corrections.
+unsetopt correct
+
+# Try to correct the spelling of all arguments in a line. The shell variable CORRECT_IGNORE_FILE may be set to a pattern to match file names that will never be offered as corrections.
+unsetopt correct_all
+
+# Treat the '#', '~' and '^' characters as part of patterns for filename generation, etc. (An initial unquoted ~ always produces named directory expansion.)
+setopt extended_glob
+
+# Save each command's beginning timestamp (in seconds since the epoch) and the duration (in seconds) to the history file. The format of this prefixed data is: ': <beginning time>:<elapsed seconds>;<command>'.
+unsetopt extended_history
+
+# When the current word has a glob pattern, do not insert all the words resulting from the expansion but generate matches as for completion and cycle through them like MENU_COMPLETE. The matches are generated as if a '*' was added to the end of the word, or inserted at the cursor when COMPLETE_IN_WORD is set. This actually uses pattern matching, not globbing, so it works not only for files but for any completion, such as options, user names, etc. Note that when the pattern matcher is used, matching control (for example, case-insensitive or anchored matching) cannot be used. This limitation only applies when the current word contains a pattern; simply turning on the GLOB_COMPLETE option does not have this effect.
+setopt glob_complete
+
+# If the internal history needs to be trimmed to add the current command line, setting this option will cause the oldest history event that has a duplicate to be lost before losing a unique event from the list. You should be sure to set the value of HISTSIZE to a larger number than SAVEHIST in order to give you some room for the duplicated events, otherwise this option will behave just like HIST_IGNORE_ALL_DUPS once the history fills up with unique events.
+setopt hist_expire_dups_first
+
+# When searching for history entries in the line editor, do not display duplicates of a line previously found, even if the duplicates are not contiguous.
+setopt hist_find_no_dups
+
+# If a new command line being added to the history list duplicates an older one, the older command is removed from the list (even if it is not the previous event).
+setopt hist_ignore_all_dups
+
+# Do not enter command lines into the history list if they are duplicates of the previous event.
+setopt hist_ignore_dups
+
+# Remove command lines from the history list when the first character on the line is a space, or when one of the expanded aliases contains a leading space. Only normal aliases (not global or suffix aliases) have this behaviour. Note that the command lingers in the internal history until the next command is entered before it vanishes, allowing you to briefly reuse or edit the line. If you want to make it vanish right away without entering another command, type a space and press return.
+unsetopt hist_ignore_space
+
+# Remove superfluous blanks from each command line being added to the history list.
+setopt hist_reduce_blanks
+
+# When writing out the history file, older commands that duplicate newer ones are omitted.
+setopt hist_save_no_dups
+
+# Whenever the user enters a line with history expansion, don't execute the line directly; instead, perform history expansion and reload the line into the editing buffer.
+unsetopt hist_verify
+
+# This option works like APPEND_HISTORY except that new history lines are added to the $HISTFILE incrementally (as soon as they are entered), rather than waiting until the shell exits. The file will still be periodically re-written to trim it when the number of lines grows 20% beyond the value specified by $SAVEHIST (see also the HIST_SAVE_BY_COPY option).
+setopt inc_append_history
+
+# Allow comments even in interactive shells.
+setopt interactive_comments
+
+# Make globbing (filename generation) sensitive to case. Note that other uses of patterns are always sensitive to case. If the option is unset, the presence of any character which is special to filename generation will cause case-insensitive matching. For example, cvs(/) can match the directory CVS owing to the presence of the globbing flag (unless the option BARE_GLOB_QUAL is unset).
+unsetopt case_glob
+
+# This option both imports new commands from the history file, and also causes your typed commands to be appended to the history file (the latter is like specifying INC_APPEND_HISTORY, which should be turned off if this option is in effect). The history lines are also output with timestamps ala EXTENDED_HISTORY (which makes it easier to find the spot where we left off reading the file after it gets re-written). By default, history movement commands visit the imported lines as well as the local lines, but you can toggle this on and off with the set-local-history zle binding. It is also possible to create a zle widget that will make some commands ignore imported commands, and some include them. If you find that you want more control over when commands get imported, you may wish to turn SHARE_HISTORY off, INC_APPEND_HISTORY or INC_APPEND_HISTORY_TIME (see above) on, and then manually import commands whenever you need them using 'fc -RI'.
+setopt share_history
+
+# setopt ksh_arrays
+
+
+# TESTING
+setopt always_to_end          # When completing a word, move the cursor to the end of the word
+setopt append_history         # this is default, but set for share_history
+setopt auto_cd                # cd by typing directory name if it's not a command
+setopt auto_list              # automatically list choices on ambiguous completion
+setopt auto_menu              # automatically use menu completion
+setopt auto_pushd             # Make cd push each old directory onto the stack
+setopt completeinword         # If unset, the cursor is set to the end of the word
+setopt correct_all            # autocorrect commands
+setopt extended_glob          # treat #, ~, and ^ as part of patterns for filename generation
+setopt extended_history       # save each command's beginning timestamp and duration to the history file
+setopt glob_dots              # dot files included in regular globs
+setopt hash_list_all          # when command completion is attempted, ensure the entire  path is hashed
+setopt hist_expire_dups_first # # delete duplicates first when HISTFILE size exceeds HISTSIZE
+setopt hist_find_no_dups      # When searching history don't show results already cycled through twice
+setopt hist_ignore_dups       # Do not write events to history that are duplicates of previous events
+setopt hist_ignore_space      # remove command line from history list when first character is a space
+setopt hist_reduce_blanks     # remove superfluous blanks from history items
+setopt hist_verify            # show command with history expansion to user before running it
+setopt histignorespace        # remove commands from the history when the first character is a space
+setopt inc_append_history     # save history entries as soon as they are entered
+setopt interactivecomments    # allow use of comments in interactive code (bash-style comments)
+setopt longlistjobs           # display PID when suspending processes as well
+setopt no_beep                # silence all bells and beeps
+setopt nocaseglob             # global substitution is case insensitive
+setopt nonomatch              ## try to avoid the 'zsh: no matches found...'
+setopt noshwordsplit          # use zsh style word splitting
+setopt notify                 # report the status of backgrounds jobs immediately
+setopt numeric_glob_sort      # globs sorted numerically
+setopt prompt_subst           # allow expansion in prompts
+setopt pushd_ignore_dups      # Don't push duplicates onto the stack
+setopt share_history          # share history between different instances of the shell
