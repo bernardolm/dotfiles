@@ -1,1 +1,1 @@
-echo "~/.zlogout"
+echo "\$ZDOTDIR/.zlogout"

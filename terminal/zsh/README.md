@@ -1,5 +1,13 @@
 # zsh
 
+## setup
+
+```sh
+echo "~/.zshenv"
+export ZDOTDIR=$HOME/dotfiles/terminal/zsh/zdotdir
+. $ZDOTDIR/.zshenv
+```
+
 <https://unix.stackexchange.com/a/71258>
 
 print -rl -- $fpath

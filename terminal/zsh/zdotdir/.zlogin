@@ -1,1 +1,1 @@
-echo "~/.zlogin"
+echo "\$ZDOTDIR/.zlogin"

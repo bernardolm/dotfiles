@@ -1,0 +1,1 @@
+command -v luarocks >/dev/null && eval "$(luarocks path --bin)"

@@ -1,0 +1,1 @@
+command -v dircolors >/dev/null && eval "$(dircolors -b)"

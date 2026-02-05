@@ -37,7 +37,7 @@ def link_dotfiles(dotfiles_home: Path, dry_run: bool = False) -> None:
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Link dotfiles into the home directory.")
-    parser.add_argument("--dotfiles-home", default=os.environ.get("DOTFILES", str(Path.home() / ".dotfiles")))
+    parser.add_argument("--dotfiles-home", default=os.environ.get("DOTFILES", str(Path.home() / "dotfiles")))
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
 

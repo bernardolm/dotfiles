@@ -105,7 +105,7 @@ envs:
     TERM: xterm-256color
     VISUAL: nano
   1:
-    DOTFILES: $HOME/.dotfiles
+    DOTFILES: $HOME/dotfiles
     GOPATH: $HOME/gopath
     HISTSIZE: $SAVEHIST
     NANORC_FILE: $HOME/.nanorc
@@ -114,7 +114,7 @@ envs:
     STARSHIP_CACHE: $HOME/.cache/starship
     TMP_USER: $HOME/sync/tmp/$HOSTNAME
     VSCODE_CLI_DATA_DIR: $HOME/.vscode-server/cli
-    ZDOTDIR: $HOME/.dotfiles/zdotdir
+    ZDOTDIR: $HOME/dotfiles/zdotdir
   2:
     ELAPSED_TIME_ROOT: $TMP_USER/elapsed_time/$SESSION_ID
     STARSHIP_CONFIG: $DOTFILES/terminal/starship/theme/catppuccin.toml
@@ -360,4 +360,4 @@ symbolic_links:
   $HOME/.wakatime.cfg: $HOME/sync/$PLATFORM/home/.wakatime.cfg
   $HOME/Library/CloudStorage/Dropbox: $HOME/sync
   $HOME/sync: $HOME/Dropbox
-  $HOME/workspaces/bernardolm/dotfiles: $HOME/.dotfiles
+  $HOME/workspaces/bernardolm/dotfiles: $HOME/dotfiles

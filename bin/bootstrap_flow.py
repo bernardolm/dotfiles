@@ -20,7 +20,7 @@ def bootstrap_flow(install_packages: bool, link: bool, profile: str, dry_run: bo
         return 1
 
     if link:
-        dotfiles_home = Path(os.environ.get("DOTFILES", str(Path.home() / ".dotfiles")))
+        dotfiles_home = Path(os.environ.get("DOTFILES", str(Path.home() / "dotfiles")))
         link_dotfiles(dotfiles_home, dry_run=dry_run)
         ensure_delta_config(platform_name, dry_run=dry_run)
         install_zimfw(dry_run=dry_run)
@@ -43,7 +43,7 @@ def bootstrap_flow(install_packages: bool, link: bool, profile: str, dry_run: bo
 
 
 def _detect_platform_cmd() -> str:
-    env_root = Path(os.environ.get("DOTFILES", str(Path.home() / ".dotfiles")))
+    env_root = Path(os.environ.get("DOTFILES", str(Path.home() / "dotfiles")))
     cmd_path = env_root / "bin/detect_platform"
     if not cmd_path.exists():
         cmd_path = repo_root() / "bin/detect_platform"

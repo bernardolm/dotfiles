@@ -3,7 +3,7 @@
 to be able to connect by ssh over wifi on alpine, this order in _/etc/interfaces_ is important!
 ref.: <https://forums.raspberrypi.com/viewtopic.php?t=40426#p1091115>
 
-```bash
+```sh
 auto lo
 iface lo inet loopback
 

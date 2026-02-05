@@ -1,1 +1,1 @@
-echo "~/.zprofile"
+echo "\$ZDOTDIR/.zprofile"

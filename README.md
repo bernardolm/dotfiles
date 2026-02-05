@@ -41,22 +41,22 @@ Ubuntu Server:
 - bootstrap/: Python bootstrap and linker
 
 ## Quick start
-1) Clone into `~/.dotfiles`
+1) Clone into `~/dotfiles`
 2) Run:
 
-```bash
+```sh
 python3 bootstrap/bootstrap.py --all
 ```
 
 Use `--profile server` for Ubuntu Server:
 
-```bash
+```sh
 python3 bootstrap/bootstrap.py --all --profile server
 ```
 
 Dry run:
 
-```bash
+```sh
 python3 bootstrap/bootstrap.py --all --dry-run
 ```
 
@@ -67,7 +67,7 @@ python3 bootstrap/bootstrap.py --all --dry-run
 - vscode tunnel server: run `code tunnel` after VS Code CLI is installed.
 - ssh config enables multiplexing to keep long sessions fast and stable. tmux is the default tool for long-running tasks.
 - set your git user.name and user.email in `terminal/git/gitconfig` or add a local override.
-- the repo is referenced as `$HOME/.dotfiles`; `.zshenv` creates a symlink to the real clone if needed.
+- the repo is referenced as `$HOME/dotfiles`; `.zshenv` creates a symlink to the real clone if needed.
 
 ## Local overrides
 Place extra zsh config in `terminal/zsh/zshrc.d/*.zsh`.

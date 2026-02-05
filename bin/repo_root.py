@@ -11,7 +11,7 @@ def repo_root() -> Path:
         root = Path(env_root).expanduser()
         if root.exists():
             return root
-    default_root = Path.home() / ".dotfiles"
+    default_root = Path.home() / "dotfiles"
     if default_root.exists():
         return default_root
     return Path(__file__).resolve().parents[1]
