@@ -8,4 +8,6 @@ autoload -Uz compinit
 # End of Docker CLI completions
 
 
-PATH=$PATH:$HOMEo/.docker/bin
+export PATH="$PATH:$HOME/.docker/bin"
+alias di='docker images'
+alias di='docker images'
