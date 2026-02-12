@@ -23,3 +23,4 @@ export RPROMPT="${vcs_info_msg_0_} $RPROMPT"
 # export GIT_TRACE=1
 # export GIT_CURL_VERBOSE=1
 alias gsl='git stash list'
+alias gbr='git branch --remote'
