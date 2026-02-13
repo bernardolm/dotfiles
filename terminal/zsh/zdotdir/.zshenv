@@ -7,6 +7,8 @@ if [[ -o norcs ]] || (( $+ZSH_NO_RCS )) || [[ "i" =~ "$-" ]] ; then
 	return 0
 fi
 
+skip_global_compinit=1
+
 export DOTFILES="$HOME/dotfiles"
 
 # export WEZTERM_CONFIG_DIR="$DOTFILES/terminal/wezterm"
