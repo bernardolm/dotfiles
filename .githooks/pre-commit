@@ -228,8 +228,9 @@ fi
 run_python_formatters() {
 	local venv_bin="$repo_root/venv/bin"
 	local isort_settings_path="$repo_root/pyproject.toml"
+	local yapf_style_path="$repo_root/pyproject.toml"
 
-	"$venv_bin/unimport" "${staged_python_files[@]}" >/dev/null 2>&1 && \
+	"$venv_bin/unimport" "${staged_python_files[@]}" && \
 		echo "pre-commit: unimport aplicado." || \
 		echo "pre-commit: aviso: unimport retornou erro; seguindo com isort/yapf."
 
@@ -239,7 +240,7 @@ run_python_formatters() {
 	fi
 	echo "pre-commit: isort aplicado."
 
-	if ! "$venv_bin/yapf" --in-place "${staged_python_files[@]}"; then
+	if ! "$venv_bin/yapf" --style "$yapf_style_path" --in-place "${staged_python_files[@]}"; then
 		echo "pre-commit: erro: yapf falhou."
 		return 1
 	fi

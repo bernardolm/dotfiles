@@ -11,7 +11,7 @@ skip_glob = ['.v1/**', 'venv/**', '**/__pycache__/**']
 # ------------------------------------------------------------------------------
 
 [tool.unimport]
-check = true
+check = false
 color = 'always'
 exclude = '__pycache__|venv|\\.v1'
 gitignore = true

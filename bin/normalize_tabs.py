@@ -11,7 +11,6 @@ _LEADING_WHITESPACE_RE = re.compile(r"^([ \t]+)")
 _INDENTED_CONTENT_RE = re.compile(r"^[ \t]+[^ \t\r\n]")
 
 _SUPPORTED_SUFFIXES = {
-	".py",
 	".sh",
 	".zsh",
 	".bash",
@@ -56,6 +55,9 @@ def _gcd(left: int, right: int) -> int:
 
 def _supports_tab_indentation(path: Path) -> bool:
 	name = path.name
+	# Python files are normalized by yapf/isort/unimport in pre-commit.
+	if name.endswith(".py"):
+		return False
 	if name.endswith(".yml") or name.endswith(".yaml"):
 		return False
 	if name in {"Dockerfile", "Makefile"}:
