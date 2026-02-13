@@ -5,16 +5,11 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "command": "zsh --no-rcs -c ~/workspaces/bernardolm/dotfiles/vscode/scripts/extensions_sync.sh",
-      "label": "Refresh my extensions",
+      "command": "zsh --no-rcs -c ./bin/vscode_extensions_install.py",
+      "label": "Install VS Code extensions",
       "type": "shell",
       "windows": {
-        "command": "wsl -e \"zsh --no-rcs -c 'SHELL_DEBUG=1 OS=windows ~/workspaces/bernardolm/dotfiles/vscode/scripts/extensions_sync.sh'\"",
-        "options": {
-          "shell": {
-            "args": ["-NoProfile"]
-          }
-        }
+        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File ./bin/vscode_extensions_install.ps1"
       },
       "presentation": {
         "clear": true
