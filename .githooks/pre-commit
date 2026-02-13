@@ -14,11 +14,6 @@ if [ -x "$PYENV_ROOT/bin/pyenv" ]; then
 	fi
 fi
 
-VENV_DIR="$repo_root/venv"
-VENV_BIN="$VENV_DIR/bin"
-VENV_PYTHON="$VENV_BIN/python"
-REQUIREMENTS_FILE="$repo_root/requirements.txt"
-
 discard_v1_changes() {
 	[ -d "$repo_root/.v1" ] || return 0
 	git rev-parse --verify HEAD >/dev/null 2>&1 || return 0
@@ -140,7 +135,7 @@ normalized_files=()
 while IFS= read -r changed_file; do
 	[ -n "$changed_file" ] || continue
 	normalized_files+=("$changed_file")
-done < <(run_python "$repo_root/bin/normalize_tabs.py" "${staged_files[@]}")
+done < <(run_python "$repo_root/bin/normalize_tabs.py")
 
 if [ "${#normalized_files[@]}" -gt 0 ]; then
 	echo "pre-commit: indentacao (qualquer nivel) normalizada para tabs em ${#normalized_files[@]} arquivo(s)."
@@ -148,20 +143,9 @@ fi
 
 if [ "${#staged_python_files[@]}" -gt 0 ]; then
 	echo "pre-commit: ajustando ${#staged_python_files[@]} arquivo(s) Python..."
-	required_python_tools=("unimport" "isort" "yapf")
 
-	run_python \
-		"$repo_root/bin/pre_commit_ensure_python_tools.py" \
-		--repo-root "$repo_root" \
-		--venv-dir "$VENV_DIR" \
-		--requirements-file "$REQUIREMENTS_FILE" \
-		--tools "${required_python_tools[@]}"
-
-	run_python \
-		"$repo_root/bin/pre_commit_run_python_tools.py" \
-		--venv-bin "$VENV_BIN" \
-		--isort-settings-path pyproject.toml \
-		--files "${staged_python_files[@]}"
+	run_python "$repo_root/bin/pre_commit_ensure_python_tools.py"
+	run_python "$repo_root/bin/pre_commit_run_python_tools.py"
 fi
 
 git add -- "${staged_files[@]}"

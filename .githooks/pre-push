@@ -31,4 +31,6 @@ else
 	exit 1
 fi
 
-"${python_cmd[@]}" "$repo_root/bin/docs_ai_sync_pre_push.py" --remote-name "${1:-}" --remote-url "${2:-}"
+DOTFILES_PRE_PUSH_REMOTE_NAME="${1:-}" \
+DOTFILES_PRE_PUSH_REMOTE_URL="${2:-}" \
+"${python_cmd[@]}" "$repo_root/bin/docs_ai_sync_pre_push.py"
