@@ -1,0 +1,6 @@
+log start "setting up tabby"
+
+# Ref.: https://github.com/Eugeny/tabby/wiki/Shell-working-directory-reporting
+precmd () { echo -n "\x1b]1337;CurrentDir=$(pwd)\x07" }
+
+log finish "setting up tabby"

@@ -1,0 +1,3 @@
+function ssh_agents_running () {
+	ps aux | grep -v grep | grep -c 'ssh-agent' | bc
+}

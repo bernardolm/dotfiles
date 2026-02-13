@@ -1,0 +1,6 @@
+function todotxt_hide_create_date() {
+    local line
+    while IFS= read -r line; do
+        echo "$line" | sed -E 's/[0-9]{4,4}-[0-9]{2,2}-[0-9]{2,2}\s?//g'
+    done
+}

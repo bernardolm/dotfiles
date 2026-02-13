@@ -1,0 +1,8 @@
+function docker_containers_stop() {
+    echo "stopping docker containers"
+    docker_install_check || return
+    docker_containers_list | while read -r id; do
+        echo "stopping $id"
+        docker_container_stop ${id} || continue
+    done
+}

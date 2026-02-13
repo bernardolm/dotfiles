@@ -1,0 +1,9 @@
+function dns_systemd_resolved_stop() {
+    local x=$(sudo systemctl status systemd-resolved | grep 'Active: active' | wc -l | bc)
+    if [ $x -gt 0 ]; then
+        sudo systemctl stop systemd-resolved
+        sudo systemctl disable systemd-resolved
+    else
+        echo "systemd-resolved isn't active"
+    fi
+}

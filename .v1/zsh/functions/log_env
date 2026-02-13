@@ -1,0 +1,6 @@
+function log_env() {
+	[ -z "${pattern}" ] && return 0
+	local pattern="^$1=.*"
+	local result=$(printenv | grep -E "${pattern}")
+	log_echo "$(color bg_grey)${result} $(color no)"
+}

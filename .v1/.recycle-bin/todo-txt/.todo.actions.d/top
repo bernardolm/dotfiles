@@ -1,0 +1,18 @@
+#!/usr/bin/env /bin/zsh
+# Lists as many items as can fit in the terminal, no wrapping or scrolling.
+
+if [ -n "$1" ]; then
+	if [ "$1" = "usage" ]; then
+		echo "    $(basename "${0}") [TERM...]"
+		echo "      Lists as many items as can fit in the terminal, no wrapping or scrolling."
+		echo ""
+		exit
+	fi
+	shift
+fi
+
+TERMINAL_FIT_SUB="sed -e '$(expr $(tput lines) - 3),\$d' -e 's/\(^\x1B\[[0-9;]*[mK]\)\?\([^\x1B]\{$(expr $(tput cols) - 1)\}\).*$/\1\2…/g'"
+
+export TODOTXT_FINAL_FILTER=$TODOTXT_FINAL_FILTER" | "$TERMINAL_FIT_SUB
+
+_list "$TODO_FILE" "$@"

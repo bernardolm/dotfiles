@@ -1,0 +1,7 @@
+function git_go_to_next_commit() {
+    CURRENT_COMMIT=$(git_current_commit)
+    echo "current commit is $CURRENT_COMMIT..."
+    NEXT_COMMIT=$(git_next_commit $CURRENT_COMMIT)
+    echo "next commit is $NEXT_COMMIT..."
+    git_checkout_pristine $NEXT_COMMIT 1> /dev/null 2>&1
+}

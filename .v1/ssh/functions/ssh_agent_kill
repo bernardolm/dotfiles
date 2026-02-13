@@ -1,0 +1,6 @@
+function ssh_agent_kill() {
+	log debug "killing ssh agent and cleaning vestigies..."
+	ssh-agent -k &>/dev/null
+	[ -f "${SSH_AGENT_OUTPUT_SCRIPT}" ] && /bin/rm -rf "${SSH_AGENT_OUTPUT_SCRIPT}"
+	log debug "ssh agent was killed and vestigies deleted"
+}

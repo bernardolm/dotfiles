@@ -1,0 +1,13 @@
+function ssh_route_port() {
+    local port_to_route=$1
+    local remote_ssh_user=$2
+    local remote_ssh_host=$3
+    local remote_ssh_port=$4
+
+    shift 4
+
+    echo "sintax:\nssh_route_port port_to_route remote_ssh_user remote_ssh_host remote_ssh_port"
+    cmd="ssh -D ${port_to_route} -N ${remote_ssh_user}@${remote_ssh_host} -p ${remote_ssh_port} $@"
+    echo "\nrunning:\n${cmd}"
+    eval "${cmd}"
+}

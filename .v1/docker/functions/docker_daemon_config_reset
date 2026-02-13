@@ -1,0 +1,41 @@
+function docker_daemon_config_reset() {
+    echo "starting docker daemon json sanitize..."
+
+    [ `ifconfig docker0 | grep -c docker0` -gt 0 ] \
+        && ifconfig docker0 \
+        && sudo ifconfig docker0 down
+
+    local HAS_DOCKER_SERVICE=1
+    [ ! -f /lib/systemd/system/docker.service ] && HAS_DOCKER_SERVICE=0
+
+    echo "docker service active? $HAS_DOCKER_SERVICE"
+
+    if [ $HAS_DOCKER_SERVICE -gt 0 ]; then
+        sudo systemctl stop docker
+
+        if [[ `/bin/cat /lib/systemd/system/docker.service | grep 'StartLimitBurst=3' | wc -l | bc` -eq 1 ]]; then
+            echo "changing docker restart limit"
+            sudo sed -i 's/StartLimitBurst=3/StartLimitBurst=99/g' /lib/systemd/system/docker.service
+            sudo systemctl daemon-reload
+        fi
+
+        echo "recreating docker daemon json"
+
+        sudo ip link delete docker0
+
+        echo '{"debug":true,"bip":"172.17.0.1/24","dns":["1.1.1.1","8.8.8.8"]}' | sudo tee /etc/docker/daemon.json > /dev/null
+
+        cat /etc/docker/daemon.json
+
+        sudo systemctl restart docker.service
+        sudo systemctl status docker.service
+
+        [ `ifconfig docker0 | grep -c docker0` -gt 0 ] \
+            && ifconfig docker0 \
+            && sudo ifconfig docker0 up
+    else
+        echo "docker service not found"
+    fi
+
+    echo "bye!"
+}

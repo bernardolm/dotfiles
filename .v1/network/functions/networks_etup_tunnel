@@ -1,0 +1,4 @@
+function networks_etup_tunnel() {
+    sleep 15s
+    add_vpn_routes
+}

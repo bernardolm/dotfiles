@@ -1,0 +1,3 @@
+function duckdns_update_host() {
+	duckdns_update "${GITHUB_USER}--${HOSTNAME}" "${IP_CURRENT}"
+}

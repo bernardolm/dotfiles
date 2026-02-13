@@ -1,0 +1,3 @@
+log info "antigen_install"
+
+curl -s -L git.io/antigen > "$ANTIGEN_PATH"

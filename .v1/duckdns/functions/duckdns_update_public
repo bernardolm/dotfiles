@@ -1,0 +1,8 @@
+function duckdns_update_public() {
+	if [ "${MY_PLACE}" = "work" ]; then
+		log warn "at ${MY_PLACE} does not need to update '${DUCKDNS_DOMAIN}'"
+		return
+	fi
+
+	duckdns_update "${DUCKDNS_DOMAIN}" "${IP_PUBLIC}"
+}

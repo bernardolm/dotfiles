@@ -1,0 +1,20 @@
+[apply]
+  whitespace = fix
+
+[commit]
+  gpgsign = true
+
+[core]
+  editor = nano
+
+[gpg]
+  format = ssh
+
+[init]
+  defaultBranch = main
+
+[merge]
+  log = true
+
+[pull]
+  rebase = true

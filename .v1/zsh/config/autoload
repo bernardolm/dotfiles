@@ -1,0 +1,29 @@
+() {
+	local my_functions_paths=(
+		/opt/homebrew/share/zsh/functions
+		/usr/local/share/zsh/site-functions
+		/usr/share/zsh/5.9/functions
+		/usr/share/zsh/5.9/help/functions
+		/usr/share/zsh/functions
+		/usr/share/zsh/help/functions
+		$(eval echo $DOTFILES/**/functions)
+		$(eval echo $HOME/sync/linux/**/functions)
+	)
+	echo -e "${#my_functions_paths[@]} autoload function paths"
+
+	fpath=($fpath $my_functions_paths)
+
+	local my_functions=()
+
+	for f in "$my_functions_paths[@]"; do
+		if [ ! -d $f ]; then
+			((SHELL_DEBUG)) && echo "skipping empty folder '$f' to autoload"
+			continue
+		fi
+		my_functions+=($(/bin/ls -A $f))
+	done
+	echo "${#my_functions[@]} autoload functions"
+
+	autoload -Uz $my_functions
+	compinit
+}

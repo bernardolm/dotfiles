@@ -1,0 +1,11 @@
+#!/usr/bin/env /bin/zsh
+
+log start "setting up snap"
+
+sudo snap refresh
+
+sudo "$DOTFILES/install" --exit-on-failure \
+    -c "$DOTFILES/snap/snap.yaml" \
+	-p "$DOTFILES/git/modules/dotbot-snap/snap.py"
+
+log finish "setting up snap"

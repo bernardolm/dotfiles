@@ -1,0 +1,7 @@
+#!/usr/bin/env /bin/zsh
+
+log start 'docker install'
+
+curl -sL get.docker.com | bash
+
+log finish 'docker install'

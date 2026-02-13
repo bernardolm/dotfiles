@@ -1,0 +1,3 @@
+function gnome_dconf_backup() {
+    dconf dump / > "$HOME/sync/linux/gnome/$(now).txt"
+}

@@ -1,0 +1,13 @@
+function git_workspaces_backup() {
+    [[ "$1" == "" ]] && echo "you need pass the root path and alias for this. i.e.: git_workspaces_backup $HOME/my_workspace_root_path" && return 1
+
+    local file=$(last_backup_version git-workspaces csv)
+
+    [ -f "${file}" ] && \
+        mv "${file}" "$HOME/sync/linux/git-workspaces/${HOSTNAME}_$(now).csv"
+
+    for d in `find $1 -path '*/.git/config'`; do
+        d=${d%/.git/config}
+        git_repo_info $d | tee -a $file &>/dev/null
+    ; done
+}

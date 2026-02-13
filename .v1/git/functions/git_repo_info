@@ -1,0 +1,8 @@
+function git_repo_info() {
+    [ -d $1 ] && [ -d $1/.git ] &&
+        for r in $(git --git-dir=$1/.git --work-tree=$1 remote); do
+            echo -n $r";" &&
+            echo -n $(git --git-dir=$1/.git --work-tree=$1 remote get-url --all $r)";" &&
+            echo -ne $1"\n"
+        done
+}

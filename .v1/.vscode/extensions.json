@@ -1,0 +1,23 @@
+{
+	"recommendations": [
+		"adpyke.vscode-sql-formatter",
+		"ahmadalli.vscode-nginx-conf",
+		"bierner.markdown-mermaid",
+		"dakara.transformer",
+		"docker.docker",
+		"eeyore.yapf",
+		"gruntfuggly.todo-tree",
+		"mikestead.dotenv",
+		"ms-python.isort",
+		"ms-python.python",
+		"ms-python.vscode-pylance",
+		"ms-vscode-remote.remote-wsl",
+		"ms-vscode.makefile-tools",
+		"nhoizey.gremlins",
+		"oderwat.indent-rainbow",
+		"pflannery.vscode-versionlens",
+		"redhat.vscode-yaml",
+		"visualstudioexptteam.intellicode-api-usage-examples",
+		"visualstudioexptteam.vscodeintellicode",
+	]
+}

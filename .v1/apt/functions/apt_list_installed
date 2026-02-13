@@ -1,0 +1,4 @@
+function apt_list_installed() {
+    # only work with apt, not with apt-get
+    apt list --installed "*$1*" 2>/dev/null | awk -F'/' 'NR>1{print $1}'
+}

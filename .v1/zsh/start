@@ -1,0 +1,100 @@
+#!/usr/bin/env /bin/zsh
+
+set -e
+
+source $DOTFILES/zsh/functions/now
+
+if ((SHELL_PROFILE)); then
+	zmodload zsh/zprof
+	echo "> a 'zsh profile' run was started to measure its execution stats"
+fi
+
+disable log &>/dev/null
+source $DOTFILES/zsh/config/autoload
+
+log start "zsh start"
+
+# TODO: move to top zdotfile
+# export SCRIPT_PATH="$(cd -- "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
+# log env "SCRIPT_PATH"
+
+# shellcheck disable=SC2168
+init_d=()
+
+_collect_sorted() {
+	local -a results=()
+	while IFS= read -r -d '' line; do
+		results+=("$line")
+	done < <(find "$@" -print0 2>/dev/null)
+	results=("${(@o)results}")
+	printf '%s\n' "${results[@]}"
+}
+
+# shellcheck disable=SC2030
+# shellcheck disable=SC2086
+log start "zsh start: adding dotfile init.d files"
+while IFS= read -r line; do
+	init_d+=("$line")
+done < <(_collect_sorted -L "$DOTFILES/" -maxdepth 3 -type f -path '*/init.d/*')
+log finish "zsh start: adding dotfile init.d files"
+
+# shellcheck disable=SC2030
+# shellcheck disable=SC2031
+# shellcheck disable=SC2086
+log start "zsh start: adding sync init.d files"
+while IFS= read -r line; do
+	init_d+=("$line")
+done < <(_collect_sorted -L "$HOME/sync/linux" -maxdepth 3 -type f -path '*/init.d/*')
+log finish "zsh start: adding sync init.d files"
+
+log start "zsh start: adding dotfiles aliases files for $OS"
+while IFS= read -r line; do
+	init_d+=("$line")
+done < <(_collect_sorted -L "$HOME/sync/$OS" -maxdepth 3 -type f -name 'aliases')
+log finish "zsh start: adding dotfiles aliases files"
+
+log start "zsh start: adding sync aliases files"
+while IFS= read -r line; do
+	init_d+=("$line")
+done < <(_collect_sorted -L "$DOTFILES/" -maxdepth 3 -type f -name 'aliases')
+log finish "zsh start: adding sync aliases files"
+
+# shellcheck disable=SC2031
+# shellcheck disable=SC2168
+log start "zsh start: (source) init scripts"
+# TODO: search for files named 'start' in sync and dotfiles
+# and automatically include them in this list.
+# remember to ignore files already in the list.
+_init_order=(
+	"$DOTFILES/zimfw/start"
+	"$DOTFILES/starship/start"
+	"$DOTFILES/zsh/config/inputrc"
+	"$DOTFILES/zsh/config/setopt"
+	"$DOTFILES/zsh/config/zstyle"
+	"${init_d[@]}"
+); for _f in "${_init_order[@]}"; do
+	if [[ -z "$_f" ]]; then
+		log error "zsh start: init script not found at '$_f'"
+		continue
+	fi
+	log start "zsh start: (source) ${_f//$DOTFILES\/}"
+	# shellcheck source=/dev/null
+	source "$_f"
+	# shellcheck disable=SC2086
+	log finish "zsh start: (source) ${_f//$DOTFILES\/}"
+done
+# shellcheck disable=SC2086
+log finish "zsh start: (source) init scripts"
+
+# profiling shell
+if ((SHELL_PROFILE)); then
+	shell_profile_file="$TMP_USER/shell_profile_$(now).prf"
+	zprof > "$shell_profile_file"
+	echo "> a log profile file as created here $shell_profile_file"
+fi
+
+log finish "zsh start"
+
+title "$HOSTNAME | $OS | $(basename "$(pwd)")"
+
+set +e

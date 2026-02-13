@@ -1,0 +1,6 @@
+function todotxt_hide_projects() {
+    local line
+    while IFS= read -r line; do
+        echo "$line" | sed -E 's/([@]\w)//g'
+    done
+}

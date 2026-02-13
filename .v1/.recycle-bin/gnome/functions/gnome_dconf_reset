@@ -1,0 +1,3 @@
+function gnome_dconf_reset() {
+    dconf reset -f /
+}

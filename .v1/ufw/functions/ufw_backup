@@ -1,0 +1,3 @@
+function ufw_backup() {
+    sudo ufw show added | tail -n +2 | tee "$HOME/sync/linux/ufw/rules.sh"
+}

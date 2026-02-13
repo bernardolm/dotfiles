@@ -1,0 +1,11 @@
+function antigen_purge() {
+    log info "antigen_purge"
+
+    find ~ -maxdepth 1 -name '*.zcompdump*' -delete -true # completion cache
+    find ~ -maxdepth 5 -name '*.zwc' -delete -true
+
+    rm -rf "$ANTIGEN_PATH"
+    rm -rf "$ANTIGEN_WORKDIR"
+
+    compinit
+}

@@ -1,0 +1,45 @@
+log start "zplug: start"
+
+# ((SHELL_DEBUG)) \
+#     && log warn "in debug mode, everything related to zplug will be deleted" \
+#     && zplug_reset
+
+# shellcheck source=/dev/null
+source "$DOTFILES/zplug/install"
+
+log start "zplug: waiting and sourcing init script"
+while true; do
+    if [ -f "${ZPLUG_HOME}/init.zsh" ]; then
+        log debug "zplug: sourcing init"
+        # shellcheck source=/dev/null
+        source "${ZPLUG_HOME}/init.zsh"
+        break
+    fi
+    log warn "zplug: waiting to be installed..."
+    sleep 1
+done
+log finish "zplug: waiting and sourcing init script"
+
+log start "zplug: loading plugins list"
+to_load=()
+list=$(plugins_list $DOTFILES/zsh/plugins.txt)
+to_load+=(${(s: :)list})
+list=$(plugins_list $DOTFILES/zsh/completions.txt)
+to_load+=(${(s: :)list})
+for p in "$to_load[@]"; do
+    log debug "zplug: $p"
+    zplug "$p"
+done
+log finish "zplug: loading plugins list"
+
+if ! zplug check; then
+    log start "zplug: calling cmd zplug install"
+    zplug install
+    log finish "zplug: calling cmd zplug install"
+fi
+
+log start "zplug: loading"
+zplug load ${ZPLUG_VERBOSE}
+log finish "zplug: loading"
+
+log finish "zplug: start"

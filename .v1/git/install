@@ -1,0 +1,39 @@
+#!/usr/bin/env /bin/zsh
+
+# shellcheck source=/dev/null
+source "$DOTFILES/zsh/functions/log"
+
+log start "setting up git"
+
+_git_submodules="$DOTFILES/.gitmodules"
+
+log info "sanitizing git submodules"
+
+# ((SHELL_DEBUG)) && git config --file "${_git_submodules}" --list | tr ' ' '\n'
+command -v git >/dev/null || sudo apt install --yes --no-install-recommends git
+
+# shellcheck disable=SC2094
+/bin/cat < "${_git_submodules}" | grep '\[submodule' | while read -r item; do
+    _name=$(echo "$item" | sed -E 's/.*"(.*)".*/\1/g')
+    _label=$(echo "$_name" | xargs basename)
+    _path=$(git config --file "${_git_submodules}" --get "submodule.${_name}.path")
+    _url=$(git config --file "${_git_submodules}" --get "submodule.${_name}.url")
+
+    echo -e "submodule ${_label}:\n\tpath:\t$DOTFILES/${_path}\n\turl:\t${_url}"
+
+    echo -en "\tstatus:"
+
+    if [ -d "$DOTFILES/${_path}" ]; then
+        echo -en " updating..."
+        git submodule update --init "$DOTFILES/${_path}"
+    else
+        echo -en " adding..."
+        git submodule add "${_url}" "$DOTFILES/${_path}"
+    fi
+
+    git config --global --add safe.directory "$DOTFILES/${_path}"
+
+    echo -e " done."
+done
+
+log finish "setting up git"

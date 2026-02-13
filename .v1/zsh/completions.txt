@@ -1,0 +1,12 @@
+# caution! makes session start be slowly!
+
+# 3v1n0/zsh-bash-completions-fallback
+# chitoku-k/fzf-zsh-completions
+# felixr/docker-zsh-completion
+# greymd/docker-zsh-completion
+# littleq0903/gcloud-zsh-completion
+# MenkeTechnologies/zsh-cargo-completion
+# srijanshetty/zsh-pip-completion
+# thuandt/zsh-pipx
+
+zsh-users/zsh-completions

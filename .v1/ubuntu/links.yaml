@@ -1,0 +1,19 @@
+- defaults:
+    clear:
+      recursive: true
+    link:
+      create: true
+      glob: true
+    shell:
+      stderr: true
+      stdout: true
+
+- link:
+    $HOME/.local/:
+      exclude:
+        - $HOME/sync/linux/.local/share/gnome-shell/**
+        - $HOME/sync/linux/.local/share/applications/**
+      glob: true
+      path: $HOME/sync/linux/.local/**
+    $HOME/.icons: $HOME/sync/linux/.icons
+    $HOME/.themes: $HOME/sync/linux/.themes

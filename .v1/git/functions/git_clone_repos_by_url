@@ -1,0 +1,97 @@
+function git_clone_repos_by_url() {
+    function start_log_file() {
+        LOG_FILE=$1
+        RANDOM_NUMBER=$(((RANDOM % 14) + 1))
+        echo -e ${COLORS[$RANDOM_NUMBER]} >$LOG_FILE 2>&1
+    }
+
+    function print_last_line() {
+        LOG_FILE=$1
+        LAST_LINE=$(wc -l <$LOG_FILE)
+        BEFORE_LAST_LINE=$(($LAST_LINE - 1))
+        printf "$(sed -n 1p $LOG_FILE)"
+        printf "$(sed -n ${BEFORE_LAST_LINE}p $LOG_FILE)"
+        printf "$(sed -n ${LAST_LINE}p $LOG_FILE)"
+        printf "\n"
+    }
+
+    function finalize_log_file() {
+        LOG_FILE=$1
+        ONLY_LAST_LINE=$2
+        echo -e "\n"$(color no) >>$LOG_FILE 2>&1
+        if [[ "$ONLY_LAST_LINE" = "only-last-line" ]]; then
+            print_last_line $LOG_FILE;
+            return;
+        fi
+        /bin/cat $LOG_FILE
+    }
+
+    function git_clone() {
+        REPO_NAME=$1
+        REPO_SSH_URL=$2
+        THIS_LOG=$destination_path/$REPO_NAME.log
+        touch $THIS_LOG
+        start_log_file $THIS_LOG
+
+        echo -ne "cloning from $REPO_SSH_URL to $DEST/$REPO_NAME" >>$THIS_LOG 2>&1
+
+        git clone --progress $REPO_SSH_URL $DEST/$REPO_NAME >>$THIS_LOG 2>&1
+
+        if [[ $(/bin/cat $THIS_LOG | grep -c "make sure you have the correct access rights") > 0 ]]; then
+            echo -ne "🔒 $REPO_NAME blocked, you can't see this" >>$THIS_LOG 2>&1;
+            finalize_log_file $THIS_LOG "only-last-line";
+            return;
+        fi
+
+        if [[ $(/bin/cat $THIS_LOG | grep -c "is not an empty directory") > 0 ]]; then
+            echo -ne "✅  $REPO_NAME repository already exist" >>$THIS_LOG 2>&1;
+            finalize_log_file $THIS_LOG "only-last-line";
+            return;
+        fi
+
+        finalize_log_file $THIS_LOG
+    }
+
+    function iterate_page_result() {
+        PAGE=$1
+        /bin/cat $destination_path/page_$PAGE.json | sed -r 's/\\"//g' | jq -r -c '.[]' | while read -r item; do
+            git_clone $(jq -r -c '.name' <<<$item) $(jq -r -c '.ssh_url' <<<$item);
+        done
+    }
+
+    function finalize() {
+        echo "🏁  finished pages downloading"
+    }
+
+    function fetch() {
+        URL=$1
+        curl -s -u $GITHUB_USER:$TOKEN -D $destination_path/page_$PAGE.txt -o $destination_path/page_$PAGE.json $URL
+    }
+
+    function next_page() {
+        /bin/cat $destination_path/page_$PAGE.txt | grep 'link:' | sed -ne 's/.*\(http[^"]*\)>;\srel="next".*/\1/p'
+    }
+
+    URL=$1
+    DEST=$2
+    if [[ -z "${URL}" ]]; then echo "URL is required, nothing to do by now"; return; fi
+    if [[ -z "${DEST}" ]]; then echo "dest path is required, nothing to do by now"; return; fi
+
+    PAGE=$(echo $URL | /bin/sed -E 's/.*[^_]page=([0-9]+).*/\1/g')
+    if [[ -z "${PAGE}" ]]; then echo "page can't be found, nothing to do by now"; return; fi
+
+    destination_path=$TMP_USER/git-clone/$(now)
+    TOKEN=$(git config github.token)
+
+    echo "🌎 downloading page $PAGE from $URL to $DEST..."
+
+    mkdir -p $destination_path
+    fetch $URL
+
+    iterate_page_result $PAGE $DEST
+
+    NEXT_PAGE=$(next_page)
+    if [[ -z "${NEXT_PAGE}" ]]; then finalize; return; fi
+
+    git_clone_repos_by_url $NEXT_PAGE $DEST
+}

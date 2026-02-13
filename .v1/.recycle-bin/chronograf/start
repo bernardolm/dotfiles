@@ -1,0 +1,13 @@
+docker run \
+    --health-start-period 5s \
+    --name chronograf \
+    --restart always \
+    -d \
+    -e "INFLUXDB_PASSWORD=${INFLUX_ADMIN_PASSWORD}" \
+    -e "INFLUXDB_URL=${LOCAL_IP}:8086" \
+    -e "INFLUXDB_USERNAME=${INFLUX_ADMIN_USERNAME}" \
+    -e LOG_LEVEL=debug \
+    -e REPORTING_DISABLED=true \
+    -p 8888:8888 \
+    -v "$HOME/sync/linux/chronograf:/var/lib/chronograf" \
+    chronograf:1.8-alpine

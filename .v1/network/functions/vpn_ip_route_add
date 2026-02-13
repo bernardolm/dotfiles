@@ -1,0 +1,6 @@
+function vpn_ip_route_add() {
+    local source_net=$(vpn_ip_subnet $1)
+    local cmd="sudo ip route add $source_net via $2"
+    # echo "$cmd"
+    eval $cmd 2>/dev/null
+}

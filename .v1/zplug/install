@@ -1,0 +1,7 @@
+if ! [[ -d "$HOME/.zplug" ]]; then
+    log start "zplug install"
+
+    git clone --quiet https://github.com/zplug/zplug "$HOME/.zplug"
+
+    log finish "zplug install"
+fi

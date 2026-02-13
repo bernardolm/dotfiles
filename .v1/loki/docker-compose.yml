@@ -1,0 +1,35 @@
+services:
+
+  loki:
+    command: -config.file=/mnt/config/loki-config.yml
+    container_name: loki
+    env_file:
+      - $DOTFILES/loki/.env
+    environment:
+      TZ: America/Sao_Paulo
+    image: grafana/loki:latest
+    network_mode: bridge
+    ports:
+      - 3100:3100
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - /mnt/data/docker-volumes/loki:/loki
+      - $DOTFILES/loki/loki-config.yml:/mnt/config/loki-config.yml:ro
+
+  promtail:
+    command: -config.file=/mnt/config/promtail-config.yml
+    container_name: promtail
+    env_file:
+      - $DOTFILES/loki/.env
+    environment:
+      TZ: America/Sao_Paulo
+    image: grafana/promtail:latest
+    network_mode: bridge
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /etc/timezone:/etc/timezone:ro
+      - $DOTFILES/loki/promtail-config.yml:/mnt/config/promtail-config.yml:ro
+      # - /mnt/data/docker-volumes/loki:/var/lib/loki

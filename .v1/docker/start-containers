@@ -1,0 +1,38 @@
+#!/usr/bin/env /bin/zsh
+
+log start 'docker start containers'
+
+CURRENT_PWD=$(pwd)
+
+declare -a found_containers=()
+
+find "$DOTFILES" -name 'docker-compose.yml' | while read -r file; do
+    BASE_PATH=$(basename $(dirname $file))
+    found_containers+=("$BASE_PATH")
+done
+
+log info "found docker compose files for: $found_containers"
+
+for container in "${found_containers[@]}"; do
+    log debug "starting container proccess for $container"
+
+    [ -f "$DOTFILES/$container/.no-start" ] && {
+        log warn "skipping $container as it has a .no-start file"
+        continue
+    }
+
+    if [ -f "$DOTFILES/$container/start" ]; then
+        log info "running $container start script"
+        source "$DOTFILES/$container/start"
+    else
+        log info "no start script found for $container, using docker-compose command"
+        docker compose -f "$DOTFILES/$container/docker-compose.yml" up -d \
+            --build --remove-orphans --force-recreate
+    fi
+
+    log debug "done with $container"
+done
+
+docker container ls -a --format "table {{.Names}}\t{{.State}}\t{{.Ports}}"
+
+log finish 'docker start containers'

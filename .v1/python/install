@@ -1,0 +1,11 @@
+#!/usr/bin/env /bin/zsh
+
+log start "setting up python"
+
+CONFIG="$DOTFILES/python/pip.yaml" \
+    DOTBOT_DIR="git/submodules/dotbot" \
+    "$DOTFILES/install" \
+    -p "$DOTFILES/git/submodules/dotbot-pip/pip.py" \
+    --exit-on-failure
+
+log finish "setting up python"

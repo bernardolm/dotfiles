@@ -1,0 +1,23 @@
+function ssh_agent_state() {
+	local ssh_add=$(ssh-add -L 2>&1)
+	local _ssh_agent_state="alive"
+
+	log env ssh_add
+
+	case $ssh_add in
+	"Error connecting to agent: No such file or directory")
+	_ssh_agent_state="no_connection"
+	;;
+	"Error connecting to agent: Connection refused")
+	_ssh_agent_state="no_connection"
+	;;
+	"Could not open a connection to your authentication agent.")
+	_ssh_agent_state="no_connection"
+	;;
+	"The agent has no identities.")
+	_ssh_agent_state="empty"
+	;;
+	esac
+
+	echo $_ssh_agent_state
+}

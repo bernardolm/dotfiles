@@ -1,0 +1,7 @@
+function log_is_command_success() {
+	if [ $? -eq 0 ]; then
+		echo "$(color bg_green)➿ 😉$(color no)"
+	else
+		echo "$(color bg_red)➿ 🤬$(color no)"
+	fi
+}

@@ -1,0 +1,4 @@
+function gnome_shell_extensions_reactive() {
+    active_extensions=$(gsettings get org.gnome.shell enabled-extensions)
+    gsettings set org.gnome.shell enabled-extensions "${active_extensions}"
+}

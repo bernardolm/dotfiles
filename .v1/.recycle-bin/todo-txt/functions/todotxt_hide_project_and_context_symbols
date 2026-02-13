@@ -1,0 +1,6 @@
+function todotxt_hide_project_and_context_symbols() {
+    local line
+    while IFS= read -r line; do
+        echo "$line" | sed -E 's/[@\+](\w)/\1/g'
+    done
+}
