@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
+from bootstrap.context import resolve_profile, select_config_path
 from bootstrap.detect_platform import detect_platform
 from bootstrap.ensure_delta_config import ensure_delta_config
 from bootstrap.install_zimfw import install_zimfw
@@ -20,28 +21,53 @@ from bootstrap.repo_root import repo_root
 from bootstrap.update_zimfw import update_zimfw
 
 
-def bootstrap_flow(install_packages: bool, link: bool, profile: str, dry_run: bool) -> int:
+def bootstrap_flow(install_packages: bool, link: bool, profile: str | None, dry_run: bool) -> int:
 	platform_name = detect_platform()
 	resolved_platform = _resolve_platform_bootstrap(platform_name)
 	if not resolved_platform:
 		print(f"unsupported platform for bootstrap: {platform_name}")
 		return 1
 
+	try:
+		resolved_profile = resolve_profile(profile, platform_name=resolved_platform)
+	except ValueError as exc:
+		print(str(exc))
+		return 1
+
+	os.environ["DOTFILES_PROFILE"] = resolved_profile
+	os.environ["DOTFILES_PLATFORM"] = resolved_platform
+
+	config_path = select_config_path(resolved_platform, resolved_profile)
+	if not config_path.exists():
+		print(f"bootstrap config not found: {config_path}")
+		return 1
+
 	if link:
 		dotfiles_home = Path(os.environ.get("DOTFILES", str(Path.home() / "dotfiles")))
-		link_dotfiles(dotfiles_home, platform_name=resolved_platform, dry_run=dry_run)
+		link_dotfiles(
+			dotfiles_home,
+			platform_name=resolved_platform,
+			profile=resolved_profile,
+			dry_run=dry_run,
+		)
 		ensure_delta_config(resolved_platform, dry_run=dry_run)
 		install_zimfw(dry_run=dry_run)
 		update_zimfw(dry_run=dry_run)
 
 	if install_packages:
-		os.environ["DOTFILES_PROFILE"] = profile
-		config_path = repo_root() / "bootstrap" / resolved_platform / "config.yml"
-		result = platform_bootstrap(config_path, dry_run=dry_run)
+		result = platform_bootstrap(
+			config_path,
+			dry_run=dry_run,
+			profile=resolved_profile,
+			platform_name=resolved_platform,
+		)
 		if result != 0:
 			return result
 
-	print(f"Bootstrap finished (platform={resolved_platform}, profile={profile}).")
+	print(
+		"Bootstrap finished "
+		f"(platform={resolved_platform}, profile={resolved_profile}, config={config_path.relative_to(repo_root())})."
+	)
 	return 0
 
 
@@ -55,9 +81,11 @@ def _resolve_platform_bootstrap(platform_name: str) -> str | None:
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Bootstrap flow runner.")
-	parser.add_argument("--profile",
-											choices=["desktop", "server"],
-											default=os.environ.get("DOTFILES_PROFILE", "desktop"))
+	parser.add_argument(
+		"--profile",
+		choices=["desktop", "server"],
+		default=None,
+	)
 	parser.add_argument("--install-packages",
 											action="store_true",
 											help="Install packages for this platform")

@@ -1,0 +1,30 @@
+package-manager: apt
+
+packages:
+  - ca-certificates
+  - curl
+  - git
+  - openssh-client
+  - openssh-server
+  - zsh
+  - tmux
+  - nano
+  - htop
+  - rsync
+  - unzip
+  - zip
+  - tree
+  - ripgrep
+  - fzf
+  - jq
+  - build-essential
+  - python3
+  - python3-venv
+  - python3-pip
+  - golang-go
+  - go-packages:
+    manager: go-list
+    file: terminal/go/packages.txt
+  - python-requirements:
+    manager: pip-requirements
+    file: terminal/python/requirements.txt

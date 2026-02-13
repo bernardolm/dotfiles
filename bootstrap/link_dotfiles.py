@@ -17,13 +17,17 @@ from bootstrap.ensure_symlink import ensure_symlink
 from bootstrap.repo_root import repo_root
 
 
-def link_dotfiles(dotfiles_home: Path,
-									platform_name: str | None = None,
-									dry_run: bool = False) -> None:
+def link_dotfiles(
+	dotfiles_home: Path,
+	platform_name: str | None = None,
+	profile: str = "desktop",
+	dry_run: bool = False,
+) -> None:
 	root = repo_root()
 	system = (platform_name or _normalize_system(platform.system())).lower()
+	profile = profile.strip().lower()
 
-	for src, dest in _base_links(root):
+	for src, dest in _base_links(root, system=system, profile=profile):
 		_ensure_link_or_copy(src, dest, dry_run=dry_run)
 
 	if system != "windows":
@@ -40,14 +44,18 @@ def link_dotfiles(dotfiles_home: Path,
 			dotfiles_home.symlink_to(root)
 
 
-def _base_links(root: Path) -> list[tuple[Path, Path]]:
+def _base_links(root: Path, system: str, profile: str) -> list[tuple[Path, Path]]:
 	home = Path.home()
-	return [
+	links = [
 		(root / "terminal/git/.gitconfig", home / ".gitconfig"),
 		(root / "terminal/ssh/config", home / ".ssh/config"),
 		(root / "terminal/starship/theme/starship.toml", home / ".config/starship.toml"),
-		(root / "terminal/wezterm/wezterm.lua", home / ".wezterm.lua"),
 	]
+
+	if system != "windows" and profile != "server":
+		links.append((root / "terminal/wezterm/wezterm.lua", home / ".wezterm.lua"))
+
+	return links
 
 
 def _unix_links(root: Path) -> list[tuple[Path, Path]]:
@@ -139,9 +147,15 @@ def _normalize_system(system_name: str) -> str:
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Link dotfiles into the home directory.")
 	parser.add_argument("--platform", default=None)
+	parser.add_argument("--profile", default=os.environ.get("DOTFILES_PROFILE", "desktop"))
 	parser.add_argument("--dotfiles-home",
 											default=os.environ.get("DOTFILES", str(Path.home() / "dotfiles")))
 	parser.add_argument("--dry-run", action="store_true")
 	args = parser.parse_args()
 
-	link_dotfiles(Path(args.dotfiles_home), platform_name=args.platform, dry_run=args.dry_run)
+	link_dotfiles(
+		Path(args.dotfiles_home),
+		platform_name=args.platform,
+		profile=args.profile,
+		dry_run=args.dry_run,
+	)

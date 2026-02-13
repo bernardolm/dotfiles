@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import argparse
-import os
 from pathlib import Path
 import sys
 
@@ -15,9 +14,7 @@ from bootstrap.bootstrap_flow import bootstrap_flow
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Bootstrap terminal environment.")
-	parser.add_argument("--profile",
-											choices=["desktop", "server"],
-											default=os.environ.get("DOTFILES_PROFILE", "desktop"))
+	parser.add_argument("--profile", choices=["desktop", "server"], default=None)
 	parser.add_argument("--install-packages",
 											action="store_true",
 											help="Install packages for this platform")

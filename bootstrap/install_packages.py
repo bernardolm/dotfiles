@@ -14,7 +14,7 @@ from bootstrap.bootstrap_flow import bootstrap_flow
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Install packages via bootstrap flow.")
-	parser.add_argument("--profile", choices=["desktop", "server"], default="desktop")
+	parser.add_argument("--profile", choices=["desktop", "server"], default=None)
 	parser.add_argument("--dry-run", action="store_true")
 	args = parser.parse_args()
 

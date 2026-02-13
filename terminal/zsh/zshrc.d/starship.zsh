@@ -1,5 +1,3 @@
-# Starship prompt.
-if ! command -v starship >/dev/null 2>&1; then
-	curl -sS https://starship.rs/install.sh | sh
+if command -v starship >/dev/null 2>&1; then
+	eval "$(starship init zsh)"
 fi
-eval "$(starship init zsh)"

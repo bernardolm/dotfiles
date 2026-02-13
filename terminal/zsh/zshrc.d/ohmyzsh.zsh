@@ -1,4 +1,4 @@
-if [ ! -d "$HOME/workspaces/misc/ohmyzsh" ] ; then
-	git clone --quiet git@github.com:ohmyzsh/ohmyzsh.git "$HOME/workspaces/misc/ohmyzsh"
+# Optional compatibility with standalone oh-my-zsh plugin path.
+if [ -r "$HOME/workspaces/misc/ohmyzsh/plugins/git/git.plugin.zsh" ]; then
+	source "$HOME/workspaces/misc/ohmyzsh/plugins/git/git.plugin.zsh"
 fi
-source "$HOME/workspaces/misc/ohmyzsh/plugins/git/git.plugin.zsh"

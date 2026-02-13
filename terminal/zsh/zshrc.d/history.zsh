@@ -1,16 +1,15 @@
-# Keep 1000 lines of history within the shell and save it to ~/.zsh_history:
-export HISTFILE="$HOME/sync/linux/home/.zsh_history"
-export HISTSIZE=100000
-export SAVEHIST=100000
+export HISTSIZE="${HISTSIZE:-100000}"
+export SAVEHIST="${SAVEHIST:-100000}"
 
-if [ -f "$HOME/.zsh_history" ]; then
-	echo merging zsh_history in home
-	cat "$HOME/.zsh_history" >> "$HISTFILE"
-	rm -f "$HOME/.zsh_history"
+if [ -z "${HISTFILE:-}" ]; then
+	export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
 fi
 
-if [ -f "$ZDOTDIR/.zsh_history" ]; then
-	echo merging zsh_history in zdotdir
-	cat "$ZDOTDIR/.zsh_history" >> "$HISTFILE"
-	rm -f "$ZDOTDIR/.zsh_history"
-fi
+mkdir -p "$(dirname "$HISTFILE")"
+
+for legacy in "$HOME/.zsh_history" "$ZDOTDIR/.zsh_history"; do
+	if [ -f "$legacy" ] && [ "$legacy" != "$HISTFILE" ]; then
+		cat "$legacy" >> "$HISTFILE"
+		rm -f "$legacy"
+	fi
+done
