@@ -21,7 +21,6 @@ packages:
   - diffutils
   - dnsutils
   - duf
-  - exa
   - expect
   - eza
   - fonts-emojione
