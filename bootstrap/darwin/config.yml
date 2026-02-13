@@ -12,7 +12,7 @@ aliases:
   c: code .
   cat: bat
   cloud-sql-proxy: $HOME/Applications/cloud-sql-proxy --config-file=$HOME/sync/shared/gcp-cloud-proxy-sql.toml
-  cw: $DOTFILES/vscode/scripts/workspace.sh
+  cw: $HOME/dotfiles/terminal/vscode/scripts/workspace.sh
   dclsa: docker container ls -a --format "table {{.Names}}\t{{.State}}\t{{.RunningFor}}\t{{.Ports}}" | tail -n+2 | sort
   dcr: docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up --remove-orphans
   dcra: docker ps -aq | xargs docker rm
@@ -105,7 +105,6 @@ envs:
     TERM: xterm-256color
     VISUAL: nano
   1:
-    DOTFILES: $HOME/dotfiles
     GOPATH: $HOME/gopath
     HISTSIZE: $SAVEHIST
     NANORC_FILE: $HOME/.nanorc
@@ -114,10 +113,10 @@ envs:
     STARSHIP_CACHE: $HOME/.cache/starship
     TMP_USER: $HOME/sync/tmp/$HOSTNAME
     VSCODE_CLI_DATA_DIR: $HOME/.vscode-server/cli
-    ZDOTDIR: $HOME/dotfiles/zdotdir
+    ZDOTDIR: $HOME/dotfiles/terminal/zsh/zdotdir
   2:
     ELAPSED_TIME_ROOT: $TMP_USER/elapsed_time/$SESSION_ID
-    STARSHIP_CONFIG: $DOTFILES/terminal/starship/theme/catppuccin.toml
+    STARSHIP_CONFIG: $HOME/dotfiles/terminal/starship/theme/catppuccin.toml
 
 # packages field below - how to use
 #   exemple:
@@ -147,6 +146,8 @@ packages:
   - cat
   - certifi
   - chroma
+  - codex:
+    optional: true
   - code-cli
   - colorized-logs
   - coreutils
@@ -177,6 +178,7 @@ packages:
   - freetype
   - fribidi
   - fzf
+  - gemini-cli
   - gcalcli
   - gcloud
   - gd
@@ -229,6 +231,7 @@ packages:
   - llvm
   - lpeg
   - luajit
+  - luarocks
   - luv
   - lz4
   - lzo
@@ -239,6 +242,7 @@ packages:
   - mole
   - mpdecimal
   - nano
+  - ncdu
   - ncurses
   - neovim
   - netpbm
@@ -298,6 +302,8 @@ packages:
   - xz
   - yyjson
   - z3
+  - iproute2mac
+  - stylua
   - zimfw
   - zsh
   - zstd
@@ -313,6 +319,11 @@ packages:
     manager: brew-cask
   - superkey:
     manager: brew-cask
+  - visual-studio-code:
+    manager: brew-cask
+  - font-powerline-symbols:
+    manager: brew-cask
+    optional: true
   - nanorc:
     manager: git
     url: git@github.com:scopatz/nanorc.git
@@ -337,6 +348,12 @@ packages:
     manager: brew-cask
   - wezterm:
     manager: brew-cask
+  - go-packages:
+    manager: go-list
+    file: terminal/go/packages.txt
+  - python-requirements:
+    manager: pip-requirements
+    file: terminal/python/requirements.txt
 
 path:
   - /Applications/Visual Studio Code.app/Contents/Resources/app/bin
@@ -354,7 +371,7 @@ symbolic_links:
   # $HOME/.zsh_history: $HOME/sync/linux/home/.zsh_history
   $HOME/.fonts: $HOME/sync/shared/home/.fonts
   $HOME/.gitconfig: $HOME/sync/$PLATFORM/home/.gitconfig
-  $HOME/.nanorc: $DOTFILES/nano/.nanorc
+  $HOME/.nanorc: $HOME/dotfiles/terminal/nano/.nanorc
   $HOME/.ssh/authorized_keys: $HOME/sync/shared/home/.ssh/authorized_keys
   $HOME/.ssh/config: $HOME/sync/shared/home/.ssh/config
   $HOME/.wakatime.cfg: $HOME/sync/$PLATFORM/home/.wakatime.cfg

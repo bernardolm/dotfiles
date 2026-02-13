@@ -13,14 +13,10 @@ envs:
 
 packages:
   - bash
-  - curl
-  - git
-  - nano
-  - rsync
-  - sudo
-  - zsh
   - busybox-extras
+  - ca-certificates
   - curl
+  - docker
   - git
   - icu # locale needs
   - icu-data-full # locale needs
@@ -40,3 +36,9 @@ packages:
   - sudo
   - tzdata
   - zsh
+  - starship:
+    command: command -v starship >/dev/null 2>&1 || curl -fsSL https://starship.rs/install.sh | sh -s -- -y
+  - docker-cli-compose:
+    optional: true
+  - tmux:
+    optional: true

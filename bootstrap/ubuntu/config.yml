@@ -13,6 +13,7 @@ packages:
   - batcat
   - bc
   - build-essential
+  - ca-certificates
   - calcurse
   - colorized-logs
   - command-not-found
@@ -30,6 +31,8 @@ packages:
   - gdu
   - gh
   - git
+  - gnupg
+  - golang-go
   - htop
   - install
   - jq
@@ -53,6 +56,7 @@ packages:
   - powerline-fonts
   - pro
   - python-is-python3
+  - python3
   - python3-all-dev
   - python3-argcomplete
   - python3-dev
@@ -61,15 +65,22 @@ packages:
   - python3-pip
   - python3-pygments
   - python3-setuptools
+  - python3-venv
+  - rclone
+  - ripgrep
+  - rsync
   - screen
   - shellcheck
   - silversearcher-ag
   - smbclient
+  - software-properties-common
   - ssh-audit
   - sshfs
   - sudo
+  - terraform
   - tmux
   - traceroute
+  - tree
   - ubuntu-server
   - ufw
   - unzip
@@ -100,6 +111,21 @@ packages:
     action: purge
   - xserver:
     action: purge
+  - socat:
+    optional: true
+  - openvpn:
+    optional: true
+  - openvpn-systemd-resolved:
+    optional: true
+  - starship-install:
+    command: command -v starship >/dev/null 2>&1 || curl -fsSL https://starship.rs/install.sh | sh -s -- -y
+    optional: true
+  - go-packages:
+    manager: go-list
+    file: terminal/go/packages.txt
+  - python-requirements:
+    manager: pip-requirements
+    file: terminal/python/requirements.txt
 
 path:
   /snap/bin
@@ -111,7 +137,7 @@ symbolic_links:
   # $HOME/.zsh_history: $HOME/sync/linux/home/.zsh_history
   $HOME/.fonts: $HOME/sync/shared/home/.fonts
   $HOME/.gitconfig: $HOME/sync/$PLATFORM/home/.gitconfig
-  $HOME/.nanorc: $DOTFILES/nano/.nanorc
+  $HOME/.nanorc: $HOME/dotfiles/terminal/nano/.nanorc
   $HOME/.ssh/authorized_keys: $HOME/sync/shared/home/.ssh/authorized_keys
   $HOME/.ssh/config: $HOME/sync/shared/home/.ssh/config
   $HOME/.wakatime.cfg: $HOME/sync/$PLATFORM/home/.wakatime.cfg

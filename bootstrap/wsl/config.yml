@@ -1,3 +1,45 @@
+package-manager: apt
 
-aliases:
-  pwsh: /mnt/c/Users/bernardo/AppData/Local/Microsoft/WindowsApps/pwsh.exe
+packages:
+  - build-essential
+  - ca-certificates
+  - curl
+  - fd-find
+  - fzf
+  - git
+  - gnupg
+  - golang-go
+  - jq
+  - nano
+  - openssh-client
+  - pipx
+  - python3
+  - python3-pip
+  - python3-venv
+  - rclone
+  - ripgrep
+  - rsync
+  - software-properties-common
+  - terraform
+  - tmux
+  - unzip
+  - zip
+  - zsh
+  - socat:
+    optional: true
+  - openvpn:
+    optional: true
+  - openvpn-systemd-resolved:
+    optional: true
+  - eza:
+    optional: true
+  - zoxide:
+    optional: true
+  - starship:
+    command: command -v starship >/dev/null 2>&1 || curl -fsSL https://starship.rs/install.sh | sh -s -- -y
+  - go-packages:
+    manager: go-list
+    file: terminal/go/packages.txt
+  - python-requirements:
+    manager: pip-requirements
+    file: terminal/python/requirements.txt
