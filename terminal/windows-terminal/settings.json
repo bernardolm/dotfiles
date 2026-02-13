@@ -1,0 +1,49 @@
+{
+	"$schema": "https://aka.ms/terminal-profiles-schema",
+	"copyFormatting": "none",
+	"copyOnSelect": false,
+	"defaultProfile": "{9f156763-7844-5d68-a9f1-91a5fbd3f5cc}",
+	"profiles": {
+		"defaults": {
+			"font": {
+				"face": "Cascadia Code",
+				"size": 11
+			},
+			"opacity": 100,
+			"padding": "8, 6, 8, 6",
+			"useAcrylic": false
+		},
+		"list": [
+			{
+				"commandline": "powershell.exe -NoLogo",
+				"guid": "{9f156763-7844-5d68-a9f1-91a5fbd3f5cc}",
+				"name": "PowerShell",
+				"startingDirectory": "%USERPROFILE%"
+			},
+			{
+				"commandline": "cmd.exe",
+				"guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+				"name": "Command Prompt",
+				"startingDirectory": "%USERPROFILE%"
+			}
+		]
+	},
+	"schemes": [],
+	"actions": [
+		{
+			"command": {
+				"action": "newTab",
+				"profile": "PowerShell"
+			},
+			"keys": "ctrl+shift+t"
+		},
+		{
+			"command": "closePane",
+			"keys": "ctrl+shift+w"
+		},
+		{
+			"command": "find",
+			"keys": "ctrl+shift+f"
+		}
+	]
+}
