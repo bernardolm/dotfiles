@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
+import os
 from pathlib import Path
 import sys
 
@@ -30,10 +30,21 @@ def ensure_delta_config(platform_name: str, dry_run: bool = False) -> None:
 		delta_dest.unlink()
 
 
-if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="Link delta config on supported platforms.")
-	parser.add_argument("platform")
-	parser.add_argument("--dry-run", action="store_true")
-	args = parser.parse_args()
+def _is_truthy(value: str | None) -> bool:
+	if value is None:
+		return False
+	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
 
-	ensure_delta_config(args.platform, dry_run=args.dry_run)
+
+def main() -> int:
+	platform_name = (os.environ.get("DOTFILES_PLATFORM") or "").strip().lower()
+	if not platform_name:
+		print("warning: DOTFILES_PLATFORM nao definido; ensure_delta_config ignorado.")
+		return 0
+	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
+	ensure_delta_config(platform_name, dry_run=dry_run)
+	return 0
+
+
+if __name__ == "__main__":
+	raise SystemExit(main())

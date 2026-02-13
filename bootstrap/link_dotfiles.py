@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
 import os
 from pathlib import Path
 import platform
@@ -31,7 +30,7 @@ def link_dotfiles(
 		_ensure_link_or_copy(src, dest, dry_run=dry_run)
 
 	if system != "windows":
-		for src, dest in _unix_links(root):
+		for src, dest in _unix_links(root, system=system):
 			_ensure_link_or_copy(src, dest, dry_run=dry_run)
 
 	_link_windows_terminal_and_powershell(root, system=system, dry_run=dry_run)
@@ -52,21 +51,24 @@ def _base_links(root: Path, system: str, profile: str) -> list[tuple[Path, Path]
 		(root / "terminal/starship/theme/starship.toml", home / ".config/starship.toml"),
 	]
 
-	if system != "windows" and profile != "server":
+	if system == "darwin" and profile != "server":
 		links.append((root / "terminal/wezterm/wezterm.lua", home / ".wezterm.lua"))
 
 	return links
 
 
-def _unix_links(root: Path) -> list[tuple[Path, Path]]:
+def _unix_links(root: Path, system: str) -> list[tuple[Path, Path]]:
 	home = Path.home()
-	return [
+	links = [
 		(root / "terminal/zsh/zdotdir/.zshenv", home / ".zshenv"),
 		(root / "terminal/zsh/zdotdir/.zshrc", home / ".zshrc"),
 		(root / "terminal/zsh/.zimrc", home / ".zimrc"),
 		(root / "terminal/tmux/.tmux.conf", home / ".tmux.conf"),
 		(root / "terminal/nano/.nanorc", home / ".nanorc"),
 	]
+	if system == "alpine":
+		links.append((root / "terminal/ash/.profile", home / ".profile"))
+	return links
 
 
 def _link_windows_terminal_and_powershell(root: Path, system: str, dry_run: bool = False) -> None:
@@ -144,18 +146,25 @@ def _normalize_system(system_name: str) -> str:
 	return "linux"
 
 
-if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="Link dotfiles into the home directory.")
-	parser.add_argument("--platform", default=None)
-	parser.add_argument("--profile", default=os.environ.get("DOTFILES_PROFILE", "desktop"))
-	parser.add_argument("--dotfiles-home",
-											default=os.environ.get("DOTFILES", str(Path.home() / "dotfiles")))
-	parser.add_argument("--dry-run", action="store_true")
-	args = parser.parse_args()
+def _is_truthy(value: str | None) -> bool:
+	if value is None:
+		return False
+	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
 
+
+def main() -> int:
+	platform_name = os.environ.get("DOTFILES_PLATFORM") or None
+	profile = os.environ.get("DOTFILES_PROFILE", "desktop")
+	dotfiles_home = Path(os.environ.get("DOTFILES_HOME", str(Path.home() / "dotfiles"))).expanduser()
+	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
 	link_dotfiles(
-		Path(args.dotfiles_home),
-		platform_name=args.platform,
-		profile=args.profile,
-		dry_run=args.dry_run,
+		dotfiles_home,
+		platform_name=platform_name,
+		profile=profile,
+		dry_run=dry_run,
 	)
+	return 0
+
+
+if __name__ == "__main__":
+	raise SystemExit(main())

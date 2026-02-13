@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
+import os
 from pathlib import Path
 import platform
 import sys
@@ -23,15 +23,25 @@ def install_zimfw(dry_run: bool = False) -> None:
 	if zimfw.exists():
 		return
 
-	run(["git", "clone", "https://github.com/zimfw/zimfw.git",
-				str(zim_home)],
-			check=False,
-			dry_run=dry_run)
+	run(
+		["git", "clone", "https://github.com/zimfw/zimfw.git",
+			str(zim_home)],
+		check=False,
+		dry_run=dry_run,
+	)
+
+
+def _is_truthy(value: str | None) -> bool:
+	if value is None:
+		return False
+	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def main() -> int:
+	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
+	install_zimfw(dry_run=dry_run)
+	return 0
 
 
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="Install zimfw if missing.")
-	parser.add_argument("--dry-run", action="store_true")
-	args = parser.parse_args()
-
-	install_zimfw(dry_run=args.dry_run)
+	raise SystemExit(main())

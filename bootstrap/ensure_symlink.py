@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
+import os
 from pathlib import Path
 
 
@@ -33,11 +33,22 @@ def ensure_symlink(src: Path, dest: Path, dry_run: bool = False) -> None:
 	dest.symlink_to(src)
 
 
-if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="Create a safe symlink.")
-	parser.add_argument("src")
-	parser.add_argument("dest")
-	parser.add_argument("--dry-run", action="store_true")
-	args = parser.parse_args()
+def _is_truthy(value: str | None) -> bool:
+	if value is None:
+		return False
+	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
 
-	ensure_symlink(Path(args.src), Path(args.dest), dry_run=args.dry_run)
+
+def main() -> int:
+	src_value = os.environ.get("DOTFILES_SYMLINK_SRC", "").strip()
+	dest_value = os.environ.get("DOTFILES_SYMLINK_DEST", "").strip()
+	if not src_value or not dest_value:
+		print("error: defina DOTFILES_SYMLINK_SRC e DOTFILES_SYMLINK_DEST para usar este script.")
+		return 1
+	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
+	ensure_symlink(Path(src_value).expanduser(), Path(dest_value).expanduser(), dry_run=dry_run)
+	return 0
+
+
+if __name__ == "__main__":
+	raise SystemExit(main())

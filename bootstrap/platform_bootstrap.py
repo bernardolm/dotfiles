@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
 import os
 from pathlib import Path
 import shlex
@@ -449,18 +448,21 @@ def _can_run_without_sudo() -> bool:
 	return shutil.which("sudo") is None
 
 
-if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="Run platform-specific bootstrap using config.yml.")
-	parser.add_argument("config")
-	parser.add_argument("--profile", default=os.environ.get("DOTFILES_PROFILE", "desktop"))
-	parser.add_argument("--platform", default=os.environ.get("DOTFILES_PLATFORM", ""))
-	parser.add_argument("--dry-run", action="store_true")
-	args = parser.parse_args()
+def main() -> int:
+	config_value = os.environ.get("DOTFILES_BOOTSTRAP_CONFIG", "").strip()
+	if not config_value:
+		print("error: DOTFILES_BOOTSTRAP_CONFIG nao definido.")
+		return 1
+	profile = os.environ.get("DOTFILES_PROFILE", "desktop")
+	platform_name = os.environ.get("DOTFILES_PLATFORM", "")
+	dry_run = _to_bool(os.environ.get("DOTFILES_DRY_RUN"), default=False)
+	return platform_bootstrap(
+		Path(config_value).expanduser(),
+		dry_run=dry_run,
+		profile=profile,
+		platform_name=platform_name,
+	)
 
-	raise SystemExit(
-		platform_bootstrap(
-			Path(args.config),
-			dry_run=args.dry_run,
-			profile=args.profile,
-			platform_name=args.platform,
-		))
+
+if __name__ == "__main__":
+	raise SystemExit(main())

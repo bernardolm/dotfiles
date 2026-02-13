@@ -1,7 +1,7 @@
 # Dotfiles PowerShell profile.
 
-$global:DOTFILES = Join-Path $HOME "dotfiles"
-$env:DOTFILES = $global:DOTFILES
+$global:DotfilesHome = Join-Path $HOME "dotfiles"
+$env:STARSHIP_CONFIG = Join-Path $global:DotfilesHome "terminal/starship/theme/starship.toml"
 
 try {
 	[Console]::InputEncoding = [System.Text.UTF8Encoding]::new()
@@ -17,6 +17,21 @@ if (Get-Module -ListAvailable -Name PSReadLine) {
 
 Set-Alias ll Get-ChildItem -Option AllScope
 Set-Alias la Get-ChildItem -Option AllScope
+
+function Go-Dotfiles {
+	Set-Location $global:DotfilesHome
+}
+
+function Use-WslZsh {
+	if (Get-Command wsl.exe -ErrorAction SilentlyContinue) {
+		wsl.exe -e zsh -l
+		return
+	}
+	Write-Warning "WSL executable not found."
+}
+
+Set-Alias dfd Go-Dotfiles -Option AllScope
+Set-Alias wslz Use-WslZsh -Option AllScope
 
 if (Get-Command starship -ErrorAction SilentlyContinue) {
 	Invoke-Expression (& starship init powershell)

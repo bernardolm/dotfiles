@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
+import os
 from pathlib import Path
 import sys
 
@@ -12,11 +12,18 @@ if str(ROOT) not in sys.path:
 
 from bootstrap.bootstrap_flow import bootstrap_flow
 
-if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="Install packages via bootstrap flow.")
-	parser.add_argument("--profile", choices=["desktop", "server"], default=None)
-	parser.add_argument("--dry-run", action="store_true")
-	args = parser.parse_args()
 
-	raise SystemExit(
-		bootstrap_flow(install_packages=True, link=False, profile=args.profile, dry_run=args.dry_run))
+def _is_truthy(value: str | None) -> bool:
+	if value is None:
+		return False
+	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def main() -> int:
+	profile = os.environ.get("DOTFILES_PROFILE") or None
+	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
+	return bootstrap_flow(install_packages=True, link=False, profile=profile, dry_run=dry_run)
+
+
+if __name__ == "__main__":
+	raise SystemExit(main())

@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
 import os
 from pathlib import Path
 import sys
@@ -43,7 +42,7 @@ def bootstrap_flow(install_packages: bool, link: bool, profile: str | None, dry_
 		return 1
 
 	if link:
-		dotfiles_home = Path(os.environ.get("DOTFILES", str(Path.home() / "dotfiles")))
+		dotfiles_home = Path.home() / "dotfiles"
 		link_dotfiles(
 			dotfiles_home,
 			platform_name=resolved_platform,
@@ -79,23 +78,43 @@ def _resolve_platform_bootstrap(platform_name: str) -> str | None:
 	return None
 
 
+def _is_truthy(value: str | None) -> bool:
+	if value is None:
+		return False
+	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def _is_falsey(value: str | None) -> bool:
+	if value is None:
+		return False
+	return value.strip().lower() in {"0", "false", "no", "n", "off"}
+
+
+def _resolve_action_flags() -> tuple[bool, bool]:
+	all_value = os.environ.get("DOTFILES_BOOTSTRAP_ALL")
+	if _is_truthy(all_value):
+		return True, True
+
+	install_value = os.environ.get("DOTFILES_BOOTSTRAP_INSTALL_PACKAGES")
+	link_value = os.environ.get("DOTFILES_BOOTSTRAP_LINK")
+
+	if install_value is None and link_value is None:
+		return True, True
+
+	install_packages = _is_truthy(install_value)
+	link = _is_truthy(link_value)
+
+	if _is_falsey(install_value) and _is_falsey(link_value):
+		return False, False
+	return install_packages, link
+
+
+def main() -> int:
+	profile = os.environ.get("DOTFILES_PROFILE") or None
+	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
+	install_packages, link = _resolve_action_flags()
+	return bootstrap_flow(install_packages, link, profile, dry_run)
+
+
 if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="Bootstrap flow runner.")
-	parser.add_argument(
-		"--profile",
-		choices=["desktop", "server"],
-		default=None,
-	)
-	parser.add_argument("--install-packages",
-											action="store_true",
-											help="Install packages for this platform")
-	parser.add_argument("--link", action="store_true", help="Create symlinks to dotfiles")
-	parser.add_argument("--all", action="store_true", help="Install packages and link dotfiles")
-	parser.add_argument("--dry-run", action="store_true", help="Print commands without running")
-	args = parser.parse_args()
-
-	do_all = args.all or (not args.install_packages and not args.link)
-	install_packages = args.install_packages or do_all
-	link = args.link or do_all
-
-	raise SystemExit(bootstrap_flow(install_packages, link, args.profile, args.dry_run))
+	raise SystemExit(main())

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
+import os
 from pathlib import Path
 import platform
 import sys
@@ -25,9 +25,17 @@ def update_zimfw(dry_run: bool = False) -> None:
 	run(["zsh", "-c", f"source '{zimfw}'; zimfw install -q"], check=False, dry_run=dry_run)
 
 
-if __name__ == "__main__":
-	parser = argparse.ArgumentParser(description="Update zimfw modules.")
-	parser.add_argument("--dry-run", action="store_true")
-	args = parser.parse_args()
+def _is_truthy(value: str | None) -> bool:
+	if value is None:
+		return False
+	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
 
-	update_zimfw(dry_run=args.dry_run)
+
+def main() -> int:
+	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
+	update_zimfw(dry_run=dry_run)
+	return 0
+
+
+if __name__ == "__main__":
+	raise SystemExit(main())

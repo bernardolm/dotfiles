@@ -20,16 +20,22 @@ VALID_PROFILES = {"desktop", "server"}
 
 def resolve_profile(profile: str | None, platform_name: str | None = None) -> str:
 	value = (profile or os.environ.get("DOTFILES_PROFILE", "")).strip().lower()
-	if value:
-		if value not in VALID_PROFILES:
-			raise ValueError(f"invalid profile: {value}")
-		return value
 
 	resolved_platform = (platform_name or os.environ.get("DOTFILES_PLATFORM", "")).strip().lower()
 	if not resolved_platform:
 		resolved_platform = detect_platform()
 
-	if resolved_platform in {"linux", "ubuntu", "alpine"} and not _has_graphical_session():
+	if value:
+		if value not in VALID_PROFILES:
+			raise ValueError(f"invalid profile: {value}")
+		if resolved_platform in {"alpine", "ubuntu"}:
+			return "server"
+		return value
+
+	if resolved_platform in {"alpine", "ubuntu"}:
+		return "server"
+
+	if resolved_platform == "linux" and not _has_graphical_session():
 		return "server"
 
 	return "desktop"
