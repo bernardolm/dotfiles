@@ -1,17 +1,8 @@
 # Shared environment for all zsh sessions.
 
-export DOTFILES="${DOTFILES:-$HOME/dotfiles}"
-export ZDOTDIR="$DOTFILES/terminal/zsh/zdotdir"
-export ZIM_CONFIG_FILE="$DOTFILES/terminal/zsh/.zimrc"
+export ZDOTDIR="$HOME/dotfiles/terminal/zsh/zdotdir"
+export ZIM_CONFIG_FILE="$HOME/dotfiles/terminal/zsh/.zimrc"
 export ZIM_HOME="${ZIM_HOME:-$HOME/.zim}"
-
-if [ -z "${DOTFILES_PROFILE:-}" ]; then
-	if [ "$(uname -s)" = "Linux" ] && [ -z "${DISPLAY:-}" ] && [ -z "${WAYLAND_DISPLAY:-}" ]; then
-		export DOTFILES_PROFILE="server"
-	else
-		export DOTFILES_PROFILE="desktop"
-	fi
-fi
 
 case "$(uname -s)" in
 	Darwin) export DOTFILES_OS="darwin" ;;
@@ -26,10 +17,32 @@ case "$(uname -s)" in
 	*) export DOTFILES_OS="unknown" ;;
 esac
 
-export STARSHIP_CONFIG="$DOTFILES/terminal/starship/theme/starship.toml"
-export PATH="$PATH:$HOME/go/bin"
-export LUA_PATH="${LUA_PATH:-};$DOTFILES/terminal/wezterm/?.lua"
-
-if [ -z "${HISTFILE:-}" ]; then
-	export HISTFILE="${XDG_STATE_HOME:-$HOME/.local/state}/zsh/history"
+if [ -z "${DOTFILES_PROFILE:-}" ]; then
+	if [ "$DOTFILES_OS" = "linux" ] && [ -z "${DISPLAY:-}" ] && [ -z "${WAYLAND_DISPLAY:-}" ]; then
+		export DOTFILES_PROFILE="server"
+	else
+		export DOTFILES_PROFILE="desktop"
+	fi
 fi
+
+export STARSHIP_CONFIG="$HOME/dotfiles/terminal/starship/theme/starship.toml"
+export PATH="$PATH:$HOME/go/bin"
+export LUA_PATH="${LUA_PATH:-};$HOME/dotfiles/terminal/wezterm/?.lua"
+
+dotfiles_tmp_root="${TMPDIR:-/tmp}"
+dotfiles_zsh_tmp_dir="${dotfiles_tmp_root%/}/dotfiles-zsh-${USER:-user}"
+mkdir -p "$dotfiles_zsh_tmp_dir" 2>/dev/null || true
+
+# Disable Apple Terminal resume sessions and avoid creating .zsh_sessions under ZDOTDIR.
+export SHELL_SESSIONS_DISABLE=1
+export SHELL_SESSION_HISTORY=0
+export SHELL_SESSION_DIR="$dotfiles_zsh_tmp_dir/sessions"
+
+# Force zcomp* artifacts to temporary storage.
+export ZSH_COMPDUMP="$dotfiles_zsh_tmp_dir/.zcompdump-${HOST:-local}"
+
+dotfiles_history_official="$HOME/sync/.zsh_history"
+if [ -n "${HISTFILE:-}" ] && [ "$HISTFILE" != "$dotfiles_history_official" ]; then
+	export DOTFILES_HISTFILE_PREVIOUS="$HISTFILE"
+fi
+export HISTFILE="$dotfiles_history_official"

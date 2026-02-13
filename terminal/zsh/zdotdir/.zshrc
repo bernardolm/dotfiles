@@ -6,6 +6,9 @@ if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]] && command -v curl >/dev/null 2>&1; then
 fi
 
 if [[ -r ${ZIM_HOME}/zimfw.zsh ]]; then
+	if [[ -n ${ZSH_COMPDUMP:-} ]]; then
+		zstyle ':zim:completion' dumpfile "$ZSH_COMPDUMP"
+	fi
 	if [[ ! -e ${ZIM_HOME}/init.zsh ]] || [[ ! ${ZIM_HOME}/init.zsh -nt ${ZIM_CONFIG_FILE:-${ZDOTDIR:-${HOME}}/.zimrc} ]]; then
 		source ${ZIM_HOME}/zimfw.zsh init
 	fi
@@ -14,7 +17,7 @@ if [[ -r ${ZIM_HOME}/zimfw.zsh ]]; then
 	fi
 fi
 
-for file in "$DOTFILES/terminal/zsh/zshrc.d/"*.zsh; do
+for file in "$HOME/dotfiles/terminal/zsh/zshrc.d/"*(N-.D); do
 	[ -r "$file" ] || continue
 	. "$file"
 done

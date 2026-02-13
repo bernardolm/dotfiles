@@ -8,6 +8,6 @@ function conky_start() {
 
 	local cmd="conky ${attrs} --config"
 
-	# eval ${cmd} "$DOTFILES/.config/conky/left.conf"
-	# eval ${cmd} "$DOTFILES/.config/conky/right.conf"
+	# eval ${cmd} "$HOME/dotfiles/.config/conky/left.conf"
+	# eval ${cmd} "$HOME/dotfiles/.config/conky/right.conf"
 }

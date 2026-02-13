@@ -1,5 +1,5 @@
 function progress_bar() {
-		command -v color &>/dev/null || source $DOTFILES/zsh/functions/color
+		command -v color &>/dev/null || source "$HOME/dotfiles/terminal/zsh/functions/color"
 
 	local bar_size=300
 	local bar=""

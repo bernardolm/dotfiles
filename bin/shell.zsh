@@ -35,7 +35,7 @@ function memory_used() {
 }
 
 function memory_used_watcher() {
-	watch -c -n1 -x bash -c "source $DOTFILES/zsh/memory_used.zsh; memory_used $1"
+	watch -c -n1 -x bash -c "source $HOME/dotfiles/terminal/zsh/memory_used.zsh; memory_used $1"
 }
 
 function kill_by_port() {
