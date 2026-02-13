@@ -47,14 +47,18 @@ def main(
 	ai_timeout_seconds = ai_timeout_seconds or int(
 		os.environ.get("DOTFILES_AI_DOCS_TIMEOUT_SECONDS", "240"))
 	max_commits = max_commits or int(os.environ.get("DOTFILES_AI_DOCS_MAX_COMMITS", "25"))
+	_log("docs-sync iniciado.")
 
 	updates = _read_ref_updates(sys.stdin)
 	if not updates:
+		_log("sem atualizacoes de refs para processar.")
 		return 0
 
 	commit_shas = _collect_commit_shas(updates, remote_name, max_commits)
 	if not commit_shas:
+		_log("sem commits relevantes para documentacao.")
 		return 0
+	_log(f"{len(commit_shas)} commit(s) relevante(s) para README.")
 
 	instructions_path = (ROOT / instructions_file).resolve()
 	if not instructions_path.exists():
@@ -89,9 +93,10 @@ def main(
 	)
 
 	if dry_run:
-		print(f"pre-push: dry-run: IA nao executada ({len(commit_shas)} commit(s) analisado(s)).")
+		_log(f"dry-run: IA nao executada ({len(commit_shas)} commit(s) analisado(s)).")
 		return 0
 
+	_log("gerando resumo incremental com IA...")
 	summary_markdown = _run_ai_summary_command(
 		ai_command=ai_command,
 		prompt=prompt,
@@ -108,6 +113,7 @@ def main(
 		summary_markdown=summary_markdown,
 	)
 	if not changed:
+		_log("README ja estava alinhado; nenhuma atualizacao necessaria.")
 		return 0
 
 	after_dirty = _dirty_files()
@@ -126,9 +132,8 @@ def main(
 		print("pre-push: revise as alteracoes, ajuste manualmente e tente o push novamente.")
 		return 1
 
-	print(
-		f"pre-push: {readme_rel} recebeu atualizacao incremental; revise, faca commit e rode o push novamente."
-	)
+	_log(
+		f"{readme_rel} recebeu atualizacao incremental; revise, faca commit e rode o push novamente.")
 	return 1
 
 
@@ -264,7 +269,10 @@ def _run_ai_summary_command(ai_command: str, prompt: str, timeout_seconds: int) 
 		prompt,
 	]
 	if Path(ai_command).name == "codex":
-		cmd[3:3] = ["-c", 'model_reasoning_effort="medium"']
+		cmd[3:3] = [
+			"-c", 'model_reasoning_effort="medium"', "-c", 'model_verbosity="low"', "--diff-verbosity",
+			"step"
+		]
 	try:
 		completed = subprocess.run(
 			cmd,
@@ -412,6 +420,10 @@ def _unlink_quietly(path: Path) -> None:
 		path.unlink(missing_ok=True)
 	except OSError:
 		return
+
+
+def _log(message: str) -> None:
+	print(f"pre-push: {message}")
 
 
 def _dirty_files() -> set[str]:
