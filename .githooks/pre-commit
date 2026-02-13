@@ -44,7 +44,55 @@ supports_tab_indentation() {
 
 normalize_to_tabs() {
 	local file="$1"
-	perl -i -pe 's#^( +)#("\t" x int(length($1)/2)) . (" " x (length($1)%2))#e' "$file"
+	local unit=""
+	unit="$(
+		awk '
+			match($0, /^[ \t]+[^ \t\r\n]/) {
+				prefix = substr($0, 1, RLENGTH - 1)
+				gsub(/\t/, "", prefix)
+				c = length(prefix)
+				if (c > 0) {
+					counts[c] = 1
+				}
+			}
+			END {
+				if (2 in counts) {
+					print 2
+					exit
+				}
+				if (4 in counts) {
+					print 4
+					exit
+				}
+				g = 0
+				for (k in counts) {
+					c = k + 0
+					if (c <= 1) {
+						continue
+					}
+					if (g == 0) {
+						g = c
+						continue
+					}
+					a = g
+					b = c
+					while (b != 0) {
+						t = a % b
+						a = b
+						b = t
+					}
+					g = a
+				}
+				if (g >= 4 && (g % 4) == 0) {
+					print 4
+				} else {
+					print 2
+				}
+			}
+		' "$file"
+	)"
+	# Converte a indentacao no inicio de cada linha, em qualquer nivel, preservando os niveis funcionais.
+	UNIT="$unit" perl -i -pe 's#^([ \t]+)#do { my $w=$1; my $tabs=($w=~tr/\t/\t/); my $spaces=($w=~tr/ / /); my $extra = $spaces > 0 ? int(($spaces + $ENV{UNIT} - 1)/$ENV{UNIT}) : 0; ("\t" x ($tabs + $extra)) }#e' "$file"
 }
 
 normalized_files=()
@@ -60,7 +108,7 @@ for file in "${staged_files[@]}"; do
 done
 
 if [ "${#normalized_files[@]}" -gt 0 ]; then
-	echo "pre-commit: indentacao normalizada para tabs (size=2) em ${#normalized_files[@]} arquivo(s)."
+	echo "pre-commit: indentacao (qualquer nivel) normalizada para tabs em ${#normalized_files[@]} arquivo(s)."
 fi
 
 resolve_tool() {
@@ -76,14 +124,6 @@ run_tool() {
 	shift
 	if [[ "$tool_ref" == "pyenv exec "* ]]; then
 		pyenv exec "${tool_ref#pyenv exec }" "$@"
-		return 0
-	fi
-	if [[ "$tool_ref" == "python3 -m "* ]]; then
-		python3 -m "${tool_ref#python3 -m }" "$@"
-		return 0
-	fi
-	if [[ "$tool_ref" == "python -m "* ]]; then
-		python -m "${tool_ref#python -m }" "$@"
 		return 0
 	fi
 	"$tool_ref" "$@"

@@ -1,4 +1,7 @@
 {
+	"[markdown]": {
+		"editor.defaultFormatter": "DavidAnson.vscode-markdownlint"
+	},
 	"[python]": {
 		"editor.codeActionsOnSave": {
 			"source.organizeImports": "always"
