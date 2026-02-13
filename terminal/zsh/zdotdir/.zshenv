@@ -26,6 +26,9 @@ if [ -z "${DOTFILES_PROFILE:-}" ]; then
 fi
 
 export STARSHIP_CONFIG="$HOME/dotfiles/terminal/starship/theme/starship.toml"
+if [ -d "$HOME/dotfiles/bin" ] && [[ ":$PATH:" != *":$HOME/dotfiles/bin:"* ]]; then
+	export PATH="$PATH:$HOME/dotfiles/bin"
+fi
 export PATH="$PATH:$HOME/go/bin"
 export LUA_PATH="${LUA_PATH:-};$HOME/dotfiles/terminal/wezterm/?.lua"
 

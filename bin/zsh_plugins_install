@@ -16,6 +16,6 @@ function zsh_plugins_install() {
 		else
 			output+="already installed"
 		fi
-		log info "$output"
+		"$HOME/dotfiles/bin/logger.py" info "$output"
 	done
 }

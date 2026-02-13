@@ -7,7 +7,7 @@ function sudo() {
 		"$@"
 	else
 		if ! env sudo --non-interactive true 2>/dev/null; then
-			log warn "root privileges are being requested. pay attention to what you are doing!"
+			"$HOME/dotfiles/bin/logger.py" warn "root privileges are being requested. pay attention to what you are doing!"
 			env sudo --validate
 		fi
 		env sudo "$@"

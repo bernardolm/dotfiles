@@ -1,5 +1,5 @@
 function zsh_autoload_paths() {
-	log start "zsh autoload paths: adding custom functions to zsh autoload (fpath)"
+	"$HOME/dotfiles/bin/logger.py" start "zsh autoload paths: adding custom functions to zsh autoload (fpath)"
 
 		autoload_path="$TMP_USER/zsh_autoload_paths.txt"
 
@@ -22,5 +22,5 @@ function zsh_autoload_paths() {
 
 	source "$autoload_path"
 
-	log finish "zsh autoload paths: adding custom functions to zsh autoload (fpath)"
+	"$HOME/dotfiles/bin/logger.py" finish "zsh autoload paths: adding custom functions to zsh autoload (fpath)"
 }
