@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import slugify
 
-
 if __name__ == "__main__":
-    raise SystemExit(slugify(sys.argv[1:]))
+	raise SystemExit(slugify(sys.argv[1:]))

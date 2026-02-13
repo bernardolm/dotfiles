@@ -33,7 +33,7 @@ function elapsed_time_status() {
 	table+=$(printf -- '-%0.s' {1..$key_size})
 	table+=$col_separator
 	table+=$(printf -- '-%0.s' {1..$val_size})
-  table+="\n"
+	table+="\n"
 
 	for f in "$ELAPSED_TIME_ROOT"/*; do
 		[ -d "$f" ] && continue

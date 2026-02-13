@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.duckdns import duckdns_update
 
-
 if __name__ == "__main__":
-    raise SystemExit(duckdns_update(sys.argv[1:]))
+	raise SystemExit(duckdns_update(sys.argv[1:]))

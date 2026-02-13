@@ -1,7 +1,7 @@
 calendars=""
 
 for item in "${GCALCLI_CALENDARS[@]}"; do
-    calendars="$calendars --default-calendar=\"$item\""
+	calendars="$calendars --default-calendar=\"$item\""
 done
 
 agenda="$@"
@@ -10,19 +10,19 @@ test -z $DEBUG || echo "agenda is $agenda"
 agenda_cmd=""
 
 if [ ! -z $DEBUG ]; then
-    gcalcli_cache_path="$TMP_USER/gcalcli.cache"
+	gcalcli_cache_path="$TMP_USER/gcalcli.cache"
 
-    if [ ! -f "$gcalcli_cache_path" ]; then
-        "$DOTFILES/zsh/scripts/gcalcli.sh" > "$gcalcli_cache_path"
-    fi
+	if [ ! -f "$gcalcli_cache_path" ]; then
+		"$DOTFILES/zsh/scripts/gcalcli.sh" > "$gcalcli_cache_path"
+	fi
 
-    agenda_cmd+=" cat $gcalcli_cache_path "
+	agenda_cmd+=" cat $gcalcli_cache_path "
 else
-    agenda_cmd+=" PYTHONIOENCODING=utf8 "
-    agenda_cmd+=" gcalcli --lineart=ascii "
-    agenda_cmd+=" --nocolor --nocache --conky "
-    agenda_cmd+=" $calendars "
-    agenda_cmd+=" agenda --tsv --military --details=end $agenda "
+	agenda_cmd+=" PYTHONIOENCODING=utf8 "
+	agenda_cmd+=" gcalcli --lineart=ascii "
+	agenda_cmd+=" --nocolor --nocache --conky "
+	agenda_cmd+=" $calendars "
+	agenda_cmd+=" agenda --tsv --military --details=end $agenda "
 fi
 
 agenda_cmd+=" | awk -F'\t' '{ printf ( \"%s\t%s %s\t%s\n\", \$1, \$2, \$4, \$5 ) }' "

@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import sudo
 
-
 if __name__ == "__main__":
-    raise SystemExit(sudo(sys.argv[1:]))
+	raise SystemExit(sudo(sys.argv[1:]))

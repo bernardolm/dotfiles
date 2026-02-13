@@ -10,11 +10,11 @@ iface lo inet loopback
 auto wlan0
 allow-hotplug wlan0
 iface wlan0 inet static
-    address 192.168.0.x
-    netmask 255.255.255.0
-    gateway 192.168.0.1
-    wpa-ssid "***"
-    wpa-psk "***"
+	address 192.168.0.x
+	netmask 255.255.255.0
+	gateway 192.168.0.1
+	wpa-ssid "***"
+	wpa-psk "***"
 
 auto eth0
 allow-hotplug eth0

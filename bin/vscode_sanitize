@@ -1,17 +1,17 @@
 function vscode_sanitize() {
-    /bin/rm -rf $HOME/.config/Code/Backups
-    /bin/rm -rf $HOME/.config/Code/blob_storage
-    /bin/rm -rf $HOME/.config/Code/Cache
-    /bin/rm -rf $HOME/.config/Code/CachedData
-    /bin/rm -rf $HOME/.config/Code/Code\ Cache
-    /bin/rm -rf $HOME/.config/Code/GPUCache
-    /bin/rm -rf $HOME/.config/Code/logs
-    /bin/rm -rf $HOME/.config/Code/Session\ Storage
-    /bin/rm -rf $HOME/.config/Code/webrtc_event_logs
-    /bin/rm -rf $HOME/.vscode/Code/Crash\ Reports
-    /bin/rm -rf $HOME/.vscode/Code/exthost\ Crash\ Reports
-    /bin/rm -rf $HOME/.vscode/Code/Local\ Storage
-    /bin/rm -rf $HOME/.vscode-server/Code/Crash\ Reports
-    /bin/rm -rf $HOME/.vscode-server/Code/exthost\ Crash\ Reports
-    /bin/rm -rf $HOME/.vscode-server/Code/Local\ Storage
+	/bin/rm -rf $HOME/.config/Code/Backups
+	/bin/rm -rf $HOME/.config/Code/blob_storage
+	/bin/rm -rf $HOME/.config/Code/Cache
+	/bin/rm -rf $HOME/.config/Code/CachedData
+	/bin/rm -rf $HOME/.config/Code/Code\ Cache
+	/bin/rm -rf $HOME/.config/Code/GPUCache
+	/bin/rm -rf $HOME/.config/Code/logs
+	/bin/rm -rf $HOME/.config/Code/Session\ Storage
+	/bin/rm -rf $HOME/.config/Code/webrtc_event_logs
+	/bin/rm -rf $HOME/.vscode/Code/Crash\ Reports
+	/bin/rm -rf $HOME/.vscode/Code/exthost\ Crash\ Reports
+	/bin/rm -rf $HOME/.vscode/Code/Local\ Storage
+	/bin/rm -rf $HOME/.vscode-server/Code/Crash\ Reports
+	/bin/rm -rf $HOME/.vscode-server/Code/exthost\ Crash\ Reports
+	/bin/rm -rf $HOME/.vscode-server/Code/Local\ Storage
 }

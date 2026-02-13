@@ -1,7 +1,7 @@
 Host *
-  ServerAliveInterval 60
-  ServerAliveCountMax 3
-  Compression yes
-  ControlMaster auto
-  ControlPersist 10m
-  ControlPath ~/.ssh/cm-%r@%h:%p
+	ServerAliveInterval 60
+	ServerAliveCountMax 3
+	Compression yes
+	ControlMaster auto
+	ControlPersist 10m
+	ControlPath ~/.ssh/cm-%r@%h:%p

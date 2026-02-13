@@ -7,41 +7,41 @@ function elapsed_time() {
 	local m=$(((d_s / 60) % 60))
 	local h=$((d_s / 3600))
 
-  # do you need to record everything? even the fastest ones?
+	# do you need to record everything? even the fastest ones?
 	if ((d_ms <= 500)); then
-    return
-  fi
+		return
+	fi
 
-  # no time machines
+	# no time machines
 	if ((ms < 0)); then
-    ms=0
-  fi
+		ms=0
+	fi
 
 	if ((h > 0)); then
-    elapsed="$(color purple)${h}h ${m}m ${s}s ${ms}ms$(color no) 🪦"
+		elapsed="$(color purple)${h}h ${m}m ${s}s ${ms}ms$(color no) 🪦"
 
 	elif ((m > 0)); then
-    elapsed="$(color light_purple)${m}m ${s}s ${ms}ms$(color no) 🥶"
+		elapsed="$(color light_purple)${m}m ${s}s ${ms}ms$(color no) 🥶"
 
 	elif ((s >= 3)); then
-    elapsed="$(color light_blue)${s}s ${ms}ms$(color no) 🐢"
+		elapsed="$(color light_blue)${s}s ${ms}ms$(color no) 🐢"
 
-  elif ((ms >= 2500)); then
-    elapsed="$(color blue)${s}s ${ms}ms$(color no) 🤔"
+	elif ((ms >= 2500)); then
+		elapsed="$(color blue)${s}s ${ms}ms$(color no) 🤔"
 
-  elif ((s > 0)); then
-    elapsed="$(color cyan)${s}s ${ms}ms$(color no) 🛺"
+	elif ((s > 0)); then
+		elapsed="$(color cyan)${s}s ${ms}ms$(color no) 🛺"
 
-  elif ((ms > 500)); then
-    elapsed="$(color light_cyan)${ms}ms$(color no) 🚗"
+	elif ((ms > 500)); then
+		elapsed="$(color light_cyan)${ms}ms$(color no) 🚗"
 
-  elif ((ms > 100)); then
-    elapsed="$(color light_green)${ms}ms$(color no) 🚁"
+	elif ((ms > 100)); then
+		elapsed="$(color light_green)${ms}ms$(color no) 🚁"
 
-  else
-    elapsed="$(color green)${ms}ms$(color no) 🚀"
+	else
+		elapsed="$(color green)${ms}ms$(color no) 🚀"
 
-  fi
+	fi
 
 	echo "${elapsed}"
 }

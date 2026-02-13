@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import file_size
 
-
 if __name__ == "__main__":
-    raise SystemExit(file_size(sys.argv[1:]))
+	raise SystemExit(file_size(sys.argv[1:]))

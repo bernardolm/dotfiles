@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import mvdir
 
-
 if __name__ == "__main__":
-    raise SystemExit(mvdir(sys.argv[1:]))
+	raise SystemExit(mvdir(sys.argv[1:]))

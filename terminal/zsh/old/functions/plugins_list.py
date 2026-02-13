@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import plugins_list
 
-
 if __name__ == "__main__":
-    raise SystemExit(plugins_list(sys.argv[1:]))
+	raise SystemExit(plugins_list(sys.argv[1:]))

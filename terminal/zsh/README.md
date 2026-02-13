@@ -24,66 +24,66 @@ source:
 title: ZSH startup files
 ---
 graph LR
-    linkStyle default stroke:gray
+	linkStyle default stroke:gray
 
-    zsh{"Zsh"}
+	zsh{"Zsh"}
 
-    login{"Login"}
-    nonLogin{"Non-login"}
-    interactive{"Interactive"}
-    nonInteractive{"Non-interactive"}
+	login{"Login"}
+	nonLogin{"Non-login"}
+	interactive{"Interactive"}
+	nonInteractive{"Non-interactive"}
 
-    zsh --> login
-    zsh --> nonLogin
+	zsh --> login
+	zsh --> nonLogin
 
-    login --> interactive
-    login --> nonInteractive
-    nonLogin --> interactive
-    nonLogin --> nonInteractive
+	login --> interactive
+	login --> nonInteractive
+	nonLogin --> interactive
+	nonLogin --> nonInteractive
 
-    linkStyle 2 stroke: red;
-    linkStyle 3 stroke: orange;
-    linkStyle 4 stroke: green;
-    linkStyle 5 stroke: blue;
+	linkStyle 2 stroke: red;
+	linkStyle 3 stroke: orange;
+	linkStyle 4 stroke: green;
+	linkStyle 5 stroke: blue;
 
-    etcEnv["/etc/zsh/zshenv"]
-    etcProfile["/etc/zsh/zprofile"]
-    etcRc["/etc/zsh/zshrc"]
-    etcLogin["/etc/zsh/zlogin"]
-    etcLogout["/etc/zsh/zlogout"]
+	etcEnv["/etc/zsh/zshenv"]
+	etcProfile["/etc/zsh/zprofile"]
+	etcRc["/etc/zsh/zshrc"]
+	etcLogin["/etc/zsh/zlogin"]
+	etcLogout["/etc/zsh/zlogout"]
 
-    homeEnv["~/.zshenv"]
-    homeProfile["~/.zprofile"]
-    homeRc["~/.zshrc"]
-    homeLogin["~/.zlogin"]
-    homeLogout["~/.zlogout"]
+	homeEnv["~/.zshenv"]
+	homeProfile["~/.zprofile"]
+	homeRc["~/.zshrc"]
+	homeLogin["~/.zlogin"]
+	homeLogout["~/.zlogout"]
 
-    systemEtcProfile["/etc/profile"]
-    systemHomeProfile["~/.profile (not sourced)"]
+	systemEtcProfile["/etc/profile"]
+	systemHomeProfile["~/.profile (not sourced)"]
 
-    %% login, interactive
-    interactive
-     --> etcEnv --> homeEnv
-     --> etcProfile --> systemEtcProfile --> homeProfile
-     --> etcRc --> homeRc
-     --> etcLogin --> homeLogin
-     -->|on logout| homeLogout --> etcLogout
-    linkStyle 6,7,8,9,10,11,12,13,14,15,16 stroke: red;
+	%% login, interactive
+	interactive
+		--> etcEnv --> homeEnv
+		--> etcProfile --> systemEtcProfile --> homeProfile
+		--> etcRc --> homeRc
+		--> etcLogin --> homeLogin
+		-->|on logout| homeLogout --> etcLogout
+	linkStyle 6,7,8,9,10,11,12,13,14,15,16 stroke: red;
 
-    %% login, non-interactive
-    nonInteractive
-     --> etcEnv --> homeEnv
-     --> etcProfile --> systemEtcProfile --> homeProfile
-     --> etcLogin --> homeLogin
-    %%  -->|on logout| homeLogout --> etcLogout
-    linkStyle 17,18,19,20,21,22,23 stroke: orange;
+	%% login, non-interactive
+	nonInteractive
+		--> etcEnv --> homeEnv
+		--> etcProfile --> systemEtcProfile --> homeProfile
+		--> etcLogin --> homeLogin
+	%%  -->|on logout| homeLogout --> etcLogout
+	linkStyle 17,18,19,20,21,22,23 stroke: orange;
 
-    %% non-login, interactive
-    interactive --> etcEnv --> homeEnv
-     --> etcRc --> homeRc
-    linkStyle 24,25,26,27 stroke: green;
+	%% non-login, interactive
+	interactive --> etcEnv --> homeEnv
+		--> etcRc --> homeRc
+	linkStyle 24,25,26,27 stroke: green;
 
-    %% non-login, non-interactive
-    nonInteractive --> etcEnv --> homeEnv
-    linkStyle 28,29 stroke: blue;
+	%% non-login, non-interactive
+	nonInteractive --> etcEnv --> homeEnv
+	linkStyle 28,29 stroke: blue;
 ```

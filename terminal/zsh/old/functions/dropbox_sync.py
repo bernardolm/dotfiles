@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import dropbox_sync
 
-
 if __name__ == "__main__":
-    raise SystemExit(dropbox_sync(sys.argv[1:]))
+	raise SystemExit(dropbox_sync(sys.argv[1:]))

@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import dot_ls
 
-
 if __name__ == "__main__":
-    raise SystemExit(dot_ls(sys.argv[1:]))
+	raise SystemExit(dot_ls(sys.argv[1:]))

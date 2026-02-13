@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import figlet_maker
 
-
 if __name__ == "__main__":
-    raise SystemExit(figlet_maker(sys.argv[1:]))
+	raise SystemExit(figlet_maker(sys.argv[1:]))

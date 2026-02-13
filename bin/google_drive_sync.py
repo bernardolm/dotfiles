@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import google_drive_sync
 
-
 if __name__ == "__main__":
-    raise SystemExit(google_drive_sync(sys.argv[1:]))
+	raise SystemExit(google_drive_sync(sys.argv[1:]))

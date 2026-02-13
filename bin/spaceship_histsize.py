@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import spaceship_histsize
 
-
 if __name__ == "__main__":
-    raise SystemExit(spaceship_histsize(sys.argv[1:]))
+	raise SystemExit(spaceship_histsize(sys.argv[1:]))

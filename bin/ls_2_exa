@@ -1,11 +1,11 @@
 function ls_2_exa() {
-    if ! command -v exa >/dev/null; then
-        log warn "exa is not installed"
-        /bin/ls $@
-        return
-    fi
+	if ! command -v exa >/dev/null; then
+		log warn "exa is not installed"
+		/bin/ls $@
+		return
+	fi
 
-    args="$@"
-    args=$(echo $args | sed 's/A/a/g')
-    eval "/usr/bin/exa --all --oneline --long --classify --icons --color always --group-directories-first --header --octal-permissions $args"
+	args="$@"
+	args=$(echo $args | sed 's/A/a/g')
+	eval "/usr/bin/exa --all --oneline --long --classify --icons --color always --group-directories-first --header --octal-permissions $args"
 }

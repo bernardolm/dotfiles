@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import wallpapers_reindex
 
-
 if __name__ == "__main__":
-    raise SystemExit(wallpapers_reindex(sys.argv[1:]))
+	raise SystemExit(wallpapers_reindex(sys.argv[1:]))

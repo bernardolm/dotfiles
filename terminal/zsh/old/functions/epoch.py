@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import epoch
 
-
 if __name__ == "__main__":
-    raise SystemExit(epoch(sys.argv[1:]))
+	raise SystemExit(epoch(sys.argv[1:]))

@@ -1,16 +1,16 @@
 maestral_root="$DOTFILES/maestral"
 
 docker compose \
-    -f "$maestral_root/docker-compose.yml" \
-    down --volumes --remove-orphans
+	-f "$maestral_root/docker-compose.yml" \
+	down --volumes --remove-orphans
 
 # docker rmi bernardolm/maestral:latest
 
 github_repo="samschott/maestral"
 
 curl -s \
-    -o "$maestral_root/Dockerfile" \
-    https://raw.githubusercontent.com/$github_repo/refs/heads/main/Dockerfile
+	-o "$maestral_root/Dockerfile" \
+	https://raw.githubusercontent.com/$github_repo/refs/heads/main/Dockerfile
 
 api_url="https://api.github.com/repos/$github_repo/releases/latest"
 
@@ -18,18 +18,18 @@ export VERSION
 VERSION=$(curl -sL "${api_url}" | jq -r '.tag_name')
 
 [ -z "$VERSION" ] && {
-    echo "Failed to fetch the latest version from GitHub API."
-    exit 1
+	echo "Failed to fetch the latest version from GitHub API."
+	exit 1
 }
 
 echo "Using Maestral version: $VERSION"
 
 docker compose \
-    -f "$maestral_root/docker-compose.yml" \
-    up -d --build --remove-orphans --force-recreate
+	-f "$maestral_root/docker-compose.yml" \
+	up -d --build --remove-orphans --force-recreate
 
 echo "Everything is fine, you will now see the logs"
 
 docker compose \
-    -f "$maestral_root/docker-compose.yml" \
-    logs --follow --timestamps --tail=100 maestral
+	-f "$maestral_root/docker-compose.yml" \
+	logs --follow --timestamps --tail=100 maestral

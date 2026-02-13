@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import files_count
 
-
 if __name__ == "__main__":
-    raise SystemExit(files_count(sys.argv[1:]))
+	raise SystemExit(files_count(sys.argv[1:]))

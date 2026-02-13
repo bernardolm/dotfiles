@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import my_lat_lon
 
-
 if __name__ == "__main__":
-    raise SystemExit(my_lat_lon(sys.argv[1:]))
+	raise SystemExit(my_lat_lon(sys.argv[1:]))

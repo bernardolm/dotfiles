@@ -1,8 +1,8 @@
 function chrome_bookmarks_backup() {
-    [ ! -d "$HOME/sync/linux/chrome/bookmarks" ] && \
-        mkdir -p "$HOME/sync/linux/chrome/bookmarks"
-    find $HOME/.config/google-chrome -name '*Bookmarks*' | while read -r item; do
-        slug=$(echo "$item" | sed -e 's/[ \/.]/_/g')
-        cp "$item" "$HOME/sync/linux/chrome/bookmarks/${slug}_$(now)"
-    done
+	[ ! -d "$HOME/sync/linux/chrome/bookmarks" ] && \
+		mkdir -p "$HOME/sync/linux/chrome/bookmarks"
+	find $HOME/.config/google-chrome -name '*Bookmarks*' | while read -r item; do
+		slug=$(echo "$item" | sed -e 's/[ \/.]/_/g')
+		cp "$item" "$HOME/sync/linux/chrome/bookmarks/${slug}_$(now)"
+	done
 }

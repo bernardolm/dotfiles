@@ -1,5 +1,5 @@
 function log() {
-  local level="$1"
+	local level="$1"
 
 	local silenced_levels=("debug" "env")
 

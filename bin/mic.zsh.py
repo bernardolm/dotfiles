@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import mic_zsh
 
-
 if __name__ == "__main__":
-    raise SystemExit(mic_zsh(sys.argv[1:]))
+	raise SystemExit(mic_zsh(sys.argv[1:]))

@@ -1,29 +1,29 @@
 function ufw_start() {
-    # set -x
+	# set -x
 
-    local ufw_conf=/etc/default/ufw
+	local ufw_conf=/etc/default/ufw
 
-    if [ $(/bin/cat -n "${ufw_conf}" | grep -c "IPV6=yes" | bc) -eq 0 ]; then
-        tee -a "\n\n# Set to yes to apply rules to support IPv6 (no means only IPv6 on loopback\n# accepted). You will need to 'disable' and then 'enable' the firewall for\n# the changes to take affect.\nIPV6=yes" "${ufw_conf}"
-        echo add ipv6!
-        /bin/cat "${ufw_conf}" | grep -n "IPV6"
-    else
-        echo ipv6 is already enabled
-    fi ;
+	if [ $(/bin/cat -n "${ufw_conf}" | grep -c "IPV6=yes" | bc) -eq 0 ]; then
+		tee -a "\n\n# Set to yes to apply rules to support IPv6 (no means only IPv6 on loopback\n# accepted). You will need to 'disable' and then 'enable' the firewall for\n# the changes to take affect.\nIPV6=yes" "${ufw_conf}"
+		echo add ipv6!
+		/bin/cat "${ufw_conf}" | grep -n "IPV6"
+	else
+		echo ipv6 is already enabled
+	fi ;
 
-    rm -rf /etc/ufw/{after,after6,before,before6,user,user6}.rules.* 2>/dev/null
+	rm -rf /etc/ufw/{after,after6,before,before6,user,user6}.rules.* 2>/dev/null
 
-    ufw -f reset ;
-    ufw -f enable ;
+	ufw -f reset ;
+	ufw -f enable ;
 
-    ufw default deny incoming ;
-    ufw default allow outgoing ;
+	ufw default deny incoming ;
+	ufw default allow outgoing ;
 
-    source "$HOME/sync/linux/ufw/rules.sh" ;
+	source "$HOME/sync/linux/ufw/rules.sh" ;
 
-    ufw reload ;
+	ufw reload ;
 
-    ufw status verbose ;
+	ufw status verbose ;
 
-    # set +x
+	# set +x
 }

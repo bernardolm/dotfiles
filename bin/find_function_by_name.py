@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import find_function_by_name
 
-
 if __name__ == "__main__":
-    raise SystemExit(find_function_by_name(sys.argv[1:]))
+	raise SystemExit(find_function_by_name(sys.argv[1:]))

@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import elapsed_time
 
-
 if __name__ == "__main__":
-    raise SystemExit(elapsed_time(sys.argv[1:]))
+	raise SystemExit(elapsed_time(sys.argv[1:]))

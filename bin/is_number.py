@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import is_number
 
-
 if __name__ == "__main__":
-    raise SystemExit(is_number(sys.argv[1:]))
+	raise SystemExit(is_number(sys.argv[1:]))

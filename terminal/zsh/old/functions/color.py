@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import color
 
-
 if __name__ == "__main__":
-    raise SystemExit(color(sys.argv[1:]))
+	raise SystemExit(color(sys.argv[1:]))

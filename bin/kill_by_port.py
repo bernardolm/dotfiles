@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import kill_by_port
 
-
 if __name__ == "__main__":
-    raise SystemExit(kill_by_port(sys.argv[1:]))
+	raise SystemExit(kill_by_port(sys.argv[1:]))

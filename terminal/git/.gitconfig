@@ -1,37 +1,37 @@
 [apply]
-  whitespace = fix
+	whitespace = fix
 
 [commit]
-  gpgsign = true
+	gpgsign = true
 
 [core]
-  editor = nano # delta
+	editor = nano # delta
 
 [delta]
-  navigate = true
-  line-numbers = true
-  side-by-side = false
+	navigate = true
+	line-numbers = true
+	side-by-side = false
 
 [diff]
-  colorMoved = default
+	colorMoved = default
 
 [fetch]
 	prune = true
 
 [gpg]
-  format = ssh
+	format = ssh
 
 [init]
-  defaultBranch = main
+	defaultBranch = main
 
 # [interactive]
 #   diffFilter = delta --color-only
 
 [merge]
-  log = true
+	log = true
 
 [pull]
-  rebase = false
+	rebase = false
 
 [status]
 	short = true
@@ -40,4 +40,4 @@
 	recurse = true
 
 [url "git@github.com:"]
-  insteadOf = https://github.com/
+	insteadOf = https://github.com/

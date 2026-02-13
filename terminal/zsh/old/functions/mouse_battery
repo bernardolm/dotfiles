@@ -1,3 +1,3 @@
 function mouse_battery() {
-    upower -e | grep mouse | xargs upower -i | grep percentage | awk '{print $2}'
+	upower -e | grep mouse | xargs upower -i | grep percentage | awk '{print $2}'
 }

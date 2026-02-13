@@ -1,30 +1,30 @@
 function iterate_and_load() {
-    local msg="$1"
-    log start "$msg"
+	local msg="$1"
+	log start "$msg"
 
-    local find_path="$2"
-    local find_term="$3"
-    local filter_fn="$4"
+	local find_path="$2"
+	local find_term="$3"
+	local filter_fn="$4"
 
-    log debug "find_path=${find_path} • find_term=${find_term} • filter_fn=${filter_fn}"
+	log debug "find_path=${find_path} • find_term=${find_term} • filter_fn=${filter_fn}"
 
-    local -a matches=()
+	local -a matches=()
 
-    while IFS= read -r -d '' script_file; do
-        matches+=("$script_file")
-    done < <(find "${find_path}" -name "${find_term}" -print0 2>/dev/null)
+	while IFS= read -r -d '' script_file; do
+		matches+=("$script_file")
+	done < <(find "${find_path}" -name "${find_term}" -print0 2>/dev/null)
 
-    if [[ -n "$filter_fn" ]]; then
-        matches=("${(@f)$(printf '%s\n' "${matches[@]}" | "$filter_fn")}")
-    fi
+	if [[ -n "$filter_fn" ]]; then
+		matches=("${(@f)$(printf '%s\n' "${matches[@]}" | "$filter_fn")}")
+	fi
 
-    matches=("${(@o)matches}")
+	matches=("${(@o)matches}")
 
-    for script_file in "${matches[@]}"; do
-        log debug "loading $script_file"
-        # shellcheck source=/dev/null
-        . "$script_file"
-    done
+	for script_file in "${matches[@]}"; do
+		log debug "loading $script_file"
+		# shellcheck source=/dev/null
+		. "$script_file"
+	done
 
-    log finish "$msg"
+	log finish "$msg"
 }

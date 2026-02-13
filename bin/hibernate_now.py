@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import hibernate_now
 
-
 if __name__ == "__main__":
-    raise SystemExit(hibernate_now(sys.argv[1:]))
+	raise SystemExit(hibernate_now(sys.argv[1:]))

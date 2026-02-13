@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import extract
 
-
 if __name__ == "__main__":
-    raise SystemExit(extract(sys.argv[1:]))
+	raise SystemExit(extract(sys.argv[1:]))

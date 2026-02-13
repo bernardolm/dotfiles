@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import weather_by_lat_lon
 
-
 if __name__ == "__main__":
-    raise SystemExit(weather_by_lat_lon(sys.argv[1:]))
+	raise SystemExit(weather_by_lat_lon(sys.argv[1:]))

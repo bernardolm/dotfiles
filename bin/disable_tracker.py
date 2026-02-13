@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import disable_tracker
 
-
 if __name__ == "__main__":
-    raise SystemExit(disable_tracker(sys.argv[1:]))
+	raise SystemExit(disable_tracker(sys.argv[1:]))

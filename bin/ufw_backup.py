@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.ufw import ufw_backup
 
-
 if __name__ == "__main__":
-    raise SystemExit(ufw_backup(sys.argv[1:]))
+	raise SystemExit(ufw_backup(sys.argv[1:]))

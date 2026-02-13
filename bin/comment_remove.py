@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import comment_remove
 
-
 if __name__ == "__main__":
-    raise SystemExit(comment_remove(sys.argv[1:]))
+	raise SystemExit(comment_remove(sys.argv[1:]))

@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import chmod_easy
 
-
 if __name__ == "__main__":
-    raise SystemExit(chmod_easy(sys.argv[1:]))
+	raise SystemExit(chmod_easy(sys.argv[1:]))

@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import conky_instances
 
-
 if __name__ == "__main__":
-    raise SystemExit(conky_instances(sys.argv[1:]))
+	raise SystemExit(conky_instances(sys.argv[1:]))

@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import funcstack_breadcrumbs
 
-
 if __name__ == "__main__":
-    raise SystemExit(funcstack_breadcrumbs(sys.argv[1:]))
+	raise SystemExit(funcstack_breadcrumbs(sys.argv[1:]))

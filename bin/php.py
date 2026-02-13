@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import php
 
-
 if __name__ == "__main__":
-    raise SystemExit(php(sys.argv[1:]))
+	raise SystemExit(php(sys.argv[1:]))

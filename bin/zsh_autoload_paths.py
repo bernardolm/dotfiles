@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import zsh_autoload_paths
 
-
 if __name__ == "__main__":
-    raise SystemExit(zsh_autoload_paths(sys.argv[1:]))
+	raise SystemExit(zsh_autoload_paths(sys.argv[1:]))

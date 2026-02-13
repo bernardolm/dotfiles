@@ -6,7 +6,7 @@
 
 if [ "$(uname)" != "Darwin" ] ; then
 	if ! test -f ~/.ssh/ssh-agent ; then
-		ssh-agent -s > ~/.ssh/ssh-agent
+	ssh-agent -s > ~/.ssh/ssh-agent
 	fi
 	eval `cat ~/.ssh/ssh-agent` 1>/dev/null
 	ssh-add >/dev/null

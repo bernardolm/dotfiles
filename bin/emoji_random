@@ -1,10 +1,10 @@
 function emoji_random() {
-  # local list=($@)
-  local list=(${(s: :)@})
+	# local list=($@)
+	local list=(${(s: :)@})
 
-  if [ -z "$list" ]; then
-    list=(💩🐦🚀🐞🎨🍕🐭👽☕️🔬💀🐷🐼🐶🐸🐧🐳🍔🍣🍻🔮💰💎💾💜🍪🌞🌍🐌🐓🍄)
-  fi
+	if [ -z "$list" ]; then
+		list=(💩🐦🚀🐞🎨🍕🐭👽☕️🔬💀🐷🐼🐶🐸🐧🐳🍔🍣🍻🔮💰💎💾💜🍪🌞🌍🐌🐓🍄)
+	fi
 
 	local index=$(($RANDOM%${#list[@]}+1))
 

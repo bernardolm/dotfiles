@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import npm
 
-
 if __name__ == "__main__":
-    raise SystemExit(npm(sys.argv[1:]))
+	raise SystemExit(npm(sys.argv[1:]))

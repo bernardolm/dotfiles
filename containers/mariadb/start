@@ -4,10 +4,10 @@ docker rm mariadb
 data_path='/mnt/data/docker-volumes/mariadb'
 
 if [ "$(ls -A $data_path | wc -l)" -gt 0 ]; then
-    sudo rm -rf "$data_path/*"
-    log info "mariadb data directory cleared: $data_path"
+	sudo rm -rf "$data_path/*"
+	log info "mariadb data directory cleared: $data_path"
 else
-    log info "mariadb data directory is already empty: $data_path"
+	log info "mariadb data directory is already empty: $data_path"
 fi
 
 docker compose -f $DOTFILES/mariadb/docker-compose.yml up -d

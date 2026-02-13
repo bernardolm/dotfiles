@@ -5,6 +5,5 @@ import sys
 
 from pyfunctions.zsh import vscode_sanitize
 
-
 if __name__ == "__main__":
-    raise SystemExit(vscode_sanitize(sys.argv[1:]))
+	raise SystemExit(vscode_sanitize(sys.argv[1:]))
