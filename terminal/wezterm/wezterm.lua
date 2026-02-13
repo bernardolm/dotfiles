@@ -12,6 +12,7 @@ local style = require("style")
 local wezterm = require("wezterm")
 
 require("gui-startup")
+require("format-tab-title")
 require("update-left-status")
 require("update-right-status")
 
