@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import importlib
 import os
 from pathlib import Path
 import shutil
@@ -62,6 +63,10 @@ def run_lines(cmd: Sequence[str], check: bool = False) -> list[str]:
 	return [line for line in result.stdout.splitlines() if line]
 
 
+def run_returncode(cmd: Sequence[str]) -> int:
+	return run(cmd, check=False, capture=False).returncode
+
+
 def run_pipeline(cmds: list[Sequence[str]], input_data: str | None = None) -> tuple[str, int]:
 	if not cmds:
 		return "", 0
@@ -89,6 +94,10 @@ def which(cmd: str) -> str | None:
 	return shutil.which(cmd)
 
 
+def is_executable(path: Path) -> bool:
+	return path.exists() and os.access(path, os.X_OK)
+
+
 def ensure_dir(path: Path) -> None:
 	path.mkdir(parents=True, exist_ok=True)
 
@@ -105,7 +114,34 @@ def remove_paths(paths: Iterable[Path]) -> None:
 
 
 def is_truthy(value: str | None) -> bool:
-	return str(value or "0").lower() in {"1", "true", "yes", "on"}
+	return str(value or "0").lower() in {"1", "true", "yes", "y", "on"}
+
+
+def is_falsey(value: str | None) -> bool:
+	return str(value or "").lower() in {"0", "false", "no", "n", "off"}
+
+
+def git_staged_files(repo: Path, diff_filter: str = "ACMR") -> list[str]:
+	result = run(
+		["git", "-C",
+			str(repo), "diff", "--cached", "--name-only", f"--diff-filter={diff_filter}"],
+		check=False,
+		capture=True,
+	)
+	if result.returncode != 0:
+		return []
+	return [line.strip() for line in result.stdout.splitlines() if line.strip()]
+
+
+def run_imported_function(
+	module_name: str,
+	function_name: str,
+	argv: Sequence[str] | None = None,
+):
+	args = list(sys.argv[1:] if argv is None else argv)
+	module = importlib.import_module(module_name)
+	target = getattr(module, function_name)
+	return target(args)
 
 
 def tmp_user_root() -> Path:

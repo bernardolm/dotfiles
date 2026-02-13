@@ -3,7 +3,8 @@ from __future__ import annotations
 
 from pathlib import Path
 import re
-import subprocess
+
+from common import git_staged_files, repo_root
 
 
 _WORKFLOW_RE = re.compile(r"^\.github/workflows/.*\.(yml|yaml)$")
@@ -73,33 +74,15 @@ def _validate_new_shell_scripts(staged_added_files: list[str]) -> int:
 	return 0
 
 
-def _staged_files() -> list[str]:
-	completed = subprocess.run(
-		["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR"],
-		check=False,
-		capture_output=True,
-		text=True,
-	)
-	if completed.returncode != 0:
-		return []
-	return [line.strip() for line in completed.stdout.splitlines() if line.strip()]
-
-
-def _staged_added_files() -> list[str]:
-	completed = subprocess.run(
-		["git", "diff", "--cached", "--name-only", "--diff-filter=A"],
-		check=False,
-		capture_output=True,
-		text=True,
-	)
-	if completed.returncode != 0:
-		return []
-	return [line.strip() for line in completed.stdout.splitlines() if line.strip()]
-
-
 def main(staged_files: list[str] | None = None, staged_added_files: list[str] | None = None) -> int:
-	staged_files = staged_files if staged_files is not None else _staged_files()
-	staged_added_files = staged_added_files if staged_added_files is not None else _staged_added_files(
+	root = repo_root(Path(__file__).resolve())
+	staged_files = staged_files if staged_files is not None else git_staged_files(
+		root,
+		diff_filter="ACMR",
+	)
+	staged_added_files = staged_added_files if staged_added_files is not None else git_staged_files(
+		root,
+		diff_filter="A",
 	)
 
 	if _validate_workflows(staged_files) != 0:
