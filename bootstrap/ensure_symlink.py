@@ -3,6 +3,14 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
+import sys
+
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+	sys.path.insert(0, str(ROOT))
+
+from bin.common import dotfiles_dry_run
 
 
 def ensure_symlink(src: Path, dest: Path, dry_run: bool = False) -> None:
@@ -33,19 +41,13 @@ def ensure_symlink(src: Path, dest: Path, dry_run: bool = False) -> None:
 	dest.symlink_to(src)
 
 
-def _is_truthy(value: str | None) -> bool:
-	if value is None:
-		return False
-	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
-
-
 def main() -> int:
 	src_value = os.environ.get("DOTFILES_SYMLINK_SRC", "").strip()
 	dest_value = os.environ.get("DOTFILES_SYMLINK_DEST", "").strip()
 	if not src_value or not dest_value:
 		print("error: defina DOTFILES_SYMLINK_SRC e DOTFILES_SYMLINK_DEST para usar este script.")
 		return 1
-	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
+	dry_run = dotfiles_dry_run()
 	ensure_symlink(Path(src_value).expanduser(), Path(dest_value).expanduser(), dry_run=dry_run)
 	return 0
 

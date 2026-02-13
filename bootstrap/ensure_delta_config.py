@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
+from bin.common import dotfiles_dry_run
 from bootstrap.ensure_symlink import ensure_symlink
 from bootstrap.repo_root import repo_root
 
@@ -30,18 +31,12 @@ def ensure_delta_config(platform_name: str, dry_run: bool = False) -> None:
 		delta_dest.unlink()
 
 
-def _is_truthy(value: str | None) -> bool:
-	if value is None:
-		return False
-	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
-
-
 def main() -> int:
 	platform_name = (os.environ.get("DOTFILES_PLATFORM") or "").strip().lower()
 	if not platform_name:
 		print("warning: DOTFILES_PLATFORM nao definido; ensure_delta_config ignorado.")
 		return 0
-	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
+	dry_run = dotfiles_dry_run()
 	ensure_delta_config(platform_name, dry_run=dry_run)
 	return 0
 

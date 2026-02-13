@@ -13,6 +13,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
+from bin.common import dotfiles_dry_run, is_falsey, is_truthy
 from bootstrap.load_config import load_config
 from bootstrap.repo_root import repo_root
 from bootstrap.run import run
@@ -433,9 +434,9 @@ def _to_bool(value: Any, default: bool = False) -> bool:
 	if value is None:
 		return default
 	text = str(value).strip().lower()
-	if text in {"1", "true", "yes", "y", "on"}:
+	if is_truthy(text):
 		return True
-	if text in {"0", "false", "no", "n", "off"}:
+	if is_falsey(text):
 		return False
 	return default
 
@@ -455,7 +456,7 @@ def main() -> int:
 		return 1
 	profile = os.environ.get("DOTFILES_PROFILE", "desktop")
 	platform_name = os.environ.get("DOTFILES_PLATFORM", "")
-	dry_run = _to_bool(os.environ.get("DOTFILES_DRY_RUN"), default=False)
+	dry_run = dotfiles_dry_run()
 	return platform_bootstrap(
 		Path(config_value).expanduser(),
 		dry_run=dry_run,

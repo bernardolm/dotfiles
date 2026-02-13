@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
+from bin.common import dotfiles_dry_run
 from bootstrap.context import resolve_profile, select_config_path
 from bootstrap.platform_bootstrap import platform_bootstrap
 
@@ -54,17 +55,11 @@ def run_platform_entrypoint(
 	return result
 
 
-def _is_truthy(value: str | None) -> bool:
-	if value is None:
-		return False
-	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
-
-
 def main(platform_name: str, description: str) -> int:
 	profile = os.environ.get("DOTFILES_PROFILE") or None
 	host = os.environ.get("DOTFILES_BOOTSTRAP_HOST") or None
 	config = os.environ.get("DOTFILES_BOOTSTRAP_CONFIG") or None
-	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
+	dry_run = dotfiles_dry_run()
 	return run_platform_entrypoint(
 		platform_name,
 		description,

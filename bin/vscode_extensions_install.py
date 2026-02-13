@@ -9,6 +9,8 @@ import shlex
 import shutil
 import subprocess
 
+from common import is_truthy
+
 
 def strip_jsonc_comments(content: str) -> str:
 	result: list[str] = []
@@ -300,12 +302,6 @@ def default_code_cli_locations() -> list[Path]:
 	return locations
 
 
-def _is_truthy(value: str | None) -> bool:
-	if value is None:
-		return False
-	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
-
-
 def main(
 	extensions_file: str | Path | None = None,
 	code_bin: str | None = None,
@@ -318,8 +314,8 @@ def main(
 	resolved_code_bin = detect_code_binary(code_bin or os.environ.get("DOTFILES_VSCODE_CODE_BIN"))
 	resolved_force = force
 	if resolved_force is None:
-		resolved_force = not _is_truthy(os.environ.get("DOTFILES_VSCODE_NO_FORCE", "0"))
-	resolved_dry_run = dry_run if dry_run is not None else _is_truthy(
+		resolved_force = not is_truthy(os.environ.get("DOTFILES_VSCODE_NO_FORCE", "0"))
+	resolved_dry_run = dry_run if dry_run is not None else is_truthy(
 		os.environ.get("DOTFILES_DRY_RUN") or os.environ.get("DOTFILES_VSCODE_DRY_RUN", "0"))
 
 	code_bin = resolved_code_bin

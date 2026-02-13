@@ -10,6 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
+from bin.common import dotfiles_dry_run, is_falsey, is_truthy
 from bootstrap.context import resolve_profile, select_config_path
 from bootstrap.detect_platform import detect_platform
 from bootstrap.ensure_delta_config import ensure_delta_config
@@ -78,21 +79,9 @@ def _resolve_platform_bootstrap(platform_name: str) -> str | None:
 	return None
 
 
-def _is_truthy(value: str | None) -> bool:
-	if value is None:
-		return False
-	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
-
-
-def _is_falsey(value: str | None) -> bool:
-	if value is None:
-		return False
-	return value.strip().lower() in {"0", "false", "no", "n", "off"}
-
-
 def _resolve_action_flags() -> tuple[bool, bool]:
 	all_value = os.environ.get("DOTFILES_BOOTSTRAP_ALL")
-	if _is_truthy(all_value):
+	if is_truthy(all_value):
 		return True, True
 
 	install_value = os.environ.get("DOTFILES_BOOTSTRAP_INSTALL_PACKAGES")
@@ -101,17 +90,17 @@ def _resolve_action_flags() -> tuple[bool, bool]:
 	if install_value is None and link_value is None:
 		return True, True
 
-	install_packages = _is_truthy(install_value)
-	link = _is_truthy(link_value)
+	install_packages = is_truthy(install_value)
+	link = is_truthy(link_value)
 
-	if _is_falsey(install_value) and _is_falsey(link_value):
+	if is_falsey(install_value) and is_falsey(link_value):
 		return False, False
 	return install_packages, link
 
 
 def main() -> int:
 	profile = os.environ.get("DOTFILES_PROFILE") or None
-	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
+	dry_run = dotfiles_dry_run()
 	install_packages, link = _resolve_action_flags()
 	return bootstrap_flow(install_packages, link, profile, dry_run)
 

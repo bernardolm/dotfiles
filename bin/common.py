@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import importlib
 import os
 from pathlib import Path
 import shutil
@@ -121,6 +120,21 @@ def is_falsey(value: str | None) -> bool:
 	return str(value or "").lower() in {"0", "false", "no", "n", "off"}
 
 
+def env_bool(name: str, default: bool = False) -> bool:
+	value = os.environ.get(name)
+	if value is None:
+		return default
+	if is_truthy(value):
+		return True
+	if is_falsey(value):
+		return False
+	return default
+
+
+def dotfiles_dry_run(default: bool = False) -> bool:
+	return env_bool("DOTFILES_DRY_RUN", default=default)
+
+
 def git_staged_files(repo: Path, diff_filter: str = "ACMR") -> list[str]:
 	result = run(
 		["git", "-C",
@@ -131,17 +145,6 @@ def git_staged_files(repo: Path, diff_filter: str = "ACMR") -> list[str]:
 	if result.returncode != 0:
 		return []
 	return [line.strip() for line in result.stdout.splitlines() if line.strip()]
-
-
-def run_imported_function(
-	module_name: str,
-	function_name: str,
-	argv: Sequence[str] | None = None,
-):
-	args = list(sys.argv[1:] if argv is None else argv)
-	module = importlib.import_module(module_name)
-	target = getattr(module, function_name)
-	return target(args)
 
 
 def tmp_user_root() -> Path:

@@ -55,7 +55,3 @@ def _read_os_release() -> dict[str, str]:
 		value = value.strip().strip('"').strip("'")
 		data[key.strip()] = value
 	return data
-
-
-if __name__ == "__main__":
-	print(detect_platform())

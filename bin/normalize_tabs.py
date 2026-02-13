@@ -3,8 +3,8 @@ from __future__ import annotations
 
 from pathlib import Path
 import re
-import subprocess
-import sys
+
+from common import git_staged_files, repo_root
 
 
 _LEADING_WHITESPACE_RE = re.compile(r"^([ \t]+)")
@@ -127,20 +127,11 @@ def _normalize_file(path: Path) -> bool:
 	return True
 
 
-def _staged_files() -> list[str]:
-	completed = subprocess.run(
-		["git", "diff", "--cached", "--name-only", "--diff-filter=ACMR"],
-		check=False,
-		capture_output=True,
-		text=True,
-	)
-	if completed.returncode != 0:
-		return []
-	return [line.strip() for line in completed.stdout.splitlines() if line.strip()]
-
-
 def run(paths: list[str] | None = None) -> int:
-	paths = paths if paths is not None else _staged_files()
+	paths = paths if paths is not None else git_staged_files(
+		repo_root(Path(__file__).resolve()),
+		diff_filter="ACMR",
+	)
 	for raw_path in paths:
 		path = Path(raw_path)
 		if not path.is_file():

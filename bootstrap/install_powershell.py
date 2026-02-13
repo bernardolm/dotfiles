@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
+from bin.common import dotfiles_dry_run
 from bootstrap.detect_platform import detect_platform
 from bootstrap.run import run
 
@@ -67,15 +68,9 @@ def _final_check(dry_run: bool = False) -> int:
 	return 1
 
 
-def _is_truthy(value: str | None) -> bool:
-	if value is None:
-		return False
-	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
-
-
 def main() -> int:
 	platform_name = os.environ.get("DOTFILES_PLATFORM") or None
-	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
+	dry_run = dotfiles_dry_run()
 	return install_powershell(dry_run=dry_run, platform_name=platform_name)
 
 

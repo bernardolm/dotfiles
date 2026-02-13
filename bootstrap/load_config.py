@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import json
-import os
 from pathlib import Path
 from typing import Any
 
@@ -74,17 +72,3 @@ def _parse_simple_yaml(content: str) -> dict[str, Any]:
 			continue
 
 	return data
-
-
-def main() -> int:
-	config_path = os.environ.get("DOTFILES_CONFIG_PATH", "").strip()
-	if not config_path:
-		print("error: defina DOTFILES_CONFIG_PATH para usar este script.")
-		return 1
-	result = load_config(Path(config_path).expanduser())
-	print(json.dumps(result, indent=2, sort_keys=True))
-	return 0
-
-
-if __name__ == "__main__":
-	raise SystemExit(main())

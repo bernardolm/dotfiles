@@ -5,10 +5,13 @@ from dataclasses import dataclass
 import hashlib
 import os
 from pathlib import Path
+import shlex
 import shutil
 import subprocess
 import sys
 import textwrap
+
+from common import is_truthy
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -27,7 +30,7 @@ class RefUpdate:
 def main(
 	remote_name: str = "",
 	remote_url: str = "",
-	instructions_file: str = "docs/ai/readme_update_guidelines.md",
+	instructions_file: str = "readme_update_guidelines.md",
 	readme_file: str = "README.md",
 	ai_command: str | None = None,
 	ai_timeout_seconds: int | None = None,
@@ -255,7 +258,7 @@ def _build_prompt(
 
 def _run_ai_command(ai_command: str, prompt: str, timeout_seconds: int) -> int:
 	cmd = [ai_command, "exec", "--full-auto", "-C", str(ROOT), prompt]
-	print("pre-push: executando:", " ".join(_shell_quote(item) for item in cmd[:5]), "<PROMPT>")
+	print("pre-push: executando:", " ".join(shlex.quote(item) for item in cmd[:5]), "<PROMPT>")
 	try:
 		completed = subprocess.run(cmd, check=False, cwd=str(ROOT), timeout=timeout_seconds)
 	except subprocess.TimeoutExpired:
@@ -329,14 +332,6 @@ def _git_lines(args: list[str], check: bool) -> list[str]:
 	return [line.strip() for line in completed.stdout.splitlines() if line.strip()]
 
 
-def _shell_quote(text: str) -> str:
-	if not text:
-		return "''"
-	if all(ch.isalnum() or ch in "-_=/:." for ch in text):
-		return text
-	return "'" + text.replace("'", "'\\''") + "'"
-
-
 def _is_v1_path(path: str) -> bool:
 	return path == ".v1" or path.startswith(V1_PREFIX)
 
@@ -346,5 +341,5 @@ if __name__ == "__main__":
 		main(
 			remote_name=os.environ.get("DOTFILES_PRE_PUSH_REMOTE_NAME", ""),
 			remote_url=os.environ.get("DOTFILES_PRE_PUSH_REMOTE_URL", ""),
-			dry_run=os.environ.get("DOTFILES_AI_DOCS_DRY_RUN", "0").lower() in {"1", "true", "yes"},
+			dry_run=is_truthy(os.environ.get("DOTFILES_AI_DOCS_DRY_RUN", "0")),
 		))

@@ -5,6 +5,14 @@ import os
 from pathlib import Path
 import shlex
 import subprocess
+import sys
+
+
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+	sys.path.insert(0, str(ROOT))
+
+from bin.common import dotfiles_dry_run, env_bool
 
 
 def run(
@@ -24,20 +32,14 @@ def run(
 	return completed.returncode
 
 
-def _is_truthy(value: str | None) -> bool:
-	if value is None:
-		return False
-	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
-
-
 def main() -> int:
 	cmd_value = os.environ.get("DOTFILES_RUN_CMD", "").strip()
 	if not cmd_value:
 		print("No command provided. Set DOTFILES_RUN_CMD.")
 		return 1
 
-	dry_run = _is_truthy(os.environ.get("DOTFILES_DRY_RUN", "0"))
-	check = not _is_truthy(os.environ.get("DOTFILES_RUN_NO_CHECK", "0"))
+	dry_run = dotfiles_dry_run()
+	check = not env_bool("DOTFILES_RUN_NO_CHECK", default=False)
 	cwd_value = os.environ.get("DOTFILES_RUN_CWD", "").strip()
 	cwd = Path(cwd_value).expanduser() if cwd_value else None
 	env = os.environ.copy()
