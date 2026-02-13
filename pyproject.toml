@@ -6,13 +6,14 @@ lines_after_imports = 2
 # multi_line_output = 11
 profile = 'google'
 remove_redundant_aliases = true
+skip_glob = ['.v1/**', 'venv/**', '**/__pycache__/**']
 
 # ------------------------------------------------------------------------------
 
 [tool.unimport]
 check = true
 color = 'always'
-exclude = '__pycache__|venv'
+exclude = '__pycache__|venv|\\.v1'
 gitignore = true
 ignore_init = false
 include_star_import = true
@@ -22,7 +23,8 @@ remove = true
 
 [tool.pylint]
 ignore-paths = [
-	'venv/'
+	'venv/',
+	'.v1/',
 ]
 exit-zero = true
 output-format = 'colorized'
@@ -58,7 +60,7 @@ split_penalty_import_names = 0
 use_tabs = true
 
 [tool.yapfignore]
-ignore_patterns = ['.web', '**/__pycache__', 'venv']
+ignore_patterns = ['.web', '**/__pycache__', 'venv', '.v1/**']
 
 # ------------------------------------------------------------------------------
 

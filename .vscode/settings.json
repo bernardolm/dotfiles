@@ -28,6 +28,12 @@
 		110,
 		120
 	],
+	"files.exclude": {
+		"**/.v1": true
+	},
+	"files.watcherExclude": {
+		"**/.v1/**": true
+	},
 	"isort.args": [
 		"--settings-path",
 		"${workspaceFolder}/pyproject.toml"
@@ -44,9 +50,15 @@
 		"reportUnknownParameterType": "none",
 		"reportUnknownVariableType": "none"
 	},
+	"python.analysis.exclude": [
+		".v1/**"
+	],
 	"python.analysis.fixAll": [
 		"source.unusedImports"
 	],
+	"search.exclude": {
+		"**/.v1/**": true
+	},
 	"terminal.integrated.env.osx": {
 		"PYENV_ROOT": "${env:HOME}/.pyenv",
 		"PATH": "${env:HOME}/.pyenv/shims:${env:HOME}/.pyenv/bin:${env:PATH}"

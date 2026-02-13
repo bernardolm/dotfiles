@@ -19,187 +19,149 @@ VENV_BIN="$VENV_DIR/bin"
 VENV_PYTHON="$VENV_BIN/python"
 REQUIREMENTS_FILE="$repo_root/requirements.txt"
 
+discard_v1_changes() {
+	[ -d "$repo_root/.v1" ] || return 0
+	git rev-parse --verify HEAD >/dev/null 2>&1 || return 0
+
+	if ! git status --porcelain -- .v1 | grep -q .; then
+		return 0
+	fi
+
+	echo "pre-commit: desfazendo alteracoes em .v1 com git checkout HEAD -- .v1"
+	git checkout HEAD -- .v1
+
+	if git status --porcelain -- .v1 | grep -q '^\?\? '; then
+		echo "pre-commit: removendo nao rastreados em .v1"
+		git clean -fd -- .v1 >/dev/null 2>&1 || true
+	fi
+}
+
+discard_v1_changes
+
 staged_python_files=()
+staged_workflow_files=()
+staged_added_files=()
 staged_files=()
 while IFS= read -r -d '' file; do
 	staged_files+=("$file")
 	case "$file" in
 		*.py) staged_python_files+=("$file") ;;
+		.github/workflows/*.yml|.github/workflows/*.yaml) staged_workflow_files+=("$file") ;;
 	esac
 done < <(git diff --cached --name-only --diff-filter=ACMR -z)
+
+while IFS= read -r -d '' file; do
+	staged_added_files+=("$file")
+done < <(git diff --cached --name-only --diff-filter=A -z)
 
 if [ "${#staged_files[@]}" -eq 0 ]; then
 	exit 0
 fi
 
-supports_tab_indentation() {
-	local file="$1"
-	case "$file" in
-		*.yml|*.yaml)
-			return 1
-			;;
-		*.py|*.sh|*.zsh|*.bash|*.ksh|*.lua|*.go|*.js|*.jsx|*.ts|*.tsx|*.json|*.jsonc|*.toml|*.ini|*.cfg|*.conf|*.css|*.scss|*.sass|*.less|*.html|*.xml|*.sql|*.tf|*.tfvars|*.md|*.txt|*.rst|*.env|*.gitignore|*.dockerignore|*.editorconfig|*/.gitignore|*/.dockerignore|*/Dockerfile|*/Dockerfile.*|*/Makefile|*/Makefile.*|Dockerfile|Dockerfile.*|Makefile|Makefile.*|*.mk)
-			return 0
-			;;
-		*)
-			return 1
-			;;
-	esac
+run_python() {
+	if command -v pyenv >/dev/null 2>&1; then
+		pyenv exec python "$@"
+		return $?
+	fi
+	if command -v python3 >/dev/null 2>&1; then
+		python3 "$@"
+		return $?
+	fi
+	if command -v python >/dev/null 2>&1; then
+		python "$@"
+		return $?
+	fi
+	echo "pre-commit: erro: python nao encontrado para executar tarefas do hook." >&2
+	return 1
 }
 
-normalize_to_tabs() {
-	local file="$1"
-	local unit=""
-	unit="$(
-		awk '
-			match($0, /^[ \t]+[^ \t\r\n]/) {
-				prefix = substr($0, 1, RLENGTH - 1)
-				gsub(/\t/, "", prefix)
-				c = length(prefix)
-				if (c > 0) {
-					counts[c] = 1
-				}
-			}
-			END {
-				if (2 in counts) {
-					print 2
-					exit
-				}
-				if (4 in counts) {
-					print 4
-					exit
-				}
-				g = 0
-				for (k in counts) {
-					c = k + 0
-					if (c <= 1) {
-						continue
-					}
-					if (g == 0) {
-						g = c
-						continue
-					}
-					a = g
-					b = c
-					while (b != 0) {
-						t = a % b
-						a = b
-						b = t
-					}
-					g = a
-				}
-				if (g >= 4 && (g % 4) == 0) {
-					print 4
-				} else {
-					print 2
-				}
-			}
-		' "$file"
-	)"
-	# Converte a indentacao no inicio de cada linha, em qualquer nivel, preservando os niveis funcionais.
-	UNIT="$unit" perl -i -pe 's#^([ \t]+)#do { my $w=$1; my $tabs=($w=~tr/\t/\t/); my $spaces=($w=~tr/ / /); my $extra = $spaces > 0 ? int(($spaces + $ENV{UNIT} - 1)/$ENV{UNIT}) : 0; ("\t" x ($tabs + $extra)) }#e' "$file"
+validate_workflow_policies() {
+	local invalid=0
+	local file=""
+
+	for file in "${staged_workflow_files[@]-}"; do
+		[ -f "$file" ] || continue
+		if ! rg -q "\\.v1/\\*\\*|\\.v1/" "$file"; then
+			echo "pre-commit: erro: workflow sem exclusao explicita de .v1: $file"
+			invalid=1
+		fi
+	done
+
+	if [ "$invalid" -ne 0 ]; then
+		echo "pre-commit: adicione 'paths-ignore' com '.v1/**' no(s) workflow(s) acima."
+		return 1
+	fi
+	return 0
 }
+
+is_shell_script_file() {
+	local file="$1"
+	local first_line=""
+
+	case "$file" in
+		*.sh|*.bash|*.zsh|*.ksh) return 0 ;;
+	esac
+
+	[ -f "$file" ] || return 1
+	first_line="$(head -n 1 "$file" 2>/dev/null || true)"
+	[[ "$first_line" =~ ^#! ]] || return 1
+	[[ "$first_line" =~ (sh|bash|zsh|ksh) ]] || return 1
+	return 0
+}
+
+validate_new_shell_scripts_policy() {
+	local invalid=0
+	local file=""
+
+	for file in "${staged_added_files[@]-}"; do
+		[ -f "$file" ] || continue
+		if ! is_shell_script_file "$file"; then
+			continue
+		fi
+		if ! head -n 30 "$file" | rg -q "shell-required:"; then
+			echo "pre-commit: erro: novo script shell sem justificativa tecnica: $file"
+			invalid=1
+		fi
+	done
+
+	if [ "$invalid" -ne 0 ]; then
+		echo "pre-commit: regra ativa: novos scripts devem ser Python por padrao."
+		echo "pre-commit: use shell so quando necessario e adicione no topo do arquivo:"
+		echo "pre-commit:   # shell-required: <motivo tecnico de por que Python nao atende bem>"
+		return 1
+	fi
+	return 0
+}
+
+validate_workflow_policies
+validate_new_shell_scripts_policy
 
 normalized_files=()
-for file in "${staged_files[@]}"; do
-	[ -f "$file" ] || continue
-	supports_tab_indentation "$file" || continue
-	before_checksum="$(cksum < "$file")"
-	normalize_to_tabs "$file"
-	after_checksum="$(cksum < "$file")"
-	if [ "$before_checksum" != "$after_checksum" ]; then
-		normalized_files+=("$file")
-	fi
-done
+while IFS= read -r changed_file; do
+	[ -n "$changed_file" ] || continue
+	normalized_files+=("$changed_file")
+done < <(run_python "$repo_root/bin/normalize_tabs.py" "${staged_files[@]}")
 
 if [ "${#normalized_files[@]}" -gt 0 ]; then
 	echo "pre-commit: indentacao (qualquer nivel) normalizada para tabs em ${#normalized_files[@]} arquivo(s)."
 fi
 
-ensure_venv() {
-	if [ -x "$VENV_PYTHON" ]; then
-		return 0
-	fi
-
-	echo "pre-commit: criando virtualenv local em ./venv..."
-	if [ -x "$repo_root/bin/py_venv_create.py" ]; then
-		"$repo_root/bin/py_venv_create.py"
-	elif [ -x "$repo_root/bin/venv_create" ]; then
-		"$repo_root/bin/venv_create"
-	elif command -v pyenv >/dev/null 2>&1; then
-		pyenv exec python -m venv "$VENV_DIR"
-	elif command -v python3 >/dev/null 2>&1; then
-		python3 -m venv "$VENV_DIR"
-	elif command -v python >/dev/null 2>&1; then
-		python -m venv "$VENV_DIR"
-	else
-		echo "pre-commit: erro: python nao encontrado para criar ./venv."
-		return 1
-	fi
-
-	if [ ! -x "$VENV_PYTHON" ]; then
-		echo "pre-commit: erro: nao foi possivel criar ./venv."
-		return 1
-	fi
-	return 0
-}
-
-ensure_python_tools() {
-	local required_tools=("$@")
-	local missing_tools=()
-	local tool=""
-
-	if [ ! -f "$REQUIREMENTS_FILE" ]; then
-		echo "pre-commit: erro: requirements.txt nao encontrado em $REQUIREMENTS_FILE."
-		return 1
-	fi
-
-	for tool in "${required_tools[@]}"; do
-		if [ ! -x "$VENV_BIN/$tool" ]; then
-			missing_tools+=("$tool")
-		fi
-	done
-
-	if [ "${#missing_tools[@]}" -eq 0 ]; then
-		return 0
-	fi
-
-	echo "pre-commit: instalando ferramentas Python no venv: ${missing_tools[*]}"
-	"$VENV_PYTHON" -m pip install --requirement "$REQUIREMENTS_FILE"
-
-	for tool in "${required_tools[@]}"; do
-		if [ ! -x "$VENV_BIN/$tool" ]; then
-			echo "pre-commit: erro: ferramenta '$tool' indisponivel apos instalar requirements.txt."
-			return 1
-		fi
-	done
-	return 0
-}
-
-run_venv_tool() {
-	local tool_name="$1"
-	shift
-	"$VENV_BIN/$tool_name" "$@"
-}
-
 if [ "${#staged_python_files[@]}" -gt 0 ]; then
 	echo "pre-commit: ajustando ${#staged_python_files[@]} arquivo(s) Python..."
 	required_python_tools=("unimport" "isort" "yapf")
 
-	ensure_venv
-	ensure_python_tools "${required_python_tools[@]}"
+	run_python \
+		"$repo_root/bin/pre_commit_ensure_python_tools.py" \
+		--repo-root "$repo_root" \
+		--venv-dir "$VENV_DIR" \
+		--requirements-file "$REQUIREMENTS_FILE" \
+		--tools "${required_python_tools[@]}"
 
-	if run_venv_tool unimport "${staged_python_files[@]}"; then
-		echo "pre-commit: unimport aplicado."
-	else
-		echo "pre-commit: aviso: unimport retornou erro; seguindo com isort/yapf."
-	fi
-
-	run_venv_tool isort --settings-path pyproject.toml "${staged_python_files[@]}"
-	echo "pre-commit: isort aplicado."
-
-	run_venv_tool yapf --in-place "${staged_python_files[@]}"
-	echo "pre-commit: yapf aplicado."
+	run_python \
+		"$repo_root/bin/pre_commit_run_python_tools.py" \
+		--venv-bin "$VENV_BIN" \
+		--isort-settings-path pyproject.toml \
+		--files "${staged_python_files[@]}"
 fi
 
 git add -- "${staged_files[@]}"
