@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
 import os
 from pathlib import Path
 import shutil
 import subprocess
 import sys
+
+from common import is_truthy
 
 
 def detect_repo_root() -> Path:
@@ -62,25 +63,15 @@ def choose_python_cmd(repo_root: Path) -> list[str] | None:
 	return None
 
 
-def main() -> int:
-	parser = argparse.ArgumentParser(
-		description="Cria o virtualenv em ./venv usando pyenv quando disponivel.")
-	parser.add_argument(
-		"--recreate",
-		action="store_true",
-		help="Remove ./venv existente e cria novamente.",
-	)
-	args = parser.parse_args()
+def create_venv(repo_root: Path, venv_dir: Path | None = None, recreate: bool = False) -> int:
+	repo_root = repo_root.resolve()
+	target_venv_dir = (venv_dir or (repo_root / "venv")).resolve()
 
-	repo_root = detect_repo_root()
-	os.chdir(repo_root)
-	venv_dir = repo_root / "venv"
+	if recreate and target_venv_dir.is_dir():
+		shutil.rmtree(target_venv_dir)
 
-	if args.recreate and venv_dir.is_dir():
-		shutil.rmtree(venv_dir)
-
-	if venv_dir.is_dir():
-		print(f"venv ja existe em: {venv_dir}")
+	if target_venv_dir.is_dir():
+		print(f"venv ja existe em: {target_venv_dir}")
 		return 0
 
 	python_cmd = choose_python_cmd(repo_root)
@@ -88,9 +79,9 @@ def main() -> int:
 		print("erro: python nao encontrado no PATH.")
 		return 1
 
-	print(f"criando virtualenv em: {venv_dir}")
+	print(f"criando virtualenv em: {target_venv_dir}")
 	try:
-		subprocess.run([*python_cmd, "-m", "venv", str(venv_dir)], check=True)
+		subprocess.run([*python_cmd, "-m", "venv", str(target_venv_dir)], check=True)
 	except subprocess.CalledProcessError as exc:
 		print(f"erro: falha ao criar ./venv (exit={exc.returncode}).")
 		return exc.returncode or 1
@@ -100,6 +91,13 @@ def main() -> int:
 
 	print("ok: virtualenv criado em ./venv")
 	return 0
+
+
+def main() -> int:
+	repo_root = detect_repo_root()
+	os.chdir(repo_root)
+	recreate = is_truthy(os.environ.get("DOTFILES_VENV_RECREATE", "0"))
+	return create_venv(repo_root=repo_root, recreate=recreate)
 
 
 if __name__ == "__main__":

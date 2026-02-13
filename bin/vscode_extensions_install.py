@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import argparse
 import json
 import os
 from pathlib import Path
@@ -301,54 +300,56 @@ def default_code_cli_locations() -> list[Path]:
 	return locations
 
 
-if __name__ == "__main__":
+def _is_truthy(value: str | None) -> bool:
+	if value is None:
+		return False
+	return value.strip().lower() in {"1", "true", "yes", "y", "on"}
+
+
+def main(
+	extensions_file: str | Path | None = None,
+	code_bin: str | None = None,
+	force: bool | None = None,
+	dry_run: bool | None = None,
+) -> int:
 	default_extensions_file = Path(__file__).resolve().parents[1] / ".vscode" / "extensions.json"
+	resolved_extensions_file = Path(extensions_file or os.environ.get(
+		"DOTFILES_VSCODE_EXTENSIONS_FILE", str(default_extensions_file))).expanduser()
+	resolved_code_bin = detect_code_binary(code_bin or os.environ.get("DOTFILES_VSCODE_CODE_BIN"))
+	resolved_force = force
+	if resolved_force is None:
+		resolved_force = not _is_truthy(os.environ.get("DOTFILES_VSCODE_NO_FORCE", "0"))
+	resolved_dry_run = dry_run if dry_run is not None else _is_truthy(
+		os.environ.get("DOTFILES_DRY_RUN") or os.environ.get("DOTFILES_VSCODE_DRY_RUN", "0"))
 
-	parser = argparse.ArgumentParser(
-		description=
-		"Sincroniza extensões do VS Code definidas em um arquivo extensions.json (JSON/JSONC). "
-		"Use sufixo '-' no nome da extensão para remover.")
-	parser.add_argument(
-		"--file",
-		default=str(default_extensions_file),
-		help="Caminho do extensions.json (padrão: ./dotfiles/.vscode/extensions.json).",
-	)
-	parser.add_argument(
-		"--code-bin",
-		default=None,
-		help=
-		"Binário do VS Code CLI (ex: code, code-insiders, codium). Detecta automaticamente se omitido.",
-	)
-	parser.add_argument("--no-force",
-											action="store_true",
-											help="Não usar --force ao instalar extensões.")
-	parser.add_argument("--dry-run", action="store_true", help="Mostra os comandos sem executar.")
-	args = parser.parse_args()
-
-	code_bin = detect_code_binary(args.code_bin)
+	code_bin = resolved_code_bin
 	if not code_bin:
-		print("CLI do VS Code não encontrada. Informe com --code-bin ou adicione 'code' ao PATH.")
-		raise SystemExit(2)
+		print(
+			"CLI do VS Code não encontrada. Defina DOTFILES_VSCODE_CODE_BIN ou adicione 'code' ao PATH.")
+		return 2
 
-	extensions_file = Path(args.file).expanduser()
+	extensions_file = resolved_extensions_file
 	if not extensions_file.exists():
 		print(f"Arquivo não encontrado: {extensions_file}")
-		raise SystemExit(2)
+		return 2
 
 	try:
 		extensions = load_extensions(extensions_file)
 	except (OSError, json.JSONDecodeError, ValueError) as exc:
 		print(f"Falha ao carregar extensões de {extensions_file}: {exc}")
-		raise SystemExit(2)
+		return 2
 
 	if not extensions:
 		print(f"Nenhuma extensão encontrada em: {extensions_file}")
-		raise SystemExit(0)
+		return 0
 
-	raise SystemExit(
-		sync_extensions(
-			extensions,
-			code_bin=code_bin,
-			force=not args.no_force,
-			dry_run=args.dry_run,
-		))
+	return sync_extensions(
+		extensions,
+		code_bin=code_bin,
+		force=resolved_force,
+		dry_run=resolved_dry_run,
+	)
+
+
+if __name__ == "__main__":
+	raise SystemExit(main())

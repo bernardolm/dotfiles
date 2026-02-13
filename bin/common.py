@@ -1,40 +1,41 @@
 from __future__ import annotations
 
 import os
+from pathlib import Path
 import shutil
 import subprocess
 import sys
-from pathlib import Path
 from typing import Iterable, Sequence
 
 
 def repo_root(start: Path | None = None) -> Path:
-	start = start or Path(__file__).resolve()
+	start = (start or Path(__file__).resolve()).resolve()
 	for parent in [start] + list(start.parents):
-	if (parent / ".git").exists():
-		return parent
+		if (parent / ".git").exists():
+			return parent
 	return start.parent
 
 
 def dotfiles_root() -> Path:
-	env_root = os.environ.get("DOTFILES")
-	return Path(env_root).expanduser() if env_root else repo_root()
+	return Path.home() / "dotfiles"
 
 
 def detect_os() -> str:
 	prefix = os.environ.get("PREFIX", "")
 	if os.environ.get("TERMUX_VERSION") or prefix.startswith("/data/data/com.termux"):
-	return "termux"
-	if sys.platform == 'darwin':
-	return 'darwin'
-	if sys.platform.startswith('linux'):
-	try:
-		version = Path("/proc/version").read_text().lower()
-	except OSError:
-		version = ""
-	if "microsoft" in version or os.environ.get("WSL_DISTRO_NAME"):
-		return 'wsl'
-	return 'linux'
+		return "termux"
+	if sys.platform == "darwin":
+		return "darwin"
+	if sys.platform.startswith("linux"):
+		try:
+			version = Path("/proc/version").read_text(encoding="utf-8", errors="ignore").lower()
+		except OSError:
+			version = ""
+		if "microsoft" in version or os.environ.get("WSL_DISTRO_NAME"):
+			return "wsl"
+		return "linux"
+	if sys.platform in {"win32", "cygwin"}:
+		return "windows"
 	return "unknown"
 
 
@@ -47,12 +48,12 @@ def run(
 	env: dict[str, str] | None = None,
 ) -> subprocess.CompletedProcess[str]:
 	return subprocess.run(
-	list(cmd),
-	check=check,
-	capture_output=capture,
-	text=text,
-	input=input_data,
-	env=env,
+		list(cmd),
+		check=check,
+		capture_output=capture,
+		text=text,
+		input=input_data,
+		env=env,
 	)
 
 
@@ -63,21 +64,23 @@ def run_lines(cmd: Sequence[str], check: bool = False) -> list[str]:
 
 def run_pipeline(cmds: list[Sequence[str]], input_data: str | None = None) -> tuple[str, int]:
 	if not cmds:
-	return "", 0
+		return "", 0
+
 	procs: list[subprocess.Popen[str]] = []
 	prev: subprocess.Popen[str] | None = None
-	for idx, cmd in enumerate(cmds):
-	proc = subprocess.Popen(
-		list(cmd),
-		stdin=prev.stdout if prev else None,
-		stdout=subprocess.PIPE,
-		stderr=subprocess.PIPE,
-		text=True,
-	)
-	if prev and prev.stdout:
-		prev.stdout.close()
-	procs.append(proc)
-	prev = proc
+	for cmd in cmds:
+		proc = subprocess.Popen(
+			list(cmd),
+			stdin=prev.stdout if prev else None,
+			stdout=subprocess.PIPE,
+			stderr=subprocess.PIPE,
+			text=True,
+		)
+		if prev and prev.stdout:
+			prev.stdout.close()
+		procs.append(proc)
+		prev = proc
+
 	stdout, _stderr = procs[-1].communicate(input_data)
 	return stdout or "", procs[-1].returncode
 
@@ -92,13 +95,13 @@ def ensure_dir(path: Path) -> None:
 
 def remove_paths(paths: Iterable[Path]) -> None:
 	for path in paths:
-	try:
-		if path.is_dir() and not path.is_symlink():
-			shutil.rmtree(path)
-		else:
-			path.unlink()
-	except FileNotFoundError:
-		continue
+		try:
+			if path.is_dir() and not path.is_symlink():
+				shutil.rmtree(path)
+			else:
+				path.unlink()
+		except FileNotFoundError:
+			continue
 
 
 def is_truthy(value: str | None) -> bool:
@@ -114,6 +117,6 @@ def last_backup_version(name: str, ext: str) -> str:
 	root.mkdir(parents=True, exist_ok=True)
 	candidates = list(root.glob(f"*.{ext}"))
 	if candidates:
-	latest = max(candidates, key=lambda p: p.stat().st_mtime)
-	return str(latest)
+		latest = max(candidates, key=lambda p: p.stat().st_mtime)
+		return str(latest)
 	return str(root / f"{name}_current.{ext}")
