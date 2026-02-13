@@ -2,12 +2,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import date
 import hashlib
 import os
 from pathlib import Path
 import shutil
 import subprocess
 import sys
+import tempfile
 import textwrap
 
 from common import is_truthy
@@ -16,6 +18,10 @@ from common import is_truthy
 ROOT = Path(__file__).resolve().parents[1]
 ZERO_SHA = "0" * 40
 V1_PREFIX = ".v1/"
+README_UPDATES_START = "<!-- docs-ai-updates:start -->"
+README_UPDATES_END = "<!-- docs-ai-updates:end -->"
+README_UPDATE_ID_PREFIX = "<!-- docs-ai-update:"
+README_UPDATE_ID_SUFFIX = " -->"
 
 
 @dataclass(frozen=True)
@@ -40,7 +46,7 @@ def main(
 	ai_command = ai_command or os.environ.get("DOTFILES_AI_DOCS_COMMAND", "codex")
 	ai_timeout_seconds = ai_timeout_seconds or int(
 		os.environ.get("DOTFILES_AI_DOCS_TIMEOUT_SECONDS", "240"))
-	max_commits = max_commits or int(os.environ.get("DOTFILES_AI_DOCS_MAX_COMMITS", "80"))
+	max_commits = max_commits or int(os.environ.get("DOTFILES_AI_DOCS_MAX_COMMITS", "25"))
 
 	updates = _read_ref_updates(sys.stdin)
 	if not updates:
@@ -68,7 +74,6 @@ def main(
 
 	before_dirty = _dirty_files()
 	before_dirty_hashes = _dirty_hashes(before_dirty)
-	before_readme = readme_path.read_text(encoding="utf-8", errors="ignore")
 
 	commit_lines = _commit_lines(commit_shas)
 	if not commit_lines:
@@ -87,16 +92,25 @@ def main(
 		print(f"pre-push: dry-run: IA nao executada ({len(commit_shas)} commit(s) analisado(s)).")
 		return 0
 
-	result = _run_ai_command(
+	summary_markdown = _run_ai_summary_command(
 		ai_command=ai_command,
 		prompt=prompt,
 		timeout_seconds=ai_timeout_seconds,
 	)
-	if result != 0:
-		return result
+	if summary_markdown is None:
+		return 1
+
+	changed = _append_incremental_readme_update(
+		readme_path=readme_path,
+		remote_name=remote_name,
+		remote_url=remote_url,
+		commit_lines=commit_lines,
+		summary_markdown=summary_markdown,
+	)
+	if not changed:
+		return 0
 
 	after_dirty = _dirty_files()
-	after_readme = readme_path.read_text(encoding="utf-8", errors="ignore")
 
 	new_dirty = after_dirty - before_dirty
 	mutated_pre_dirty = {
@@ -112,12 +126,10 @@ def main(
 		print("pre-push: revise as alteracoes, ajuste manualmente e tente o push novamente.")
 		return 1
 
-	if after_readme != before_readme:
-		print(
-			f"pre-push: {readme_rel} atualizado pela IA; revise, faca commit e rode o push novamente.")
-		return 1
-
-	return 0
+	print(
+		f"pre-push: {readme_rel} recebeu atualizacao incremental; revise, faca commit e rode o push novamente."
+	)
+	return 1
 
 
 def _read_ref_updates(stream: object) -> list[RefUpdate]:
@@ -216,43 +228,39 @@ def _build_prompt(
 	commits_block = "\n".join(f"- {line}" for line in commit_lines)
 
 	return textwrap.dedent(f"""
-	\tVoce esta executando uma atualizacao automatica de documentacao antes de um git push.
-	\tAtualize somente o arquivo `{readme_rel}` neste repositorio.
-	\tIgnore completamente a pasta `.v1/` (arquivo historico, sem manutencao ativa).
-	\tNao leia, nao cite e nao proponha alteracoes para qualquer caminho em `.v1/`.
-
-	\tSiga obrigatoriamente estas diretrizes (fonte oficial):
-	\t--- INICIO DIRETRIZES ---
-	\t{instructions}
-	\t--- FIM DIRETRIZES ---
-
 	\tContexto do push:
+	\t- arquivo_alvo: {readme_rel}
 	\t- remote_name: {remote_name or "(nao informado)"}
 	\t- remote_url: {remote_url or "(nao informado)"}
 
 	\tCommits que serao enviados:
 	\t{commits_block}
 
-	\tObjetivo desta execucao:
-	\t- refletir no README o proposito real do repositorio;
-	\t- explicar claramente o que ele configura, em quais sistemas e com quais ferramentas;
-	\t- manter texto objetivo, tecnico e fiel ao estado atual do codigo.
-
-	\tRestrições finais:
-	\t- nao alterar qualquer arquivo alem de `{readme_rel}`;
-	\t- ignorar completamente `.v1/`;
-	\t- nao criar commit;
-	\t- nao inventar funcionalidades inexistentes.
+	\tDiretrizes obrigatorias (fonte oficial):
+	\t{instructions}
 	""").strip()
 
 
-def _run_ai_command(ai_command: str, prompt: str, timeout_seconds: int) -> int:
+def _run_ai_summary_command(ai_command: str, prompt: str, timeout_seconds: int) -> str | None:
+	with tempfile.NamedTemporaryFile(
+		prefix="docs_ai_sync_",
+		suffix=".md",
+		delete=False,
+		dir=str(ROOT),
+	) as handle:
+		output_file = Path(handle.name)
+
 	cmd = [
 		ai_command,
 		"exec",
-		"--full-auto",
+		"--sandbox",
+		"read-only",
+		"--color",
+		"never",
 		"-C",
 		str(ROOT),
+		"-o",
+		str(output_file),
 		prompt,
 	]
 	if Path(ai_command).name == "codex":
@@ -268,15 +276,142 @@ def _run_ai_command(ai_command: str, prompt: str, timeout_seconds: int) -> int:
 		)
 	except subprocess.TimeoutExpired:
 		print(f"pre-push: erro: comando de IA excedeu timeout de {timeout_seconds}s.")
-		return 1
+		_unlink_quietly(output_file)
+		return None
 	except OSError as exc:
 		print(f"pre-push: erro ao executar IA: {exc}")
-		return 1
+		_unlink_quietly(output_file)
+		return None
 
 	if completed.returncode != 0:
 		print(f"pre-push: erro: comando de IA falhou (codigo {completed.returncode}).")
-		return completed.returncode
-	return 0
+		_unlink_quietly(output_file)
+		return None
+
+	summary = output_file.read_text(encoding="utf-8", errors="ignore")
+	_unlink_quietly(output_file)
+	summary = _normalize_ai_summary(summary)
+	if not summary:
+		print("pre-push: erro: IA retornou resumo vazio.")
+		return None
+	return summary
+
+
+def _append_incremental_readme_update(
+	readme_path: Path,
+	remote_name: str,
+	remote_url: str,
+	commit_lines: list[str],
+	summary_markdown: str,
+) -> bool:
+	summary_markdown = _normalize_ai_summary(summary_markdown)
+	if not summary_markdown:
+		return False
+	if summary_markdown.strip().upper() == "SKIP":
+		return False
+
+	entry_id = hashlib.sha256("\n".join(commit_lines).encode("utf-8")).hexdigest()[:12]
+	entry_marker = _entry_marker(entry_id)
+
+	content = readme_path.read_text(encoding="utf-8", errors="ignore")
+	content = _ensure_incremental_updates_block(content)
+	if entry_marker in content:
+		return False
+
+	start_index = content.find(README_UPDATES_START)
+	end_index = content.find(README_UPDATES_END, start_index)
+	if start_index < 0 or end_index < 0:
+		print("pre-push: erro: bloco de atualizacoes incrementais do README nao encontrado.")
+		return False
+
+	commit_excerpt = commit_lines[:8]
+	commit_block = "\n".join(f"- {line}" for line in commit_excerpt)
+	summary_block = _to_bullet_block(summary_markdown)
+
+	remote_name_value = remote_name.strip() or "(nao informado)"
+	remote_url_value = remote_url.strip() or "(nao informado)"
+	entry = "\n".join([
+		entry_marker,
+		f"### {date.today().isoformat()} | {remote_name_value}",
+		f"- remote_url: `{remote_url_value}`",
+		"Commits:",
+		commit_block,
+		"Resumo:",
+		summary_block,
+		"",
+	])
+
+	block_start = start_index + len(README_UPDATES_START)
+	current_block = content[block_start:end_index]
+	updated_block = "\n\n" + entry + current_block.lstrip("\n")
+	updated_content = content[:block_start] + updated_block + content[end_index:]
+	readme_path.write_text(updated_content, encoding="utf-8")
+	return True
+
+
+def _ensure_incremental_updates_block(content: str) -> str:
+	if README_UPDATES_START in content and README_UPDATES_END in content:
+		return content
+
+	section = textwrap.dedent("""
+	## atualizacoes incrementais (pre-push IA)
+
+	<!-- docs-ai-updates:start -->
+	<!-- docs-ai-updates:end -->
+	""").strip()
+
+	base = content.rstrip()
+	if base:
+		return f"{base}\n\n{section}\n"
+	return f"{section}\n"
+
+
+def _normalize_ai_summary(raw_text: str) -> str:
+	text = raw_text.strip()
+	if not text:
+		return ""
+
+	lines = text.splitlines()
+	if lines and lines[0].strip().startswith("```"):
+		lines = lines[1:]
+	if lines and lines[-1].strip() == "```":
+		lines = lines[:-1]
+
+	cleaned: list[str] = []
+	for line in lines:
+		item = line.strip()
+		if not item:
+			continue
+		if item.startswith("#"):
+			continue
+		cleaned.append(item)
+		if len(cleaned) >= 12:
+			break
+	return "\n".join(cleaned).strip()
+
+
+def _to_bullet_block(text: str) -> str:
+	lines = [line.strip() for line in text.splitlines() if line.strip()]
+	if not lines:
+		return "- (sem resumo)"
+	result: list[str] = []
+	for line in lines:
+		if line.startswith("- "):
+			result.append(line)
+		else:
+			result.append(f"- {line}")
+	return "\n".join(result)
+
+
+def _entry_marker(entry_id: str) -> str:
+	return f"{README_UPDATE_ID_PREFIX}{entry_id}{README_UPDATE_ID_SUFFIX}"
+
+
+def _unlink_quietly(path: Path) -> None:
+	try:
+		path.unlink(missing_ok=True)
+	except OSError:
+		return
 
 
 def _dirty_files() -> set[str]:

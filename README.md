@@ -112,9 +112,10 @@ Este repositório usa `core.hooksPath=.githooks`.
 ### pre-push (documentação com IA)
 
 - identifica os commits que serão enviados ao remoto;
-- invoca IA para revisar/atualizar `README.md` com base nesses commits;
+- invoca IA para gerar resumo incremental dos commits do push;
+- adiciona esse resumo na secao `atualizacoes incrementais (pre-push IA)` do `README.md`;
 - usa diretrizes explícitas em `readme_update_guidelines.md`;
-- bloqueia o push se `README.md` for alterado pela IA, para revisão e commit antes de reenviar.
+- bloqueia o push se `README.md` receber a atualizacao incremental, para revisão e commit antes de reenviar.
 - requer um comando de IA disponível no PATH (padrão: `codex`).
 
 Variáveis úteis do fluxo de IA no pre-push:
@@ -122,7 +123,7 @@ Variáveis úteis do fluxo de IA no pre-push:
 - `DOTFILES_AI_DOCS_SKIP=1`: pula a etapa de IA no push atual.
 - `DOTFILES_AI_DOCS_COMMAND=<cmd>`: altera o comando da ferramenta de IA (padrão: `codex`).
 - `DOTFILES_AI_DOCS_TIMEOUT_SECONDS=<segundos>`: timeout da execução da IA.
-- `DOTFILES_AI_DOCS_MAX_COMMITS=<n>`: limite de commits considerados no prompt.
+- `DOTFILES_AI_DOCS_MAX_COMMITS=<n>`: limite de commits considerados no prompt (padrão: `25`).
 
 ## objetivo operacional
 
