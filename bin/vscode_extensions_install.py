@@ -125,16 +125,54 @@ def load_extensions(file_path: Path) -> list[str]:
     return unique
 
 
-def install_extensions(extensions: list[str], code_bin: str, force: bool = True, dry_run: bool = False) -> int:
+def list_installed_extensions(code_bin: str) -> set[str] | None:
+    proc = subprocess.run([code_bin, "--list-extensions"], capture_output=True, text=True)
+    if proc.returncode != 0:
+        output = (proc.stderr or proc.stdout).strip()
+        print("Aviso: não foi possível listar extensões instaladas; remoções serão tentadas diretamente.")
+        if output:
+            print(f"  {output.splitlines()[-1]}")
+        return None
+
+    return {line.strip() for line in proc.stdout.splitlines() if line.strip()}
+
+
+def parse_extension_action(raw_extension: str) -> tuple[str, str]:
+    if raw_extension.startswith("-"):
+        return "remove", raw_extension[1:].strip()
+    return "install", raw_extension
+
+
+def sync_extensions(extensions: list[str], code_bin: str, force: bool = True, dry_run: bool = False) -> int:
     failures: list[str] = []
+    warnings: list[str] = []
     total = len(extensions)
+    installed_extensions = None if dry_run else list_installed_extensions(code_bin)
+    install_count = 0
+    remove_count = 0
 
-    for idx, ext in enumerate(extensions, start=1):
-        cmd = [code_bin, "--install-extension", ext]
-        if force:
-            cmd.append("--force")
+    for idx, raw_ext in enumerate(extensions, start=1):
+        action, ext = parse_extension_action(raw_ext)
+        if not ext:
+            warnings.append(raw_ext)
+            print(f"[{idx}/{total}] Aviso: entrada inválida '{raw_ext}', ignorando.")
+            continue
 
-        print(f"[{idx}/{total}] Instalando: {ext}")
+        if action == "remove":
+            remove_count += 1
+            print(f"[{idx}/{total}] Removendo: {ext}")
+            if installed_extensions is not None and ext not in installed_extensions:
+                warnings.append(ext)
+                print("  AVISO: extensão já não estava instalada")
+                continue
+            cmd = [code_bin, "--uninstall-extension", ext]
+        else:
+            install_count += 1
+            cmd = [code_bin, "--install-extension", ext]
+            if force:
+                cmd.append("--force")
+            print(f"[{idx}/{total}] Instalando: {ext}")
+
         if dry_run:
             if os.name == "nt":
                 printable_cmd = subprocess.list2cmdline(cmd)
@@ -145,19 +183,35 @@ def install_extensions(extensions: list[str], code_bin: str, force: bool = True,
 
         proc = subprocess.run(cmd, capture_output=True, text=True)
         if proc.returncode == 0:
+            if action == "remove" and installed_extensions is not None:
+                installed_extensions.discard(ext)
+            if action == "install" and installed_extensions is not None:
+                installed_extensions.add(ext)
             print("  OK")
+            continue
+
+        output = (proc.stderr or proc.stdout).strip()
+        if action == "remove" and "is not installed" in output.lower():
+            warnings.append(ext)
+            print("  AVISO: extensão já não estava instalada")
             continue
 
         failures.append(ext)
         print(f"  FALHOU (exit={proc.returncode})")
-        error_output = (proc.stderr or proc.stdout).strip()
-        if error_output:
-            print(f"  {error_output.splitlines()[-1]}")
+        if output:
+            print(f"  {output.splitlines()[-1]}")
 
     print("")
     print(f"Total: {total}")
-    print(f"Sucesso: {total - len(failures)}")
+    print(f"Instalações: {install_count}")
+    print(f"Remoções: {remove_count}")
+    print(f"Avisos: {len(warnings)}")
+    print(f"Sucesso: {total - len(failures) - len(warnings)}")
     print(f"Falhas: {len(failures)}")
+    if warnings:
+        print("Extensões com aviso:")
+        for ext in warnings:
+            print(f"- {ext}")
     if failures:
         print("Extensões com falha:")
         for ext in failures:
@@ -239,7 +293,7 @@ if __name__ == "__main__":
     default_extensions_file = Path(__file__).resolve().parents[1] / ".vscode" / "extensions.json"
 
     parser = argparse.ArgumentParser(
-        description="Instala extensões do VS Code definidas em um arquivo extensions.json (JSON/JSONC)."
+        description="Sincroniza extensões do VS Code definidas em um arquivo extensions.json (JSON/JSONC)."
     )
     parser.add_argument(
         "--file",
@@ -271,7 +325,7 @@ if __name__ == "__main__":
         raise SystemExit(0)
 
     raise SystemExit(
-        install_extensions(
+        sync_extensions(
             extensions,
             code_bin=code_bin,
             force=not args.no_force,

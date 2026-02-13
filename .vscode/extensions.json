@@ -1,5 +1,6 @@
 {
 	"recommendations": [
+		"-vue.volar",
 		"4ops.terraform",
 		"aaron-bond.better-comments",
 		"adpyke.vscode-sql-formatter",
@@ -22,6 +23,7 @@
 		"file-icons.file-icons",
 		"formulahendry.code-runner",
 		"foxundermoon.shell-format",
+		"github.copilot-chat",
 		"golang.go",
 		"google.geminicodeassist",
 		"googlecloudtools.cloudcode",
@@ -60,6 +62,7 @@
 		"redhat.vscode-yaml",
 		"shardulm94.trailing-spaces",
 		"sketchbuch.vsc-workspace-sidebar",
+		"streetsidesoftware.code-spell-checker",
 		"sumneko.lua",
 		"tamasfe.even-better-toml",
 		"timonwong.shellcheck",
