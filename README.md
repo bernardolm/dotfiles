@@ -113,7 +113,7 @@ Este repositório usa `core.hooksPath=.githooks`.
 
 - identifica os commits que serão enviados ao remoto;
 - invoca IA para revisar/atualizar `README.md` com base nesses commits;
-- usa diretrizes explícitas em `docs/ai/readme_update_guidelines.md`;
+- usa diretrizes explícitas em `readme_update_guidelines.md`;
 - bloqueia o push se `README.md` for alterado pela IA, para revisão e commit antes de reenviar.
 - requer um comando de IA disponível no PATH (padrão: `codex`).
 
