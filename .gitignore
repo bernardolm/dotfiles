@@ -21,6 +21,7 @@
 *fix*.txt
 *phone.py
 *venv/
+/venv/
 debian/*
 git/submodule/*
 maestral/Dockerfile

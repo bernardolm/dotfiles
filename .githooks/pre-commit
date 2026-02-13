@@ -14,6 +14,11 @@ if [ -x "$PYENV_ROOT/bin/pyenv" ]; then
 	fi
 fi
 
+VENV_DIR="$repo_root/venv"
+VENV_BIN="$VENV_DIR/bin"
+VENV_PYTHON="$VENV_BIN/python"
+REQUIREMENTS_FILE="$repo_root/requirements.txt"
+
 staged_python_files=()
 staged_files=()
 while IFS= read -r -d '' file; do
@@ -111,53 +116,89 @@ if [ "${#normalized_files[@]}" -gt 0 ]; then
 	echo "pre-commit: indentacao (qualquer nivel) normalizada para tabs em ${#normalized_files[@]} arquivo(s)."
 fi
 
-resolve_tool() {
-	local tool_name="$1"
-	command -v pyenv >/dev/null 2>&1 || return 1
-	pyenv which "$tool_name" >/dev/null 2>&1 || return 1
-	printf '%s\n' "pyenv exec $tool_name"
+ensure_venv() {
+	if [ -x "$VENV_PYTHON" ]; then
+		return 0
+	fi
+
+	echo "pre-commit: criando virtualenv local em ./venv..."
+	if [ -x "$repo_root/bin/py_venv_create.py" ]; then
+		"$repo_root/bin/py_venv_create.py"
+	elif [ -x "$repo_root/bin/venv_create" ]; then
+		"$repo_root/bin/venv_create"
+	elif command -v pyenv >/dev/null 2>&1; then
+		pyenv exec python -m venv "$VENV_DIR"
+	elif command -v python3 >/dev/null 2>&1; then
+		python3 -m venv "$VENV_DIR"
+	elif command -v python >/dev/null 2>&1; then
+		python -m venv "$VENV_DIR"
+	else
+		echo "pre-commit: erro: python nao encontrado para criar ./venv."
+		return 1
+	fi
+
+	if [ ! -x "$VENV_PYTHON" ]; then
+		echo "pre-commit: erro: nao foi possivel criar ./venv."
+		return 1
+	fi
 	return 0
 }
 
-run_tool() {
-	local tool_ref="$1"
-	shift
-	if [[ "$tool_ref" == "pyenv exec "* ]]; then
-		pyenv exec "${tool_ref#pyenv exec }" "$@"
+ensure_python_tools() {
+	local required_tools=("$@")
+	local missing_tools=()
+	local tool=""
+
+	if [ ! -f "$REQUIREMENTS_FILE" ]; then
+		echo "pre-commit: erro: requirements.txt nao encontrado em $REQUIREMENTS_FILE."
+		return 1
+	fi
+
+	for tool in "${required_tools[@]}"; do
+		if [ ! -x "$VENV_BIN/$tool" ]; then
+			missing_tools+=("$tool")
+		fi
+	done
+
+	if [ "${#missing_tools[@]}" -eq 0 ]; then
 		return 0
 	fi
-	"$tool_ref" "$@"
+
+	echo "pre-commit: instalando ferramentas Python no venv: ${missing_tools[*]}"
+	"$VENV_PYTHON" -m pip install --requirement "$REQUIREMENTS_FILE"
+
+	for tool in "${required_tools[@]}"; do
+		if [ ! -x "$VENV_BIN/$tool" ]; then
+			echo "pre-commit: erro: ferramenta '$tool' indisponivel apos instalar requirements.txt."
+			return 1
+		fi
+	done
+	return 0
+}
+
+run_venv_tool() {
+	local tool_name="$1"
+	shift
+	"$VENV_BIN/$tool_name" "$@"
 }
 
 if [ "${#staged_python_files[@]}" -gt 0 ]; then
 	echo "pre-commit: ajustando ${#staged_python_files[@]} arquivo(s) Python..."
-	if ! command -v pyenv >/dev/null 2>&1; then
-		echo "pre-commit: erro: pyenv não encontrado. Configure pyenv para executar ferramentas Python deste repositório."
-		exit 1
-	fi
+	required_python_tools=("unimport" "isort" "yapf")
 
-	if unimport_bin="$(resolve_tool unimport)"; then
-		if run_tool "$unimport_bin" "${staged_python_files[@]}"; then
-			echo "pre-commit: unimport aplicado."
-		else
-			echo "pre-commit: aviso: unimport retornou erro; seguindo com isort/yapf."
-		fi
+	ensure_venv
+	ensure_python_tools "${required_python_tools[@]}"
+
+	if run_venv_tool unimport "${staged_python_files[@]}"; then
+		echo "pre-commit: unimport aplicado."
 	else
-		echo "pre-commit: aviso: unimport não encontrado; pulando remoção automática de imports não usados."
+		echo "pre-commit: aviso: unimport retornou erro; seguindo com isort/yapf."
 	fi
 
-	if ! isort_bin="$(resolve_tool isort)"; then
-		echo "pre-commit: erro: isort não encontrado no ambiente selecionado pelo pyenv."
-		exit 1
-	fi
-	run_tool "$isort_bin" --settings-path pyproject.toml "${staged_python_files[@]}"
+	run_venv_tool isort --settings-path pyproject.toml "${staged_python_files[@]}"
 	echo "pre-commit: isort aplicado."
 
-	if ! yapf_bin="$(resolve_tool yapf)"; then
-		echo "pre-commit: erro: yapf não encontrado no ambiente selecionado pelo pyenv."
-		exit 1
-	fi
-	run_tool "$yapf_bin" --in-place "${staged_python_files[@]}"
+	run_venv_tool yapf --in-place "${staged_python_files[@]}"
 	echo "pre-commit: yapf aplicado."
 fi
 
