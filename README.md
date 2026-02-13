@@ -1,7 +1,7 @@
-My settings for:\n
+My settings for:
+
 * bin
 * bootstrap
 * containers
 * platform
 * terminal
-* venv

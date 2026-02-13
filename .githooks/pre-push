@@ -1,11 +1,21 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-echo "My settings for:\n" > README.md
+tmp_file="$(mktemp)"
+trap 'rm -f "$tmp_file"' EXIT
 
-find . -maxdepth 1 -type d -not -name '\.*' | sort | while read -r folder; do
-	echo "* ${folder:2}" >> README.md
-done
+{
+	printf "# dotfiles\n\n## my settings for:\n\n"
+	find . -maxdepth 1 -type d -not -name '\.*' -not -name 'venv' | sort | while read -r folder; do
+		printf "* %s\n" "${folder#./}"
+	done
+} > "$tmp_file"
 
-git add README.md
-git commit -m 'Updating README'
+if [ -f "README.md" ] && cmp -s "$tmp_file" "README.md"; then
+	exit 0
+fi
+
+cp "$tmp_file" "README.md"
+echo "pre-push: README.md atualizado automaticamente e precisa ser commitado."
+echo "pre-push: execute: git add README.md && git commit -m 'Update README'"
+exit 1
