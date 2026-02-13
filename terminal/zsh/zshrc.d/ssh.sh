@@ -5,5 +5,9 @@
 # ssh-add -L
 
 if [ "$(uname)" != "Darwin" ] ; then
-	ssh-agent -s > ~/.ssh/ssh-agent ; eval `cat ~/.ssh/ssh-agent` 1>/dev/null ; ssh-add ; ssh-add -l >/dev/null
+	if ! test -f ~/.ssh/ssh-agent ; then
+		ssh-agent -s > ~/.ssh/ssh-agent
+	fi
+	eval `cat ~/.ssh/ssh-agent` 1>/dev/null
+	ssh-add >/dev/null
 fi
