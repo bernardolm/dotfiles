@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
+import os
 from pathlib import Path
 import sys
 
@@ -9,12 +11,9 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
-from dotfiles_tools.bootstrap_flow import bootstrap_flow  # noqa: E402
+from bootstrap.bootstrap_flow import bootstrap_flow
 
 if __name__ == "__main__":
-	import argparse
-	import os
-
 	parser = argparse.ArgumentParser(description="Bootstrap terminal environment.")
 	parser.add_argument("--profile",
 											choices=["desktop", "server"],

@@ -6,19 +6,31 @@ from pathlib import Path
 
 
 def ensure_symlink(src: Path, dest: Path, dry_run: bool = False) -> None:
+	if dry_run:
+		if dest.exists() or dest.is_symlink():
+			if dest.is_symlink():
+				try:
+					if dest.resolve() == src.resolve():
+						return
+				except OSError:
+					pass
+			backup = dest.with_suffix(dest.suffix + ".bak")
+			print(f"DRY-RUN: mv {dest} {backup}")
+		print(f"DRY-RUN: ln -s {src} {dest}")
+		return
+
 	dest.parent.mkdir(parents=True, exist_ok=True)
 	if dest.exists() or dest.is_symlink():
-		if dest.is_symlink() and dest.resolve() == src:
-			return
+		if dest.is_symlink():
+			try:
+				if dest.resolve() == src.resolve():
+					return
+			except OSError:
+				pass
 		backup = dest.with_suffix(dest.suffix + ".bak")
-		if dry_run:
-			print(f"DRY-RUN: mv {dest} {backup}")
-		else:
-			dest.rename(backup)
-	if dry_run:
-		print(f"DRY-RUN: ln -s {src} {dest}")
-	else:
-		dest.symlink_to(src)
+		dest.rename(backup)
+
+	dest.symlink_to(src)
 
 
 if __name__ == "__main__":

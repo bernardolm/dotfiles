@@ -3,23 +3,31 @@ from __future__ import annotations
 
 import argparse
 import os
+from pathlib import Path
+import shlex
 import subprocess
 
 
 def run(cmd: list[str],
 				check: bool = True,
 				dry_run: bool = False,
-				env: dict[str, str] | None = None) -> int:
+				env: dict[str, str] | None = None,
+				cwd: Path | None = None) -> int:
 	if dry_run:
-		print("DRY-RUN:", " ".join(cmd))
+		print("DRY-RUN:", " ".join(shlex.quote(part) for part in cmd))
 		return 0
-	return subprocess.run(cmd, check=check, env=env).returncode
+
+	completed = subprocess.run(cmd, check=False, env=env, cwd=str(cwd) if cwd else None)
+	if check and completed.returncode != 0:
+		raise subprocess.CalledProcessError(completed.returncode, cmd)
+	return completed.returncode
 
 
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser(description="Run a command with optional dry-run.")
-	parser.add_argument("--no-check", action="store_true", help="Do not raise on error")
+	parser.add_argument("--no-check", action="store_true", help="Do not fail on non-zero exit code")
 	parser.add_argument("--dry-run", action="store_true", help="Print command without running")
+	parser.add_argument("--cwd", default=None, help="Optional working directory")
 	parser.add_argument("--env", action="append", default=[], help="Env override KEY=VALUE")
 	parser.add_argument("cmd", nargs=argparse.REMAINDER)
 	args = parser.parse_args()
@@ -34,4 +42,11 @@ if __name__ == "__main__":
 			key, value = item.split("=", 1)
 			env[key] = value
 
-	raise SystemExit(run(args.cmd, check=not args.no_check, dry_run=args.dry_run, env=env))
+	raise SystemExit(
+		run(
+			args.cmd,
+			check=not args.no_check,
+			dry_run=args.dry_run,
+			env=env,
+			cwd=Path(args.cwd) if args.cwd else None,
+		))

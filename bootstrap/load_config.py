@@ -6,12 +6,14 @@ from typing import Any
 
 
 def load_config(path: Path) -> dict[str, Any]:
-	content = path.read_text(errors="ignore")
+	content = path.read_text(encoding="utf-8", errors="ignore")
 	try:
 		import yaml  # type: ignore
 
 		data = yaml.safe_load(content)
-		return data or {}
+		if isinstance(data, dict):
+			return data
+		return {}
 	except Exception:
 		return _parse_simple_yaml(content)
 
@@ -32,12 +34,9 @@ def _parse_simple_yaml(content: str) -> dict[str, Any]:
 			current_pkg = None
 			if stripped.endswith(":"):
 				key = stripped[:-1].strip()
-				if key == "envs":
-					data[key] = {}
-					current_section = "envs"
-				elif key == "packages":
-					data[key] = []
-					current_section = "packages"
+				if key in {"envs", "packages", "aliases", "path", "symbolic_links"}:
+					data[key] = {} if key in {"envs", "aliases", "path", "symbolic_links"} else []
+					current_section = key
 				else:
 					data[key] = ""
 					current_section = ""
@@ -48,10 +47,10 @@ def _parse_simple_yaml(content: str) -> dict[str, Any]:
 				current_section = ""
 			continue
 
-		if current_section == "envs":
+		if current_section in {"envs", "aliases", "path", "symbolic_links"}:
 			if ":" in stripped:
 				key, value = stripped.split(":", 1)
-				data.setdefault("envs", {})[key.strip()] = value.strip()
+				data.setdefault(current_section, {})[key.strip()] = value.strip()
 			continue
 
 		if current_section == "packages":

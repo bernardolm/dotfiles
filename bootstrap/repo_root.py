@@ -6,14 +6,12 @@ from pathlib import Path
 
 
 def repo_root() -> Path:
-	env_root = os.environ.get("DOTFILES")
+	env_root = os.environ.get("DOTFILES", "").strip()
 	if env_root:
-		root = Path(env_root).expanduser()
-		if root.exists():
-			return root
-	default_root = Path.home() / "dotfiles"
-	if default_root.exists():
-		return default_root
+		candidate = Path(env_root).expanduser()
+		if candidate.exists():
+			return candidate
+
 	return Path(__file__).resolve().parents[1]
 
 
