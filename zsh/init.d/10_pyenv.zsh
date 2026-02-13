@@ -1,1 +1,1 @@
-eval "$(pyenv init --detect-shell)"
+command -v pyenv >/dev/null && eval "$(pyenv init --detect-shell)"

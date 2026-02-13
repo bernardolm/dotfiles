@@ -22,7 +22,6 @@
 #
 # [ ] Realod on network change
 # [ ] Load custom fallbacks as a list
-# [ ] ...
 #
 
 function dns_local_setup() {

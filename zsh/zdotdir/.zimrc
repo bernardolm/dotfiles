@@ -1,0 +1,12 @@
+zmodule environment
+zmodule input
+zmodule termtitle
+zmodule utility
+zmodule completion
+zmodule git
+zmodule git-info
+zmodule duration-info
+zmodule zsh-users/zsh-completions
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-history-substring-search
+zmodule zsh-users/zsh-syntax-highlighting

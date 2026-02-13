@@ -34,20 +34,30 @@ count=0
 
 		count=$((count + 1))
 
-		code_arg="--install-extension"
-		signal=+
+		signal=${ext: -1}
 
-		if [[ "$ext" =~ ^"-" ]]; then
-			code_arg="--uninstall-extension"
-			signal=-
-			ext=${ext:1}
-		fi
+		case $signal in
+			"-")
+				code_arg="--force --uninstall-extension"
+				ext=${ext%?}
+				;;
+			# "*")
+			# 	code_arg="--disable-extension"
+			# 	ext=${ext%?}
+			# 	;;
+			*)
+				code_arg="--force --install-extension"
+				;;
+		esac
 
-		echo -e "> $signal $ext [$count/$total]"
+		action="\e[0;36m$code_arg:\e[0m"
+		progress="\e[0;35m[$count/$total]\e[0m"
 
-		local cmd="$CODE_CLI_BIN $CODE_USE_VERSION --force --log critical --extensions-dir '$CODE_EXTENSIONS_DIR' --user-data-dir '$CODE_USER_DATA_DIR' $code_arg $ext"
+		echo -e "> $action $ext $progress"
 
-		((SHELL_DEBUG)) && echo -e "$cmd"
+		cmd="$CODE_CLI_BIN $CODE_USE_VERSION --log critical --extensions-dir '$CODE_EXTENSIONS_DIR' --user-data-dir '$CODE_USER_DATA_DIR' $code_arg $ext"
+
+		((SHELL_DEBUG)) && echo -e "\e[0;32m$cmd\e[0m"
 
 		(eval $cmd 2>&1 \
 			| grep -v 'is not installed' \
@@ -55,7 +65,7 @@ count=0
 			| grep -v 'already installed.' \
 		) || true
 
-		echo done
+		echo -e "done\n"
 
 		((SHELL_DEBUG)) && [[ "$count" -ge "3" ]] && break
 
