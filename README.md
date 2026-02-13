@@ -1,4 +1,6 @@
-My settings for:
+# dotfiles
+
+## my settings for
 
 * bin
 * bootstrap
