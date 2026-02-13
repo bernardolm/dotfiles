@@ -141,7 +141,8 @@ format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
 [python]
 symbol = ""
 style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
+detect_env_vars = ["VIRTUAL_ENV"]
+format = '[[ $symbol( $version)( venv:$virtualenv) ](fg:color_fg0 bg:color_blue)]($style)'
 
 [docker_context]
 symbol = ""
@@ -264,4 +265,3 @@ disabled = true
 
 [ocaml]
 disabled = true
-
