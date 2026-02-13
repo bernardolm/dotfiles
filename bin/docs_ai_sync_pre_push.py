@@ -5,7 +5,6 @@ from dataclasses import dataclass
 import hashlib
 import os
 from pathlib import Path
-import shlex
 import shutil
 import subprocess
 import sys
@@ -45,12 +44,10 @@ def main(
 
 	updates = _read_ref_updates(sys.stdin)
 	if not updates:
-		print("pre-push: nenhum update de referencia recebido; pulando IA de documentacao.")
 		return 0
 
 	commit_shas = _collect_commit_shas(updates, remote_name, max_commits)
 	if not commit_shas:
-		print("pre-push: nenhum commit novo relevante para documentar (fora de .v1).")
 		return 0
 
 	instructions_path = (ROOT / instructions_file).resolve()
@@ -86,14 +83,8 @@ def main(
 		commit_lines=commit_lines,
 	)
 
-	print(f"pre-push: IA de documentacao iniciando para {len(commit_shas)} commit(s) "
-				f"com comando '{ai_command}'.")
-
 	if dry_run:
-		print("pre-push: dry-run ativo; nenhuma alteracao sera aplicada.")
-		print("pre-push: commits considerados:")
-		for line in commit_lines:
-			print(f"- {line}")
+		print(f"pre-push: dry-run: IA nao executada ({len(commit_shas)} commit(s) analisado(s)).")
 		return 0
 
 	result = _run_ai_command(
@@ -122,11 +113,10 @@ def main(
 		return 1
 
 	if after_readme != before_readme:
-		print(f"pre-push: {readme_rel} foi atualizado pela IA com base nos commits do push.")
-		print("pre-push: revise, faça commit do README e execute o push novamente.")
+		print(
+			f"pre-push: {readme_rel} atualizado pela IA; revise, faca commit e rode o push novamente.")
 		return 1
 
-	print("pre-push: README ja estava alinhado; push liberado.")
 	return 0
 
 
@@ -257,10 +247,25 @@ def _build_prompt(
 
 
 def _run_ai_command(ai_command: str, prompt: str, timeout_seconds: int) -> int:
-	cmd = [ai_command, "exec", "--full-auto", "-C", str(ROOT), prompt]
-	print("pre-push: executando:", " ".join(shlex.quote(item) for item in cmd[:5]), "<PROMPT>")
+	cmd = [
+		ai_command,
+		"exec",
+		"--full-auto",
+		"-C",
+		str(ROOT),
+		prompt,
+	]
+	if Path(ai_command).name == "codex":
+		cmd[3:3] = ["-c", 'model_reasoning_effort="medium"']
 	try:
-		completed = subprocess.run(cmd, check=False, cwd=str(ROOT), timeout=timeout_seconds)
+		completed = subprocess.run(
+			cmd,
+			check=False,
+			cwd=str(ROOT),
+			timeout=timeout_seconds,
+			stdout=subprocess.DEVNULL,
+			stderr=subprocess.DEVNULL,
+		)
 	except subprocess.TimeoutExpired:
 		print(f"pre-push: erro: comando de IA excedeu timeout de {timeout_seconds}s.")
 		return 1
@@ -269,7 +274,7 @@ def _run_ai_command(ai_command: str, prompt: str, timeout_seconds: int) -> int:
 		return 1
 
 	if completed.returncode != 0:
-		print(f"pre-push: erro: comando de IA retornou codigo {completed.returncode}.")
+		print(f"pre-push: erro: comando de IA falhou (codigo {completed.returncode}).")
 		return completed.returncode
 	return 0
 

@@ -70,6 +70,13 @@ run_python() {
 	return 1
 }
 
+resolved_python_version() {
+	run_python - <<'PY'
+import sys
+print(f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}")
+PY
+}
+
 is_executable_file() {
 	local path="$1"
 	[ -f "$path" ] && [ -x "$path" ]
@@ -78,29 +85,30 @@ is_executable_file() {
 ensure_python_venv() {
 	local venv_dir="$repo_root/venv"
 	local venv_python="$venv_dir/bin/python"
+	local base_python_version=""
+	local venv_python_version=""
+
+	base_python_version="$(resolved_python_version)" || {
+		echo "pre-commit: erro: nao foi possivel resolver versao do Python via pyenv/python do sistema."
+		return 1
+	}
 
 	if is_executable_file "$venv_python"; then
-		return 0
+		venv_python_version="$("$venv_python" - <<'PY'
+import sys
+print(f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}")
+PY
+)"
+		if [ "$venv_python_version" = "$base_python_version" ]; then
+			return 0
+		fi
+		echo "pre-commit: recriando ./venv para alinhar com pyenv local (${base_python_version})."
+		rm -rf "$venv_dir"
 	fi
 
 	echo "pre-commit: criando virtualenv local em ./venv..."
-	if command -v pyenv >/dev/null 2>&1; then
-		pyenv exec python -m venv "$venv_dir" || {
-			echo "pre-commit: erro: falha ao criar ./venv via pyenv."
-			return 1
-		}
-	elif command -v python3 >/dev/null 2>&1; then
-		python3 -m venv "$venv_dir" || {
-			echo "pre-commit: erro: falha ao criar ./venv via python3."
-			return 1
-		}
-	elif command -v python >/dev/null 2>&1; then
-		python -m venv "$venv_dir" || {
-			echo "pre-commit: erro: falha ao criar ./venv via python."
-			return 1
-		}
-	else
-		echo "pre-commit: erro: python nao encontrado para criar ./venv."
+	if ! run_python -m venv "$venv_dir"; then
+		echo "pre-commit: erro: falha ao criar ./venv com o Python resolvido pelo pyenv/sistema."
 		return 1
 	fi
 
@@ -229,10 +237,30 @@ run_python_formatters() {
 	local venv_bin="$repo_root/venv/bin"
 	local isort_settings_path="$repo_root/pyproject.toml"
 	local yapf_style_path="$repo_root/pyproject.toml"
+	local unimport_log_file="$repo_root/.git/.pre-commit-unimport.log"
+	local py_version=""
 
-	"$venv_bin/unimport" "${staged_python_files[@]}" && \
-		echo "pre-commit: unimport aplicado." || \
-		echo "pre-commit: aviso: unimport retornou erro; seguindo com isort/yapf."
+	py_version="$(resolved_python_version)"
+
+	if run_python - <<'PY'
+import ast
+import sys
+sys.exit(0 if hasattr(ast, "Str") else 1)
+PY
+	then
+		if "$venv_bin/unimport" "${staged_python_files[@]}" >"$unimport_log_file" 2>&1; then
+			echo "pre-commit: unimport aplicado."
+		else
+			if rg -q "module 'ast' has no attribute 'Str'" "$unimport_log_file"; then
+				echo "pre-commit: aviso: unimport incompativel com Python ${py_version}; pulando unimport."
+			else
+				echo "pre-commit: aviso: unimport retornou erro; seguindo com isort/yapf."
+				tail -n 5 "$unimport_log_file" || true
+			fi
+		fi
+	else
+		echo "pre-commit: aviso: unimport incompativel com Python ${py_version}; pulando unimport."
+	fi
 
 	if ! "$venv_bin/isort" --settings-path "$isort_settings_path" "${staged_python_files[@]}"; then
 		echo "pre-commit: erro: isort falhou."
