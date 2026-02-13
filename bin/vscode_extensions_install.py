@@ -158,12 +158,15 @@ def sync_extensions(extensions: list[str], code_bin: str, force: bool = True, dr
             print(f"[{idx}/{total}] Aviso: entrada inválida '{raw_ext}', ignorando.")
             continue
 
+        action_label = "Removendo" if action == "remove" else "Instalando"
+        log_prefix = f"[{idx}/{total}] {action_label}: {ext}"
+
         if action == "remove":
             remove_count += 1
-            print(f"[{idx}/{total}] Removendo: {ext}")
+            print(log_prefix, end="", flush=True)
             if installed_extensions is not None and ext not in installed_extensions:
                 warnings.append(ext)
-                print("  AVISO: extensão já não estava instalada")
+                print(" - AVISO: extensão já não estava instalada")
                 continue
             cmd = [code_bin, "--uninstall-extension", ext]
         else:
@@ -171,14 +174,15 @@ def sync_extensions(extensions: list[str], code_bin: str, force: bool = True, dr
             cmd = [code_bin, "--install-extension", ext]
             if force:
                 cmd.append("--force")
-            print(f"[{idx}/{total}] Instalando: {ext}")
+            print(log_prefix, end="", flush=True)
 
         if dry_run:
             if os.name == "nt":
                 printable_cmd = subprocess.list2cmdline(cmd)
             else:
                 printable_cmd = shlex.join(cmd)
-            print("  DRY-RUN:", printable_cmd)
+            print(" - DRY-RUN")
+            print(f"  {printable_cmd}")
             continue
 
         proc = subprocess.run(cmd, capture_output=True, text=True)
@@ -187,17 +191,17 @@ def sync_extensions(extensions: list[str], code_bin: str, force: bool = True, dr
                 installed_extensions.discard(ext)
             if action == "install" and installed_extensions is not None:
                 installed_extensions.add(ext)
-            print("  OK")
+            print(" - OK")
             continue
 
         output = (proc.stderr or proc.stdout).strip()
-        if action == "remove" and "is not installed" in output.lower():
+        if action == "remove" and "not installed" in output.lower():
             warnings.append(ext)
-            print("  AVISO: extensão já não estava instalada")
+            print(" - AVISO: extensão já não estava instalada")
             continue
 
         failures.append(ext)
-        print(f"  FALHOU (exit={proc.returncode})")
+        print(f" - FALHOU (exit={proc.returncode})")
         if output:
             print(f"  {output.splitlines()[-1]}")
 
@@ -206,7 +210,7 @@ def sync_extensions(extensions: list[str], code_bin: str, force: bool = True, dr
     print(f"Instalações: {install_count}")
     print(f"Remoções: {remove_count}")
     print(f"Avisos: {len(warnings)}")
-    print(f"Sucesso: {total - len(failures) - len(warnings)}")
+    print(f"Sucesso: {total - len(failures)}")
     print(f"Falhas: {len(failures)}")
     if warnings:
         print("Extensões com aviso:")
@@ -319,7 +323,12 @@ if __name__ == "__main__":
         print(f"Arquivo não encontrado: {extensions_file}")
         raise SystemExit(2)
 
-    extensions = load_extensions(extensions_file)
+    try:
+        extensions = load_extensions(extensions_file)
+    except (OSError, json.JSONDecodeError, ValueError) as exc:
+        print(f"Falha ao carregar extensões de {extensions_file}: {exc}")
+        raise SystemExit(2)
+
     if not extensions:
         print(f"Nenhuma extensão encontrada em: {extensions_file}")
         raise SystemExit(0)
