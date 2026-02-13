@@ -1,34 +1,75 @@
 {
-  "[python]": {
-    "editor.defaultFormatter": "eeyore.yapf",
-    "editor.detectIndentation": false,
-    "editor.formatOnPaste": false,
-    "editor.formatOnSave": true,
-    "editor.formatOnSaveMode": "modifications",
-    "editor.formatOnType": true,
-    "editor.indentSize": "tabSize",
-    "editor.insertSpaces": false,
-    "editor.tabSize": 2
-  },
-  "editor.rulers": [80, 90, 100, 110, 120],
-  "python.analysis.diagnosticSeverityOverrides": {
-    "reportMissingTypeArgument": "none",
-    "reportMissingParameterType": "none",
-    "reportUnknownArgumentType": "none",
-    "reportUnknownLambdaType": "none",
-    "reportUnknownMemberType": "none",
-    "reportUnknownParameterType": "none",
-    "reportUnknownVariableType": "none"
-  },
-  "yapf.args": ["--in-place", "--recursive"],
-  "python.REPL.enableREPLSmartSend": false,
-  "yapf.showDebugLog": true,
-  "files.trimTrailingWhitespace": true,
-  "git.ignoreLimitWarning": true,
-  "python.analysis.fixAll": ["source.unusedImports"],
-  "python.defaultInterpreterPath": "venv/bin/python",
-  "python.terminal.activateEnvironment": true,
-  "yapf.importStrategy": "useBundled",
-  "yapf.path": ["venv/bin/yapf"],
-  "files.eol": "\n"
+	"[python]": {
+		"editor.codeActionsOnSave": {
+			"source.organizeImports": "always"
+		},
+		"editor.defaultFormatter": "eeyore.yapf",
+		"editor.detectIndentation": false,
+		"editor.formatOnPaste": false,
+		"editor.formatOnSave": true,
+		"editor.formatOnSaveMode": "file",
+		"editor.formatOnType": true,
+		"editor.indentSize": "tabSize",
+		"editor.insertSpaces": false,
+		"editor.tabSize": 2
+	},
+	"[yaml]": {
+		"editor.defaultFormatter": "esbenp.prettier-vscode",
+		"editor.insertSpaces": true,
+		"editor.tabSize": 2
+	},
+	"editor.rulers": [
+		80,
+		90,
+		100,
+		110,
+		120
+	],
+	"isort.args": [
+		"--settings-path",
+		"${workspaceFolder}/pyproject.toml"
+	],
+	"isort.path": [
+		"${env:HOME}/.pyenv/shims/isort"
+	],
+	"python.analysis.diagnosticSeverityOverrides": {
+		"reportMissingTypeArgument": "none",
+		"reportMissingParameterType": "none",
+		"reportUnknownArgumentType": "none",
+		"reportUnknownLambdaType": "none",
+		"reportUnknownMemberType": "none",
+		"reportUnknownParameterType": "none",
+		"reportUnknownVariableType": "none"
+	},
+	"python.analysis.fixAll": [
+		"source.unusedImports"
+	],
+	"terminal.integrated.env.osx": {
+		"PYENV_ROOT": "${env:HOME}/.pyenv",
+		"PATH": "${env:HOME}/.pyenv/shims:${env:HOME}/.pyenv/bin:${env:PATH}"
+	},
+	"terminal.integrated.env.linux": {
+		"PYENV_ROOT": "${env:HOME}/.pyenv",
+		"PATH": "${env:HOME}/.pyenv/shims:${env:HOME}/.pyenv/bin:${env:PATH}"
+	},
+	"yapf.path": [
+		"${env:HOME}/.pyenv/shims/yapf"
+	],
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
+	"editor.detectIndentation": false,
+	"editor.formatOnSave": true,
+	"editor.formatOnSaveMode": "file",
+	"editor.insertSpaces": false,
+	"editor.tabSize": 2,
+	"files.eol": "\n",
+	"files.trimTrailingWhitespace": true,
+	"git.ignoreLimitWarning": true,
+	"isort.importStrategy": "fromEnvironment",
+	"prettier.useEditorConfig": true,
+	"python.defaultInterpreterPath": "${env:HOME}/.pyenv/shims/python",
+	"python.REPL.enableREPLSmartSend": false,
+	"python.terminal.activateEnvironment": false,
+	"yapf.importStrategy": "fromEnvironment",
+	"yapf.showDebugLog": true,
+	// "yapf.args": ["--in-place", "--recursive"],
 }

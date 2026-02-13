@@ -1,0 +1,125 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+PYENV_ROOT="${PYENV_ROOT:-$HOME/.pyenv}"
+if [ -x "$PYENV_ROOT/bin/pyenv" ]; then
+	export PYENV_ROOT
+	export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"
+	if [ -z "${PYENV_VERSION:-}" ] && [ -f ".python-version" ]; then
+		PYENV_VERSION="$(head -n 1 .python-version | tr -d '[:space:]')"
+		export PYENV_VERSION
+	fi
+fi
+
+staged_python_files=()
+staged_files=()
+while IFS= read -r -d '' file; do
+	staged_files+=("$file")
+	case "$file" in
+		*.py) staged_python_files+=("$file") ;;
+	esac
+done < <(git diff --cached --name-only --diff-filter=ACMR -z)
+
+if [ "${#staged_files[@]}" -eq 0 ]; then
+	exit 0
+fi
+
+supports_tab_indentation() {
+	local file="$1"
+	case "$file" in
+		*.yml|*.yaml)
+			return 1
+			;;
+		*.py|*.sh|*.zsh|*.bash|*.ksh|*.lua|*.go|*.js|*.jsx|*.ts|*.tsx|*.json|*.jsonc|*.toml|*.ini|*.cfg|*.conf|*.css|*.scss|*.sass|*.less|*.html|*.xml|*.sql|*.tf|*.tfvars|*.md|*.txt|*.rst|*.env|*.gitignore|*.dockerignore|*.editorconfig|*/.gitignore|*/.dockerignore|*/Dockerfile|*/Dockerfile.*|*/Makefile|*/Makefile.*|Dockerfile|Dockerfile.*|Makefile|Makefile.*|*.mk)
+			return 0
+			;;
+		*)
+			return 1
+			;;
+	esac
+}
+
+normalize_to_tabs() {
+	local file="$1"
+	perl -i -pe 's#^( +)#("\t" x int(length($1)/2)) . (" " x (length($1)%2))#e' "$file"
+}
+
+normalized_files=()
+for file in "${staged_files[@]}"; do
+	[ -f "$file" ] || continue
+	supports_tab_indentation "$file" || continue
+	before_checksum="$(cksum < "$file")"
+	normalize_to_tabs "$file"
+	after_checksum="$(cksum < "$file")"
+	if [ "$before_checksum" != "$after_checksum" ]; then
+		normalized_files+=("$file")
+	fi
+done
+
+if [ "${#normalized_files[@]}" -gt 0 ]; then
+	echo "pre-commit: indentacao normalizada para tabs (size=2) em ${#normalized_files[@]} arquivo(s)."
+fi
+
+resolve_tool() {
+	local tool_name="$1"
+	command -v pyenv >/dev/null 2>&1 || return 1
+	pyenv which "$tool_name" >/dev/null 2>&1 || return 1
+	printf '%s\n' "pyenv exec $tool_name"
+	return 0
+}
+
+run_tool() {
+	local tool_ref="$1"
+	shift
+	if [[ "$tool_ref" == "pyenv exec "* ]]; then
+		pyenv exec "${tool_ref#pyenv exec }" "$@"
+		return 0
+	fi
+	if [[ "$tool_ref" == "python3 -m "* ]]; then
+		python3 -m "${tool_ref#python3 -m }" "$@"
+		return 0
+	fi
+	if [[ "$tool_ref" == "python -m "* ]]; then
+		python -m "${tool_ref#python -m }" "$@"
+		return 0
+	fi
+	"$tool_ref" "$@"
+}
+
+if [ "${#staged_python_files[@]}" -gt 0 ]; then
+	echo "pre-commit: ajustando ${#staged_python_files[@]} arquivo(s) Python..."
+	if ! command -v pyenv >/dev/null 2>&1; then
+		echo "pre-commit: erro: pyenv não encontrado. Configure pyenv para executar ferramentas Python deste repositório."
+		exit 1
+	fi
+
+	if unimport_bin="$(resolve_tool unimport)"; then
+		if run_tool "$unimport_bin" "${staged_python_files[@]}"; then
+			echo "pre-commit: unimport aplicado."
+		else
+			echo "pre-commit: aviso: unimport retornou erro; seguindo com isort/yapf."
+		fi
+	else
+		echo "pre-commit: aviso: unimport não encontrado; pulando remoção automática de imports não usados."
+	fi
+
+	if ! isort_bin="$(resolve_tool isort)"; then
+		echo "pre-commit: erro: isort não encontrado no ambiente selecionado pelo pyenv."
+		exit 1
+	fi
+	run_tool "$isort_bin" --settings-path pyproject.toml "${staged_python_files[@]}"
+	echo "pre-commit: isort aplicado."
+
+	if ! yapf_bin="$(resolve_tool yapf)"; then
+		echo "pre-commit: erro: yapf não encontrado no ambiente selecionado pelo pyenv."
+		exit 1
+	fi
+	run_tool "$yapf_bin" --in-place "${staged_python_files[@]}"
+	echo "pre-commit: yapf aplicado."
+fi
+
+git add -- "${staged_files[@]}"
+echo "pre-commit: ajustes aplicados e adicionados ao stage."

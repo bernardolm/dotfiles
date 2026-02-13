@@ -1,0 +1,13 @@
+{
+	"useTabs": true,
+	"tabWidth": 2,
+	"overrides": [
+		{
+			"files": ["*.yml", "*.yaml"],
+			"options": {
+				"useTabs": false,
+				"tabWidth": 2
+			}
+		}
+	]
+}

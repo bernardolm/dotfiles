@@ -59,3 +59,27 @@ use_tabs = true
 
 [tool.yapfignore]
 ignore_patterns = ['.web', '**/__pycache__', 'venv']
+
+# ------------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ['tests']
+python_files = ['test_*.py']
+python_classes = ['Test*']
+python_functions = ['test_*']
+addopts = '''
+	-v
+	--tb=short
+	--strict-markers
+	-ra
+	--color=yes
+'''
+markers = [
+	'slow: Testes que levam mais de 1 minuto (ex: rate limiting)',
+	'integration: Testes de integração (requerem servidor rodando)',
+	'unit: Testes unitários (isolados, sem I/O)',
+]
+filterwarnings = [
+	'ignore::DeprecationWarning',
+	'ignore::PendingDeprecationWarning',
+]

@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "My settings for:\n" > README.md
+
+find . -maxdepth 1 -type d -not -name '\.*' | sort | while read -r folder; do
+	echo "* ${folder:2}" >> README.md
+done
+
+git add README.md
+git commit -m 'Updating README'

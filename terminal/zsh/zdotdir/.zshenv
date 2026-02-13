@@ -3,7 +3,7 @@ echo "\$ZDOTDIR/.zshenv"
 if [[ -o norcs ]] || (( $+ZSH_NO_RCS )) || [[ "i" =~ "$-" ]] ; then
 	tput init
 	echo \$ZDOTDIR/.zshenv norcs
-  eval $@
+	eval $@
 	return 0
 fi
 

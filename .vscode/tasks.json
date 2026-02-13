@@ -1,25 +1,25 @@
 {
-  // See https://go.microsoft.com/fwlink/?LinkId=733558
-  // for the documentation about the tasks.json format
-  // https://code.visualstudio.com/docs/reference/tasks-appendix
-  "version": "2.0.0",
-  "tasks": [
-    {
-      "command": "zsh --no-rcs -c ./bin/vscode_extensions_install.py",
-      "label": "Install VS Code extensions",
-      "type": "shell",
-      "windows": {
-        "command": "powershell -NoProfile -ExecutionPolicy Bypass -File ./bin/vscode_extensions_install.ps1"
-      },
-      "presentation": {
-        "clear": true
-      },
-      "group": "none",
-      "runOptions": {
-        "instanceLimit": 1,
-        "instancePolicy": "warn"
-      },
-      "problemMatcher": []
-    }
-  ]
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	// https://code.visualstudio.com/docs/reference/tasks-appendix
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"command": "zsh --no-rcs -c 'export PYENV_ROOT=\"$HOME/.pyenv\"; export PATH=\"$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH\"; pyenv exec python ./bin/vscode_extensions_install.py'",
+			"label": "Install VS Code extensions",
+			"type": "shell",
+			"windows": {
+				"command": "powershell -NoProfile -ExecutionPolicy Bypass -File ./bin/vscode_extensions_install.ps1"
+			},
+			"presentation": {
+				"clear": true
+			},
+			"group": "none",
+			"runOptions": {
+				"instanceLimit": 1,
+				"instancePolicy": "warn"
+			},
+			"problemMatcher": []
+		}
+	]
 }
