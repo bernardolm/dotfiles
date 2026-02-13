@@ -1,4 +1,0 @@
-function weather_by_lat_lon() {
-	lat_lon=$LATLON
-	curl -sL -H 'Accept-Language: pt-br' "wttr.in/${lat_lon}?m2AFnq&format=3"
-}

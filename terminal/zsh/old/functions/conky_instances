@@ -1,3 +1,0 @@
-function conky_instances() {
-	ps auxwf | grep -v grep | grep "_ conky" | wc -l | bc
-}

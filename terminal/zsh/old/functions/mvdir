@@ -1,3 +1,0 @@
-function mvdir() {
-	for last; do true; done; mkdir -m u=rwX,g=rX -p "$last" && mv "$@";
-}

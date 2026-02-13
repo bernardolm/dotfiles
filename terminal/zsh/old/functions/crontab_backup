@@ -1,7 +1,0 @@
-function crontab_backup() {
-	if [ -f "$HOME/sync/linux/crontab/${HOSTNAME}_current.txt" ]; then
-		mv "$HOME/sync/linux/crontab/${HOSTNAME}_current.txt" "$HOME/sync/linux/crontab/${HOSTNAME}_$(now).txt"
-	fi
-
-	crontab -l > "$HOME/sync/linux/crontab/${HOSTNAME}_current.txt"
-}
