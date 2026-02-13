@@ -19,7 +19,7 @@ source ${ZIM_HOME}/init.zsh
 # Run others inits
 for file in "$DOTFILES/terminal/zsh/zshrc.d/"*; do
 	if [ -f "$file" ]; then
-			echo -n "$(basename "$file" .zsh), "
+		echo -n "$(basename "$file" .zsh), "
 		. "$file"
 	fi
 done
