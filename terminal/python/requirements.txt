@@ -1,4 +1,7 @@
 colorama
-gcalcli
 dotenv
+gcalcli
+isort
 pprint
+unimport
+yapf

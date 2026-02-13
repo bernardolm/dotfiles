@@ -70,6 +70,90 @@ run_python() {
 	return 1
 }
 
+is_executable_file() {
+	local path="$1"
+	[ -f "$path" ] && [ -x "$path" ]
+}
+
+ensure_python_venv() {
+	local venv_dir="$repo_root/venv"
+	local venv_python="$venv_dir/bin/python"
+
+	if is_executable_file "$venv_python"; then
+		return 0
+	fi
+
+	echo "pre-commit: criando virtualenv local em ./venv..."
+	if command -v pyenv >/dev/null 2>&1; then
+		pyenv exec python -m venv "$venv_dir" || {
+			echo "pre-commit: erro: falha ao criar ./venv via pyenv."
+			return 1
+		}
+	elif command -v python3 >/dev/null 2>&1; then
+		python3 -m venv "$venv_dir" || {
+			echo "pre-commit: erro: falha ao criar ./venv via python3."
+			return 1
+		}
+	elif command -v python >/dev/null 2>&1; then
+		python -m venv "$venv_dir" || {
+			echo "pre-commit: erro: falha ao criar ./venv via python."
+			return 1
+		}
+	else
+		echo "pre-commit: erro: python nao encontrado para criar ./venv."
+		return 1
+	fi
+
+	if ! is_executable_file "$venv_python"; then
+		echo "pre-commit: erro: nao foi possivel criar ./venv."
+		return 1
+	fi
+	return 0
+}
+
+ensure_python_tools() {
+	local venv_bin="$repo_root/venv/bin"
+	local venv_python="$venv_bin/python"
+	local requirements_file="$repo_root/terminal/python/requirements.txt"
+	local missing=()
+	local tool=""
+
+	ensure_python_venv || return 1
+
+	if ! is_executable_file "$venv_python"; then
+		echo "pre-commit: erro: python do venv nao encontrado."
+		return 1
+	fi
+	if [ ! -f "$requirements_file" ]; then
+		echo "pre-commit: erro: requirements nao encontrado em $requirements_file."
+		return 1
+	fi
+
+	for tool in unimport isort yapf; do
+		if ! is_executable_file "$venv_bin/$tool"; then
+			missing+=("$tool")
+		fi
+	done
+
+	if [ "${#missing[@]}" -eq 0 ]; then
+		return 0
+	fi
+
+	echo "pre-commit: instalando ferramentas Python no venv: ${missing[*]}"
+	if ! "$venv_python" -m pip install --requirement "$requirements_file"; then
+		echo "pre-commit: erro: falha ao instalar terminal/python/requirements.txt."
+		return 1
+	fi
+
+	for tool in unimport isort yapf; do
+		if ! is_executable_file "$venv_bin/$tool"; then
+			echo "pre-commit: erro: ferramenta '$tool' indisponivel apos instalar requirements."
+			return 1
+		fi
+	done
+	return 0
+}
+
 validate_workflow_policies() {
 	local invalid=0
 	local file=""
@@ -141,11 +225,33 @@ if [ "${#normalized_files[@]}" -gt 0 ]; then
 	echo "pre-commit: indentacao (qualquer nivel) normalizada para tabs em ${#normalized_files[@]} arquivo(s)."
 fi
 
+run_python_formatters() {
+	local venv_bin="$repo_root/venv/bin"
+	local isort_settings_path="$repo_root/pyproject.toml"
+
+	"$venv_bin/unimport" "${staged_python_files[@]}" >/dev/null 2>&1 && \
+		echo "pre-commit: unimport aplicado." || \
+		echo "pre-commit: aviso: unimport retornou erro; seguindo com isort/yapf."
+
+	if ! "$venv_bin/isort" --settings-path "$isort_settings_path" "${staged_python_files[@]}"; then
+		echo "pre-commit: erro: isort falhou."
+		return 1
+	fi
+	echo "pre-commit: isort aplicado."
+
+	if ! "$venv_bin/yapf" --in-place "${staged_python_files[@]}"; then
+		echo "pre-commit: erro: yapf falhou."
+		return 1
+	fi
+	echo "pre-commit: yapf aplicado."
+	return 0
+}
+
 if [ "${#staged_python_files[@]}" -gt 0 ]; then
 	echo "pre-commit: ajustando ${#staged_python_files[@]} arquivo(s) Python..."
 
-	run_python "$repo_root/bin/pre_commit_ensure_python_tools.py"
-	run_python "$repo_root/bin/pre_commit_run_python_tools.py"
+	ensure_python_tools
+	run_python_formatters
 fi
 
 git add -- "${staged_files[@]}"
