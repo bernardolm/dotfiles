@@ -22,11 +22,11 @@ discard_v1_changes() {
 		return 0
 	fi
 
-	echo "pre-commit: desfazendo alteracoes em .v1 com git checkout HEAD -- .v1"
+	echo "pre-commit: desfazendo alterações em .v1 com git checkout HEAD -- .v1"
 	git checkout HEAD -- .v1
 
 	if git status --porcelain -- .v1 | grep -q '^\?\? '; then
-		echo "pre-commit: removendo nao rastreados em .v1"
+		echo "pre-commit: removendo não rastreados em .v1"
 		git clean -fd -- .v1 >/dev/null 2>&1 || true
 	fi
 }
@@ -66,7 +66,7 @@ run_python() {
 		python "$@"
 		return $?
 	fi
-	echo "pre-commit: erro: python nao encontrado para executar tarefas do hook." >&2
+	echo "pre-commit: erro: python não encontrado para executar tarefas do hook." >&2
 	return 1
 }
 
@@ -89,7 +89,7 @@ ensure_python_venv() {
 	local venv_python_version=""
 
 	base_python_version="$(resolved_python_version)" || {
-		echo "pre-commit: erro: nao foi possivel resolver versao do Python via pyenv/python do sistema."
+		echo "pre-commit: erro: não foi possível resolver versão do Python via pyenv/python do sistema."
 		return 1
 	}
 
@@ -113,7 +113,7 @@ PY
 	fi
 
 	if ! is_executable_file "$venv_python"; then
-		echo "pre-commit: erro: nao foi possivel criar ./venv."
+		echo "pre-commit: erro: não foi possível criar ./venv."
 		return 1
 	fi
 	return 0
@@ -129,11 +129,11 @@ ensure_python_tools() {
 	ensure_python_venv || return 1
 
 	if ! is_executable_file "$venv_python"; then
-		echo "pre-commit: erro: python do venv nao encontrado."
+		echo "pre-commit: erro: python do venv não encontrado."
 		return 1
 	fi
 	if [ ! -f "$requirements_file" ]; then
-		echo "pre-commit: erro: requirements nao encontrado em $requirements_file."
+		echo "pre-commit: erro: requirements não encontrado em $requirements_file."
 		return 1
 	fi
 
@@ -155,7 +155,7 @@ ensure_python_tools() {
 
 	for tool in unimport isort yapf; do
 		if ! is_executable_file "$venv_bin/$tool"; then
-			echo "pre-commit: erro: ferramenta '$tool' indisponivel apos instalar requirements."
+			echo "pre-commit: erro: ferramenta '$tool' indisponível após instalar requirements."
 			return 1
 		fi
 	done
@@ -169,7 +169,7 @@ validate_workflow_policies() {
 	for file in "${staged_workflow_files[@]-}"; do
 		[ -f "$file" ] || continue
 		if ! rg -q "\\.v1/\\*\\*|\\.v1/" "$file"; then
-			echo "pre-commit: erro: workflow sem exclusao explicita de .v1: $file"
+			echo "pre-commit: erro: workflow sem exclusão explícita de .v1: $file"
 			invalid=1
 		fi
 	done
@@ -206,15 +206,15 @@ validate_new_shell_scripts_policy() {
 			continue
 		fi
 		if ! head -n 30 "$file" | rg -q "shell-required:"; then
-			echo "pre-commit: erro: novo script shell sem justificativa tecnica: $file"
+			echo "pre-commit: erro: novo script shell sem justificativa técnica: $file"
 			invalid=1
 		fi
 	done
 
 	if [ "$invalid" -ne 0 ]; then
-		echo "pre-commit: regra ativa: novos scripts devem ser Python por padrao."
-		echo "pre-commit: use shell so quando necessario e adicione no topo do arquivo:"
-		echo "pre-commit:   # shell-required: <motivo tecnico de por que Python nao atende bem>"
+		echo "pre-commit: regra ativa: novos scripts devem ser Python por padrão."
+		echo "pre-commit: use shell só quando necessário e adicione no topo do arquivo:"
+		echo "pre-commit:   # shell-required: <motivo técnico de por que Python não atende bem>"
 		return 1
 	fi
 	return 0
@@ -230,7 +230,7 @@ while IFS= read -r changed_file; do
 done < <(run_python "$repo_root/bin/normalize_tabs.py")
 
 if [ "${#normalized_files[@]}" -gt 0 ]; then
-	echo "pre-commit: indentacao (qualquer nivel) normalizada para tabs em ${#normalized_files[@]} arquivo(s)."
+	echo "pre-commit: indentação (qualquer nível) normalizada para tabs em ${#normalized_files[@]} arquivo(s)."
 fi
 
 run_python_formatters() {
@@ -252,14 +252,14 @@ PY
 			echo "pre-commit: unimport aplicado."
 		else
 			if rg -q "module 'ast' has no attribute 'Str'" "$unimport_log_file"; then
-				echo "pre-commit: aviso: unimport incompativel com Python ${py_version}; pulando unimport."
+				echo "pre-commit: aviso: unimport incompatível com Python ${py_version}; pulando unimport."
 			else
 				echo "pre-commit: aviso: unimport retornou erro; seguindo com isort/yapf."
 				tail -n 5 "$unimport_log_file" || true
 			fi
 		fi
 	else
-		echo "pre-commit: aviso: unimport incompativel com Python ${py_version}; pulando unimport."
+		echo "pre-commit: aviso: unimport incompatível com Python ${py_version}; pulando unimport."
 	fi
 
 	if ! "$venv_bin/isort" --settings-path "$isort_settings_path" "${staged_python_files[@]}"; then

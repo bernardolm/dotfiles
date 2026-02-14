@@ -47,7 +47,7 @@ def _validate_workflows(staged_files: list[str]) -> int:
 			continue
 		content = path.read_text(encoding="utf-8", errors="ignore")
 		if _V1_IGNORE_RE.search(content) is None:
-			print(f"pre-commit: erro: workflow sem exclusao explicita de .v1: {file}")
+			print(f"pre-commit: erro: workflow sem exclusão explícita de .v1: {file}")
 			invalid = True
 	if invalid:
 		print("pre-commit: adicione 'paths-ignore' com '.v1/**' no(s) workflow(s) acima.")
@@ -64,12 +64,12 @@ def _validate_new_shell_scripts(staged_added_files: list[str]) -> int:
 		if not _is_shell_script(path):
 			continue
 		if not _has_shell_required_marker(path):
-			print(f"pre-commit: erro: novo script shell sem justificativa tecnica: {file}")
+			print(f"pre-commit: erro: novo script shell sem justificativa técnica: {file}")
 			invalid = True
 	if invalid:
-		print("pre-commit: regra ativa: novos scripts devem ser Python por padrao.")
-		print("pre-commit: use shell so quando necessario e adicione no topo do arquivo:")
-		print("pre-commit:   # shell-required: <motivo tecnico de por que Python nao atende bem>")
+		print("pre-commit: regra ativa: novos scripts devem ser Python por padrão.")
+		print("pre-commit: use shell só quando necessário e adicione no topo do arquivo:")
+		print("pre-commit:   # shell-required: <motivo técnico de por que Python não atende bem>")
 		return 1
 	return 0
 
