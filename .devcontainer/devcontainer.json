@@ -1,0 +1,42 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/universal
+{
+	"name": "Default Linux Universal",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/universal:5-linux",
+	"features": {
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {},
+		"ghcr.io/devcontainers/features/go:1": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-curl:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-docker-outside-of-docker:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-git:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-go:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-jq:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-make:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-nano:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-openssh:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-starship:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-sudo:0": {},
+		"ghcr.io/cirolosapio/devcontainers-features/alpine-user:0": {},
+		"ghcr.io/devcontainers-extra/features/fzf:1": {},
+		"ghcr.io/devcontainer-community/devcontainer-features/atuin.sh:1": {},
+		"ghcr.io/devcontainer-config/features/dot-config:4": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"golang.go"
+			]
+		}
+	}
+	// Features to add to the dev container. More info: https://containers.dev/features.
+	// "features": {},
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "uname -a",
+	// Configure tool-specific properties.
+	// "customizations": {},
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
