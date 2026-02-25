@@ -3,7 +3,6 @@ from __future__ import annotations
 
 import os
 from pathlib import Path
-import platform
 import shutil
 import sys
 
@@ -13,6 +12,7 @@ if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
 from bin.common import dotfiles_dry_run
+from bin.platform import platform
 from bootstrap.ensure_symlink import ensure_symlink
 from bootstrap.repo_root import repo_root
 
@@ -24,7 +24,7 @@ def link_dotfiles(
 	dry_run: bool = False,
 ) -> None:
 	root = repo_root()
-	system = (platform_name or _normalize_system(platform.system())).lower()
+	system = (platform_name or platform()).lower()
 	profile = profile.strip().lower()
 
 	for src, dest in _base_links(root, system=system, profile=profile):
@@ -138,13 +138,6 @@ def _ensure_link_or_copy(src: Path, dest: Path, dry_run: bool = False) -> None:
 		backup = dest.with_suffix(dest.suffix + ".bak")
 		dest.rename(backup)
 	shutil.copy2(src, dest)
-
-
-def _normalize_system(system_name: str) -> str:
-	name = system_name.lower()
-	if name in {"darwin", "windows", "linux"}:
-		return name
-	return "linux"
 
 
 def main() -> int:

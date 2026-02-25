@@ -11,8 +11,8 @@ if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
 from bin.common import dotfiles_dry_run, is_falsey, is_truthy
+from bin.platform import platform
 from bootstrap.context import resolve_profile, select_config_path
-from bootstrap.detect_platform import detect_platform
 from bootstrap.ensure_delta_config import ensure_delta_config
 from bootstrap.install_zimfw import install_zimfw
 from bootstrap.link_dotfiles import link_dotfiles
@@ -22,7 +22,7 @@ from bootstrap.update_zimfw import update_zimfw
 
 
 def bootstrap_flow(install_packages: bool, link: bool, profile: str | None, dry_run: bool) -> int:
-	platform_name = detect_platform()
+	platform_name = platform()
 	resolved_platform = _resolve_platform_bootstrap(platform_name)
 	if not resolved_platform:
 		print(f"unsupported platform for bootstrap: {platform_name}")

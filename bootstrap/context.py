@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
-from bootstrap.detect_platform import detect_platform
+from bin.platform import platform
 from bootstrap.repo_root import repo_root
 
 
@@ -23,7 +23,7 @@ def resolve_profile(profile: str | None, platform_name: str | None = None) -> st
 
 	resolved_platform = (platform_name or os.environ.get("DOTFILES_PLATFORM", "")).strip().lower()
 	if not resolved_platform:
-		resolved_platform = detect_platform()
+		resolved_platform = platform()
 
 	if value:
 		if value not in VALID_PROFILES:

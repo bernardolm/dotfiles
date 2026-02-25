@@ -12,12 +12,12 @@ if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
 from bin.common import dotfiles_dry_run
-from bootstrap.detect_platform import detect_platform
+from bin.platform import platform
 from bootstrap.run import run
 
 
 def install_powershell(dry_run: bool = False, platform_name: str | None = None) -> int:
-	resolved_platform = (platform_name or detect_platform()).strip().lower()
+	resolved_platform = (platform_name or platform()).strip().lower()
 	if resolved_platform != "windows":
 		print("PowerShell install skipped: this repository only installs/configures "
 					"PowerShell on Windows.")

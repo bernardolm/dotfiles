@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
-import os
 from pathlib import Path
-import platform
 import sys
 
 
@@ -12,11 +10,12 @@ if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
 from bin.common import dotfiles_dry_run
+from bin.platform import platform
 from bootstrap.run import run
 
 
 def install_zimfw(dry_run: bool = False) -> None:
-	if platform.system().lower() == "windows":
+	if platform() == "windows":
 		return
 
 	zim_home = Path.home() / ".zim"
