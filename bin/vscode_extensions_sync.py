@@ -114,7 +114,7 @@ def _load_group_extensions(data: dict[str, object], group_name: str, file_path: 
 	if items is None:
 		return []
 	if not isinstance(items, list):
-		raise ValueError(f"'{group_name}' deve ser uma lista em {file_path}.")
+		raise ValueError(f"'{group_name}' must be a list in {file_path}.")
 
 	unique: list[str] = []
 	seen: set[str] = set()
@@ -136,7 +136,7 @@ def load_extensions(file_path: Path, profile_name: str) -> list[str]:
 
 	if not isinstance(data, dict):
 		raise ValueError(
-			f"Formato inválido em {file_path}: esperado objeto com grupos de extensões.")
+			f"Invalid format in {file_path}: expected an object with extension groups.")
 
 	common_extensions = _load_group_extensions(data, "common", file_path)
 	profile_extensions = []
@@ -168,7 +168,7 @@ def list_installed_extensions(code_bin: str) -> set[str] | None:
 	if proc.returncode != 0:
 		output = (proc.stderr or proc.stdout).strip()
 		print(
-			"Aviso: não foi possível listar extensões instaladas; remoções serão tentadas diretamente.")
+			"Warning: could not list installed extensions; removals will be attempted directly.")
 		if output:
 			print(f"  {output.splitlines()[-1]}")
 		return None
@@ -177,7 +177,7 @@ def list_installed_extensions(code_bin: str) -> set[str] | None:
 
 
 def parse_extension_action(raw_extension: str) -> tuple[str, str]:
-	# Sufixo "-" marca a extensao para remocao.
+	# Suffix "-" marks the extension for removal.
 	if raw_extension.endswith("-"):
 		return "remove", raw_extension[:-1].strip()
 	return "install", raw_extension
@@ -221,7 +221,7 @@ def _print_dependency_status(
 	status_text: str,
 	status_kind: str,
 ) -> None:
-	lead = _style(f"Removendo dependência da extensão {parent_extension}:", _ANSI_WHITE, _ANSI_BOLD)
+	lead = _style(f"Removing dependency of extension {parent_extension}:", _ANSI_WHITE, _ANSI_BOLD)
 	colored = _style(f"{dependency_extension} - {status_text}", _status_color(status_kind))
 	print(f"    {lead} {colored}")
 
@@ -249,11 +249,11 @@ def uninstall_extension_with_dependency_resolution(
 	visited: set[str] | None = None,
 	parent_extension: str | None = None,
 ) -> tuple[bool, bool, str]:
-	"""Retorna: (success, warning_not_installed, status_text)."""
+	"""Return: (success, warning_not_installed, status_text)."""
 	visited_path = set(visited or set())
 	extension_key = extension.lower()
 	if extension_key in visited_path:
-		return False, False, f"FALHOU (ciclo de dependências com {extension})"
+		return False, False, f"FAILED (dependency cycle with {extension})"
 	visited_path.add(extension_key)
 
 	cmd = [code_bin, "--uninstall-extension", extension]
@@ -267,12 +267,12 @@ def uninstall_extension_with_dependency_resolution(
 	if "not installed" in output.lower():
 		if installed_extensions is not None:
 			installed_extensions.discard(extension)
-		return True, True, "AVISO: extensão já não estava instalada"
+		return True, True, "WARNING: extension was not installed"
 
 	blockers = dependency_blockers_from_error(output, extension)
 	if not blockers:
 		last_line = output.splitlines()[-1] if output else ""
-		status = f"FALHOU (exit={proc.returncode})"
+		status = f"FAILED (exit={proc.returncode})"
 		if last_line:
 			status = f"{status}: {last_line}"
 		return False, False, status
@@ -288,7 +288,7 @@ def uninstall_extension_with_dependency_resolution(
 		blocker_kind = "warning" if blocker_warning else ("success" if blocker_success else "error")
 		_print_dependency_status(extension, blocker, blocker_status, blocker_kind)
 		if not blocker_success:
-			return False, False, f"FALHOU (dependência não removida: {blocker})"
+			return False, False, f"FAILED (dependency not removed: {blocker})"
 
 	retry_proc = subprocess.run(cmd, capture_output=True, text=True)
 	if retry_proc.returncode == 0:
@@ -300,10 +300,10 @@ def uninstall_extension_with_dependency_resolution(
 	if "not installed" in retry_output.lower():
 		if installed_extensions is not None:
 			installed_extensions.discard(extension)
-		return True, True, "AVISO: extensão já não estava instalada"
+		return True, True, "WARNING: extension was not installed"
 
 	last_line = retry_output.splitlines()[-1] if retry_output else ""
-	status = f"FALHOU (exit={retry_proc.returncode})"
+	status = f"FAILED (exit={retry_proc.returncode})"
 	if last_line:
 		status = f"{status}: {last_line}"
 	return False, False, status
@@ -325,11 +325,11 @@ def sync_extensions(extensions: list[str],
 		if not ext:
 			warnings.append(raw_ext)
 			prefix = _style(f"[{idx:02d}/{total}]", _ANSI_WHITE)
-			message = _style(f"Aviso: entrada inválida '{raw_ext}', ignorando.", _ANSI_YELLOW)
+			message = _style(f"WARNING: invalid entry '{raw_ext}', skipping.", _ANSI_YELLOW)
 			print(f"{prefix} {message}")
 			continue
 
-		action_label = "Removendo" if action == "remove" else "Instalando"
+		action_label = "Removing" if action == "remove" else "Installing"
 
 		if action == "remove":
 			remove_count += 1
@@ -340,7 +340,7 @@ def sync_extensions(extensions: list[str],
 					total,
 					action_label,
 					ext,
-					"AVISO: extensão já não estava instalada",
+					"WARNING: extension was not installed",
 					"warning",
 				)
 				continue
@@ -402,20 +402,20 @@ def sync_extensions(extensions: list[str],
 		failures.append(ext)
 		output = (proc.stderr or proc.stdout).strip()
 		last_line = output.splitlines()[-1] if output else ""
-		status = f"FALHOU (exit={proc.returncode})"
+		status = f"FAILED (exit={proc.returncode})"
 		if last_line:
 			status = f"{status}: {last_line}"
 		_print_action_status(idx, total, action_label, ext, status, "error")
 
 	print("")
 	print(f"Total: {total}")
-	print(f"Instalações: {install_count}")
-	print(f"Remoções: {remove_count}")
-	print(f"Avisos: {len(warnings)}")
-	print(f"Sucesso: {total - len(failures)}")
-	print(f"Falhas: {len(failures)}")
+	print(f"Installations: {install_count}")
+	print(f"Removals: {remove_count}")
+	print(f"Warnings: {len(warnings)}")
+	print(f"Success: {total - len(failures)}")
+	print(f"Failures: {len(failures)}")
 	if failures:
-		print("Extensões com falha:")
+		print("Extensions with failures:")
 		for ext in failures:
 			print(f"- {ext}")
 		return 1
@@ -514,22 +514,22 @@ def main(
 	code_bin = resolved_code_bin
 	if not code_bin:
 		print(
-			"CLI do VS Code não encontrada. Defina DOTFILES_VSCODE_CODE_BIN ou adicione 'code' ao PATH.")
+			"VS Code CLI not found. Set DOTFILES_VSCODE_CODE_BIN or add 'code' to PATH.")
 		return 2
 
 	extensions_file = resolved_extensions_file
 	if not extensions_file.exists():
-		print(f"Arquivo não encontrado: {extensions_file}")
+		print(f"File not found: {extensions_file}")
 		return 2
 
 	try:
 		extensions = load_extensions(extensions_file, profile_name=resolved_profile_name)
 	except (OSError, json.JSONDecodeError, ValueError) as exc:
-		print(f"Falha ao carregar extensões de {extensions_file}: {exc}")
+		print(f"Failed to load extensions from {extensions_file}: {exc}")
 		return 2
 
 	if not extensions:
-		print(f"Nenhuma extensão encontrada em: {extensions_file}")
+		print(f"No extensions found in: {extensions_file}")
 		return 0
 
 	return sync_extensions(
@@ -542,7 +542,7 @@ def main(
 
 if __name__ == "__main__":
 	if len(sys.argv) > 2:
-		print("Uso: bin/vscode_extensions_sync.py [nomeDoProfile]")
+		print("Usage: bin/vscode_extensions_sync.py [profileName]")
 		raise SystemExit(2)
 
 	override_profile = sys.argv[1] if len(sys.argv) == 2 else None

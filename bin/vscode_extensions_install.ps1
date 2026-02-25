@@ -13,5 +13,5 @@ if ($pyenv) {
 	exit $LASTEXITCODE
 }
 
-Write-Error "pyenv não encontrado. Configure o pyenv para executar os scripts Python deste repositório."
+Write-Error "pyenv not found. Configure pyenv to run this repository's Python scripts."
 exit 1

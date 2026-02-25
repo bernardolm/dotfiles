@@ -28,9 +28,9 @@ if [[ -f "$ZIM_HOME/init.zsh" ]]; then
 fi
 
 # git@github.com:ohmyzsh/ohmyzsh.git
-# Carrega o repositório principal do Oh My Zsh sem executar o script de inicialização completo
+# Loads the main Oh My Zsh repository without running its full bootstrap script
 zmodule ohmyzsh/ohmyzsh repository-url github.com
-# Carrega o plugin 'git' específico do repositório
+# Loads the repository-specific 'git' plugin
 zmodule ohmyzsh/ohmyzsh plugins/git
 
 "$HOME/dotfiles/bin/logger.py" finish "zimfw: start"

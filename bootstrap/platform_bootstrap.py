@@ -452,7 +452,7 @@ def _can_run_without_sudo() -> bool:
 def main() -> int:
 	config_value = os.environ.get("DOTFILES_BOOTSTRAP_CONFIG", "").strip()
 	if not config_value:
-		print("error: DOTFILES_BOOTSTRAP_CONFIG nao definido.")
+		print("error: DOTFILES_BOOTSTRAP_CONFIG not set.")
 		return 1
 	profile = os.environ.get("DOTFILES_PROFILE", "desktop")
 	platform_name = os.environ.get("DOTFILES_PLATFORM", "")

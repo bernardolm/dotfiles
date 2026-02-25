@@ -31,7 +31,7 @@
 		"golang.go",
 	],
 	"python": [
-		"bradlc.vscode-tailwindcss", // para trabalhar com reflex
+		"bradlc.vscode-tailwindcss", // to work with Reflex
 		"eeyore.yapf",
 		"ms-python.debugpy",
 		"ms-python.isort",

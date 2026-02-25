@@ -46,7 +46,7 @@ def _profile_sync_paths() -> list[Path]:
 	if os.name == "nt" and appdata:
 		paths.append(Path(appdata) / "Code/User/sync/profiles/lastSyncprofiles.json")
 
-	# Fallbacks uteis quando a plataforma nao foi detectada como esperado.
+	# Useful fallbacks when platform detection does not behave as expected.
 	paths.append(home / "Library/Application Support/Code/User/sync/profiles/lastSyncprofiles.json")
 	paths.append(home / ".config/Code/User/sync/profiles/lastSyncprofiles.json")
 
@@ -91,7 +91,7 @@ def _known_profile_names() -> set[str]:
 
 
 def _profile_from_title(title: str, default: str, known_profiles: set[str]) -> str:
-	# VS Code normalmente usa: "<arquivo> - <workspace> - <profile>".
+	# VS Code usually uses: "<file> - <workspace> - <profile>".
 	parts = [part.strip() for part in title.split(_TITLE_SEPARATOR) if part.strip()]
 	if len(parts) >= 3:
 		return parts[-1]
@@ -101,7 +101,7 @@ def _profile_from_title(title: str, default: str, known_profiles: set[str]) -> s
 
 
 def get_active_vscode_profile() -> str:
-	"""Retorna o profile ativo do VS Code."""
+	"""Return the active VS Code profile."""
 	code_bin = "code"
 	default = "Default"
 	try:

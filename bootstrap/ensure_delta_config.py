@@ -34,7 +34,7 @@ def ensure_delta_config(platform_name: str, dry_run: bool = False) -> None:
 def main() -> int:
 	platform_name = (os.environ.get("DOTFILES_PLATFORM") or "").strip().lower()
 	if not platform_name:
-		print("warning: DOTFILES_PLATFORM nao definido; ensure_delta_config ignorado.")
+		print("warning: DOTFILES_PLATFORM not set; ensure_delta_config skipped.")
 		return 0
 	dry_run = dotfiles_dry_run()
 	ensure_delta_config(platform_name, dry_run=dry_run)

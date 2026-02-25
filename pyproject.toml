@@ -79,9 +79,9 @@ addopts = '''
 	--color=yes
 '''
 markers = [
-	'slow: Testes que levam mais de 1 minuto (ex: rate limiting)',
-	'integration: Testes de integração (requerem servidor rodando)',
-	'unit: Testes unitários (isolados, sem I/O)',
+	'slow: Tests that take more than 1 minute (e.g. rate limiting)',
+	'integration: Integration tests (require a running server)',
+	'unit: Unit tests (isolated, no I/O)',
 ]
 filterwarnings = [
 	'ignore::DeprecationWarning',

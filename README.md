@@ -1,25 +1,25 @@
 # dotfiles
 
-Repositório de dotfiles para manter um ambiente de terminal consistente entre macOS, Windows (PowerShell + WSL), Ubuntu/Debian server e Alpine, com o máximo de compartilhamento possível.
+Dotfiles repository to keep a consistent terminal environment across macOS, Windows (PowerShell + WSL), Ubuntu/Debian server, and Alpine, with as much sharing as possible.
 
-## o que este repositório configura
+## what this repository configures
 
-- shell: `zsh` (principal), `ash` (alpine) e `powershell` (windows);
+- shell: `zsh` (primary), `ash` (alpine), and `powershell` (windows);
 - prompt: `starship`;
-- terminal: `wezterm` e `windows terminal`;
-- ferramentas: `git`, `ssh`, `tmux`, `nano` e utilitários de terminal;
-- bootstrap por plataforma em `bootstrap/`.
+- terminal: `wezterm` and `windows terminal`;
+- tools: `git`, `ssh`, `tmux`, `nano`, and terminal utilities;
+- platform bootstrap in `bootstrap/`.
 
-## uso rápido
+## quick usage
 
-Pré-requisito: clone em `~/dotfiles`.
+Prerequisite: clone into `~/dotfiles`.
 
 ```bash
 cd ~/dotfiles
 python3 bootstrap/bootstrap.py
 ```
 
-Modos úteis:
+Useful modes:
 
 ```bash
 DOTFILES_DRY_RUN=1 python3 bootstrap/bootstrap.py
@@ -28,10 +28,10 @@ DOTFILES_BOOTSTRAP_INSTALL_PACKAGES=0 python3 bootstrap/bootstrap.py
 DOTFILES_PROFILE=server python3 bootstrap/bootstrap.py
 ```
 
-## estrutura principal
+## main structure
 
-- `bootstrap/`: instalação e configuração por plataforma/perfil.
-- `terminal/`: arquivos de shell, prompt, terminal e ferramentas.
-- `.githooks/`: automações de qualidade do repositório (pre-commit).
-- `bin/`: utilitários auxiliares.
-- `.v1/`: versão antiga apenas para consulta.
+- `bootstrap/`: installation and configuration by platform/profile.
+- `terminal/`: shell, prompt, terminal, and tooling files.
+- `.githooks/`: repository quality automations (pre-commit).
+- `bin/`: helper utilities.
+- `.v1/`: legacy version for reference only.
