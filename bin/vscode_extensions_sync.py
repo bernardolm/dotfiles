@@ -11,7 +11,6 @@ import shutil
 import subprocess
 import sys
 
-from common import is_truthy
 from vscode_profile import get_active_vscode_profile
 
 
@@ -505,22 +504,17 @@ def main(
 	force: bool | None = None,
 	dry_run: bool | None = None,
 ) -> int:
-	default_extensions_file = Path(
-		__file__).resolve().parents[1] / "ui" / "vscode" / "extensions.jsonc"
-	resolved_extensions_file = Path(extensions_file or os.environ.get(
-		"DOTFILES_VSCODE_EXTENSIONS_FILE", str(default_extensions_file))).expanduser()
+	default_extensions_file = Path.home() / "dotfiles" / "ui" / "vscode" / "extensions.jsonc"
+	resolved_extensions_file = Path(extensions_file or default_extensions_file).expanduser()
 	resolved_profile_name = profile_name.strip(
 	) if profile_name and profile_name.strip() else get_active_vscode_profile()
-	resolved_code_bin = detect_code_binary(code_bin or os.environ.get("DOTFILES_VSCODE_CODE_BIN"))
-	resolved_force = force
-	if resolved_force is None:
-		resolved_force = not is_truthy(os.environ.get("DOTFILES_VSCODE_NO_FORCE", "0"))
-	resolved_dry_run = dry_run if dry_run is not None else is_truthy(
-		os.environ.get("DOTFILES_DRY_RUN") or os.environ.get("DOTFILES_VSCODE_DRY_RUN", "0"))
+	resolved_code_bin = detect_code_binary(code_bin)
+	resolved_force = True if force is None else force
+	resolved_dry_run = False if dry_run is None else dry_run
 
 	code_bin = resolved_code_bin
 	if not code_bin:
-		print("VS Code CLI not found. Set DOTFILES_VSCODE_CODE_BIN or add 'code' to PATH.")
+		print("VS Code CLI not found. Add 'code' to PATH.")
 		return 2
 
 	extensions_file = resolved_extensions_file
