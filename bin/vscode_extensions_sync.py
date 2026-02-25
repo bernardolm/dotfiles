@@ -542,7 +542,7 @@ def main(
 
 if __name__ == "__main__":
 	if len(sys.argv) > 2:
-		print("Uso: bin/vscode_extensions_install.py [nomeDoProfile]")
+		print("Uso: bin/vscode_extensions_sync.py [nomeDoProfile]")
 		raise SystemExit(2)
 
 	override_profile = sys.argv[1] if len(sys.argv) == 2 else None

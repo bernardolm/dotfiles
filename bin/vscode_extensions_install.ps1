@@ -5,7 +5,7 @@ param(
 	[string[]]$ScriptArgs
 )
 
-$scriptPath = Join-Path $PSScriptRoot "vscode_extensions_install.py"
+$scriptPath = Join-Path $PSScriptRoot "vscode_extensions_sync.py"
 
 $pyenv = Get-Command pyenv -ErrorAction SilentlyContinue
 if ($pyenv) {
