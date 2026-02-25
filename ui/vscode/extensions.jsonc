@@ -2,6 +2,7 @@
 	"common": [
 		"aaron-bond.better-comments",
 		"axiomaticstudios.one-monokai-80s", // NOTE: disable
+		"bierner.markdown-mermaid",
 		"bierner.markdown-preview-github-styles",
 		"bracketpaircolordlw.bracket-pair-color-dlw",
 		"bradlc.vscode-tailwindcss",
