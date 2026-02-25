@@ -24,6 +24,8 @@ remove = true
 [tool.pylint]
 ignore-paths = [
 	'venv/',
+	'.venv/',
+	'**/__pychache__',
 	'.v1/',
 ]
 exit-zero = true

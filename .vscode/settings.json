@@ -21,26 +21,8 @@
 		"editor.insertSpaces": true,
 		"editor.tabSize": 2
 	},
-	"editor.rulers": [
-		80,
-		90,
-		100,
-		110,
-		120
-	],
-	"files.exclude": {
-		"**/.v1": true
-	},
-	"files.watcherExclude": {
-		"**/.v1/**": true
-	},
-	"isort.args": [
-		"--settings-path",
-		"${workspaceFolder}/pyproject.toml"
-	],
-	"isort.path": [
-		"${env:HOME}/.pyenv/shims/isort"
-	],
+	"files.exclude": {},
+	"files.watcherExclude": {},
 	"python.analysis.diagnosticSeverityOverrides": {
 		"reportMissingTypeArgument": "none",
 		"reportMissingParameterType": "none",
@@ -50,23 +32,56 @@
 		"reportUnknownParameterType": "none",
 		"reportUnknownVariableType": "none"
 	},
-	"python.analysis.exclude": [
-		".v1/**"
-	],
-	"python.analysis.fixAll": [
-		"source.unusedImports"
-	],
-	"search.exclude": {
+	"search.exclude": {},
+	"shellcheck.ignorePatterns": {
 		"**/.v1/**": true
-	},
-	"terminal.integrated.env.osx": {
-		"PYENV_ROOT": "${env:HOME}/.pyenv",
-		"PATH": "${env:HOME}/.pyenv/shims:${env:HOME}/.pyenv/bin:${env:PATH}"
 	},
 	"terminal.integrated.env.linux": {
 		"PYENV_ROOT": "${env:HOME}/.pyenv",
 		"PATH": "${env:HOME}/.pyenv/shims:${env:HOME}/.pyenv/bin:${env:PATH}"
 	},
+	"terminal.integrated.env.osx": {
+		"PYENV_ROOT": "${env:HOME}/.pyenv",
+		"PATH": "${env:HOME}/.pyenv/shims:${env:HOME}/.pyenv/bin:${env:PATH}"
+	},
+	"editor.rulers": [
+		80,
+		90,
+		100,
+		110,
+		120
+	],
+	"isort.args": [
+		"--settings-path",
+		"${workspaceFolder}/pyproject.toml"
+	],
+	"isort.path": [
+		"${env:HOME}/.pyenv/shims/isort"
+	],
+	"markdownlint.lintWorkspaceGlobs": [
+		"**/*.{md,mkd,mdwn,mdown,markdown,markdn,mdtxt,mdtext,workbook}",
+		"!**/*.code-search",
+		"!**/bower_components",
+		"!**/node_modules",
+		"!**/.git",
+		"!**/vendor",
+		"!**/.v1/**",
+	],
+	"pylint.ignorePatterns": [
+		".v1/**/*.py"
+	],
+	"python.analysis.exclude": [
+		".v1/**",
+		"**/node_modules",
+		"**/__pycache__",
+		"**/.*"
+	],
+	"python.analysis.fixAll": [
+		"source.unusedImports"
+	],
+	"ruff.exclude": [
+		".v1/**"
+	],
 	"yapf.path": [
 		"${env:HOME}/.pyenv/shims/yapf"
 	],
@@ -80,11 +95,11 @@
 	"files.trimTrailingWhitespace": true,
 	"git.ignoreLimitWarning": true,
 	"isort.importStrategy": "fromEnvironment",
+	"json.validate.enable": false,
 	"prettier.useEditorConfig": true,
 	"python.defaultInterpreterPath": "${env:HOME}/.pyenv/shims/python",
 	"python.REPL.enableREPLSmartSend": false,
 	"python.terminal.activateEnvironment": false,
 	"yapf.importStrategy": "fromEnvironment",
 	"yapf.showDebugLog": true,
-	// "yapf.args": ["--in-place", "--recursive"],
 }
