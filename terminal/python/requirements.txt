@@ -2,6 +2,5 @@ colorama
 dotenv
 gcalcli
 isort
-pprint
 unimport
 yapf

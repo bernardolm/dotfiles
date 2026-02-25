@@ -14,6 +14,7 @@ import sys
 from common import is_truthy
 from vscode_profile import get_active_vscode_profile
 
+
 _EXTENSION_ID_RE = re.compile(r"\b[a-z0-9][a-z0-9-]*\.[a-z0-9][a-z0-9-]*\b", re.IGNORECASE)
 _ANSI_RESET = "\033[0m"
 _ANSI_WHITE = "\033[37m"
@@ -129,20 +130,27 @@ def _load_group_extensions(data: dict[str, object], group_name: str, file_path: 
 	return unique
 
 
-def load_extensions(file_path: Path, profile_name: str) -> list[str]:
+def load_extensions(file_path: Path, profile_name: str) -> tuple[list[str], set[str]]:
 	raw = file_path.read_text(encoding="utf-8")
 	normalized = strip_trailing_commas(strip_jsonc_comments(raw))
 	data = json.loads(normalized)
 
 	if not isinstance(data, dict):
-		raise ValueError(
-			f"Invalid format in {file_path}: expected an object with extension groups.")
+		raise ValueError(f"Invalid format in {file_path}: expected an object with extension groups.")
 
 	common_extensions = _load_group_extensions(data, "common", file_path)
 	profile_extensions = []
 	if profile_name in data:
 		profile_extensions = _load_group_extensions(data, profile_name, file_path)
-	remove_extensions = _load_group_extensions(data, "remove", file_path)
+
+	allowed_extensions: set[str] = set()
+	for group_name, group_items in data.items():
+		if group_name == "remove":
+			continue
+		if not isinstance(group_items, list):
+			continue
+		for ext in _load_group_extensions(data, group_name, file_path):
+			allowed_extensions.add(ext)
 
 	install_actions: list[str] = []
 	install_seen: set[str] = set()
@@ -152,23 +160,14 @@ def load_extensions(file_path: Path, profile_name: str) -> list[str]:
 		install_seen.add(ext)
 		install_actions.append(ext)
 
-	remove_actions: list[str] = []
-	remove_seen: set[str] = set()
-	for ext in remove_extensions:
-		if ext in remove_seen:
-			continue
-		remove_seen.add(ext)
-		remove_actions.append(f"{ext}-")
-
-	return [*install_actions, *remove_actions]
+	return install_actions, allowed_extensions
 
 
 def list_installed_extensions(code_bin: str) -> set[str] | None:
 	proc = subprocess.run([code_bin, "--list-extensions"], capture_output=True, text=True)
 	if proc.returncode != 0:
 		output = (proc.stderr or proc.stdout).strip()
-		print(
-			"Warning: could not list installed extensions; removals will be attempted directly.")
+		print("Warning: could not list installed extensions; removals will be attempted directly.")
 		if output:
 			print(f"  {output.splitlines()[-1]}")
 		return None
@@ -312,11 +311,17 @@ def uninstall_extension_with_dependency_resolution(
 def sync_extensions(extensions: list[str],
 										code_bin: str,
 										force: bool = True,
-										dry_run: bool = False) -> int:
+										dry_run: bool = False,
+										installed_extensions: set[str] | None = None) -> int:
 	failures: list[str] = []
 	warnings: list[str] = []
 	total = len(extensions)
-	installed_extensions = None if dry_run else list_installed_extensions(code_bin)
+	if dry_run:
+		installed_extensions = None
+	elif installed_extensions is None:
+		installed_extensions = list_installed_extensions(code_bin)
+	else:
+		installed_extensions = set(installed_extensions)
 	install_count = 0
 	remove_count = 0
 
@@ -500,10 +505,12 @@ def main(
 	force: bool | None = None,
 	dry_run: bool | None = None,
 ) -> int:
-	default_extensions_file = Path(__file__).resolve().parents[1] / "ui" / "vscode" / "extensions.jsonc"
+	default_extensions_file = Path(
+		__file__).resolve().parents[1] / "ui" / "vscode" / "extensions.jsonc"
 	resolved_extensions_file = Path(extensions_file or os.environ.get(
 		"DOTFILES_VSCODE_EXTENSIONS_FILE", str(default_extensions_file))).expanduser()
-	resolved_profile_name = profile_name.strip() if profile_name and profile_name.strip() else get_active_vscode_profile()
+	resolved_profile_name = profile_name.strip(
+	) if profile_name and profile_name.strip() else get_active_vscode_profile()
 	resolved_code_bin = detect_code_binary(code_bin or os.environ.get("DOTFILES_VSCODE_CODE_BIN"))
 	resolved_force = force
 	if resolved_force is None:
@@ -513,8 +520,7 @@ def main(
 
 	code_bin = resolved_code_bin
 	if not code_bin:
-		print(
-			"VS Code CLI not found. Set DOTFILES_VSCODE_CODE_BIN or add 'code' to PATH.")
+		print("VS Code CLI not found. Set DOTFILES_VSCODE_CODE_BIN or add 'code' to PATH.")
 		return 2
 
 	extensions_file = resolved_extensions_file
@@ -523,11 +529,18 @@ def main(
 		return 2
 
 	try:
-		extensions = load_extensions(extensions_file, profile_name=resolved_profile_name)
+		install_extensions, allowed_extensions = load_extensions(extensions_file,
+																															profile_name=resolved_profile_name)
 	except (OSError, json.JSONDecodeError, ValueError) as exc:
 		print(f"Failed to load extensions from {extensions_file}: {exc}")
 		return 2
 
+	installed_extensions = list_installed_extensions(code_bin)
+	remove_actions: list[str] = []
+	if installed_extensions is not None:
+		remove_actions = [f"{ext}-" for ext in sorted(installed_extensions - allowed_extensions)]
+
+	extensions = [*install_extensions, *remove_actions]
 	if not extensions:
 		print(f"No extensions found in: {extensions_file}")
 		return 0
@@ -537,6 +550,7 @@ def main(
 		code_bin=code_bin,
 		force=resolved_force,
 		dry_run=resolved_dry_run,
+		installed_extensions=installed_extensions if installed_extensions is not None else set(),
 	)
 
 
