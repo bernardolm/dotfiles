@@ -4,7 +4,6 @@ import os
 from pathlib import Path
 import shutil
 import subprocess
-import sys
 from typing import Iterable, Sequence
 
 
@@ -20,23 +19,56 @@ def dotfiles_root() -> Path:
 	return Path.home() / "dotfiles"
 
 
-def detect_os() -> str:
-	prefix = os.environ.get("PREFIX", "")
-	if os.environ.get("TERMUX_VERSION") or prefix.startswith("/data/data/com.termux"):
-		return "termux"
-	if sys.platform == "darwin":
-		return "darwin"
-	if sys.platform.startswith("linux"):
-		try:
-			version = Path("/proc/version").read_text(encoding="utf-8", errors="ignore").lower()
-		except OSError:
-			version = ""
-		if "microsoft" in version or os.environ.get("WSL_DISTRO_NAME"):
-			return "wsl"
-		return "linux"
-	if sys.platform in {"win32", "cygwin"}:
-		return "windows"
-	return "unknown"
+def strip_trailing_commas(content: str) -> str:
+	result: list[str] = []
+	in_string = False
+	escaped = False
+	i = 0
+
+	while i < len(content):
+		ch = content[i]
+
+		if in_string:
+			result.append(ch)
+			if escaped:
+				escaped = False
+			elif ch == "\\":
+				escaped = True
+			elif ch == '"':
+				in_string = False
+			i += 1
+			continue
+
+		if ch == '"':
+			in_string = True
+			result.append(ch)
+			i += 1
+			continue
+
+		if ch == ",":
+			j = i + 1
+			while j < len(content) and content[j].isspace():
+				j += 1
+			if j < len(content) and content[j] in "]}":
+				i += 1
+				continue
+
+		result.append(ch)
+		i += 1
+
+	return "".join(result)
+
+
+def unique_strings(values: Sequence[str]) -> list[str]:
+	unique: list[str] = []
+	seen: set[str] = set()
+	for value in values:
+		key = value.strip()
+		if not key or key in seen:
+			continue
+		seen.add(key)
+		unique.append(key)
+	return unique
 
 
 def run(

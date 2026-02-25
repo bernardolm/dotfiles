@@ -5,13 +5,15 @@ import argparse
 import json
 import os
 from pathlib import Path
-import platform
 import re
 import shlex
 import shutil
 import subprocess
 import sys
 
+from common import strip_trailing_commas, unique_strings
+from json_util import strip_jsonc_comments
+from vscode import default_code_cli_locations
 from vscode_profile import get_active_vscode_profile, is_running_inside_vscode
 
 
@@ -24,92 +26,6 @@ _ANSI_RED = "\033[31m"
 _ANSI_BOLD = "\033[1m"
 _COMMON_GROUP_NAMES = {"common", "default"}
 _RESERVED_GROUP_NAMES = {"remove"}
-
-
-def strip_jsonc_comments(content: str) -> str:
-	result: list[str] = []
-	in_string = False
-	escaped = False
-	i = 0
-
-	while i < len(content):
-		ch = content[i]
-		nxt = content[i + 1] if i + 1 < len(content) else ""
-
-		if in_string:
-			result.append(ch)
-			if escaped:
-				escaped = False
-			elif ch == "\\":
-				escaped = True
-			elif ch == '"':
-				in_string = False
-			i += 1
-			continue
-
-		if ch == '"':
-			in_string = True
-			result.append(ch)
-			i += 1
-			continue
-
-		if ch == "/" and nxt == "/":
-			i += 2
-			while i < len(content) and content[i] != "\n":
-				i += 1
-			continue
-
-		if ch == "/" and nxt == "*":
-			i += 2
-			while i + 1 < len(content) and not (content[i] == "*" and content[i + 1] == "/"):
-				i += 1
-			i += 2
-			continue
-
-		result.append(ch)
-		i += 1
-
-	return "".join(result)
-
-
-def strip_trailing_commas(content: str) -> str:
-	result: list[str] = []
-	in_string = False
-	escaped = False
-	i = 0
-
-	while i < len(content):
-		ch = content[i]
-
-		if in_string:
-			result.append(ch)
-			if escaped:
-				escaped = False
-			elif ch == "\\":
-				escaped = True
-			elif ch == '"':
-				in_string = False
-			i += 1
-			continue
-
-		if ch == '"':
-			in_string = True
-			result.append(ch)
-			i += 1
-			continue
-
-		if ch == ",":
-			j = i + 1
-			while j < len(content) and content[j].isspace():
-				j += 1
-			if j < len(content) and content[j] in "]}":
-				i += 1
-				continue
-
-		result.append(ch)
-		i += 1
-
-	return "".join(result)
 
 
 def _load_group_extensions(data: dict[str, object], group_name: str, file_path: Path) -> list[str]:
@@ -157,6 +73,24 @@ def _common_extensions_from_data(data: dict[str, object], file_path: Path) -> li
 	return common_extensions
 
 
+def _profile_extensions_from_data(data: dict[str, object], file_path: Path,
+																	profile_name: str) -> list[str]:
+	if profile_name in data:
+		return _load_group_extensions(data, profile_name, file_path)
+	return []
+
+
+def _declared_extensions_from_data(data: dict[str, object], file_path: Path) -> set[str]:
+	declared_extensions: set[str] = set()
+	for group_name, group_items in data.items():
+		if not isinstance(group_items, list):
+			continue
+		if group_name.strip().lower() in _RESERVED_GROUP_NAMES:
+			continue
+		declared_extensions.update(_load_group_extensions(data, group_name, file_path))
+	return declared_extensions
+
+
 def list_profile_sections(data: dict[str, object]) -> list[str]:
 	profiles: list[str] = []
 	seen: set[str] = set()
@@ -174,31 +108,6 @@ def list_profile_sections(data: dict[str, object]) -> list[str]:
 		seen.add(name)
 		profiles.append(name)
 	return profiles
-
-
-def load_extensions(
-	file_path: Path,
-	profile_name: str,
-	data: dict[str, object] | None = None,
-) -> tuple[list[str], set[str]]:
-	parsed_data = data if data is not None else load_extensions_config(file_path)
-
-	common_extensions = _common_extensions_from_data(parsed_data, file_path)
-	profile_extensions = (_load_group_extensions(parsed_data, profile_name, file_path)
-												if profile_name in parsed_data else [])
-
-	allowed_extensions: set[str] = set(common_extensions)
-	allowed_extensions.update(profile_extensions)
-
-	install_actions: list[str] = []
-	install_seen: set[str] = set()
-	for ext in [*common_extensions, *profile_extensions]:
-		if ext in install_seen:
-			continue
-		install_seen.add(ext)
-		install_actions.append(ext)
-
-	return install_actions, allowed_extensions
 
 
 def _with_profile_args(cmd: list[str], profile_name: str | None) -> list[str]:
@@ -503,55 +412,6 @@ def detect_code_binary(provided: str | None) -> str | None:
 	return None
 
 
-def default_code_cli_locations() -> list[Path]:
-	os_name = platform.system().lower()
-	locations: list[Path] = []
-
-	if os_name == "windows":
-		env_paths = [
-			os.environ.get("LOCALAPPDATA"),
-			os.environ.get("PROGRAMFILES"),
-			os.environ.get("PROGRAMFILES(X86)"),
-		]
-		suffixes = [
-			Path("Programs/Microsoft VS Code/bin/code.cmd"),
-			Path("Programs/Microsoft VS Code Insiders/bin/code-insiders.cmd"),
-			Path("VSCodium/bin/codium.cmd"),
-			Path("Microsoft VS Code/bin/code.cmd"),
-			Path("Microsoft VS Code Insiders/bin/code-insiders.cmd"),
-		]
-		for base in env_paths:
-			if not base:
-				continue
-			base_path = Path(base)
-			for suffix in suffixes:
-				locations.append(base_path / suffix)
-		return locations
-
-	if os_name == "darwin":
-		locations.extend([
-			Path("/Applications/Visual Studio Code.app/Contents/Resources/app/bin/code"),
-			Path(
-				"/Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code-insiders"),
-			Path("/Applications/VSCodium.app/Contents/Resources/app/bin/codium"),
-			Path.home() / "Applications/Visual Studio Code.app/Contents/Resources/app/bin/code",
-			Path.home() /
-			"Applications/Visual Studio Code - Insiders.app/Contents/Resources/app/bin/code-insiders",
-			Path.home() / "Applications/VSCodium.app/Contents/Resources/app/bin/codium",
-		])
-		return locations
-
-	locations.extend([
-		Path("/usr/bin/code"),
-		Path("/usr/bin/code-insiders"),
-		Path("/usr/bin/codium"),
-		Path("/snap/bin/code"),
-		Path("/snap/bin/code-insiders"),
-		Path("/snap/bin/codium"),
-	])
-	return locations
-
-
 def main(
 	extensions_file: str | Path | None = None,
 	profile_name: str | None = None,
@@ -582,48 +442,80 @@ def main(
 		print(f"Failed to load extensions from {extensions_file}: {exc}")
 		return 2
 
+	common_extensions = _common_extensions_from_data(config_data, extensions_file)
+	profile_sections = list_profile_sections(config_data)
+	declared_extensions = _declared_extensions_from_data(config_data, extensions_file)
+	inside_vscode = is_running_inside_vscode()
+	stage2_profiles: list[str] = []
 	if explicit_profile_name:
-		target_profiles = [explicit_profile_name]
-	elif is_running_inside_vscode():
-		target_profiles = [get_active_vscode_profile()]
+		stage2_profiles = [explicit_profile_name]
+	elif inside_vscode:
+		active_profile = get_active_vscode_profile()
+		stage2_profiles = [active_profile]
 	else:
-		target_profiles = list_profile_sections(config_data) or ["Default"]
+		stage2_profiles = profile_sections
+	stage2_profiles = unique_strings(stage2_profiles)
+
+	install_targets: list[tuple[str, str,
+															list[str]]] = [("Default", "common/default", common_extensions)]
+	for profile_name in stage2_profiles:
+		profile_actions = _profile_extensions_from_data(config_data, extensions_file, profile_name)
+		install_targets.append((profile_name, "profile-specific", profile_actions))
 
 	overall_status = 0
-	for idx, target_profile in enumerate(target_profiles, start=1):
-		if len(target_profiles) > 1:
+	for idx, (target_profile, mode, install_extensions) in enumerate(install_targets, start=1):
+		if len(install_targets) > 1:
 			if idx > 1:
 				print("")
 			header = _style(
-				f"Synchronizing profile [{idx}/{len(target_profiles)}]: {target_profile}",
+				f"Synchronizing profile [{idx}/{len(install_targets)}]: {target_profile} ({mode})",
 				_ANSI_WHITE,
 				_ANSI_BOLD,
 			)
 			print(header)
 
-		install_extensions, allowed_extensions = load_extensions(
-			extensions_file,
-			profile_name=target_profile,
-			data=config_data,
-		)
-
-		installed_extensions = list_installed_extensions(code_bin, profile_name=target_profile)
-		remove_actions: list[str] = []
-		if installed_extensions is not None:
-			remove_actions = [f"{ext}-" for ext in sorted(installed_extensions - allowed_extensions)]
-
-		extensions = [*install_extensions, *remove_actions]
-		if not extensions:
-			print(f"No extensions found for profile '{target_profile}' in: {extensions_file}")
+		if not install_extensions:
+			print(f"No extensions to install for profile '{target_profile}' in: {extensions_file}")
 			continue
 
 		run_status = sync_extensions(
-			extensions,
+			install_extensions,
 			code_bin=code_bin,
 			force=resolved_force,
 			dry_run=resolved_dry_run,
 			profile_name=target_profile,
-			installed_extensions=installed_extensions if installed_extensions is not None else set(),
+			installed_extensions=set(),
+		)
+		if run_status != 0:
+			overall_status = run_status
+
+	cleanup_profiles = unique_strings(["Default", *stage2_profiles])
+	if cleanup_profiles:
+		print("")
+		header = _style("Final cleanup: removing extensions not declared in extensions.jsonc",
+										_ANSI_WHITE, _ANSI_BOLD)
+		print(header)
+	for cleanup_profile in cleanup_profiles:
+		installed_extensions = list_installed_extensions(code_bin, profile_name=cleanup_profile)
+		if installed_extensions is None:
+			overall_status = 1
+			continue
+
+		remove_actions = [f"{ext}-" for ext in sorted(installed_extensions - declared_extensions)]
+		if not remove_actions:
+			print(f"Profile '{cleanup_profile}': no undeclared extensions to remove.")
+			continue
+
+		print("")
+		profile_header = _style(f"Cleanup profile: {cleanup_profile}", _ANSI_WHITE, _ANSI_BOLD)
+		print(profile_header)
+		run_status = sync_extensions(
+			remove_actions,
+			code_bin=code_bin,
+			force=resolved_force,
+			dry_run=resolved_dry_run,
+			profile_name=cleanup_profile,
+			installed_extensions=installed_extensions,
 		)
 		if run_status != 0:
 			overall_status = run_status
@@ -635,6 +527,7 @@ def _parse_cli_profile(argv: list[str]) -> str | None:
 	parser = argparse.ArgumentParser(
 		prog="bin/vscode_extensions_sync.py",
 		description="Synchronize VS Code extensions for one or more profiles.",
+		add_help=False,
 	)
 	parser.add_argument(
 		"--profile",

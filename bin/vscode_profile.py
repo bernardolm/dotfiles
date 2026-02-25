@@ -10,6 +10,13 @@ import subprocess
 import sys
 
 
+ROOT = Path(__file__).resolve().parents[1]
+if str(ROOT) not in sys.path:
+	sys.path.insert(0, str(ROOT))
+
+from bin.platform import platform
+
+
 __all__ = ["get_active_vscode_profile", "is_running_inside_vscode"]
 
 _WINDOW_PROCESS_RE = re.compile(r"window(?:\s+\[\d+\])?\s+\((?P<title>.+)\)$", re.IGNORECASE)
@@ -40,12 +47,13 @@ def _profile_sync_paths() -> list[Path]:
 	paths: list[Path] = []
 	home = Path.home()
 	appdata = os.environ.get("APPDATA")
+	resolved_platform = platform()
 
-	if sys.platform == "darwin":
+	if resolved_platform == "darwin":
 		paths.append(home / "Library/Application Support/Code/User/sync/profiles/lastSyncprofiles.json")
-	if sys.platform.startswith("linux"):
+	if resolved_platform in {"alpine", "linux", "termux", "ubuntu", "wsl"}:
 		paths.append(home / ".config/Code/User/sync/profiles/lastSyncprofiles.json")
-	if os.name == "nt" and appdata:
+	if resolved_platform == "windows" and appdata:
 		paths.append(Path(appdata) / "Code/User/sync/profiles/lastSyncprofiles.json")
 
 	# Useful fallbacks when platform detection does not behave as expected.
