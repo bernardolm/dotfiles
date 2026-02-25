@@ -5,11 +5,22 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import shlex
 import shutil
 import subprocess
+import sys
 
 from common import is_truthy
+from vscode_profile import get_active_vscode_profile
+
+_EXTENSION_ID_RE = re.compile(r"\b[a-z0-9][a-z0-9-]*\.[a-z0-9][a-z0-9-]*\b", re.IGNORECASE)
+_ANSI_RESET = "\033[0m"
+_ANSI_WHITE = "\033[37m"
+_ANSI_GREEN = "\033[32m"
+_ANSI_YELLOW = "\033[33m"
+_ANSI_RED = "\033[31m"
+_ANSI_BOLD = "\033[1m"
 
 
 def strip_jsonc_comments(content: str) -> str:
@@ -98,21 +109,12 @@ def strip_trailing_commas(content: str) -> str:
 	return "".join(result)
 
 
-def load_extensions(file_path: Path) -> list[str]:
-	raw = file_path.read_text(encoding="utf-8")
-	normalized = strip_trailing_commas(strip_jsonc_comments(raw))
-	data = json.loads(normalized)
-
-	if isinstance(data, dict):
-		items = data.get("recommendations", [])
-	elif isinstance(data, list):
-		items = data
-	else:
-		raise ValueError(
-			f"Formato inválido em {file_path}: esperado array ou objeto com recommendations.")
-
+def _load_group_extensions(data: dict[str, object], group_name: str, file_path: Path) -> list[str]:
+	items = data.get(group_name, [])
+	if items is None:
+		return []
 	if not isinstance(items, list):
-		raise ValueError(f"'recommendations' deve ser uma lista em {file_path}.")
+		raise ValueError(f"'{group_name}' deve ser uma lista em {file_path}.")
 
 	unique: list[str] = []
 	seen: set[str] = set()
@@ -125,6 +127,40 @@ def load_extensions(file_path: Path) -> list[str]:
 		seen.add(ext)
 		unique.append(ext)
 	return unique
+
+
+def load_extensions(file_path: Path, profile_name: str) -> list[str]:
+	raw = file_path.read_text(encoding="utf-8")
+	normalized = strip_trailing_commas(strip_jsonc_comments(raw))
+	data = json.loads(normalized)
+
+	if not isinstance(data, dict):
+		raise ValueError(
+			f"Formato inválido em {file_path}: esperado objeto com grupos de extensões.")
+
+	common_extensions = _load_group_extensions(data, "common", file_path)
+	profile_extensions = []
+	if profile_name in data:
+		profile_extensions = _load_group_extensions(data, profile_name, file_path)
+	remove_extensions = _load_group_extensions(data, "remove", file_path)
+
+	install_actions: list[str] = []
+	install_seen: set[str] = set()
+	for ext in [*common_extensions, *profile_extensions]:
+		if ext in install_seen:
+			continue
+		install_seen.add(ext)
+		install_actions.append(ext)
+
+	remove_actions: list[str] = []
+	remove_seen: set[str] = set()
+	for ext in remove_extensions:
+		if ext in remove_seen:
+			continue
+		remove_seen.add(ext)
+		remove_actions.append(f"{ext}-")
+
+	return [*install_actions, *remove_actions]
 
 
 def list_installed_extensions(code_bin: str) -> set[str] | None:
@@ -147,6 +183,132 @@ def parse_extension_action(raw_extension: str) -> tuple[str, str]:
 	return "install", raw_extension
 
 
+def _style(text: str, *styles: str) -> str:
+	return f"{''.join(styles)}{text}{_ANSI_RESET}"
+
+
+def _status_color(status_kind: str) -> str:
+	if status_kind == "success":
+		return _ANSI_GREEN
+	if status_kind == "warning":
+		return _ANSI_YELLOW
+	if status_kind == "error":
+		return _ANSI_RED
+	return _ANSI_WHITE
+
+
+def _action_prefix(idx: int, total: int, action_label: str) -> str:
+	prefix = _style(f"[{idx:02d}/{total}]", _ANSI_WHITE)
+	action = _style(action_label, _ANSI_WHITE, _ANSI_BOLD)
+	return f"{prefix} {action}:"
+
+
+def _print_action_status(
+	idx: int,
+	total: int,
+	action_label: str,
+	extension: str,
+	status_text: str,
+	status_kind: str,
+) -> None:
+	colored = _style(f"{extension} - {status_text}", _status_color(status_kind))
+	print(f"{_action_prefix(idx, total, action_label)} {colored}")
+
+
+def _print_dependency_status(
+	parent_extension: str,
+	dependency_extension: str,
+	status_text: str,
+	status_kind: str,
+) -> None:
+	lead = _style(f"Removendo dependência da extensão {parent_extension}:", _ANSI_WHITE, _ANSI_BOLD)
+	colored = _style(f"{dependency_extension} - {status_text}", _status_color(status_kind))
+	print(f"    {lead} {colored}")
+
+
+def dependency_blockers_from_error(output: str, target_extension: str) -> list[str]:
+	if "depend" not in output.lower():
+		return []
+
+	target_key = target_extension.lower()
+	seen: set[str] = set()
+	blockers: list[str] = []
+	for ext_id in _EXTENSION_ID_RE.findall(output):
+		ext_key = ext_id.lower()
+		if ext_key == target_key or ext_key in seen:
+			continue
+		seen.add(ext_key)
+		blockers.append(ext_id)
+	return blockers
+
+
+def uninstall_extension_with_dependency_resolution(
+	extension: str,
+	code_bin: str,
+	installed_extensions: set[str] | None,
+	visited: set[str] | None = None,
+	parent_extension: str | None = None,
+) -> tuple[bool, bool, str]:
+	"""Retorna: (success, warning_not_installed, status_text)."""
+	visited_path = set(visited or set())
+	extension_key = extension.lower()
+	if extension_key in visited_path:
+		return False, False, f"FALHOU (ciclo de dependências com {extension})"
+	visited_path.add(extension_key)
+
+	cmd = [code_bin, "--uninstall-extension", extension]
+	proc = subprocess.run(cmd, capture_output=True, text=True)
+	if proc.returncode == 0:
+		if installed_extensions is not None:
+			installed_extensions.discard(extension)
+		return True, False, "OK"
+
+	output = (proc.stderr or proc.stdout).strip()
+	if "not installed" in output.lower():
+		if installed_extensions is not None:
+			installed_extensions.discard(extension)
+		return True, True, "AVISO: extensão já não estava instalada"
+
+	blockers = dependency_blockers_from_error(output, extension)
+	if not blockers:
+		last_line = output.splitlines()[-1] if output else ""
+		status = f"FALHOU (exit={proc.returncode})"
+		if last_line:
+			status = f"{status}: {last_line}"
+		return False, False, status
+
+	for blocker in blockers:
+		blocker_success, blocker_warning, blocker_status = uninstall_extension_with_dependency_resolution(
+			blocker,
+			code_bin=code_bin,
+			installed_extensions=installed_extensions,
+			visited=visited_path,
+			parent_extension=extension,
+		)
+		blocker_kind = "warning" if blocker_warning else ("success" if blocker_success else "error")
+		_print_dependency_status(extension, blocker, blocker_status, blocker_kind)
+		if not blocker_success:
+			return False, False, f"FALHOU (dependência não removida: {blocker})"
+
+	retry_proc = subprocess.run(cmd, capture_output=True, text=True)
+	if retry_proc.returncode == 0:
+		if installed_extensions is not None:
+			installed_extensions.discard(extension)
+		return True, False, "OK"
+
+	retry_output = (retry_proc.stderr or retry_proc.stdout).strip()
+	if "not installed" in retry_output.lower():
+		if installed_extensions is not None:
+			installed_extensions.discard(extension)
+		return True, True, "AVISO: extensão já não estava instalada"
+
+	last_line = retry_output.splitlines()[-1] if retry_output else ""
+	status = f"FALHOU (exit={retry_proc.returncode})"
+	if last_line:
+		status = f"{status}: {last_line}"
+	return False, False, status
+
+
 def sync_extensions(extensions: list[str],
 										code_bin: str,
 										force: bool = True,
@@ -162,33 +324,69 @@ def sync_extensions(extensions: list[str],
 		action, ext = parse_extension_action(raw_ext)
 		if not ext:
 			warnings.append(raw_ext)
-			print(f"[{idx}/{total}] Aviso: entrada inválida '{raw_ext}', ignorando.")
+			prefix = _style(f"[{idx:02d}/{total}]", _ANSI_WHITE)
+			message = _style(f"Aviso: entrada inválida '{raw_ext}', ignorando.", _ANSI_YELLOW)
+			print(f"{prefix} {message}")
 			continue
 
 		action_label = "Removendo" if action == "remove" else "Instalando"
-		log_prefix = f"[{idx}/{total}] {action_label}: {ext}"
 
 		if action == "remove":
 			remove_count += 1
-			print(log_prefix, end="", flush=True)
 			if installed_extensions is not None and ext not in installed_extensions:
 				warnings.append(ext)
-				print(" - AVISO: extensão já não estava instalada")
+				_print_action_status(
+					idx,
+					total,
+					action_label,
+					ext,
+					"AVISO: extensão já não estava instalada",
+					"warning",
+				)
 				continue
-			cmd = [code_bin, "--uninstall-extension", ext]
+			if dry_run:
+				cmd = [code_bin, "--uninstall-extension", ext]
+				if os.name == "nt":
+					printable_cmd = subprocess.list2cmdline(cmd)
+				else:
+					printable_cmd = shlex.join(cmd)
+				_print_action_status(idx, total, action_label, ext, "DRY-RUN", "info")
+				print(f"  {printable_cmd}")
+				continue
+
+			remove_success, remove_warning, remove_status = uninstall_extension_with_dependency_resolution(
+				ext,
+				code_bin=code_bin,
+				installed_extensions=installed_extensions,
+			)
+			if remove_success:
+				if remove_warning:
+					warnings.append(ext)
+				_print_action_status(
+					idx,
+					total,
+					action_label,
+					ext,
+					remove_status,
+					"warning" if remove_warning else "success",
+				)
+				continue
+
+			failures.append(ext)
+			_print_action_status(idx, total, action_label, ext, remove_status, "error")
+			continue
 		else:
 			install_count += 1
 			cmd = [code_bin, "--install-extension", ext]
 			if force:
 				cmd.append("--force")
-			print(log_prefix, end="", flush=True)
 
 		if dry_run:
 			if os.name == "nt":
 				printable_cmd = subprocess.list2cmdline(cmd)
 			else:
 				printable_cmd = shlex.join(cmd)
-			print(" - DRY-RUN")
+			_print_action_status(idx, total, action_label, ext, "DRY-RUN", "info")
 			print(f"  {printable_cmd}")
 			continue
 
@@ -198,19 +396,16 @@ def sync_extensions(extensions: list[str],
 				installed_extensions.discard(ext)
 			if action == "install" and installed_extensions is not None:
 				installed_extensions.add(ext)
-			print(" - OK")
-			continue
-
-		output = (proc.stderr or proc.stdout).strip()
-		if action == "remove" and "not installed" in output.lower():
-			warnings.append(ext)
-			print(" - AVISO: extensão já não estava instalada")
+			_print_action_status(idx, total, action_label, ext, "OK", "success")
 			continue
 
 		failures.append(ext)
-		print(f" - FALHOU (exit={proc.returncode})")
-		if output:
-			print(f"  {output.splitlines()[-1]}")
+		output = (proc.stderr or proc.stdout).strip()
+		last_line = output.splitlines()[-1] if output else ""
+		status = f"FALHOU (exit={proc.returncode})"
+		if last_line:
+			status = f"{status}: {last_line}"
+		_print_action_status(idx, total, action_label, ext, status, "error")
 
 	print("")
 	print(f"Total: {total}")
@@ -219,10 +414,6 @@ def sync_extensions(extensions: list[str],
 	print(f"Avisos: {len(warnings)}")
 	print(f"Sucesso: {total - len(failures)}")
 	print(f"Falhas: {len(failures)}")
-	if warnings:
-		print("Extensões com aviso:")
-		for ext in warnings:
-			print(f"- {ext}")
 	if failures:
 		print("Extensões com falha:")
 		for ext in failures:
@@ -304,13 +495,15 @@ def default_code_cli_locations() -> list[Path]:
 
 def main(
 	extensions_file: str | Path | None = None,
+	profile_name: str | None = None,
 	code_bin: str | None = None,
 	force: bool | None = None,
 	dry_run: bool | None = None,
 ) -> int:
-	default_extensions_file = Path(__file__).resolve().parents[1] / ".vscode" / "extensions.json"
+	default_extensions_file = Path(__file__).resolve().parents[1] / "ui" / "vscode" / "extensions.jsonc"
 	resolved_extensions_file = Path(extensions_file or os.environ.get(
 		"DOTFILES_VSCODE_EXTENSIONS_FILE", str(default_extensions_file))).expanduser()
+	resolved_profile_name = profile_name.strip() if profile_name and profile_name.strip() else get_active_vscode_profile()
 	resolved_code_bin = detect_code_binary(code_bin or os.environ.get("DOTFILES_VSCODE_CODE_BIN"))
 	resolved_force = force
 	if resolved_force is None:
@@ -330,7 +523,7 @@ def main(
 		return 2
 
 	try:
-		extensions = load_extensions(extensions_file)
+		extensions = load_extensions(extensions_file, profile_name=resolved_profile_name)
 	except (OSError, json.JSONDecodeError, ValueError) as exc:
 		print(f"Falha ao carregar extensões de {extensions_file}: {exc}")
 		return 2
@@ -348,4 +541,9 @@ def main(
 
 
 if __name__ == "__main__":
-	raise SystemExit(main())
+	if len(sys.argv) > 2:
+		print("Uso: bin/vscode_extensions_install.py [nomeDoProfile]")
+		raise SystemExit(2)
+
+	override_profile = sys.argv[1] if len(sys.argv) == 2 else None
+	raise SystemExit(main(profile_name=override_profile))

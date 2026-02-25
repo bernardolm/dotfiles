@@ -8,6 +8,7 @@
 - Para novas automações e scripts: usar Python por padrão.
 - Usar shell script apenas quando a tarefa não puder ser feita de forma adequada em Python.
 - Para `bin/vscode_profile.py`: não adicionar argumentos de CLI. A execução deve ser `./bin/vscode_profile.py` e a saída deve conter somente o nome do profile ativo do VS Code.
+- Toda documentação, código, commit message, saída para stdout e stderr, deverão estar em inglês americano en-US.
 
 ## Regras para pedidos de git commit
 
