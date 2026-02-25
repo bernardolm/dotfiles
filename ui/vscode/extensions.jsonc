@@ -60,7 +60,7 @@
 		"mtxr.sqltools-driver-pg", // NOTE: only database
 		"mtxr.sqltools", // NOTE: only database
 	],
-	"devops": [
+	"devop": [
 		"4ops.terraform", // NOTE: only devop
 		"ahmadalli.vscode-nginx-conf", // NOTE: only devop
 		"charliermarsh.ruff",

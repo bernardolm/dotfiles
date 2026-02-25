@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import argparse
 import json
 import os
 from pathlib import Path
@@ -11,7 +12,7 @@ import shutil
 import subprocess
 import sys
 
-from vscode_profile import get_active_vscode_profile
+from vscode_profile import get_active_vscode_profile, is_running_inside_vscode
 
 
 _EXTENSION_ID_RE = re.compile(r"\b[a-z0-9][a-z0-9-]*\.[a-z0-9][a-z0-9-]*\b", re.IGNORECASE)
@@ -21,6 +22,8 @@ _ANSI_GREEN = "\033[32m"
 _ANSI_YELLOW = "\033[33m"
 _ANSI_RED = "\033[31m"
 _ANSI_BOLD = "\033[1m"
+_COMMON_GROUP_NAMES = {"common", "default"}
+_RESERVED_GROUP_NAMES = {"remove"}
 
 
 def strip_jsonc_comments(content: str) -> str:
@@ -129,27 +132,63 @@ def _load_group_extensions(data: dict[str, object], group_name: str, file_path: 
 	return unique
 
 
-def load_extensions(file_path: Path, profile_name: str) -> tuple[list[str], set[str]]:
+def load_extensions_config(file_path: Path) -> dict[str, object]:
 	raw = file_path.read_text(encoding="utf-8")
 	normalized = strip_trailing_commas(strip_jsonc_comments(raw))
 	data = json.loads(normalized)
-
 	if not isinstance(data, dict):
 		raise ValueError(f"Invalid format in {file_path}: expected an object with extension groups.")
+	return data
 
-	common_extensions = _load_group_extensions(data, "common", file_path)
-	profile_extensions = []
-	if profile_name in data:
-		profile_extensions = _load_group_extensions(data, profile_name, file_path)
 
-	allowed_extensions: set[str] = set()
+def _common_extensions_from_data(data: dict[str, object], file_path: Path) -> list[str]:
+	common_extensions: list[str] = []
+	seen: set[str] = set()
 	for group_name, group_items in data.items():
-		if group_name == "remove":
-			continue
 		if not isinstance(group_items, list):
 			continue
+		if group_name.strip().lower() not in _COMMON_GROUP_NAMES:
+			continue
 		for ext in _load_group_extensions(data, group_name, file_path):
-			allowed_extensions.add(ext)
+			if ext in seen:
+				continue
+			seen.add(ext)
+			common_extensions.append(ext)
+	return common_extensions
+
+
+def list_profile_sections(data: dict[str, object]) -> list[str]:
+	profiles: list[str] = []
+	seen: set[str] = set()
+	for group_name, group_items in data.items():
+		if not isinstance(group_items, list):
+			continue
+		name = group_name.strip()
+		if not name:
+			continue
+		lowered = name.lower()
+		if lowered in _COMMON_GROUP_NAMES or lowered in _RESERVED_GROUP_NAMES:
+			continue
+		if name in seen:
+			continue
+		seen.add(name)
+		profiles.append(name)
+	return profiles
+
+
+def load_extensions(
+	file_path: Path,
+	profile_name: str,
+	data: dict[str, object] | None = None,
+) -> tuple[list[str], set[str]]:
+	parsed_data = data if data is not None else load_extensions_config(file_path)
+
+	common_extensions = _common_extensions_from_data(parsed_data, file_path)
+	profile_extensions = (_load_group_extensions(parsed_data, profile_name, file_path)
+												if profile_name in parsed_data else [])
+
+	allowed_extensions: set[str] = set(common_extensions)
+	allowed_extensions.update(profile_extensions)
 
 	install_actions: list[str] = []
 	install_seen: set[str] = set()
@@ -162,8 +201,18 @@ def load_extensions(file_path: Path, profile_name: str) -> tuple[list[str], set[
 	return install_actions, allowed_extensions
 
 
-def list_installed_extensions(code_bin: str) -> set[str] | None:
-	proc = subprocess.run([code_bin, "--list-extensions"], capture_output=True, text=True)
+def _with_profile_args(cmd: list[str], profile_name: str | None) -> list[str]:
+	if not profile_name or not profile_name.strip():
+		return list(cmd)
+	return [*cmd, "--profile", profile_name.strip()]
+
+
+def list_installed_extensions(code_bin: str, profile_name: str | None = None) -> set[str] | None:
+	proc = subprocess.run(
+		_with_profile_args([code_bin, "--list-extensions"], profile_name),
+		capture_output=True,
+		text=True,
+	)
 	if proc.returncode != 0:
 		output = (proc.stderr or proc.stdout).strip()
 		print("Warning: could not list installed extensions; removals will be attempted directly.")
@@ -244,6 +293,7 @@ def uninstall_extension_with_dependency_resolution(
 	extension: str,
 	code_bin: str,
 	installed_extensions: set[str] | None,
+	profile_name: str | None = None,
 	visited: set[str] | None = None,
 	parent_extension: str | None = None,
 ) -> tuple[bool, bool, str]:
@@ -254,7 +304,7 @@ def uninstall_extension_with_dependency_resolution(
 		return False, False, f"FAILED (dependency cycle with {extension})"
 	visited_path.add(extension_key)
 
-	cmd = [code_bin, "--uninstall-extension", extension]
+	cmd = _with_profile_args([code_bin, "--uninstall-extension", extension], profile_name)
 	proc = subprocess.run(cmd, capture_output=True, text=True)
 	if proc.returncode == 0:
 		if installed_extensions is not None:
@@ -280,6 +330,7 @@ def uninstall_extension_with_dependency_resolution(
 			blocker,
 			code_bin=code_bin,
 			installed_extensions=installed_extensions,
+			profile_name=profile_name,
 			visited=visited_path,
 			parent_extension=extension,
 		)
@@ -307,18 +358,21 @@ def uninstall_extension_with_dependency_resolution(
 	return False, False, status
 
 
-def sync_extensions(extensions: list[str],
-										code_bin: str,
-										force: bool = True,
-										dry_run: bool = False,
-										installed_extensions: set[str] | None = None) -> int:
+def sync_extensions(
+	extensions: list[str],
+	code_bin: str,
+	force: bool = True,
+	dry_run: bool = False,
+	profile_name: str | None = None,
+	installed_extensions: set[str] | None = None,
+) -> int:
 	failures: list[str] = []
 	warnings: list[str] = []
 	total = len(extensions)
 	if dry_run:
 		installed_extensions = None
 	elif installed_extensions is None:
-		installed_extensions = list_installed_extensions(code_bin)
+		installed_extensions = list_installed_extensions(code_bin, profile_name=profile_name)
 	else:
 		installed_extensions = set(installed_extensions)
 	install_count = 0
@@ -349,7 +403,7 @@ def sync_extensions(extensions: list[str],
 				)
 				continue
 			if dry_run:
-				cmd = [code_bin, "--uninstall-extension", ext]
+				cmd = _with_profile_args([code_bin, "--uninstall-extension", ext], profile_name)
 				if os.name == "nt":
 					printable_cmd = subprocess.list2cmdline(cmd)
 				else:
@@ -362,6 +416,7 @@ def sync_extensions(extensions: list[str],
 				ext,
 				code_bin=code_bin,
 				installed_extensions=installed_extensions,
+				profile_name=profile_name,
 			)
 			if remove_success:
 				if remove_warning:
@@ -379,11 +434,11 @@ def sync_extensions(extensions: list[str],
 			failures.append(ext)
 			_print_action_status(idx, total, action_label, ext, remove_status, "error")
 			continue
-		else:
-			install_count += 1
-			cmd = [code_bin, "--install-extension", ext]
-			if force:
-				cmd.append("--force")
+
+		install_count += 1
+		cmd = _with_profile_args([code_bin, "--install-extension", ext], profile_name)
+		if force:
+			cmd.append("--force")
 
 		if dry_run:
 			if os.name == "nt":
@@ -506,8 +561,7 @@ def main(
 ) -> int:
 	default_extensions_file = Path.home() / "dotfiles" / "ui" / "vscode" / "extensions.jsonc"
 	resolved_extensions_file = Path(extensions_file or default_extensions_file).expanduser()
-	resolved_profile_name = profile_name.strip(
-	) if profile_name and profile_name.strip() else get_active_vscode_profile()
+	explicit_profile_name = profile_name.strip() if profile_name and profile_name.strip() else None
 	resolved_code_bin = detect_code_binary(code_bin)
 	resolved_force = True if force is None else force
 	resolved_dry_run = False if dry_run is None else dry_run
@@ -523,35 +577,84 @@ def main(
 		return 2
 
 	try:
-		install_extensions, allowed_extensions = load_extensions(extensions_file,
-																															profile_name=resolved_profile_name)
+		config_data = load_extensions_config(extensions_file)
 	except (OSError, json.JSONDecodeError, ValueError) as exc:
 		print(f"Failed to load extensions from {extensions_file}: {exc}")
 		return 2
 
-	installed_extensions = list_installed_extensions(code_bin)
-	remove_actions: list[str] = []
-	if installed_extensions is not None:
-		remove_actions = [f"{ext}-" for ext in sorted(installed_extensions - allowed_extensions)]
+	if explicit_profile_name:
+		target_profiles = [explicit_profile_name]
+	elif is_running_inside_vscode():
+		target_profiles = [get_active_vscode_profile()]
+	else:
+		target_profiles = list_profile_sections(config_data) or ["Default"]
 
-	extensions = [*install_extensions, *remove_actions]
-	if not extensions:
-		print(f"No extensions found in: {extensions_file}")
-		return 0
+	overall_status = 0
+	for idx, target_profile in enumerate(target_profiles, start=1):
+		if len(target_profiles) > 1:
+			if idx > 1:
+				print("")
+			header = _style(
+				f"Synchronizing profile [{idx}/{len(target_profiles)}]: {target_profile}",
+				_ANSI_WHITE,
+				_ANSI_BOLD,
+			)
+			print(header)
 
-	return sync_extensions(
-		extensions,
-		code_bin=code_bin,
-		force=resolved_force,
-		dry_run=resolved_dry_run,
-		installed_extensions=installed_extensions if installed_extensions is not None else set(),
+		install_extensions, allowed_extensions = load_extensions(
+			extensions_file,
+			profile_name=target_profile,
+			data=config_data,
+		)
+
+		installed_extensions = list_installed_extensions(code_bin, profile_name=target_profile)
+		remove_actions: list[str] = []
+		if installed_extensions is not None:
+			remove_actions = [f"{ext}-" for ext in sorted(installed_extensions - allowed_extensions)]
+
+		extensions = [*install_extensions, *remove_actions]
+		if not extensions:
+			print(f"No extensions found for profile '{target_profile}' in: {extensions_file}")
+			continue
+
+		run_status = sync_extensions(
+			extensions,
+			code_bin=code_bin,
+			force=resolved_force,
+			dry_run=resolved_dry_run,
+			profile_name=target_profile,
+			installed_extensions=installed_extensions if installed_extensions is not None else set(),
+		)
+		if run_status != 0:
+			overall_status = run_status
+
+	return overall_status
+
+
+def _parse_cli_profile(argv: list[str]) -> str | None:
+	parser = argparse.ArgumentParser(
+		prog="bin/vscode_extensions_sync.py",
+		description="Synchronize VS Code extensions for one or more profiles.",
 	)
+	parser.add_argument(
+		"--profile",
+		dest="profile_flag",
+		help="Synchronize only the provided VS Code profile.",
+	)
+	parser.add_argument(
+		"profile_name",
+		nargs="?",
+		help="Deprecated positional profile name. Prefer --profile.",
+	)
+	args = parser.parse_args(argv)
+
+	profile_flag = args.profile_flag.strip() if args.profile_flag else None
+	positional_profile = args.profile_name.strip() if args.profile_name else None
+	if profile_flag and positional_profile and profile_flag != positional_profile:
+		parser.error("Use either --profile or a positional profile name, not conflicting values.")
+	return profile_flag or positional_profile
 
 
 if __name__ == "__main__":
-	if len(sys.argv) > 2:
-		print("Usage: bin/vscode_extensions_sync.py [profileName]")
-		raise SystemExit(2)
-
-	override_profile = sys.argv[1] if len(sys.argv) == 2 else None
+	override_profile = _parse_cli_profile(sys.argv[1:])
 	raise SystemExit(main(profile_name=override_profile))

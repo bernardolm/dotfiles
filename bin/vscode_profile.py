@@ -5,10 +5,12 @@ import json
 import os
 from pathlib import Path
 import re
+import shlex
 import subprocess
 import sys
 
-__all__ = ["get_active_vscode_profile"]
+
+__all__ = ["get_active_vscode_profile", "is_running_inside_vscode"]
 
 _WINDOW_PROCESS_RE = re.compile(r"window(?:\s+\[\d+\])?\s+\((?P<title>.+)\)$", re.IGNORECASE)
 _WINDOW_STATS_RE = re.compile(r"^\|\s+Window\s+\((?P<title>.+)\)$")
@@ -100,10 +102,72 @@ def _profile_from_title(title: str, default: str, known_profiles: set[str]) -> s
 	return default
 
 
+def is_running_inside_vscode() -> bool:
+	return bool(os.environ.get("VSCODE_PID", "").strip())
+
+
+def _argv_from_pid(pid: int) -> list[str]:
+	proc_cmdline = Path(f"/proc/{pid}/cmdline")
+	if proc_cmdline.is_file():
+		try:
+			raw = proc_cmdline.read_bytes()
+		except OSError:
+			raw = b""
+		if raw:
+			return [part.decode("utf-8", errors="ignore") for part in raw.split(b"\0") if part]
+
+	proc = subprocess.run(
+		["ps", "-p", str(pid), "-o", "command="],
+		capture_output=True,
+		text=True,
+		check=False,
+	)
+	if proc.returncode != 0:
+		return []
+
+	command_line = proc.stdout.strip()
+	if not command_line:
+		return []
+
+	try:
+		return shlex.split(command_line)
+	except ValueError:
+		return command_line.split()
+
+
+def _profile_from_vscode_pid(default: str) -> str | None:
+	raw_pid = os.environ.get("VSCODE_PID", "").strip()
+	if not raw_pid:
+		return None
+
+	try:
+		pid = int(raw_pid)
+	except ValueError:
+		return default
+
+	argv = _argv_from_pid(pid)
+	if not argv:
+		return default
+
+	for idx, arg in enumerate(argv):
+		if arg == "--profile" and idx + 1 < len(argv):
+			candidate = argv[idx + 1].strip()
+			return candidate or default
+		if arg.startswith("--profile="):
+			candidate = arg.split("=", 1)[1].strip()
+			return candidate or default
+	return default
+
+
 def get_active_vscode_profile() -> str:
 	"""Return the active VS Code profile."""
 	code_bin = "code"
 	default = "Default"
+
+	profile_from_pid = _profile_from_vscode_pid(default)
+	if profile_from_pid is not None:
+		return profile_from_pid
+
 	try:
 		proc = subprocess.run([code_bin, "--status"], capture_output=True, text=True, check=False)
 	except FileNotFoundError:
