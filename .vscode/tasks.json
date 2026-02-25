@@ -5,11 +5,11 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"command": "zsh --no-rcs -c 'export PYENV_ROOT=\"$HOME/.pyenv\"; export PATH=\"$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH\"; pyenv exec python ./bin/vscode_extensions_install.py'",
+			"command": "zsh --no-rcs -c 'export PYENV_ROOT=\"$HOME/.pyenv\"; export PATH=\"$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH\"; pyenv exec python ./bin/vscode_extensions_sync.py'",
 			"label": "Install VS Code extensions",
 			"type": "shell",
 			"windows": {
-				"command": "powershell -NoProfile -ExecutionPolicy Bypass -File ./bin/vscode_extensions_install.ps1"
+				"command": "powershell -NoProfile -ExecutionPolicy Bypass -File ./bin/vscode_extensions_sync.ps1"
 			},
 			"presentation": {
 				"clear": true
