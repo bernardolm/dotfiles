@@ -13,6 +13,7 @@
 *.zsh.zwc
 **/__pycache__
 **/.DS_Store
+**/.zsh_sessions
 **/*.pid
 **/micro/buffers
 **/micro/plug
@@ -20,8 +21,8 @@
 *fix*.txt
 *phone.py
 *venv/
+/venv/
 debian/*
 git/submodule/*
 maestral/Dockerfile
 prompt.txt
-zsh/zdotdir/.zsh_sessions/*

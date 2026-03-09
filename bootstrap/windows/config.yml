@@ -1,0 +1,29 @@
+package-manager: winget
+
+packages:
+  - Microsoft.PowerShell
+  - Microsoft.WindowsTerminal
+  - Git.Git
+  - BurntSushi.ripgrep.MSVC
+  - junegunn.fzf
+  - ajeetdsouza.zoxide
+  - GitHub.cli
+  - Starship.Starship
+  - Microsoft.WSL:
+    profiles: [desktop]
+    optional: true
+  - Canonical.Ubuntu:
+    profiles: [desktop]
+    optional: true
+  - Microsoft.VisualStudioCode:
+    profiles: [desktop]
+  - Docker.DockerDesktop:
+    profiles: [desktop]
+  - go-packages:
+    manager: go-list
+    file: terminal/go/packages.txt
+    optional: true
+  - python-requirements:
+    manager: pip-requirements
+    file: terminal/python/requirements.txt
+    optional: true

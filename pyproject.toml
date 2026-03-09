@@ -6,13 +6,14 @@ lines_after_imports = 2
 # multi_line_output = 11
 profile = 'google'
 remove_redundant_aliases = true
+skip_glob = ['.v1/**', 'venv/**', '**/__pycache__/**']
 
 # ------------------------------------------------------------------------------
 
 [tool.unimport]
-check = true
+check = false
 color = 'always'
-exclude = '__pycache__|venv'
+exclude = '__pycache__|venv|\\.v1'
 gitignore = true
 ignore_init = false
 include_star_import = true
@@ -22,7 +23,10 @@ remove = true
 
 [tool.pylint]
 ignore-paths = [
-	'venv/'
+	'venv/',
+	'.venv/',
+	'**/__pychache__',
+	'.v1/',
 ]
 exit-zero = true
 output-format = 'colorized'
@@ -58,4 +62,28 @@ split_penalty_import_names = 0
 use_tabs = true
 
 [tool.yapfignore]
-ignore_patterns = ['.web', '**/__pycache__', 'venv']
+ignore_patterns = ['.web', '**/__pycache__', 'venv', '.v1/**']
+
+# ------------------------------------------------------------------------------
+
+[tool.pytest.ini_options]
+testpaths = ['tests']
+python_files = ['test_*.py']
+python_classes = ['Test*']
+python_functions = ['test_*']
+addopts = '''
+	-v
+	--tb=short
+	--strict-markers
+	-ra
+	--color=yes
+'''
+markers = [
+	'slow: Tests that take more than 1 minute (e.g. rate limiting)',
+	'integration: Integration tests (require a running server)',
+	'unit: Unit tests (isolated, no I/O)',
+]
+filterwarnings = [
+	'ignore::DeprecationWarning',
+	'ignore::PendingDeprecationWarning',
+]

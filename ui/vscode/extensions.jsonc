@@ -1,0 +1,86 @@
+{
+	"common": [
+		"aaron-bond.better-comments",
+		"axiomaticstudios.one-monokai-80s", // NOTE: disable
+		"bierner.markdown-mermaid", // NOTE: disable
+		"bierner.markdown-preview-github-styles",
+		"bracketpaircolordlw.bracket-pair-color-dlw",
+		"dakara.transformer",
+		"editorconfig.editorconfig",
+		"eliverlara.sweet-vscode-icons", // NOTE: disable
+		"esbenp.prettier-vscode",
+		"file-icons.file-icons",
+		"github.copilot",
+		"gruntfuggly.todo-tree",
+		"gulajavaministudio.mayukaithemevsc", // NOTE: disable
+		"ibm.output-colorizer",
+		"jsaulou.theme-by-language", // NOTE: disable
+		"kamikillerto.vscode-colorize",
+		"mechatroner.rainbow-csv",
+		"mikestead.dotenv",
+		"ms-azuretools.vscode-containers",
+		"ms-vscode-remote.remote-ssh-edit",
+		"ms-vscode-remote.remote-ssh",
+		"ms-vscode-remote.remote-wsl", // NOTE: disable
+		"ms-vscode.makefile-tools",
+		"ms-vscode.remote-explorer",
+		"ms-vscode.remote-repositories",
+		"ms-vscode.remote-server",
+		"ms-vscode.sublime-keybindings",
+		"neptunedesign.vs-slug",
+		"nhoizey.gremlins",
+		"oderwat.indent-rainbow",
+		"openai.chatgpt",
+		"pflannery.vscode-versionlens",
+		"pkief.material-icon-theme", // NOTE: disable
+		"rajeshwaran.developer-theme-dark", // NOTE: disable
+		"redhat.vscode-yaml",
+		"ryu1kn.partial-diff",
+		"shardulm94.trailing-spaces",
+		"teabyii.ayu", // NOTE: disable
+		"usernamehw.errorlens",
+		"vscode-icons-team.vscode-icons", // NOTE: disable
+		"wakatime.vscode-wakatime",
+	],
+	"golang": [
+		"golang.go", // NOTE: only golang
+	],
+	"python": [
+		"bradlc.vscode-tailwindcss", // only python, to work with Reflex
+		"eeyore.yapf", // NOTE: python and devop
+		"ms-python.debugpy", // NOTE: python, but disable
+		"ms-python.isort", // NOTE: python and devop
+		"ms-python.pylint", // NOTE: python and devop
+		"ms-python.python", // NOTE: python and devop
+		"ms-python.vscode-pylance", // NOTE: only python
+		"ms-python.vscode-python-envs", // NOTE: python and devop
+		"pflannery.vscode-versionlens", // NOTE: python and devop
+	],
+	"database": [
+		"adpyke.vscode-sql-formatter", // NOTE: only database
+		"bradymholt.pgformatter", // NOTE: only database
+		"mtxr.sqltools-driver-mysql", // NOTE: only database
+		"mtxr.sqltools-driver-pg", // NOTE: only database
+		"mtxr.sqltools", // NOTE: only database
+	],
+	"devop": [
+		"4ops.terraform", // NOTE: only devop
+		"ahmadalli.vscode-nginx-conf", // NOTE: only devop
+		"docker.docker", // NOTE: only devop
+		"eeyore.yapf", // NOTE: python and devop
+		"foxundermoon.shell-format", // NOTE: only devop
+		"mkhl.shfmt", // NOTE: only devop
+		"ms-azuretools.vscode-azureterraform", // NOTE: only devop
+		"ms-azuretools.vscode-docker", // NOTE: only devop
+		"ms-python.isort", // NOTE: python and devop
+		"ms-python.pylint", // NOTE: python and devop
+		"ms-python.python", // NOTE: python and devop
+		"ms-python.vscode-python-envs", // NOTE: python and devop
+		"ms-vscode-remote.remote-containers", // NOTE: only devop
+		"ms-vscode.powershell", // NOTE: only devop, but disable
+		"redhat.vscode-xml", // NOTE: only devop, but disable
+		"sumneko.lua", // NOTE: only devop
+		"tamasfe.even-better-toml", // NOTE: only devop, but disable
+		"timonwong.shellcheck", // NOTE: only devop
+	]
+}

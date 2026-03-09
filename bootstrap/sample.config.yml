@@ -1,0 +1,23 @@
+multiplexer: tmux
+shell-manager: zimfw
+shell: zsh
+terminal: wezterm
+
+envs:
+  FOO: bar
+
+# packages field below - how to use
+#   exemple:
+#     - package-name:
+#      manager: curl|brew|pip|apt|winget|go|npm|git|snap|flatpak (default in top field 'package-manager')
+#      action: install|remove|purge (install is default)
+#      curl_url: used when curl is choose
+#      version: used when needs diferent version from latest
+#      url: used when installation needs a custom URL location
+#      command: used when installer is a custom shell command. this fields ignores manager field.
+
+packages:
+  - ...
+
+symbolic_links:
+

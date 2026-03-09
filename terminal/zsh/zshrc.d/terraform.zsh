@@ -1,0 +1,5 @@
+alias tfp='reset ; terraform plan'
+alias tfa='reset ; terraform apply'
+alias tfv='terraform validate'
+alias tfp-to-bin='tfp -lock=false -out=tfplan.binary >/dev/null'
+alias tfp-summary='tfp-to-bin ; tf-summarize tfplan.binary'

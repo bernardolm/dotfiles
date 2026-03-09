@@ -1,0 +1,36 @@
+"$HOME/dotfiles/bin/logger.py" start "zimfw: start"
+
+: "${ZIM_HOME:=$HOME/.zim}"
+: "${ZIM_CONFIG_FILE:=$ZDOTDIR/.zimrc}"
+
+if [[ ! -f "$ZIM_HOME/zimfw.zsh" ]]; then
+	"$HOME/dotfiles/bin/logger.py" warn "zimfw: missing $ZIM_HOME/zimfw.zsh"
+	"$HOME/dotfiles/bin/logger.py" warn "zimfw: run bootstrap to install zimfw"
+	"$HOME/dotfiles/bin/logger.py" finish "zimfw: start"
+	return 0
+fi
+
+# shellcheck source=/dev/null
+source "$ZIM_HOME/zimfw.zsh"
+
+if [[ ! -f "$ZIM_HOME/init.zsh" || "$ZIM_HOME/zimfw.zsh" -nt "$ZIM_HOME/init.zsh" ]]; then
+	"$HOME/dotfiles/bin/logger.py" info "zimfw: generating init"
+	if ! zimfw init -q; then
+	"$HOME/dotfiles/bin/logger.py" warn "zimfw: init failed"
+	"$HOME/dotfiles/bin/logger.py" finish "zimfw: start"
+	return 0
+	fi
+fi
+
+if [[ -f "$ZIM_HOME/init.zsh" ]]; then
+	# shellcheck source=/dev/null
+	source "$ZIM_HOME/init.zsh"
+fi
+
+# git@github.com:ohmyzsh/ohmyzsh.git
+# Loads the main Oh My Zsh repository without running its full bootstrap script
+zmodule ohmyzsh/ohmyzsh repository-url github.com
+# Loads the repository-specific 'git' plugin
+zmodule ohmyzsh/ohmyzsh plugins/git
+
+"$HOME/dotfiles/bin/logger.py" finish "zimfw: start"

@@ -1,0 +1,2 @@
+# caution! makes session start be slowly!
+zsh-users/zsh-completions

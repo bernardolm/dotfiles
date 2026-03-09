@@ -1,0 +1,287 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+cd "$repo_root"
+
+PYENV_ROOT="${PYENV_ROOT:-$HOME/.pyenv}"
+if [ -x "$PYENV_ROOT/bin/pyenv" ]; then
+	export PYENV_ROOT
+	export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"
+	if [ -z "${PYENV_VERSION:-}" ] && [ -f ".python-version" ]; then
+		PYENV_VERSION="$(head -n 1 .python-version | tr -d '[:space:]')"
+		export PYENV_VERSION
+	fi
+fi
+
+discard_v1_changes() {
+	[ -d "$repo_root/.v1" ] || return 0
+	git rev-parse --verify HEAD >/dev/null 2>&1 || return 0
+
+	if ! git status --porcelain -- .v1 | grep -q .; then
+		return 0
+	fi
+
+	echo "pre-commit: desfazendo alterações em .v1 com git checkout HEAD -- .v1"
+	git checkout HEAD -- .v1
+
+	if git status --porcelain -- .v1 | grep -q '^\?\? '; then
+		echo "pre-commit: removendo não rastreados em .v1"
+		git clean -fd -- .v1 >/dev/null 2>&1 || true
+	fi
+}
+
+discard_v1_changes
+
+staged_python_files=()
+staged_workflow_files=()
+staged_added_files=()
+staged_files=()
+while IFS= read -r -d '' file; do
+	staged_files+=("$file")
+	case "$file" in
+		*.py) staged_python_files+=("$file") ;;
+		.github/workflows/*.yml|.github/workflows/*.yaml) staged_workflow_files+=("$file") ;;
+	esac
+done < <(git diff --cached --name-only --diff-filter=ACMR -z)
+
+while IFS= read -r -d '' file; do
+	staged_added_files+=("$file")
+done < <(git diff --cached --name-only --diff-filter=A -z)
+
+if [ "${#staged_files[@]}" -eq 0 ]; then
+	exit 0
+fi
+
+run_python() {
+	if command -v pyenv >/dev/null 2>&1; then
+		pyenv exec python "$@"
+		return $?
+	fi
+	if command -v python3 >/dev/null 2>&1; then
+		python3 "$@"
+		return $?
+	fi
+	if command -v python >/dev/null 2>&1; then
+		python "$@"
+		return $?
+	fi
+	echo "pre-commit: erro: python não encontrado para executar tarefas do hook." >&2
+	return 1
+}
+
+resolved_python_version() {
+	run_python - <<'PY'
+import sys
+print(f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}")
+PY
+}
+
+is_executable_file() {
+	local path="$1"
+	[ -f "$path" ] && [ -x "$path" ]
+}
+
+ensure_python_venv() {
+	local venv_dir="$repo_root/venv"
+	local venv_python="$venv_dir/bin/python"
+	local base_python_version=""
+	local venv_python_version=""
+
+	base_python_version="$(resolved_python_version)" || {
+		echo "pre-commit: erro: não foi possível resolver versão do Python via pyenv/python do sistema."
+		return 1
+	}
+
+	if is_executable_file "$venv_python"; then
+		venv_python_version="$("$venv_python" - <<'PY'
+import sys
+print(f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}")
+PY
+)"
+		if [ "$venv_python_version" = "$base_python_version" ]; then
+			return 0
+		fi
+		echo "pre-commit: recriando ./venv para alinhar com pyenv local (${base_python_version})."
+		rm -rf "$venv_dir"
+	fi
+
+	echo "pre-commit: criando virtualenv local em ./venv..."
+	if ! run_python -m venv "$venv_dir"; then
+		echo "pre-commit: erro: falha ao criar ./venv com o Python resolvido pelo pyenv/sistema."
+		return 1
+	fi
+
+	if ! is_executable_file "$venv_python"; then
+		echo "pre-commit: erro: não foi possível criar ./venv."
+		return 1
+	fi
+	return 0
+}
+
+ensure_python_tools() {
+	local venv_bin="$repo_root/venv/bin"
+	local venv_python="$venv_bin/python"
+	local requirements_file="$repo_root/terminal/python/requirements.txt"
+	local missing=()
+	local tool=""
+
+	ensure_python_venv || return 1
+
+	if ! is_executable_file "$venv_python"; then
+		echo "pre-commit: erro: python do venv não encontrado."
+		return 1
+	fi
+	if [ ! -f "$requirements_file" ]; then
+		echo "pre-commit: erro: requirements não encontrado em $requirements_file."
+		return 1
+	fi
+
+	for tool in unimport isort yapf; do
+		if ! is_executable_file "$venv_bin/$tool"; then
+			missing+=("$tool")
+		fi
+	done
+
+	if [ "${#missing[@]}" -eq 0 ]; then
+		return 0
+	fi
+
+	echo "pre-commit: instalando ferramentas Python no venv: ${missing[*]}"
+	if ! "$venv_python" -m pip install --requirement "$requirements_file"; then
+		echo "pre-commit: erro: falha ao instalar terminal/python/requirements.txt."
+		return 1
+	fi
+
+	for tool in unimport isort yapf; do
+		if ! is_executable_file "$venv_bin/$tool"; then
+			echo "pre-commit: erro: ferramenta '$tool' indisponível após instalar requirements."
+			return 1
+		fi
+	done
+	return 0
+}
+
+validate_workflow_policies() {
+	local invalid=0
+	local file=""
+
+	for file in "${staged_workflow_files[@]-}"; do
+		[ -f "$file" ] || continue
+		if ! rg -q "\\.v1/\\*\\*|\\.v1/" "$file"; then
+			echo "pre-commit: erro: workflow sem exclusão explícita de .v1: $file"
+			invalid=1
+		fi
+	done
+
+	if [ "$invalid" -ne 0 ]; then
+		echo "pre-commit: adicione 'paths-ignore' com '.v1/**' no(s) workflow(s) acima."
+		return 1
+	fi
+	return 0
+}
+
+is_shell_script_file() {
+	local file="$1"
+	local first_line=""
+
+	case "$file" in
+		*.sh|*.bash|*.zsh|*.ksh) return 0 ;;
+	esac
+
+	[ -f "$file" ] || return 1
+	first_line="$(head -n 1 "$file" 2>/dev/null || true)"
+	[[ "$first_line" =~ ^#! ]] || return 1
+	[[ "$first_line" =~ (sh|bash|zsh|ksh) ]] || return 1
+	return 0
+}
+
+validate_new_shell_scripts_policy() {
+	local invalid=0
+	local file=""
+
+	for file in "${staged_added_files[@]-}"; do
+		[ -f "$file" ] || continue
+		if ! is_shell_script_file "$file"; then
+			continue
+		fi
+		if ! head -n 30 "$file" | rg -q "shell-required:"; then
+			echo "pre-commit: erro: novo script shell sem justificativa técnica: $file"
+			invalid=1
+		fi
+	done
+
+	if [ "$invalid" -ne 0 ]; then
+		echo "pre-commit: regra ativa: novos scripts devem ser Python por padrão."
+		echo "pre-commit: use shell só quando necessário e adicione no topo do arquivo:"
+		echo "pre-commit:   # shell-required: <motivo técnico de por que Python não atende bem>"
+		return 1
+	fi
+	return 0
+}
+
+validate_workflow_policies
+validate_new_shell_scripts_policy
+
+normalized_files=()
+while IFS= read -r changed_file; do
+	[ -n "$changed_file" ] || continue
+	normalized_files+=("$changed_file")
+done < <(run_python "$repo_root/bin/normalize_tabs.py")
+
+if [ "${#normalized_files[@]}" -gt 0 ]; then
+	echo "pre-commit: indentação (qualquer nível) normalizada para tabs em ${#normalized_files[@]} arquivo(s)."
+fi
+
+run_python_formatters() {
+	local venv_bin="$repo_root/venv/bin"
+	local isort_settings_path="$repo_root/pyproject.toml"
+	local yapf_style_path="$repo_root/pyproject.toml"
+	local unimport_log_file="$repo_root/.git/.pre-commit-unimport.log"
+	local py_version=""
+
+	py_version="$(resolved_python_version)"
+
+	if run_python - <<'PY'
+import ast
+import sys
+sys.exit(0 if hasattr(ast, "Str") else 1)
+PY
+	then
+		if "$venv_bin/unimport" "${staged_python_files[@]}" >"$unimport_log_file" 2>&1; then
+			echo "pre-commit: unimport aplicado."
+		else
+			if rg -q "module 'ast' has no attribute 'Str'" "$unimport_log_file"; then
+				echo "pre-commit: aviso: unimport incompatível com Python ${py_version}; pulando unimport."
+			else
+				echo "pre-commit: aviso: unimport retornou erro; seguindo com isort/yapf."
+				tail -n 5 "$unimport_log_file" || true
+			fi
+		fi
+	else
+		echo "pre-commit: aviso: unimport incompatível com Python ${py_version}; pulando unimport."
+	fi
+
+	if ! "$venv_bin/isort" --settings-path "$isort_settings_path" "${staged_python_files[@]}"; then
+		echo "pre-commit: erro: isort falhou."
+		return 1
+	fi
+	echo "pre-commit: isort aplicado."
+
+	if ! "$venv_bin/yapf" --style "$yapf_style_path" --in-place "${staged_python_files[@]}"; then
+		echo "pre-commit: erro: yapf falhou."
+		return 1
+	fi
+	echo "pre-commit: yapf aplicado."
+	return 0
+}
+
+if [ "${#staged_python_files[@]}" -gt 0 ]; then
+	echo "pre-commit: ajustando ${#staged_python_files[@]} arquivo(s) Python..."
+
+	ensure_python_tools
+	run_python_formatters
+fi
+
+git add -- "${staged_files[@]}"
+echo "pre-commit: ajustes aplicados e adicionados ao stage."

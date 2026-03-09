@@ -1,0 +1,193 @@
+from __future__ import annotations
+
+import os
+from pathlib import Path
+import shutil
+import subprocess
+from typing import Iterable, Sequence
+
+
+def repo_root(start: Path | None = None) -> Path:
+	start = (start or Path(__file__).resolve()).resolve()
+	for parent in [start] + list(start.parents):
+		if (parent / ".git").exists():
+			return parent
+	return start.parent
+
+
+def dotfiles_root() -> Path:
+	return Path.home() / "dotfiles"
+
+
+def strip_trailing_commas(content: str) -> str:
+	result: list[str] = []
+	in_string = False
+	escaped = False
+	i = 0
+
+	while i < len(content):
+		ch = content[i]
+
+		if in_string:
+			result.append(ch)
+			if escaped:
+				escaped = False
+			elif ch == "\\":
+				escaped = True
+			elif ch == '"':
+				in_string = False
+			i += 1
+			continue
+
+		if ch == '"':
+			in_string = True
+			result.append(ch)
+			i += 1
+			continue
+
+		if ch == ",":
+			j = i + 1
+			while j < len(content) and content[j].isspace():
+				j += 1
+			if j < len(content) and content[j] in "]}":
+				i += 1
+				continue
+
+		result.append(ch)
+		i += 1
+
+	return "".join(result)
+
+
+def unique_strings(values: Sequence[str]) -> list[str]:
+	unique: list[str] = []
+	seen: set[str] = set()
+	for value in values:
+		key = value.strip()
+		if not key or key in seen:
+			continue
+		seen.add(key)
+		unique.append(key)
+	return unique
+
+
+def run(
+	cmd: Sequence[str],
+	check: bool = False,
+	capture: bool = False,
+	text: bool = True,
+	input_data: str | None = None,
+	env: dict[str, str] | None = None,
+) -> subprocess.CompletedProcess[str]:
+	return subprocess.run(
+		list(cmd),
+		check=check,
+		capture_output=capture,
+		text=text,
+		input=input_data,
+		env=env,
+	)
+
+
+def run_lines(cmd: Sequence[str], check: bool = False) -> list[str]:
+	result = run(cmd, check=check, capture=True)
+	return [line for line in result.stdout.splitlines() if line]
+
+
+def run_returncode(cmd: Sequence[str]) -> int:
+	return run(cmd, check=False, capture=False).returncode
+
+
+def run_pipeline(cmds: list[Sequence[str]], input_data: str | None = None) -> tuple[str, int]:
+	if not cmds:
+		return "", 0
+
+	procs: list[subprocess.Popen[str]] = []
+	prev: subprocess.Popen[str] | None = None
+	for cmd in cmds:
+		proc = subprocess.Popen(
+			list(cmd),
+			stdin=prev.stdout if prev else None,
+			stdout=subprocess.PIPE,
+			stderr=subprocess.PIPE,
+			text=True,
+		)
+		if prev and prev.stdout:
+			prev.stdout.close()
+		procs.append(proc)
+		prev = proc
+
+	stdout, _stderr = procs[-1].communicate(input_data)
+	return stdout or "", procs[-1].returncode
+
+
+def which(cmd: str) -> str | None:
+	return shutil.which(cmd)
+
+
+def is_executable(path: Path) -> bool:
+	return path.exists() and os.access(path, os.X_OK)
+
+
+def ensure_dir(path: Path) -> None:
+	path.mkdir(parents=True, exist_ok=True)
+
+
+def remove_paths(paths: Iterable[Path]) -> None:
+	for path in paths:
+		try:
+			if path.is_dir() and not path.is_symlink():
+				shutil.rmtree(path)
+			else:
+				path.unlink()
+		except FileNotFoundError:
+			continue
+
+
+def is_truthy(value: str | None) -> bool:
+	return str(value or "0").lower() in {"1", "true", "yes", "y", "on"}
+
+
+def is_falsey(value: str | None) -> bool:
+	return str(value or "").lower() in {"0", "false", "no", "n", "off"}
+
+
+def env_bool(name: str, default: bool = False) -> bool:
+	value = os.environ.get(name)
+	if value is None:
+		return default
+	if is_truthy(value):
+		return True
+	if is_falsey(value):
+		return False
+	return default
+
+
+def dotfiles_dry_run(default: bool = False) -> bool:
+	return env_bool("DOTFILES_DRY_RUN", default=default)
+
+
+def git_staged_files(repo: Path, diff_filter: str = "ACMR") -> list[str]:
+	result = run(
+		["git", "-C",
+			str(repo), "diff", "--cached", "--name-only", f"--diff-filter={diff_filter}"],
+		check=False,
+		capture=True,
+	)
+	if result.returncode != 0:
+		return []
+	return [line.strip() for line in result.stdout.splitlines() if line.strip()]
+
+
+def tmp_user_root() -> Path:
+	return Path(os.environ.get("TMP_USER", str(Path.home() / "sync/tmp/unknown")))
+
+
+def last_backup_version(name: str, ext: str) -> str:
+	root = Path.home() / "sync/linux" / name
+	root.mkdir(parents=True, exist_ok=True)
+	candidates = list(root.glob(f"*.{ext}"))
+	if candidates:
+		latest = max(candidates, key=lambda p: p.stat().st_mtime)
+		return str(latest)
+	return str(root / f"{name}_current.{ext}")

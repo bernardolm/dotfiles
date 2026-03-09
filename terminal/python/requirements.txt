@@ -1,0 +1,6 @@
+colorama
+dotenv
+gcalcli
+isort
+unimport
+yapf

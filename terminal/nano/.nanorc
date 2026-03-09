@@ -1,0 +1,18 @@
+include /usr/share/nano/*.nanorc
+include /usr/share/nano/debian/*.nanorc
+include /usr/share/nano/extra/*.nanorc
+include /home/bernardo/.nano/*.nanorc
+
+set autoindent
+set constantshow
+set guidestripe 80
+set historylog
+set indicator
+set linenumbers # Displaying the Current Line Number
+set positionlog
+set showcursor
+set softwrap
+set tabsize 2
+set tabstospaces
+set trimblanks
+set unix

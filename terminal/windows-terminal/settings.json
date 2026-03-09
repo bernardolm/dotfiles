@@ -1,0 +1,61 @@
+{
+	"$schema": "https://aka.ms/terminal-profiles-schema",
+	"copyFormatting": "none",
+	"copyOnSelect": false,
+	"defaultProfile": "{8a3efdc4-9fc1-4f58-9f5f-5a1c5f03aa47}",
+	"profiles": {
+		"defaults": {
+			"font": {
+				"face": "Cascadia Code",
+				"size": 11
+			},
+			"opacity": 100,
+			"padding": "8, 6, 8, 6",
+			"useAcrylic": false
+		},
+		"list": [
+			{
+				"commandline": "wsl.exe -e zsh -l",
+				"guid": "{8a3efdc4-9fc1-4f58-9f5f-5a1c5f03aa47}",
+				"name": "Ubuntu (WSL)"
+			},
+			{
+				"commandline": "powershell.exe -NoLogo",
+				"guid": "{9f156763-7844-5d68-a9f1-91a5fbd3f5cc}",
+				"name": "PowerShell",
+				"startingDirectory": "%USERPROFILE%"
+			},
+			{
+				"commandline": "cmd.exe",
+				"guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+				"name": "Command Prompt",
+				"startingDirectory": "%USERPROFILE%"
+			}
+		]
+	},
+	"schemes": [],
+	"actions": [
+		{
+			"command": {
+				"action": "newTab",
+				"profile": "Ubuntu (WSL)"
+			},
+			"keys": "ctrl+shift+t"
+		},
+		{
+			"command": {
+				"action": "newTab",
+				"profile": "PowerShell"
+			},
+			"keys": "ctrl+shift+p"
+		},
+		{
+			"command": "closePane",
+			"keys": "ctrl+shift+w"
+		},
+		{
+			"command": "find",
+			"keys": "ctrl+shift+f"
+		}
+	]
+}
