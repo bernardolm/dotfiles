@@ -1,6 +1,7 @@
 {
 	"common": [
 		"aaron-bond.better-comments",
+		"alefragnani.project-manager", // NOTE: disable
 		"axiomaticstudios.one-monokai-80s", // NOTE: disable
 		"bierner.markdown-mermaid", // NOTE: disable
 		"bierner.markdown-preview-github-styles",
@@ -10,7 +11,9 @@
 		"eliverlara.sweet-vscode-icons", // NOTE: disable
 		"esbenp.prettier-vscode",
 		"file-icons.file-icons",
+		"github.copilot-chat",
 		"github.copilot",
+		"github.remotehub", // NOTE: disable
 		"gruntfuggly.todo-tree",
 		"gulajavaministudio.mayukaithemevsc", // NOTE: disable
 		"ibm.output-colorizer",
@@ -34,9 +37,11 @@
 		"pflannery.vscode-versionlens",
 		"pkief.material-icon-theme", // NOTE: disable
 		"rajeshwaran.developer-theme-dark", // NOTE: disable
+		"rebornix.toggle", // NOTE: disable
 		"redhat.vscode-yaml",
 		"ryu1kn.partial-diff",
 		"shardulm94.trailing-spaces",
+		"sketchbuch.vsc-workspace-sidebar", // NOTE: disable
 		"teabyii.ayu", // NOTE: disable
 		"usernamehw.errorlens",
 		"vscode-icons-team.vscode-icons", // NOTE: disable
@@ -68,7 +73,8 @@
 		"ahmadalli.vscode-nginx-conf", // NOTE: only devop
 		"docker.docker", // NOTE: only devop
 		"eeyore.yapf", // NOTE: python and devop
-		"foxundermoon.shell-format", // NOTE: only devop
+		"google.geminicodeassist", // NOTE: only devop
+		"googlecloudtools.cloudcode", // NOTE: only devop
 		"mkhl.shfmt", // NOTE: only devop
 		"ms-azuretools.vscode-azureterraform", // NOTE: only devop
 		"ms-azuretools.vscode-docker", // NOTE: only devop
@@ -76,6 +82,7 @@
 		"ms-python.pylint", // NOTE: python and devop
 		"ms-python.python", // NOTE: python and devop
 		"ms-python.vscode-python-envs", // NOTE: python and devop
+		"ms-toolsai.jupyter", // NOTE: google.geminicodeassist dependency; only devop
 		"ms-vscode-remote.remote-containers", // NOTE: only devop
 		"ms-vscode.powershell", // NOTE: only devop, but disable
 		"redhat.vscode-xml", // NOTE: only devop, but disable
