@@ -26,3 +26,4 @@ debian/*
 git/submodule/*
 maestral/Dockerfile
 prompt.txt
+terminal/zsh/zdotdir/.zcompcache*
