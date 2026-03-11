@@ -7,5 +7,9 @@
 	],
 	"python.analysis.exclude": [
 		".v1/**",
+		"**/__pycache__",
+		"**/.*",
+		"**/node_modules",
+		"venv",
 	],
 }
