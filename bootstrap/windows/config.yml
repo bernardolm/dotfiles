@@ -21,9 +21,9 @@ packages:
     profiles: [desktop]
   - go-packages:
     manager: go-list
-    file: terminal/go/packages.txt
+    file: cli/go/packages.txt
     optional: true
   - python-requirements:
     manager: pip-requirements
-    file: terminal/python/requirements.txt
+    file: cli/python/requirements.txt
     optional: true

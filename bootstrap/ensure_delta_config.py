@@ -17,7 +17,7 @@ from bootstrap.repo_root import repo_root
 
 def ensure_delta_config(platform_name: str, dry_run: bool = False) -> None:
 	root = repo_root()
-	delta_src = root / "terminal/git/gitconfig.delta"
+	delta_src = root / "cli/git/gitconfig.delta"
 	delta_dest = Path.home() / ".config/git/delta.conf"
 
 	if platform_name in {"darwin", "wsl", "ubuntu", "linux", "alpine"}:

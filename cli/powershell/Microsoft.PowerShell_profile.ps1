@@ -1,7 +1,7 @@
 # Dotfiles PowerShell profile.
 
 $global:DotfilesHome = Join-Path $HOME "dotfiles"
-$env:STARSHIP_CONFIG = Join-Path $global:DotfilesHome "terminal/starship/theme/starship.toml"
+$env:STARSHIP_CONFIG = Join-Path $global:DotfilesHome "cli/starship/theme/starship.toml"
 
 try {
 	[Console]::InputEncoding = [System.Text.UTF8Encoding]::new()

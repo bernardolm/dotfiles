@@ -1,13 +1,13 @@
 # dotfiles
 
-Dotfiles repository to keep a consistent terminal environment across macOS, Windows (PowerShell + WSL), Ubuntu/Debian server, and Alpine, with as much sharing as possible.
+Dotfiles repository to keep a consistent cli environment across macOS, Windows (PowerShell + WSL), Ubuntu/Debian server, and Alpine, with as much sharing as possible.
 
 ## what this repository configures
 
 - shell: `zsh` (primary), `ash` (alpine), and `powershell` (windows);
 - prompt: `starship`;
-- terminal: `wezterm` and `windows terminal`;
-- tools: `git`, `ssh`, `tmux`, `nano`, and terminal utilities;
+- cli: `wezterm` and `windows terminal`;
+- tools: `git`, `ssh`, `tmux`, `nano`, and cli utilities;
 - platform bootstrap in `bootstrap/`.
 
 ## quick usage
@@ -31,7 +31,7 @@ DOTFILES_PROFILE=server python3 bootstrap/bootstrap.py
 ## main structure
 
 - `bootstrap/`: installation and configuration by platform/profile.
-- `terminal/`: shell, prompt, terminal, and tooling files.
+- `cli/`: shell, prompt, cli, and tooling files.
 - `.githooks/`: repository quality automations (pre-commit).
 - `bin/`: helper utilities.
 - `.v1/`: legacy version for reference only.

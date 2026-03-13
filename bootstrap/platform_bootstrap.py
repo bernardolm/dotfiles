@@ -250,7 +250,7 @@ def _run_shell_command(command: str, dry_run: bool = False) -> bool:
 
 
 def _apply_go_packages_file(pkg: dict[str, Any], dry_run: bool = False) -> bool:
-	file_value = str(pkg.get("file", "terminal/go/packages.txt")).strip()
+	file_value = str(pkg.get("file", "cli/go/packages.txt")).strip()
 	file_path = _resolve_package_file(file_value)
 	if not file_path.exists():
 		print(f"warning: go package file not found: {file_path}")
@@ -270,7 +270,7 @@ def _apply_go_packages_file(pkg: dict[str, Any], dry_run: bool = False) -> bool:
 
 
 def _apply_pip_requirements_file(pkg: dict[str, Any], dry_run: bool = False) -> bool:
-	file_value = str(pkg.get("file", "terminal/python/requirements.txt")).strip()
+	file_value = str(pkg.get("file", "cli/python/requirements.txt")).strip()
 	file_path = _resolve_package_file(file_value)
 	if not file_path.exists():
 		print(f"warning: python requirements file not found: {file_path}")

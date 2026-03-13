@@ -47,13 +47,13 @@ def link_dotfiles(
 def _base_links(root: Path, system: str, profile: str) -> list[tuple[Path, Path]]:
 	home = Path.home()
 	links = [
-		(root / "terminal/git/.gitconfig", home / ".gitconfig"),
-		(root / "terminal/ssh/config", home / ".ssh/config"),
-		(root / "terminal/starship/theme/starship.toml", home / ".config/starship.toml"),
+		(root / "cli/git/.gitconfig", home / ".gitconfig"),
+		(root / "cli/ssh/config", home / ".ssh/config"),
+		(root / "cli/starship/theme/starship.toml", home / ".config/starship.toml"),
 	]
 
 	if system == "darwin" and profile != "server":
-		links.append((root / "terminal/wezterm/wezterm.lua", home / ".wezterm.lua"))
+		links.append((root / "cli/wezterm/wezterm.lua", home / ".wezterm.lua"))
 
 	return links
 
@@ -61,14 +61,14 @@ def _base_links(root: Path, system: str, profile: str) -> list[tuple[Path, Path]
 def _unix_links(root: Path, system: str) -> list[tuple[Path, Path]]:
 	home = Path.home()
 	links = [
-		(root / "terminal/zsh/zdotdir/.zshenv", home / ".zshenv"),
-		(root / "terminal/zsh/zdotdir/.zshrc", home / ".zshrc"),
-		(root / "terminal/zsh/.zimrc", home / ".zimrc"),
-		(root / "terminal/tmux/.tmux.conf", home / ".tmux.conf"),
-		(root / "terminal/nano/.nanorc", home / ".nanorc"),
+		(root / "cli/zsh/zdotdir/.zshenv", home / ".zshenv"),
+		(root / "cli/zsh/zdotdir/.zshrc", home / ".zshrc"),
+		(root / "cli/zsh/.zimrc", home / ".zimrc"),
+		(root / "cli/tmux/.tmux.conf", home / ".tmux.conf"),
+		(root / "cli/nano/.nanorc", home / ".nanorc"),
 	]
 	if system == "alpine":
-		links.append((root / "terminal/ash/.profile", home / ".profile"))
+		links.append((root / "cli/ash/.profile", home / ".profile"))
 	return links
 
 
@@ -77,7 +77,7 @@ def _link_windows_terminal_and_powershell(root: Path, system: str, dry_run: bool
 		return
 
 	home = Path.home()
-	powershell_profile_src = root / "terminal/powershell/Microsoft.PowerShell_profile.ps1"
+	powershell_profile_src = root / "cli/powershell/Microsoft.PowerShell_profile.ps1"
 	powershell_profile_destinations = [
 		home / "Documents/PowerShell/Microsoft.PowerShell_profile.ps1",
 		home / "Documents/WindowsPowerShell/Microsoft.PowerShell_profile.ps1",
@@ -90,7 +90,7 @@ def _link_windows_terminal_and_powershell(root: Path, system: str, dry_run: bool
 		print("warning: LOCALAPPDATA not set; skipping Windows Terminal settings.")
 		return
 
-	terminal_settings_src = root / "terminal/windows-terminal/settings.json"
+	terminal_settings_src = root / "cli/windows-cli/settings.json"
 	terminal_settings_candidates = [
 		Path(localappdata) /
 		"Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json",

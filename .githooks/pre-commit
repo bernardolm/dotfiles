@@ -40,8 +40,8 @@ staged_files=()
 while IFS= read -r -d '' file; do
 	staged_files+=("$file")
 	case "$file" in
-		*.py) staged_python_files+=("$file") ;;
-		.github/workflows/*.yml|.github/workflows/*.yaml) staged_workflow_files+=("$file") ;;
+	*.py) staged_python_files+=("$file") ;;
+	.github/workflows/*.yml | .github/workflows/*.yaml) staged_workflow_files+=("$file") ;;
 	esac
 done < <(git diff --cached --name-only --diff-filter=ACMR -z)
 
@@ -94,11 +94,12 @@ ensure_python_venv() {
 	}
 
 	if is_executable_file "$venv_python"; then
-		venv_python_version="$("$venv_python" - <<'PY'
+		venv_python_version="$(
+			"$venv_python" - <<'PY'
 import sys
 print(f"{sys.version_info.major}.{sys.version_info.minor}.{sys.version_info.micro}")
 PY
-)"
+		)"
 		if [ "$venv_python_version" = "$base_python_version" ]; then
 			return 0
 		fi
@@ -122,7 +123,7 @@ PY
 ensure_python_tools() {
 	local venv_bin="$repo_root/venv/bin"
 	local venv_python="$venv_bin/python"
-	local requirements_file="$repo_root/terminal/python/requirements.txt"
+	local requirements_file="$repo_root/cli/python/requirements.txt"
 	local missing=()
 	local tool=""
 
@@ -149,7 +150,7 @@ ensure_python_tools() {
 
 	echo "pre-commit: instalando ferramentas Python no venv: ${missing[*]}"
 	if ! "$venv_python" -m pip install --requirement "$requirements_file"; then
-		echo "pre-commit: erro: falha ao instalar terminal/python/requirements.txt."
+		echo "pre-commit: erro: falha ao instalar cli/python/requirements.txt."
 		return 1
 	fi
 
@@ -186,7 +187,7 @@ is_shell_script_file() {
 	local first_line=""
 
 	case "$file" in
-		*.sh|*.bash|*.zsh|*.ksh) return 0 ;;
+	*.sh | *.bash | *.zsh | *.ksh) return 0 ;;
 	esac
 
 	[ -f "$file" ] || return 1
@@ -242,12 +243,11 @@ run_python_formatters() {
 
 	py_version="$(resolved_python_version)"
 
-	if run_python - <<'PY'
+	if run_python - <<'PY'; then
 import ast
 import sys
 sys.exit(0 if hasattr(ast, "Str") else 1)
 PY
-	then
 		if "$venv_bin/unimport" "${staged_python_files[@]}" >"$unimport_log_file" 2>&1; then
 			echo "pre-commit: unimport aplicado."
 		else

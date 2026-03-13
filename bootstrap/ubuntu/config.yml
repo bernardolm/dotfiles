@@ -121,10 +121,10 @@ packages:
     optional: true
   - go-packages:
     manager: go-list
-    file: terminal/go/packages.txt
+    file: cli/go/packages.txt
   - python-requirements:
     manager: pip-requirements
-    file: terminal/python/requirements.txt
+    file: cli/python/requirements.txt
 
 path:
   /snap/bin
@@ -136,7 +136,7 @@ symbolic_links:
   # $HOME/.zsh_history: $HOME/sync/linux/home/.zsh_history
   $HOME/.fonts: $HOME/sync/shared/home/.fonts
   $HOME/.gitconfig: $HOME/sync/$PLATFORM/home/.gitconfig
-  $HOME/.nanorc: $HOME/dotfiles/terminal/nano/.nanorc
+  $HOME/.nanorc: $HOME/dotfiles/cli/nano/.nanorc
   $HOME/.ssh/authorized_keys: $HOME/sync/shared/home/.ssh/authorized_keys
   $HOME/.ssh/config: $HOME/sync/shared/home/.ssh/config
   $HOME/.wakatime.cfg: $HOME/sync/$PLATFORM/home/.wakatime.cfg

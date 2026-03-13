@@ -39,7 +39,7 @@ packages:
     command: command -v starship >/dev/null 2>&1 || curl -fsSL https://starship.rs/install.sh | sh -s -- -y
   - go-packages:
     manager: go-list
-    file: terminal/go/packages.txt
+    file: cli/go/packages.txt
   - python-requirements:
     manager: pip-requirements
-    file: terminal/python/requirements.txt
+    file: cli/python/requirements.txt

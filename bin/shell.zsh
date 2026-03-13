@@ -17,12 +17,7 @@ function find_to_array() {
 }
 
 function items_counter() {
-	[ "$1" = "" ] && echo 0 || echo `echo $1 | wc -l | bc`
-}
-
-function find_function_by_name() {
-	echo "searching functions or aliases with term: $1"
-	print -rl -- ${(k)aliases} ${(k)functions} ${(k)parameters} | grep $1
+	[ "$1" = "" ] && echo 0 || echo $(echo $1 | wc -l | bc)
 }
 
 function file_size() {
@@ -35,7 +30,7 @@ function memory_used() {
 }
 
 function memory_used_watcher() {
-	watch -c -n1 -x bash -c "source $HOME/dotfiles/terminal/zsh/memory_used.zsh; memory_used $1"
+	watch -c -n1 -x bash -c "source $HOME/dotfiles/cli/zsh/memory_used.zsh; memory_used $1"
 }
 
 function kill_by_port() {
@@ -45,17 +40,15 @@ function kill_by_port() {
 function is_number() {
 	local num=$1
 	local rg="^[+\-]{0,1}[0-9]+$"
-	(echo "${num//[^\-+0-9]/}" | grep -Eq $rg) \
-		&& echo 1 \
-		|| echo 0
+	(echo "${num//[^\-+0-9]/}" | grep -Eq $rg) &&
+		echo 1 ||
+		echo 0
 }
 
 function files_count() {
-	find "$1" -type f 2> /dev/null | wc -l | bc
+	find "$1" -type f 2>/dev/null | wc -l | bc
 }
 
-
-
 function file_lines_2_inline() {
-	/bin/cat < $1 | grep -v '#' | paste -sd' '
+	/bin/cat <$1 | grep -v '#' | paste -sd' '
 }

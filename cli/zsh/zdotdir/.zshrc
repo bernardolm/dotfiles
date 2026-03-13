@@ -17,7 +17,7 @@ if [[ -r ${ZIM_HOME}/zimfw.zsh ]]; then
 	fi
 fi
 
-for file in "$HOME/dotfiles/terminal/zsh/zshrc.d/"*(N-.D); do
+for file in "$HOME/dotfiles/cli/zsh/zshrc.d/"*(N-.D); do
 	[ -r "$file" ] || continue
 	. "$file"
 done

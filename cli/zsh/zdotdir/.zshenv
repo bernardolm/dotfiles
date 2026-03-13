@@ -1,20 +1,20 @@
 # Shared environment for all zsh sessions.
 
-export ZDOTDIR="$HOME/dotfiles/terminal/zsh/zdotdir"
-export ZIM_CONFIG_FILE="$HOME/dotfiles/terminal/zsh/.zimrc"
+export ZDOTDIR="$HOME/dotfiles/cli/zsh/zdotdir"
+export ZIM_CONFIG_FILE="$HOME/dotfiles/cli/zsh/.zimrc"
 export ZIM_HOME="${ZIM_HOME:-$HOME/.zim}"
 
 case "$(uname -s)" in
-	Darwin) export DOTFILES_OS="darwin" ;;
-	Linux)
-		if grep -qi microsoft /proc/version 2>/dev/null; then
-			export DOTFILES_OS="wsl"
-		else
-			export DOTFILES_OS="linux"
-		fi
-		;;
-	CYGWIN*|MINGW*|MSYS*) export DOTFILES_OS="windows" ;;
-	*) export DOTFILES_OS="unknown" ;;
+Darwin) export DOTFILES_OS="darwin" ;;
+Linux)
+	if grep -qi microsoft /proc/version 2>/dev/null; then
+		export DOTFILES_OS="wsl"
+	else
+		export DOTFILES_OS="linux"
+	fi
+	;;
+CYGWIN* | MINGW* | MSYS*) export DOTFILES_OS="windows" ;;
+*) export DOTFILES_OS="unknown" ;;
 esac
 
 if [ -z "${DOTFILES_PROFILE:-}" ]; then
@@ -25,12 +25,12 @@ if [ -z "${DOTFILES_PROFILE:-}" ]; then
 	fi
 fi
 
-export STARSHIP_CONFIG="$HOME/dotfiles/terminal/starship/theme/starship.toml"
+export STARSHIP_CONFIG="$HOME/dotfiles/cli/starship/theme/starship.toml"
 if [ -d "$HOME/dotfiles/bin" ] && [[ ":$PATH:" != *":$HOME/dotfiles/bin:"* ]]; then
 	export PATH="$PATH:$HOME/dotfiles/bin"
 fi
 export PATH="$PATH:$HOME/go/bin"
-export LUA_PATH="${LUA_PATH:-};$HOME/dotfiles/terminal/wezterm/?.lua"
+export LUA_PATH="${LUA_PATH:-};$HOME/dotfiles/cli/wezterm/?.lua"
 
 dotfiles_tmp_root="${TMPDIR:-/tmp}"
 dotfiles_zsh_tmp_dir="${dotfiles_tmp_root%/}/dotfiles-zsh-${USER:-user}"
@@ -49,3 +49,6 @@ if [ -n "${HISTFILE:-}" ] && [ "$HISTFILE" != "$dotfiles_history_official" ]; th
 	export DOTFILES_HISTFILE_PREVIOUS="$HISTFILE"
 fi
 export HISTFILE="$dotfiles_history_official"
+
+# uv
+export PATH="/Users/bernardo/.local/bin:$PATH"
