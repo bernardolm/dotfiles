@@ -1,27 +1,56 @@
 {
 	"Default": [
+		"4ops.terraform", // new in MAR-13 11:20
 		"aaron-bond.better-comments",
+		"adpyke.vscode-sql-formatter", // new in MAR-13 11:20
+		"ahmadalli.vscode-nginx-conf", // new in MAR-13 11:20
 		"bierner.markdown-mermaid",
 		"bracketpaircolordlw.bracket-pair-color-dlw",
+		"bradlc.vscode-tailwindcss", // new in MAR-13 11:20
+		"codium.codium", // new in MAR-13 11:20
 		"dakara.transformer",
+		"docker.docker", // new in MAR-13 11:20
 		"editorconfig.editorconfig",
+		"eeyore.yapf", // new in MAR-13 11:20
 		"esbenp.prettier-vscode",
+		"github.copilot-chat", // new in MAR-13 11:20
+		"golang.go", // new in MAR-13 11:20
 		"mikestead.dotenv",
+		"mkhl.shfmt", // new in MAR-13 11:20
+		"ms-azuretools.vscode-azureterraform", // new in MAR-13 11:20
 		"ms-azuretools.vscode-containers",
+		"ms-azuretools.vscode-docker", // new in MAR-13 11:20
+		"ms-python.debugpy", // new in MAR-13 11:20
+		"ms-python.isort", // new in MAR-13 11:20
+		"ms-python.pylint", // new in MAR-13 11:20
+		"ms-python.python", // new in MAR-13 11:20
+		"ms-python.vscode-pylance", // new in MAR-13 11:20
+		"ms-python.vscode-python-envs", // new in MAR-13 11:20
+		"ms-vscode-remote.remote-containers", // new in MAR-13 11:20
 		"ms-vscode-remote.remote-ssh-edit",
 		"ms-vscode-remote.remote-ssh",
+		"ms-vscode.powershell", // new in MAR-13 11:20
 		"ms-vscode.remote-explorer",
 		"ms-vscode.remote-server",
 		"ms-vscode.sublime-keybindings",
+		"mtxr.sqltools-driver-mysql", // new in MAR-13 11:20
+		"mtxr.sqltools-driver-pg", // new in MAR-13 11:20
+		"mtxr.sqltools", // new in MAR-13 11:20
 		"neptunedesign.vs-slug",
 		"nhoizey.gremlins",
+		"nhoizey.gremlins", // new in MAR-13 11:20
 		"oderwat.indent-rainbow",
 		"openai.chatgpt",
+		"openai.chatgpt", // new in MAR-13 11:20
 		"pflannery.vscode-versionlens",
 		"rajeshwaran.developer-theme-dark",
+		"redhat.vscode-xml", // new in MAR-13 11:20
 		"redhat.vscode-yaml",
 		"ryu1kn.partial-diff",
 		"shardulm94.trailing-spaces",
+		"sixth.sixth-ai", // new in MAR-13 11:20
+		"sumneko.lua", // new in MAR-13 11:20
+		"tamasfe.even-better-toml", // new in MAR-13 11:20
 		"usernamehw.errorlens",
 		"wakatime.vscode-wakatime",
 		"yzhang.markdown-all-in-one",
