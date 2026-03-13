@@ -1,9 +1,12 @@
-export HISTSIZE="${HISTSIZE:-100000}"
-export SAVEHIST="${SAVEHIST:-100000}"
+export HISTSIZE=100000
+export SAVEHIST=100000
 
 # /bin/mv $HOME/tmp/.z* $HOME/sync
 
 history_file="$HOME/sync/.zsh_history"
+
+export HISTFILE=$history_file
+
 new_history_file="$HOME/sync/.zsh_history_new"
 touch "$new_history_file"
 mkdir -p "$HOME/tmp"
