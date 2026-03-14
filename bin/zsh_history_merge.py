@@ -199,7 +199,7 @@ def process_one(
 ) -> list[str] | None:
 	"""Read file, normalize (filter/sort/dedup), delete source file; return lines."""
 	if not source_path.is_file():
-		LOG.warning("Skipping (not a file)")
+		LOG.warning("Skipping (not a file): %s", source_path)
 		return None
 	if total:
 		global _last_progress_log
@@ -209,7 +209,11 @@ def process_one(
 				LOG.info("Processing (%d/%d)", current, total)
 				_last_progress_log = now
 
-	raw = source_path.read_text(encoding="utf-8", errors="replace")
+	try:
+		raw = source_path.read_text(encoding="utf-8", errors="replace")
+	except FileNotFoundError:
+		LOG.warning("Skipping (file gone): %s", source_path)
+		return None
 	lines = _normalize(raw.splitlines(keepends=True))
 	if not dry_run:
 		try:
@@ -329,7 +333,7 @@ def main() -> int:
 			with target_path.open(encoding="utf-8", errors="replace") as f:
 				line_count = sum(1 for _ in f)
 			size_kb = target_path.stat().st_size / 1024
-			print(f"zsh history merged: {line_count} lines, {size_kb:.1f} KB")
+			LOG.info(f"zsh history merged: {line_count} lines, {size_kb:.1f} KB")
 		except OSError as e:
 			LOG.warning("Could not copy to target: %s", e)
 	return 0
