@@ -187,7 +187,7 @@ def find_files(
 		files = [p for p in root.rglob(pattern) if p.is_file() and p.name != exclude and depth_ok(p)]
 		yield from files
 		if files:
-			LOG.info("  Found %d file(s)", len(files))
+			LOG.info("Found %d file(s)", len(files))
 
 
 def process_one(
@@ -215,7 +215,8 @@ def process_one(
 		try:
 			source_path.unlink()
 		except OSError as e:
-			LOG.warning("Could not delete %s: %s", source_path, e)
+			if e.errno != 2:  # 2 = ENOENT (already gone); only warn for other errors
+				LOG.warning("Could not delete %s: %s", source_path, e)
 	return lines
 
 
@@ -247,7 +248,8 @@ def main() -> int:
 	now = _dt()
 	date_now = now.strftime("%y%m%d")
 
-	target_path = home / TARGET_REL
+	histfile = os.environ.get("HISTFILE")
+	target_path = Path(histfile).expanduser() if histfile else home / TARGET_REL
 	work_path = home / WORK_DIR_REL
 
 	LOG.info("Starting (dry_run=%s)", dry_run)
@@ -257,7 +259,7 @@ def main() -> int:
 	sources = [(home / "tmp/workspace", None), (zdotdir, None),
 							(home / "Library/CloudStorage/Dropbox", None)]
 	found = list(find_files(sources))
-	if target_path.exists() and target_path not in found:
+	if target_path not in found:
 		found.append(target_path)
 	LOG.info("Discovery: %d file(s) in %d path(s)", len(found), len(sources))
 
@@ -323,10 +325,13 @@ def main() -> int:
 		target_path.parent.mkdir(parents=True, exist_ok=True)
 		try:
 			shutil.copy2(work_merged, target_path)
-			LOG.info("Final file written to %s", target_path.resolve())
+			# Report total lines and size for the final file (HISTFILE / target_path).
+			with target_path.open(encoding="utf-8", errors="replace") as f:
+				line_count = sum(1 for _ in f)
+			size_kb = target_path.stat().st_size / 1024
+			print(f"zsh history merged: {line_count} lines, {size_kb:.1f} KB")
 		except OSError as e:
 			LOG.warning("Could not copy to target: %s", e)
-	LOG.info("Done. %d file(s) processed, %d bucket(s)", total_files, len(bucket_paths))
 	return 0
 
 
