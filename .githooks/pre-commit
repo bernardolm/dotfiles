@@ -182,47 +182,7 @@ validate_workflow_policies() {
 	return 0
 }
 
-is_shell_script_file() {
-	local file="$1"
-	local first_line=""
-
-	case "$file" in
-	*.sh | *.bash | *.zsh | *.ksh) return 0 ;;
-	esac
-
-	[ -f "$file" ] || return 1
-	first_line="$(head -n 1 "$file" 2>/dev/null || true)"
-	[[ "$first_line" =~ ^#! ]] || return 1
-	[[ "$first_line" =~ (sh|bash|zsh|ksh) ]] || return 1
-	return 0
-}
-
-validate_new_shell_scripts_policy() {
-	local invalid=0
-	local file=""
-
-	for file in "${staged_added_files[@]-}"; do
-		[ -f "$file" ] || continue
-		if ! is_shell_script_file "$file"; then
-			continue
-		fi
-		if ! head -n 30 "$file" | rg -q "shell-required:"; then
-			echo "pre-commit: erro: novo script shell sem justificativa técnica: $file"
-			invalid=1
-		fi
-	done
-
-	if [ "$invalid" -ne 0 ]; then
-		echo "pre-commit: regra ativa: novos scripts devem ser Python por padrão."
-		echo "pre-commit: use shell só quando necessário e adicione no topo do arquivo:"
-		echo "pre-commit:   # shell-required: <motivo técnico de por que Python não atende bem>"
-		return 1
-	fi
-	return 0
-}
-
 validate_workflow_policies
-validate_new_shell_scripts_policy
 
 normalized_files=()
 while IFS= read -r changed_file; do

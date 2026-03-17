@@ -1,0 +1,1 @@
+atuin store status | grep idx | cut -d: -f2
