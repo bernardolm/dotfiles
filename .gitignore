@@ -27,3 +27,4 @@ git/submodule/*
 maestral/Dockerfile
 prompt.txt
 cli/zsh/zdotdir/.zcompcache*
+cli/wezterm/start-open-paths.txt

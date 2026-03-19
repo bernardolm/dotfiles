@@ -40,39 +40,47 @@ local function read_file(path)
 	return content
 end
 
-local function resolve_last_zsh_cwd()
-	local candidates = {
-		(HomePath or "") .. "/.cache/zsh/last-working-dir",
-	}
+local START_OPEN_PATHS_FILE = "dotfiles/cli/wezterm/start-open-paths.txt"
 
-	for _, candidate in ipairs(candidates) do
-		local cwd = read_file(candidate)
-		if cwd and path_exists(cwd) then
-			return cwd
+local function expand_path(line)
+	local home = HomePath or wezterm.home_dir or ""
+	return (line:gsub("^~", home):gsub("%$HOME", home))
+end
+
+local function startup_tab_paths()
+	local home = HomePath or wezterm.home_dir or ""
+	local path = home .. "/" .. START_OPEN_PATHS_FILE
+	local file = io.open(path, "r")
+	if not file then
+		return { home }
+	end
+	local paths = {}
+	for line in file:lines() do
+		line = line:match("^%s*(.-)%s*$") or line
+		if #line > 0 and not line:match("^#") then
+			table.insert(paths, expand_path(line))
 		end
 	end
-
-	return HomePath
+	file:close()
+	if #paths == 0 then
+		return { home }
+	end
+	return paths
 end
 
 wezterm.on("gui-startup", function(cmd)
+	local paths = startup_tab_paths()
+	local first_cwd = paths[1]
 	local bootstrap_tab_opts = copy_table(cmd)
 	bootstrap_tab_opts.args = { "/bin/sh" }
-	bootstrap_tab_opts.cwd = HomePath
-	local _, temp_pane, window = mux.spawn_window(bootstrap_tab_opts)
+	bootstrap_tab_opts.cwd = first_cwd
+	local _, _, window = mux.spawn_window(bootstrap_tab_opts)
 	local gui_window = window:gui_window()
 	if gui_window then
 		gui_window:maximize()
 	end
 
-	local dotfiles_cwd = (HomePath or "") .. "/dotfiles"
-	window:spawn_tab({ cwd = dotfiles_cwd })
-	local second_tab_cwd = resolve_last_zsh_cwd()
-	window:spawn_tab({ cwd = second_tab_cwd })
-
-	if temp_pane then
-		wezterm.time.call_after(0.05, function()
-			temp_pane:send_text("exit\n")
-		end)
+	for i = 2, #paths do
+		window:spawn_tab({ cwd = paths[i] })
 	end
 end)
