@@ -36,6 +36,7 @@ return {
 	automatically_reload_config = true,
 	experimental_pixel_positioning = false, -- NOTE: this config break everthing!
 	prefer_to_spawn_tabs = true,
+	scrollback_lines = 100000,
 	show_new_tab_button_in_tab_bar = true,
 	show_tabs_in_tab_bar = true,
 	skip_close_confirmation_for_processes_named = { 'bash', 'sh', 'zsh', 'fish', 'tmux' },
