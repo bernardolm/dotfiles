@@ -29,6 +29,5 @@ config = merge.MergeObject(config, config_linux)
 config = merge.MergeObject(config, config_windows)
 -- Merging config - end
 
--- print(config)
 
 return config

@@ -82,11 +82,23 @@ local font = wezterm.font_with_fallback({
 -- 	visual_bell = '#202020',
 -- }
 
-local inactive_pane_hsb = { brightness = 0.5, saturation = 0.24 }
-local window_padding = { bottom = 10, left = 10, right = 10, top = 10 }
+local inactive_pane_hsb = {
+	brightness = 0.5,
+	saturation = 0.24,
+}
+
+local base_padding = 20
+local window_padding = {
+	bottom = base_padding,
+	left = base_padding*1.5,
+	right = base_padding*1.5,
+	top = base_padding,
+}
 
 return {
 	-- colors = colors,
+	-- config.underline_thickness = "150%"
+	-- config.use_cap_height_to_scale_fallback_fonts = true,
 	-- harfbuzz_features = {"calt=0", "clig=0", "liga=0"},
 	-- harfbuzz_features = {"calt=1", "clig=1", "liga=1"},
 	-- text_background_opacity = 0.3, -- NOTE: this config break prompt
@@ -96,5 +108,6 @@ return {
 	font_size = 20,
 	harfbuzz_features = { 'zero' }, -- to use with nerd fonts
 	inactive_pane_hsb = inactive_pane_hsb,
+	line_height = 1.2,
 	window_padding = window_padding,
 }
