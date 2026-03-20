@@ -37,7 +37,6 @@ local function normalize_path(path)
 	return normalized
 end
 
--- Return the last N path segments joined by "/", each truncated to max_char chars (e.g. last 3 folders, 4 chars each).
 local function last_n_path_segments(path, n, max_char)
 	max_char = max_char or 0
 	local normalized = normalize_path(path)
@@ -63,7 +62,6 @@ local function last_n_path_segments(path, n, max_char)
 	return table.concat(slice, "/")
 end
 
--- Tab title: hostname » last 3 path segments, 4 chars each (e.g. "hostname » work/bern/dotf").
 local function build_cwd_title(path)
 	local last3 = last_n_path_segments(path, 3, 4)
 	if not last3 or last3 == "" then
@@ -72,15 +70,39 @@ local function build_cwd_title(path)
 	return last3
 end
 
--- Shortest hostname: part before first dot (e.g. "machine.local" -> "machine").
-local function short_hostname()
-	local full = wezterm.hostname() or ""
-	local short = full:match("^([^%.]+)")
-	return (short and #short > 0) and short or full
+local function hostname_from_cwd_uri(cwd_uri)
+	if not cwd_uri then
+		return nil
+	end
+
+	if type(cwd_uri) == "userdata" then
+		if cwd_uri.host and #cwd_uri.host > 0 then
+			return cwd_uri.host
+		end
+		return nil
+	end
+
+	if type(cwd_uri) == "string" then
+		if cwd_uri:find("^file://") then
+			local rest = cwd_uri:sub(8)
+			if rest:sub(1, 1) ~= "/" then
+				return rest:match("^([^/]+)/")
+			end
+		end
+	end
+
+	return nil
+end
+
+local function short_hostname_from_pane(pane)
+	local cwd_uri = pane and pane.current_working_dir
+	local host = hostname_from_cwd_uri(cwd_uri) or wezterm.hostname() or ""
+	local short = host:match("^([^%.]+)")
+	return (short and #short > 0) and short or host
 end
 
 local function tab_title_handler(tab_info)
-	local hostname = short_hostname()
+	local hostname = short_hostname_from_pane(tab_info.active_pane)
 
 	-- » « ║ ı •
 	local separator = " • "

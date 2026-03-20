@@ -6,9 +6,9 @@ print('loading behavior')
 -- local default_prog = { '/bin/zsh', '--login', '--sourcetrace' }
 
 local visual_bell = {
-	fade_in_duration_ms = 150,
+	-- fade_in_duration_ms = 150,
 	fade_in_function = 'EaseIn',
-	fade_out_duration_ms = 150,
+	-- fade_out_duration_ms = 150,
 	fade_out_function = 'EaseOut',
 }
 

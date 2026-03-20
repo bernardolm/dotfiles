@@ -1,6 +1,1 @@
 $HOME/dotfiles
-$HOME/workspaces/bernardolm/docker-services
-$HOME/workspaces/acao-da-cidadania/docker-services
-$HOME/workspaces/acao-da-cidadania/databases
-$HOME/workspaces/acao-da-cidadania/tecnologia
-$HOME/workspaces/acao-da-cidadania/marketing-service

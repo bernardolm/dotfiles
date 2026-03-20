@@ -1,293 +1,408 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-[](color_orange)\
+$directory\
+$line_break\
+[](color_section_6)\
+$shell\
 $os\
 $username\
-[](bg:color_yellow fg:color_orange)\
-$directory\
-[](fg:color_yellow bg:color_aqua)\
-$git_branch\
-$git_status\
-[](fg:color_aqua bg:color_blue)\
-$c\
-$cpp\
-$rust\
-$golang\
-$nodejs\
-$php\
-$java\
-$kotlin\
-$haskell\
-$python\
-[](fg:color_blue bg:color_bg3)\
+$hostname\
+$localip\
+$jobs\
+[ ](fg:color_section_6 bg:color_section_5)\
+$aws\
+$azure\
+$container\
+$direnv\
 $docker_context\
+$docker\
+$gcloud\
+$nats\
+$sudo\
+[ ](fg:color_section_5 bg:color_section_4)\
+$git_branch\
+$git_commit\
+$git_metrics\
+$git_state\
+$git_status\
+$fossil_branch\
+$fossil_metrics\
+[ ](fg:color_section_4 bg:color_section_3)\
+$buf\
+$c\
+$cmake\
+$cobol\
 $conda\
+$crystal\
+$custom\
+$daml\
+$dart\
+$deno\
+$dotnet\
+$elixir\
+$elm\
+$erlang\
+$fennel\
+$fortran\
+$gleam\
+$golang\
+$gradle\
+$guix_shell\
+$haskell\
+$haxe\
+$helm\
+$java\
+$julia\
+$kotlin\
+$kubernetes\
+$lua\
+$meson\
+$mise\
+$nim\
+$nix_shell\
+$nodejs\
+$ocaml\
+$opa\
+$openstack\
+$package\
+$perl\
+$php\
+$pijul_channel\
 $pixi\
-[](fg:color_bg3 bg:color_history_bg)\
+$pulumi\
+$purescript\
+$python\
+$quarto\
+$raku\
+$red\
+$rlang\
+$ruby\
+$rust\
+$scala\
+$shlvl\
+$singularity\
+$solidity\
+$spack\
+$swift\
+$terraform\
+$typst\
+$vagrant\
+$vcsh\
+$vlang\
+$zig\
+[ ](fg:color_section_3 bg:color_section_2)\
 ${custom.atuin_history_lines}\
-[](fg:color_history_bg bg:color_bg1)\
+[ ](fg:color_section_2 bg:color_section_1)\
 $time\
-[ ](fg:color_bg1)\
-$line_break$character"""
+$cmd_duration\
+[ ](fg:color_section_1 bg:color_section_0)\
+$status\
+[ ](fg:color_section_0)\
+$character\
+"""
 
+add_newline = true
 palette = 'pantone_light_blue'
-
-# add_newline = false
-
-# [palettes.gruvbox_dark]
-# color_fg0 = '#fbf1c7'
-# color_bg1 = '#3c3836'
-# color_bg3 = '#665c54'
-# color_blue = '#458588'
-# color_aqua = '#689d6a'
-# color_green = '#98971a'
-# color_orange = '#d65d0e'
-# color_purple = '#b16286'
-# color_red = '#cc241d'
-# color_yellow = '#d79921'
-
-[palettes.pantone_light_blue]
-color_fg0 = '#1e3a5f'
-color_bg1 = '#7ba3c9'
-color_bg3 = '#9fc9e4'
-color_blue = '#2e6ba8'
-color_aqua = '#4a90c2'
-color_green = '#3d8b6e'
-color_orange = '#5b9bd5'
-color_purple = '#6b8cce'
-color_red = '#c75b4a'
-color_yellow = '#6bb5e8'
-color_history_fg = '#1e3a5f'
-color_history_bg = '#8bb8e0'
-
-# [os]
-# disabled = false
-# style = "bg:color_orange fg:color_fg0"
-
-[os.symbols]
-Alpine = " "
-Debian = " "
-Linux = " "
-Macos = " "
-Raspbian = " "
-Ubuntu = "󰕈"
-Unknown = " "
-Windows = "󰍲 "
-
-[username]
-show_always = false
-style_user = "bg:color_orange fg:color_fg0"
-style_root = "bg:color_orange fg:color_fg0"
-format = '[ $user ]($style)'
-
-[directory]
-style = "fg:color_fg0 bg:color_yellow"
-format = "[ $path ]($style)"
-truncation_length = 3
-# truncation_symbol = "…/"
-
-[directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = "󰝚 "
-"Pictures" = " "
-"Developer" = "󰲋 "
-
-[git_branch]
-symbol = ""
-style = "bg:color_aqua"
-format = '[[ $symbol $branch ](fg:color_fg0 bg:color_aqua)]($style)'
-
-[git_status]
-style = "bg:color_aqua"
-format = '[[($all_status$ahead_behind )](fg:color_fg0 bg:color_aqua)]($style)'
-
-[nodejs]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
-
-# [c]
-# disabled = true
-# symbol = " "
-# style = "bg:color_blue"
-# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
-
-# [cpp]
-# disabled = true
-# symbol = " "
-# style = "bg:color_blue"
-# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
-
-# [rust]
-# disabled = true
-# symbol = ""
-# style = "bg:color_blue"
-# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
-
-[golang]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
-
-[php]
-symbol = ""
-style = "bg:color_blue"
-format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
-
-# [java]
-# disabled = true
-# symbol = ""
-# style = "bg:color_blue"
-# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
-
-# [kotlin]
-# disabled = true
-# symbol = ""
-# style = "bg:color_blue"
-# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
-
-# [haskell]
-# disabled = true
-# symbol = ""
-# style = "bg:color_blue"
-# format = '[[ $symbol( $version) ](fg:color_fg0 bg:color_blue)]($style)'
-
-[python]
-symbol = ""
-style = "bg:color_blue"
-detect_env_vars = ["VIRTUAL_ENV"]
-format = '[[ $symbol( $version)( venv:$virtualenv) ](fg:color_fg0 bg:color_blue)]($style)'
-
-[docker_context]
-symbol = ""
-style = "bg:color_bg3"
-format = '[[ $symbol( $context) ](fg:#83a598 bg:color_bg3)]($style)'
-
-# [conda]
-# disabled = true
-# style = "bg:color_bg3"
-# format = '[[ $symbol( $environment) ](fg:#83a598 bg:color_bg3)]($style)'
-
-# [pixi]
-# disabled = true
-# style = "bg:color_bg3"
-# format = '[[ $symbol( $version)( $environment) ](fg:color_fg0 bg:color_bg3)]($style)'
-
-[custom.atuin_history_lines]
-# Value from $HOME/dotfiles/cli/starship/functions/starship_history_lines (uses $HISTFILE). Output: "lines / sizeKB".
-# Style uses Pantone light blue palette (color_history_*).
-# Nerd Font symbol: nf-md-bash (U+F1183)
-command = "$HOME/dotfiles/cli/starship/functions/starship_atuin_history_lines"
-when = true
-symbol = "󱆃 "
-style = "fg:color_history_fg bg:color_history_bg"
-format = "[ $symbol$output ]($style)"
-
-[time]
-disabled = true
-time_format = "%R"
-style = "bg:color_bg1"
-format = '[[  $time ](fg:color_fg0 bg:color_bg1)]($style)'
-
-[line_break]
-disabled = true
-
-[character]
-disabled = false
-success_symbol = '[](bold fg:color_green)'
-error_symbol = '[](bold fg:color_red)'
-vimcmd_symbol = '[](bold fg:color_green)'
-vimcmd_replace_one_symbol = '[](bold fg:color_purple)'
-vimcmd_replace_symbol = '[](bold fg:color_purple)'
-vimcmd_visual_symbol = '[](bold fg:color_yellow)'
-
-#---------------------------------------------------------------------------------------
-
-# [character]
-# format = 'out $symbol'
-# success_symbol = "🥳  "
-# error_symbol = "🤬  "
-
-[custom.wsl]
-symbol = '🪟 '
-when='[[ $(grep -i Microsoft /proc/version) ]]'
-
-[os]
-disabled=false
-format = "[on (${custom.wsl} $symbol $name $codename )]($style)"
-# style = "bold blue"
-style = "bg:color_orange fg:color_fg0"
-
-[hostname]
-format = 'at [$ssh_symbol$hostname]($style) '
-ssh_only = false
-ssh_symbol = '📡 '
-style = 'bold red'
+scan_timeout = 10
 
 [aws]
 disabled = true
+symbol = '🅰 '
+style = ''
 
-[buf]
+[aws.region_aliases]
+ap-southeast-2 = 'au'
+us-east-1 = 'va'
+
+[aws.profile_aliases]
+CompanyGroupFrobozzOnCallAccess = 'Frobozz'
+
+[azure]
 disabled = true
+symbol = '󰠅 '
+style = ''
+
+[azure.subscription_aliases]
+very-long-subscription-name = 'vlsn'
 
 [c]
 disabled = true
+symbol = " "
+style = ''
+
+[character]
+disabled = true
+error_symbol = '⚠'
+format = '$symbol'
+success_symbol = '…'
+
+[cmd_duration]
+min_time = 1_00
+format = '[~$duration]()'
 
 [conda]
 disabled = true
+style = ''
 
-[crystal]
+[cpp]
 disabled = true
+symbol = " "
+style = ''
+
+[custom.atuin_history_lines]
+command = "$HOME/dotfiles/cli/starship/functions/starship_atuin_history_lines"
+disabled = false
+format = '[$symbol$output ]($style)'
+style = 'bg:color_section_2 fg:color_fg0'
+symbol = '≣'
+when = true
+
+[custom.wsl]
+disabled = true
+when='[[ $(grep -i Microsoft /proc/version) ]]'
+style = ''
 
 [dart]
 disabled = true
 
+[deno]
+disabled = true
+style = ''
+
+[directory]
+disabled = false
+truncate_to_repo = false
+truncation_length = 0
+style = ''
+
+[directory.substitutions]
+"Developer" = "󰲋 "
+"Documents" = "󰈙 "
+"Downloads" = " "
+"Music" = "󰝚 "
+"Pictures" = " "
+
+[docker_context]
+disabled = false
+symbol = ""
+style = ''
+
+[dotnet]
+disabled = true
+heuristic = false
+symbol = '🥅 '
+style = ''
+
 [elixir]
 disabled = true
-
-[elm]
-disabled = true
-
-[fennel]
-disabled = true
+symbol = '🔮 '
+style = ''
 
 [fossil_branch]
+disabled = false
+symbol = '🦎 '
+truncation_length = 4
+truncation_symbol = ''
+style = ''
+
+[fossil_metrics]
+added_style = 'bold blue'
+disabled = false
+
+[gcloud]
+disabled = false
+format = '[$symbol:$region ]($style)'
+style = 'bg:color_section_5 fg:color_fg0'
+symbol = 'gcp'
+
+[gcloud.project_aliases]
+very-long-project-name = 'vlpn'
+
+[gcloud.region_aliases]
+us-central1 = 'uc1'
+
+[git_branch]
+format = '[$branch ]($style)'
+disabled = false
+style = 'bg:color_section_4 fg:color_fg0'
+
+[git_commit]
+commit_hash_length = 4
+disabled = false
+style = 'bg:color_section_4 fg:color_fg0'
+
+[git_metrics]
 disabled = true
 
-[guix_shell]
+
+[git_state]
+disabled = false
+style = 'bg:color_section_4 fg:color_fg0'
+
+[git_status]
 disabled = true
+style = 'bg:color_section_4 fg:color_fg0'
+
+[golang]
+format = '[$symbol$version$mod_version]($style)'
+disabled = false
+symbol = ""
+style = 'bg:color_section_3 fg:color_fg0'
 
 [haskell]
 disabled = true
+symbol = ""
+style = ''
 
-[haxe]
-disabled = true
-
-[hg_branch]
-disabled = true
+[hostname]
+disabled = false
+format = '[@](bold $style)[$ssh_symbol$hostname]($style)'
+ssh_only = false
+style = 'bg:color_section_6 fg:color_fg0'
 
 [java]
 disabled = true
+symbol = ""
+style = ''
 
-[julia]
-disabled = true
+[jobs]
+disabled = false
+format = '[$number]($style)'
+style = ''
 
 [kotlin]
 disabled = true
+symbol = ""
+style = ''
+
+[kubernetes]
+detect_files = ['k8s']
+disabled = true
+style = ''
+
+[line_break]
+disabled = false
+
+[localip]
+disabled = false
+ssh_only = false
+style = 'italic bg:color_section_6 fg:color_fg0'
+format = '[\($localipv4\) ]($style)'
 
 [lua]
-disabled = true
+disabled = false
+style = ''
 
-[meson]
+[memory_usage]
 disabled = true
+threshold = -1
+style = ''
 
-[nim]
+[netns]
 disabled = true
+symbol = '🌐 '
+style = ''
 
-[nix_shell]
-disabled = true
+[nodejs]
+disabled = false
+symbol = ""
+style = ''
 
-[ocaml]
+[os]
+format = "[${custom.wsl}$symbol ]($style)"
+disabled = false
+style = 'bg:color_section_6 fg:color_fg0'
+
+[os.symbols]
+Alpine = ""
+Debian = ""
+Linux = ""
+Macos = ""
+Raspbian = ""
+Ubuntu = "󰕈"
+Unknown = ""
+Windows = "󰍲"
+
+[package]
+disabled = false
+style = ''
+
+[palettes.pantone_light_blue]
+color_fg0 = '#1e3a5f'
+color_green = '#3d8b6e'
+color_history_fg = '#1e3a5f'
+color_purple = '#6b8cce'
+color_red = '#c75b4a'
+color_section_0 = '#7ba3c9'
+color_section_1 = '#8bb8e0'
+color_section_2 = '#9fc9e4'
+color_section_3 = '#2e6ba8'
+color_section_4 = '#4a90c2'
+color_section_5 = '#6bb5e8'
+color_section_6 = '#5b9bd5'
+
+[php]
+disabled = false
+symbol = ""
+style = ''
+
+[pixi]
 disabled = true
+style = ''
+
+[python]
+detect_env_vars = ["VIRTUAL_ENV"]
+disabled = false
+pyenv_version_name = true
+symbol = ""
+style = 'bg:color_section_3 fg:color_fg0'
+format = '[$symbol$version$virtualenv ]($style)'
+
+[ruby]
+disabled = true
+symbol = '🔺 '
+style = ''
+
+[rust]
+disabled = true
+symbol = ""
+style = ''
+
+[shell]
+disabled = false
+format = '[󱆃$indicator ]($style)'
+style = 'bg:color_section_6 fg:color_fg0'
+zsh_indicator = 'z'
+
+[singularity]
+disabled = false
+style = ''
+
+[status]
+disabled = false
+format = '[$symbol]($style)'
+style = 'bg:color_section_0 fg:color_fg0'
+success_symbol = '…'
+symbol = '⚠ $status'
+
+[sudo]
+allow_windows = true
+disabled = false
+symbol = '👩‍💻 '
+style = ''
+
+[terraform]
+disabled = false
+style = ''
+
+[time]
+format = '[ $time ]($style)'
+disabled = false
+style = 'bg:color_section_1 fg:color_fg0'
+
+[username]
+disabled = false
+format = '[$user]($style)'
+show_always = true
+style_user = 'bg:color_section_6 fg:color_fg0'
