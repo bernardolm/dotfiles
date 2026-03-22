@@ -138,8 +138,9 @@ format = '$symbol'
 success_symbol = '…'
 
 [cmd_duration]
+format = '[~$duration ]($style)'
 min_time = 1_00
-format = '[~$duration]()'
+style = 'bg:color_section_1 fg:color_fg0'
 
 [conda]
 disabled = true
@@ -397,7 +398,7 @@ disabled = false
 style = ''
 
 [time]
-format = '[ $time ]($style)'
+format = '[$time ]($style)'
 disabled = false
 style = 'bg:color_section_1 fg:color_fg0'
 
