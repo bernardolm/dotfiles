@@ -18,7 +18,6 @@ $docker_context\
 $docker\
 $gcloud\
 $nats\
-$sudo\
 [ ](fg:color_section_3 bg:color_section_4)\
 $git_branch\
 $git_commit\
@@ -100,6 +99,7 @@ $status\
 [ ](fg:color_section_8)\
 $directory\
 $line_break\
+$sudo\
 $character\
 """
 
@@ -386,10 +386,10 @@ success_symbol = ''
 symbol = '$status'
 
 [sudo]
-allow_windows = true
+format = '[$symbol ]($style)'
 disabled = false
-symbol = '👩‍💻 '
-style = ''
+symbol = "ϟ 𜺱 ☢ ☣ ☠ ⚿ ➲ 󰢬 󰯄 󰒃"
+style = 'bold red'
 
 [terraform]
 disabled = false
