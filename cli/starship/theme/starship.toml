@@ -1,11 +1,9 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
 format = """
-$directory\
-$line_break\
 [](color_section_1)\
-$shell\
 $os\
+$shell\
 [ ](fg:color_section_1 bg:color_section_2)\
 $username\
 $hostname\
@@ -100,6 +98,8 @@ $cmd_duration\
 [ ](fg:color_section_7 bg:color_section_8)\
 $status\
 [ ](fg:color_section_8)\
+$directory\
+$line_break\
 $character\
 """
 
@@ -133,10 +133,10 @@ symbol = " "
 style = ''
 
 [character]
-disabled = true
-error_symbol = '⚠'
+disabled = false
+error_symbol = '⚠ '
 format = '$symbol'
-success_symbol = '…'
+success_symbol = '… '
 
 [cmd_duration]
 format = '[~$duration ]($style)'
@@ -176,7 +176,7 @@ style = ''
 disabled = false
 truncate_to_repo = false
 truncation_length = 0
-style = ''
+style = 'italic'
 
 [directory.substitutions]
 "Developer" = "󰲋 "
@@ -382,8 +382,8 @@ style = ''
 disabled = false
 format = '[$symbol]($style)'
 style = 'bg:color_section_8 fg:color_foreground_text_light'
-success_symbol = '…'
-symbol = '⚠ $status'
+success_symbol = ''
+symbol = '$status'
 
 [sudo]
 allow_windows = true
