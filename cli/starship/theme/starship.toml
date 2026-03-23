@@ -224,9 +224,10 @@ very-long-project-name = 'vlpn'
 us-central1 = 'uc1'
 
 [git_branch]
-format = '[$symbol$branch ]($style)'
 disabled = false
+format = '[$symbol$branch ]($style)'
 style = 'bg:color_section_4 fg:color_foreground_text_dark'
+symbol = ''
 
 [git_commit]
 commit_hash_length = 4
