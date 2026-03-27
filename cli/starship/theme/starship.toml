@@ -95,9 +95,10 @@ ${custom.atuin_history_lines}\
 $time\
 $cmd_duration\
 [ ](fg:color_section_7 bg:color_section_8)\
-$status\
-[ ](fg:color_section_8)\
 $directory\
+[ ](fg:color_section_8 bg:color_section_9)\
+$status\
+[ ](fg:color_section_9)\
 $line_break\
 $sudo\
 $character\
@@ -134,13 +135,14 @@ style = ''
 
 [character]
 disabled = false
-error_symbol = '[⚠](bold red) '
+error_symbol = '[⚠](bold fg:color_section_5) '
 format = '$symbol'
-success_symbol = '… '
+success_symbol = '[▶](bold fg:color_section_3) '
 
 [cmd_duration]
 format = '[~$duration ]($style)'
-min_time = 1_00
+min_time = 1
+show_milliseconds = true
 style = 'bg:color_section_7 fg:color_foreground_text_light'
 
 [conda]
@@ -175,8 +177,9 @@ style = ''
 [directory]
 disabled = false
 truncate_to_repo = false
+format = '[$path ]($style)'
 truncation_length = 0
-style = 'italic'
+style = 'italic bg:color_section_8 fg:color_foreground_text_light'
 
 [directory.substitutions]
 "Developer" = "󰲋 "
@@ -184,6 +187,7 @@ style = 'italic'
 "Downloads" = " "
 "Music" = "󰝚 "
 "Pictures" = " "
+"~/workspaces/bernardolm/dotfiles" = "⁂"
 
 [docker_context]
 disabled = false
@@ -341,6 +345,7 @@ color_section_5 = '#ee9b00'
 color_section_6 = '#ca6702'
 color_section_7 = '#bb3e03'
 color_section_8 = '#ae2012'
+color_section_9 = '#9B2226'
 
 [php]
 disabled = false
@@ -382,8 +387,8 @@ style = ''
 [status]
 disabled = false
 format = '[$symbol]($style)'
-style = 'bg:color_section_8 fg:color_foreground_text_light'
-success_symbol = ''
+style = 'bg:color_section_9 fg:color_foreground_text_light'
+success_symbol = '…'
 symbol = '$status'
 
 [sudo]
