@@ -5,12 +5,9 @@
 	gpgsign = true
 
 [core]
-	editor = nano # delta
-
-[delta]
-	navigate = true
-	line-numbers = true
-	side-by-side = false
+	editor = nano
+	autocrlf = false
+	pager = nano
 
 [diff]
 	colorMoved = default
@@ -18,20 +15,30 @@
 [fetch]
 	prune = true
 
+[filter "lfs"]
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+
 [gpg]
 	format = ssh
 
 [init]
 	defaultBranch = main
 
-# [interactive]
-#   diffFilter = delta --color-only
-
 [merge]
 	log = true
+	conflictStyle = zdiff3
 
 [pull]
-	rebase = false
+	rebase = true
+
+[push]
+	autoSetupRemote = true
+
+[rebase]
+	autoStash = true
 
 [status]
 	short = true
