@@ -41,7 +41,7 @@ alias gsl='git stash list'
 alias gst='git status --branch --show-stash --untracked-files=all --ignore-submodules=untracked --column=always --renames --find-renames=70%'
 alias la='eza -lah --icons --color=auto --group-directories-first' # v2
 alias ll='la'
-alias mv='mv --backup=t'
+# alias mv='mv --backup=t'
 alias new-guid='uuidgen | tr "[A-Z]" "[a-z]"'
 alias path='echo -e ${PATH//:/\\n}'
 alias ports='sudo lsof -i -P -n | grep LISTEN'
