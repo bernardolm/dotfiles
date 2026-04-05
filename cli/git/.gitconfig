@@ -40,7 +40,7 @@
 	autoStash = true
 
 [status]
-	short = true
+	short = false
 
 [submodule]
 	recurse = true
