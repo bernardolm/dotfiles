@@ -1,0 +1,27 @@
+{
+	"recommendations": [
+		"4a454646.github-purple",
+		"alefragnani.project-manager",
+		"bierner.markdown-preview-github-styles",
+		"bracketpaircolordlw.bracket-pair-color-dlw",
+		"dakara.transformer",
+		"editorconfig.editorconfig",
+		"esbenp.prettier-vscode",
+		"github.copilot-chat",
+		"ms-vscode-remote.remote-containers",
+		"ms-vscode.remote-explorer",
+		"ms-vscode.remote-server",
+		"ms-vscode.sublime-keybindings",
+		"neptunedesign.vs-slug",
+		"nhoizey.gremlins",
+		"oderwat.indent-rainbow",
+		"openai.chatgpt",
+		"rajeshwaran.developer-theme-dark",
+		"ryu1kn.partial-diff",
+		"sadesyllas.vscode-workspace-switcher",
+		"shardulm94.trailing-spaces",
+		"sketchbuch.vsc-workspace-sidebar",
+		"tomsaunders-code.workspace-explorer",
+		"wakatime.vscode-wakatime",
+	]
+}
