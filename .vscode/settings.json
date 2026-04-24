@@ -12,5 +12,5 @@
 		"**/node_modules",
 		"venv",
 	],
-	"workbench.colorTheme": "Dark+",
+	"workbench.colorTheme": "Github Purple",
 }
