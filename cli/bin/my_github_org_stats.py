@@ -32,7 +32,7 @@ file_path = f"{HOME}/sync/tmp/my_github_org_stats_{GITHUB_ORG}_{GITHUB_USER}_{no
 
 with open(file=file_path, mode="a", encoding="utf-8") as file:
 	to_log = f"{org.get_repos().totalCount} repos found " \
-   f"in {GITHUB_ORG} at {now}\n\n"
+         f"in {GITHUB_ORG} at {now}\n\n"
 	print(to_log)
 	file.write(to_log)
 
@@ -40,7 +40,7 @@ with open(file=file_path, mode="a", encoding="utf-8") as file:
 		repo_position += 1
 
 		url = f"https://api.github.com/repos/{GITHUB_ORG}/{repo.name}" \
-     f"/stats/contributors?per_page={PER_PAGE}"
+                 f"/stats/contributors?per_page={PER_PAGE}"
 
 		req = requests.get(url=url,
 												timeout=TIMEOUT,
@@ -67,19 +67,19 @@ with open(file=file_path, mode="a", encoding="utf-8") as file:
 					repo_commits += int(week['c'])
 
 				to_log = f"repo={repo.full_name}\n" \
-         f"repo_additions={repo_additions}, " \
-         f"total_additions={total_additions}, " \
-         f"then {total_additions}+{repo_additions}=" \
-         f"{total_additions+repo_additions}\n" \
-         f"repo_deletions={repo_deletions}, " \
-         f"total_deletions={total_deletions}, " \
-         f"then {total_deletions}+{repo_deletions}=" \
-         f"{total_deletions+repo_deletions}\n" \
-         f"repo_commits={repo_commits}, " \
-         f"total_commits={total_commits}, " \
-         f"then {total_commits}+{repo_commits}=" \
-         f"{total_commits+repo_commits}\n" \
-         f"repo_position={repo_position}\n\n"
+                                 f"repo_additions={repo_additions}, " \
+                                 f"total_additions={total_additions}, " \
+                                 f"then {total_additions}+{repo_additions}=" \
+                                 f"{total_additions+repo_additions}\n" \
+                                 f"repo_deletions={repo_deletions}, " \
+                                 f"total_deletions={total_deletions}, " \
+                                 f"then {total_deletions}+{repo_deletions}=" \
+                                 f"{total_deletions+repo_deletions}\n" \
+                                 f"repo_commits={repo_commits}, " \
+                                 f"total_commits={total_commits}, " \
+                                 f"then {total_commits}+{repo_commits}=" \
+                                 f"{total_commits+repo_commits}\n" \
+                                 f"repo_position={repo_position}\n\n"
 
 				print(to_log)
 				file.write(to_log)
@@ -91,10 +91,10 @@ with open(file=file_path, mode="a", encoding="utf-8") as file:
 				break
 
 	to_log = f"totals:\n" \
-   f"total_additions={total_additions} \n" \
-   f"total_deletions={total_deletions} \n" \
-   f"total_commits={total_commits} \n" \
-   f"final repo_position={repo_position} \n"
+         f"total_additions={total_additions} \n" \
+         f"total_deletions={total_deletions} \n" \
+         f"total_commits={total_commits} \n" \
+         f"final repo_position={repo_position} \n"
 
 	print(to_log)
 	file.write(to_log)

@@ -16,9 +16,9 @@ def starship_update_theme(argv: list[str]) -> int:
 	target = root / "starship.toml"
 	target.write_text(base.read_text(errors="ignore"))
 	with target.open("a") as handle:
-	handle.write("\n\n\n\n")
+		handle.write("\n\n\n\n")
 	starship_update_nerd_font([])
 	nerd = root / "starship.nerd-font-symbols.toml"
 	with target.open("a") as handle:
-	handle.write(nerd.read_text(errors="ignore"))
+		handle.write(nerd.read_text(errors="ignore"))
 	return 0

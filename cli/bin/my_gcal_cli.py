@@ -122,8 +122,8 @@ if __name__ == '__main__':
 			summary = e['summary']
 
 			if e.get('organizer').get('displayName') not in \
-        ['Engineering Hurb', 'Aniversários Tecnologia',
-					'Aniversários Product Design', 'Aniversários Produto']:
+                          ['Engineering Hurb', 'Aniversários Tecnologia',
+				'Aniversários Product Design', 'Aniversários Produto']:
 
 				start_date = format_date(e['s'])
 				if _start_date == '':

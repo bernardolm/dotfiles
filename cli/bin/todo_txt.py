@@ -13,7 +13,7 @@ def _read_stdin() -> list[str]:
 
 def _write_lines(lines: list[str]) -> None:
 	if lines:
-	print("\n".join(lines))
+		print("\n".join(lines))
 
 
 def todotxt_hide_create_date(argv: list[str]) -> int:
