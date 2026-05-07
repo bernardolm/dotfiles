@@ -14,14 +14,25 @@ end
 
 local STARTUP_COMMANDS_FILE = "dotfiles/cli/wezterm/startup-commads.txt"
 
-local function ssh_tab_title(command)
-	local host = command:match("^ssh%s+([^%s]+)")
-	if not host then
+local function ssh_target(command)
+	local target = command:match("^ssh%s+([^%s]+)")
+	if not target then
 		return nil
 	end
-	host = host:gsub("^.+@", "")
-	host = host:gsub("^%[", ""):gsub("%].*$", "")
-	host = host:gsub(":.*$", "")
+	return target
+end
+
+local function ssh_host(target)
+	local host = target:gsub("^.+@", "")
+	return host:gsub("^%[", ""):gsub("%].*$", "")
+end
+
+local function ssh_username(target)
+	return target:match("^([^@]+)@")
+end
+
+local function ssh_domain_name(target)
+	local host = ssh_host(target)
 	if host:match("^%d+%.%d+%.%d+%.%d+$") then
 		return host
 	end
@@ -30,8 +41,13 @@ end
 
 local function startup_tab_options(entry, cmd)
 	local opts = copy_table(cmd)
+	local target = ssh_target(entry)
+	if target then
+		opts.domain = { DomainName = ssh_domain_name(target) }
+		return opts, ssh_domain_name(target)
+	end
 	opts.args = { "/bin/zsh", "-lc", entry }
-	return opts, ssh_tab_title(entry)
+	return opts, nil
 end
 
 local function startup_commands()
@@ -74,3 +90,23 @@ wezterm.on("gui-startup", function(cmd)
 		end
 	end
 end)
+
+local function ssh_domains()
+	local domains = {}
+	for _, command in ipairs(startup_commands()) do
+		local target = ssh_target(command)
+		if target then
+			table.insert(domains, {
+				name = ssh_domain_name(target),
+				remote_address = ssh_host(target),
+				username = ssh_username(target),
+				multiplexing = "None",
+			})
+		end
+	end
+	return domains
+end
+
+return {
+	ssh_domains = ssh_domains,
+}

@@ -99,6 +99,9 @@ end
 local function short_hostname_from_pane(pane)
 	local cwd_uri = pane and pane.current_working_dir
 	local host = hostname_from_cwd_uri(cwd_uri) or wezterm.hostname() or ""
+	if host:match("^%d+%.%d+%.%d+%.%d+$") then
+		return host
+	end
 	local short = host:match("^([^%.]+)")
 	return (short and #short > 0) and short or host
 end
@@ -111,13 +114,26 @@ local function explicit_tab_title(tab_info)
 	return nil
 end
 
+local function domain_title(pane)
+	local domain = pane and pane.domain_name
+	if domain and #domain > 0 and domain ~= "local" then
+		return domain
+	end
+	return nil
+end
+
 local function tab_title_handler(tab_info)
 	local hostname = short_hostname_from_pane(tab_info.active_pane)
 
 	-- » « ║ ı •
 	local separator = " • "
 
-	local title = explicit_tab_title(tab_info)
+	local title = domain_title(tab_info.active_pane)
+	if title then
+		return title
+	end
+
+	title = explicit_tab_title(tab_info)
 	if title then
 		return title
 	end

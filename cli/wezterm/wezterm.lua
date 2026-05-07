@@ -10,8 +10,8 @@ local config_windows = require("windows")
 local merge = require("merge")
 local style = require("style")
 local wezterm = require("wezterm")
+local gui_startup = require("gui-startup")
 
-require("gui-startup")
 require("format-tab-title")
 require("update-left-status")
 require("update-right-status")
@@ -29,5 +29,6 @@ config = merge.MergeObject(config, config_linux)
 config = merge.MergeObject(config, config_windows)
 -- Merging config - end
 
+config.ssh_domains = gui_startup.ssh_domains()
 
 return config
