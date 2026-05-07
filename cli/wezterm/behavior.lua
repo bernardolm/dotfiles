@@ -41,6 +41,7 @@ return {
 	show_tabs_in_tab_bar = true,
 	skip_close_confirmation_for_processes_named = { 'bash', 'sh', 'zsh', 'fish', 'tmux' },
 	tab_bar_at_bottom = false,
+	tab_max_width = 42,
 	use_fancy_tab_bar = true,
 	window_close_confirmation = 'NeverPrompt',
 }

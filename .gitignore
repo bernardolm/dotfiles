@@ -14,12 +14,11 @@
 **/*.tar.gz
 **/*.zip
 **/*.zwc
+**/*prompt*
 **/*venv/
-**//venv/
-**/wezterm/start-open-paths.txt
 **/debian
 **/git/submodule/*
 **/micro/buffers
 **/micro/plug
-**/*prompt*
 **/venv
+**/wezterm/startup-commads.txt

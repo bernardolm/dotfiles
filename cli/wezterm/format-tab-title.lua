@@ -1,5 +1,7 @@
 local wezterm = require("wezterm")
 
+local MAX_TAB_WIDTH = 42
+
 local function decode_uri_path(cwd_uri)
 	if not cwd_uri then
 		return nil
@@ -101,15 +103,23 @@ local function short_hostname_from_pane(pane)
 	return (short and #short > 0) and short or host
 end
 
+local function explicit_tab_title(tab_info)
+	local title = tab_info.tab_title
+	if title and #title > 0 then
+		return title
+	end
+	return nil
+end
+
 local function tab_title_handler(tab_info)
 	local hostname = short_hostname_from_pane(tab_info.active_pane)
 
 	-- » « ║ ı •
 	local separator = " • "
 
-	local title = tab_info.tab_title
-	if title and #title > 0 then
-		return hostname .. separator .. title
+	local title = explicit_tab_title(tab_info)
+	if title then
+		return title
 	end
 
 	local pane = tab_info.active_pane
@@ -124,6 +134,11 @@ end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
 	local title = tab_title_handler(tab)
+	local tab_width = math.min(max_width, MAX_TAB_WIDTH)
+	local title_width = math.max(tab_width - 2, 1)
+	if #title > title_width then
+		title = title:sub(1, title_width)
+	end
 	return {
 		{ Text = " " .. title .. " " },
 	}
