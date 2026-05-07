@@ -11,6 +11,5 @@
 		"**/.*",
 		"**/node_modules",
 		"venv",
-	],
-	"workbench.colorTheme": "Github Purple",
+	]
 }
