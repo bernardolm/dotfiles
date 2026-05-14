@@ -13,5 +13,3 @@ zstyle ':vcs_info:git:*' formats '(%b)'
 
 # export GIT_TRACE=1
 # export GIT_CURL_VERBOSE=1
-
-
