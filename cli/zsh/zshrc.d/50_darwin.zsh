@@ -3,7 +3,7 @@
 [ -f /etc/zshrc_Apple_Terminal ] && . /etc/zshrc_Apple_Terminal
 
 # Add a spacer to a dock to separate pinned and opened apps
-defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
+# defaults write com.apple.dock persistent-apps -array-add '{tile-data={}; tile-type="spacer-tile";}'
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
 
@@ -25,8 +25,8 @@ defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 killall Finder
 
 # Set the screenshot location
-defaults write com.apple.screencapture location -string "${HOME}/Downloads"
+defaults write com.apple.screencapture location -string "$HOME/Downloads"
 # Set the screenshot format to be jpeg
 defaults write com.apple.screencapture type -string "jpg"
 
-killall ScreenCapture
+# killall ScreenCapture
