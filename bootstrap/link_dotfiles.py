@@ -13,6 +13,7 @@ if str(ROOT) not in sys.path:
 
 from bin.common import dotfiles_dry_run
 from bin.platform import platform
+
 from bootstrap.ensure_symlink import ensure_symlink
 from bootstrap.repo_root import repo_root
 
@@ -142,7 +143,7 @@ def _ensure_link_or_copy(src: Path, dest: Path, dry_run: bool = False) -> None:
 
 def main() -> int:
 	platform_name = os.environ.get("DOTFILES_PLATFORM") or None
-	profile = os.environ.get("DOTFILES_PROFILE", "desktop")
+	profile = os.environ.get("DOTFILES_OS_PROFILE", "desktop")
 	dotfiles_home = Path(os.environ.get("DOTFILES_HOME", str(Path.home() / "dotfiles"))).expanduser()
 	dry_run = dotfiles_dry_run()
 	link_dotfiles(

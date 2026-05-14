@@ -1,4 +1,4 @@
-set -e
+set -xv
 
 function cp_from_to() {
 	echo -n "transfering from ${1}: "
@@ -11,3 +11,5 @@ for ip in 192.168.0.{10..35}; do
 done
 
 cp_from_to "192.168.0.36" "C:/Users/Bernardo/.ssh/id_ed25519.pub"
+
+set +xv

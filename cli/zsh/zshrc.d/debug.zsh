@@ -1,7 +1,7 @@
 return
 
 setopt ERR_EXIT
-set -e
+set -exv
 
 # Source - https://superuser.com/a/1840396
 # Posted by Silas, modified by community. See post 'Timeline' for change history

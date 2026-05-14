@@ -1,4 +1,4 @@
-# Interactive shell setup.
+set +x
 
 if [[ ! -e ${ZIM_HOME}/zimfw.zsh ]] && command -v curl >/dev/null 2>&1; then
 	curl -fsSL --create-dirs -o ${ZIM_HOME}/zimfw.zsh \
@@ -16,6 +16,8 @@ if [[ -r ${ZIM_HOME}/zimfw.zsh ]]; then
 		source ${ZIM_HOME}/init.zsh
 	fi
 fi
+
+set -x
 
 for file in "$HOME/dotfiles/cli/zsh/zshrc.d/"*(N-.D); do
 	[ -r "$file" ] || continue

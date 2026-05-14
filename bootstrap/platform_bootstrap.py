@@ -14,6 +14,7 @@ if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
 from bin.common import dotfiles_dry_run, is_falsey, is_truthy
+
 from bootstrap.load_config import load_config
 from bootstrap.repo_root import repo_root
 from bootstrap.run import run
@@ -53,7 +54,7 @@ def platform_bootstrap(
 		print(f"invalid config format: {config_path}")
 		return 1
 
-	resolved_profile = (profile or os.environ.get("DOTFILES_PROFILE", "desktop")).strip().lower()
+	resolved_profile = (profile or os.environ.get("DOTFILES_OS_PROFILE", "desktop")).strip().lower()
 	resolved_platform = (platform_name or os.environ.get("DOTFILES_PLATFORM", "")).strip().lower()
 
 	_apply_envs(config.get("envs", {}))
@@ -454,7 +455,7 @@ def main() -> int:
 	if not config_value:
 		print("error: DOTFILES_BOOTSTRAP_CONFIG not set.")
 		return 1
-	profile = os.environ.get("DOTFILES_PROFILE", "desktop")
+	profile = os.environ.get("DOTFILES_OS_PROFILE", "desktop")
 	platform_name = os.environ.get("DOTFILES_PLATFORM", "")
 	dry_run = dotfiles_dry_run()
 	return platform_bootstrap(

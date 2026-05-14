@@ -12,6 +12,7 @@ if str(ROOT) not in sys.path:
 
 from bin.common import dotfiles_dry_run, is_falsey, is_truthy
 from bin.platform import platform
+
 from bootstrap.context import resolve_profile, select_config_path
 from bootstrap.ensure_delta_config import ensure_delta_config
 from bootstrap.install_zimfw import install_zimfw
@@ -34,7 +35,7 @@ def bootstrap_flow(install_packages: bool, link: bool, profile: str | None, dry_
 		print(str(exc))
 		return 1
 
-	os.environ["DOTFILES_PROFILE"] = resolved_profile
+	os.environ["DOTFILES_OS_PROFILE"] = resolved_profile
 	os.environ["DOTFILES_PLATFORM"] = resolved_platform
 
 	config_path = select_config_path(resolved_platform, resolved_profile)
@@ -99,7 +100,7 @@ def _resolve_action_flags() -> tuple[bool, bool]:
 
 
 def main() -> int:
-	profile = os.environ.get("DOTFILES_PROFILE") or None
+	profile = os.environ.get("DOTFILES_OS_PROFILE") or None
 	dry_run = dotfiles_dry_run()
 	install_packages, link = _resolve_action_flags()
 	return bootstrap_flow(install_packages, link, profile, dry_run)

@@ -1,6 +1,4 @@
 function ufw_start() {
-	# set -x
-
 	local ufw_conf=/etc/default/ufw
 
 	if [ $(/bin/cat -n "${ufw_conf}" | grep -c "IPV6=yes" | bc) -eq 0 ]; then
@@ -24,6 +22,4 @@ function ufw_start() {
 	ufw reload ;
 
 	ufw status verbose ;
-
-	# set +x
 }

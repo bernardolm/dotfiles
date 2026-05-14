@@ -43,7 +43,7 @@ disabled = false
 # represents the current operating system
 [os]
 style = "bg:#9A348E"
-disabled = true # Disabled by default
+disabled = true      # Disabled by default
 
 [directory]
 style = "bg:#DA627D"
@@ -144,6 +144,6 @@ format = '[ $symbol ($version) ]($style)'
 
 [time]
 disabled = false
-time_format = "%R" # Hour:Minute Format
+time_format = "%R"             # Hour:Minute Format
 style = "bg:#33658A"
 format = '[ ♥ $time ]($style)'

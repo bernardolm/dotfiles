@@ -11,6 +11,7 @@ if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
 from bin.common import dotfiles_dry_run
+
 from bootstrap.context import resolve_profile, select_config_path
 from bootstrap.platform_bootstrap import platform_bootstrap
 
@@ -39,7 +40,7 @@ def run_platform_entrypoint(
 		print(f"bootstrap config not found: {config_path}")
 		return 1
 
-	os.environ["DOTFILES_PROFILE"] = resolved_profile
+	os.environ["DOTFILES_OS_PROFILE"] = resolved_profile
 	os.environ["DOTFILES_PLATFORM"] = platform_name
 
 	result = platform_bootstrap(
@@ -56,7 +57,7 @@ def run_platform_entrypoint(
 
 
 def main(platform_name: str, description: str) -> int:
-	profile = os.environ.get("DOTFILES_PROFILE") or None
+	profile = os.environ.get("DOTFILES_OS_PROFILE") or None
 	host = os.environ.get("DOTFILES_BOOTSTRAP_HOST") or None
 	config = os.environ.get("DOTFILES_BOOTSTRAP_CONFIG") or None
 	dry_run = dotfiles_dry_run()

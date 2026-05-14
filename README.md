@@ -25,7 +25,7 @@ Useful modes:
 DOTFILES_DRY_RUN=1 python3 bootstrap/bootstrap.py
 DOTFILES_BOOTSTRAP_LINK=0 python3 bootstrap/bootstrap.py
 DOTFILES_BOOTSTRAP_INSTALL_PACKAGES=0 python3 bootstrap/bootstrap.py
-DOTFILES_PROFILE=server python3 bootstrap/bootstrap.py
+DOTFILES_OS_PROFILE=server python3 bootstrap/bootstrap.py
 ```
 
 ## main structure

@@ -1,6 +1,4 @@
-[[ "$DOTFILES_OS" = "darwin" ]] || return
-
-alias brew-upgrade='brew update --quiet && brew upgrade --quiet --greedy'
+[[ "$DOTFILES_OS" != "darwin" ]] && return
 
 export CPPFLAGS="-I/opt/homebrew/opt/libpq/include"
 export HOMEBREW_DISPLAY_INSTALL_TIMES=true

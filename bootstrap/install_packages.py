@@ -11,11 +11,12 @@ if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
 from bin.common import dotfiles_dry_run
+
 from bootstrap.bootstrap_flow import bootstrap_flow
 
 
 def main() -> int:
-	profile = os.environ.get("DOTFILES_PROFILE") or None
+	profile = os.environ.get("DOTFILES_OS_PROFILE") or None
 	dry_run = dotfiles_dry_run()
 	return bootstrap_flow(install_packages=True, link=False, profile=profile, dry_run=dry_run)
 

@@ -1,1 +1,1 @@
-command -v atuin >/dev/null && eval "$(atuin init zsh)"
+command -v atuin >/dev/null && eval "$(ATUIN_LOG=debug atuin init zsh)"

@@ -164,7 +164,7 @@ when = true
 
 [custom.wsl]
 disabled = true
-when='[[ $(grep -i Microsoft /proc/version) ]]'
+when = '[[ "$DOTFILES_OS" == "wsl" ]]'
 style = ''
 
 [dart]
@@ -394,7 +394,8 @@ symbol = '$status'
 [sudo]
 format = '[$symbol ]($style)'
 disabled = false
-symbol = "ϟ 𜺱 ☢ ☣ ☠ ⚿ ➲ 󰢬 󰯄 󰒃"
+# symbol = "ϟ 𜺱 ☢ ☣ ☠ ⚿ ➲ 󰢬 󰯄 󰒃"
+symbol = "󰯄 "
 style = 'bold red'
 
 [terraform]
