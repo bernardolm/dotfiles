@@ -7,7 +7,7 @@
 # Make Dock icons of hidden applications translucent
 defaults write com.apple.dock showhidden -bool true
 
-killall Dock
+# killall Dock
 
 # Show file extensions
 defaults write NSGlobalDomain AppleShowAllExtensions -bool true
@@ -22,7 +22,7 @@ defaults write com.apple.finder _FXSortFoldersFirst -bool true
 # Use list view in all Finder windows by default: Four-letter codes for the other view modes: `icnv`, `clmv`, `glyv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
-killall Finder
+# killall Finder
 
 # Set the screenshot location
 defaults write com.apple.screencapture location -string "$HOME/Downloads"

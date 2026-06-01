@@ -35,6 +35,7 @@ alias dclsa='docker container ls -a --format "table {{.Names}}\t{{.State}}\t{{.R
 alias dclsa='llog error "this alias changes to just \"dc\"" && dc'
 alias di='docker images'
 alias dim='docker images -a'
+alias docker-engine-start='open --hide --background -a Docker && while ! docker info > /dev/null 2>&1; do sleep 1; done'
 alias docker-watch='watch -d -c -n 1 -x docker ps --all --format "table {{.Names}}\t{{.State}}\t{{.RunningFor}}\t{{.Ports}}"'
 alias errors='journalctl -b -p err | less'
 alias frm='/bin/rm -rf' # v2
