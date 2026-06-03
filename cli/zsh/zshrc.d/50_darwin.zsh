@@ -30,3 +30,5 @@ defaults write com.apple.screencapture location -string "$HOME/Downloads"
 defaults write com.apple.screencapture type -string "jpg"
 
 # killall ScreenCapture
+
+alias charger-watts='echo -n $(ioreg -rw0 -c AppleSmartBattery -a | plutil -extract '0.AdapterDetails.Watts' raw -)w'
