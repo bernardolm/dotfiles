@@ -1,7 +1,0 @@
-function vpn_get_ips() {
-    local cmd="nslookup $1 | grep -A 10 'Non-authoritative answer' | \
-        grep Address | cut -d' ' -f2"
-    # echo "$cmd"
-    eval $cmd
-}
-

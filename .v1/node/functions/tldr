@@ -1,3 +1,0 @@
-function tldr {
-	node tldr $@
-}

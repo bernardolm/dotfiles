@@ -1,3 +1,0 @@
-function now() {
-	echo $(date +"%Y-%m-%d_%H-%M-%S-%N")
-}

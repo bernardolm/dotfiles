@@ -1,4 +1,0 @@
-alias dcra="docker ps -aq | xargs docker rm"
-alias dcraf="docker ps -aq | xargs docker rm -f"
-alias dcsa="docker ps -q | xargs docker stop"
-alias dira="docker images | grep none | col 3 | xargs docker rmi -f"

@@ -1,3 +1,0 @@
-function conky_kill() {
-    killall -9 conky 2>/dev/null
-}

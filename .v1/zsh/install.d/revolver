@@ -1,7 +1,0 @@
-log info "installing revolver"
-
-[ ! -f "$HOME/.local/bin/revolver" ] && \
-    curl -sL 'https://raw.githubusercontent.com/molovo/revolver/master/revolver' \
-        -o "$HOME/.local/bin/revolver" && \
-    chmod u+x "$HOME/.local/bin/revolver" && \
-    echo " ✔️"

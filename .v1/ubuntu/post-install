@@ -1,7 +1,0 @@
-#!/usr/bin/env /bin/zsh
-
-log start "post install ubuntu"
-
-sudo pro attach $UBUNTU_PRO_PERSONAL_TOKEN
-
-log finish "post install ubuntu"

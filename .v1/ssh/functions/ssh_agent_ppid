@@ -1,4 +1,0 @@
-function ssh_agent_ppid() {
-    pgrep -x ssh-agent | tr '\n' ' '
-    # sudo lsof -i | grep 1392 | awk '{print $6}'
-}

@@ -1,1 +1,0 @@
-which zsh >/dev/null || (echo 'you needs to install zsh before' && exit 1)

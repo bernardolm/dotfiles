@@ -1,6 +1,0 @@
-function git_next_commit() {
-    CURRENT_COMMIT=$1
-    [[ "$CURRENT_COMMIT" == "" ]] && CURRENT_COMMIT=$(git_current_commit)
-    NEXT_COMMIT=$(git_commits_ahead | /bin/grep -v $CURRENT_COMMIT | head -n1 | awk '{print $1}')
-    echo $NEXT_COMMIT
-}

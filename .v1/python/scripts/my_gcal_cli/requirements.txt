@@ -1,3 +1,0 @@
-gcalcli
-dotenv
-pprint

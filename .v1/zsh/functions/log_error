@@ -1,3 +1,0 @@
-function log_error() {
-	log_echo "💣 $(color bg_red)$@ $(color no)"
-}

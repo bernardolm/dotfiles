@@ -1,5 +1,0 @@
-function ssh_agent_start() {
-	log debug "starting ssh agent..."
-	eval "$(ssh-agent -s)"
-	log debug "ssh agent have been started"
-}

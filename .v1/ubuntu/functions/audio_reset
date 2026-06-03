@@ -1,6 +1,0 @@
-function audio_reset() {
-    sudo killall pulseaudio
-    /bin/rm -rf $HOME/.config/pulse/*
-    /bin/rm -rf $HOME/.pulse*
-    pulseaudio --dump-conf --dump-modules --dump-resample-methods --cleanup-shm --start -D
-}
