@@ -11,5 +11,3 @@ zstyle ':vcs_info:git:*' formats '(%b)'
 
 # export RPROMPT="${vcs_info_msg_0_} $RPROMPT"
 
-# export GIT_TRACE=1
-# export GIT_CURL_VERBOSE=1

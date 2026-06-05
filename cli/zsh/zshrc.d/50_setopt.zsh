@@ -1,5 +1,3 @@
-export DISABLE_CORRECTION="true"
-
 # The names or labels of the options (setopt) are commonly written in all capitals in the documentation
 # but in lowercase when listed with the setopt tool.
 # The labels of the options are case insensitive and any underscores in the label are ignored

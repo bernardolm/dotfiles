@@ -4,16 +4,6 @@ set -euo pipefail
 repo_root="$(git rev-parse --show-toplevel)"
 cd "$repo_root"
 
-PYENV_ROOT="${PYENV_ROOT:-$HOME/.pyenv}"
-if [ -x "$PYENV_ROOT/bin/pyenv" ]; then
-	export PYENV_ROOT
-	export PATH="$PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH"
-	if [ -z "${PYENV_VERSION:-}" ] && [ -f ".python-version" ]; then
-		PYENV_VERSION="$(head -n 1 .python-version | tr -d '[:space:]')"
-		export PYENV_VERSION
-	fi
-fi
-
 discard_v1_changes() {
 	[ -d "$repo_root/.v1" ] || return 0
 	git rev-parse --verify HEAD >/dev/null 2>&1 || return 0
@@ -54,10 +44,6 @@ if [ "${#staged_files[@]}" -eq 0 ]; then
 fi
 
 run_python() {
-	if command -v pyenv >/dev/null 2>&1; then
-		pyenv exec python "$@"
-		return $?
-	fi
 	if command -v python3 >/dev/null 2>&1; then
 		python3 "$@"
 		return $?
@@ -89,7 +75,7 @@ ensure_python_venv() {
 	local venv_python_version=""
 
 	base_python_version="$(resolved_python_version)" || {
-		echo "pre-commit: erro: não foi possível resolver versão do Python via pyenv/python do sistema."
+		echo "pre-commit: erro: não foi possível resolver versão do Python do sistema."
 		return 1
 	}
 
@@ -103,13 +89,12 @@ PY
 		if [ "$venv_python_version" = "$base_python_version" ]; then
 			return 0
 		fi
-		echo "pre-commit: recriando ./venv para alinhar com pyenv local (${base_python_version})."
 		rm -rf "$venv_dir"
 	fi
 
 	echo "pre-commit: criando virtualenv local em ./venv..."
 	if ! run_python -m venv "$venv_dir"; then
-		echo "pre-commit: erro: falha ao criar ./venv com o Python resolvido pelo pyenv/sistema."
+		echo "pre-commit: erro: falha ao criar ./venv com o Python resolvido sistema."
 		return 1
 	fi
 
