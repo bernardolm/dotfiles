@@ -1,0 +1,11 @@
+altscreen on
+autodetach on # Autodetach session on hangup instead of terminating screen completely
+defescape `` # escape character is ` instead than C-a
+defscrollback 100000 # Set scrollback buffer
+defutf8 on
+escape `` # escape character is ` instead than C-a
+hardstatus string '%{= dr}[%{= dr}%H%{= dr}]%{= dw} %-Lw%{= kg}|%n %t|%{-}%+Lw%0> %=[%{b}%l%{w}]%{w}[%{b} %d/%m/%y %C %A %{w}]%{w}'
+nonblock on
+shelltitle "$ |bash"
+startup_message off # Turn off the welcome message
+vbell off # Disable visual bell

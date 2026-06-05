@@ -1,0 +1,9 @@
+sync_address = "https://atuin.loureiro.pro"
+search_mode = "daemon-fuzzy"
+
+[ai]
+enabled = true
+
+[daemon]
+enabled = true
+autostart = true

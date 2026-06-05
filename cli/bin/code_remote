@@ -1,0 +1,6 @@
+#!/usr/bin/env /bin/sh
+
+code_remote() {
+	echo "> opening '$2' in '$1' using vscode remote ssh"
+	code --folder-uri "vscode-remote://ssh-remote+ubuntu@$1$2"
+}
