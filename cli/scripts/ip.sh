@@ -16,7 +16,7 @@ now=$(date +"%Y-%m-%d %H:%M:%S")
 host=$(hostname -s)
 
 printf \
-	'%s\n' '0i' "$now $ip_local $ip_public $host" \
+	'%s\n' '0i' "$now	$ip_local	$ip_public	$host" \
 	'.' 'w' 'q' | \
 	ed -s $filepath
 
