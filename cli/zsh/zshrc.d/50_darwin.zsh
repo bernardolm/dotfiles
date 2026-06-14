@@ -22,7 +22,7 @@ defaults write com.apple.finder _FXSortFoldersFirst -bool true
 # Use list view in all Finder windows by default: Four-letter codes for the other view modes: `icnv`, `clmv`, `glyv`
 defaults write com.apple.finder FXPreferredViewStyle -string "Nlsv"
 
-# killall Finder
+killall Finder
 
 # Set the screenshot location
 defaults write com.apple.screencapture location -string "$HOME/Downloads"
@@ -32,3 +32,6 @@ defaults write com.apple.screencapture type -string "jpg"
 # killall ScreenCapture
 
 alias charger-watts='echo -n $(ioreg -rw0 -c AppleSmartBattery -a | plutil -extract '0.AdapterDetails.Watts' raw -)w'
+alias pss='ps axww -o pid,comm'
+alias psia="pss | grep -iE 'codex|node|opencode|cline|llm|mlx|llama|mail.app|whatsapp.app|anythingllm|kiro|kilo|openclaw|trae|lmstudio'"
+alias psiakill="psia | cut -d' ' -f1 | xargs kill -9"
