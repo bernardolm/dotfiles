@@ -9,11 +9,15 @@ export GOPATH="${GOPATH:-$HOME/go}"
 export HISTFILE="$HOME/sync/.zsh_history"
 export HISTSIZE=100000
 export LUA_PATH="${LUA_PATH};$HOME/dotfiles/cli/wezterm/?.lua"
-export PATH="$GOPATH/bin:$PATH"
-export PATH="$HOME/.docker/bin:$PATH"
-export PATH="$HOME/.local/bin:$PATH"
-export PATH="$HOME/.opencode/bin:$PATH"
-export PATH="$HOME/dotfiles/bin:$PATH"
+
+export PATH=$GOPATH/bin:$PATH
+export PATH=$HOME/.docker/bin:$PATH
+export PATH=$HOME/.kilo/bin:$PATH
+export PATH=$HOME/.lmstudio/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export PATH=$HOME/.opencode/bin:$PATH
+export PATH=$HOME/dotfiles/bin:$PATH
+
 export SAVEHIST=100000
 export SHELL_SESSION_DIR="$HOME/tmp/dotfiles/shell_sessions" && mkdir -p $SHELL_SESSION_DIR
 export SHELL_SESSION_HISTORY=0
