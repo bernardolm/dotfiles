@@ -1,1 +1,1 @@
-atuin store status | grep idx | cut -d: -f2
+atuin stats | grep Unique | cut -w -f3
