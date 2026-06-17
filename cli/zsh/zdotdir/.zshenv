@@ -10,6 +10,7 @@ export HISTFILE="$HOME/sync/.zsh_history"
 export HISTSIZE=100000
 export LUA_PATH="${LUA_PATH};$HOME/dotfiles/cli/wezterm/?.lua"
 
+export PATH=/opt/homebrew/sbin:$PATH
 export PATH=$GOPATH/bin:$PATH
 export PATH=$HOME/.docker/bin:$PATH
 export PATH=$HOME/.kilo/bin:$PATH
