@@ -101,7 +101,7 @@ envs:
     SHELL_PROFILE: 0
     SHELL_TRACE: 0
     SPACESHIP_EXEC_TIME_SHOW: false
-    SSH_AUTH_SOCK: ~/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
+    SSH_AUTH_SOCK: $HOME/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
     TERM: xterm-256color
     VISUAL: nano
   1:

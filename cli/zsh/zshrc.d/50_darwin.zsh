@@ -1,4 +1,4 @@
-[[ "$DOTFILES_OS" != "darwin" ]] && echo "you are not a darwin os" && return
+[[ "$DOTFILES_OS" != "darwin" ]] && echo "you are not a darwin os" && return || echo "welcome do darwin"
 
 [ -f /etc/zshrc_Apple_Terminal ] && . /etc/zshrc_Apple_Terminal
 
@@ -35,3 +35,5 @@ alias charger-watts='echo -n $(ioreg -rw0 -c AppleSmartBattery -a | plutil -extr
 alias pss='ps axww -o pid,comm'
 alias psia="pss | grep -iE 'codex|node|opencode|cline|llm|mlx|llama|mail.app|whatsapp.app|anythingllm|kiro|kilo|openclaw|trae|lmstudio'"
 alias psiakill="psia | cut -d' ' -f1 | xargs kill -9"
+
+export SSH_AUTH_SOCK=$HOME/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
