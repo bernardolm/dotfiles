@@ -57,6 +57,7 @@ alias la='eza -lah --icons --color=auto --group-directories-first' # v2
 alias ll='llog error "this alias changes to just \"la\"" && la'
 alias lsa='llog error "this alias changes to just \"la\"" && la'
 alias new-guid='uuidgen | tr "[A-Z]" "[a-z]"'
+alias ovpn-conn-log='tail -f $HOME/Library/Application\ Support/OpenVPN\ Connect/log/ovpn.log'
 alias path='echo -e ${PATH//:/\\n}'
 alias ports='sudo lsof -i -P -n | grep LISTEN'
 alias s='screen'
