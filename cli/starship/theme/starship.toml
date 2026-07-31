@@ -111,7 +111,6 @@ scan_timeout = 10
 [aws]
 disabled = true
 symbol = '🅰 '
-style = ''
 
 [aws.region_aliases]
 ap-southeast-2 = 'au'
@@ -123,7 +122,6 @@ CompanyGroupFrobozzOnCallAccess = 'Frobozz'
 [azure]
 disabled = true
 symbol = '󰠅 '
-style = ''
 
 [azure.subscription_aliases]
 very-long-subscription-name = 'vlsn'
@@ -131,7 +129,6 @@ very-long-subscription-name = 'vlsn'
 [c]
 disabled = true
 symbol = " "
-style = ''
 
 [character]
 disabled = false
@@ -147,12 +144,10 @@ style = 'bg:color_section_7 fg:color_foreground_text_light'
 
 [conda]
 disabled = true
-style = ''
 
 [cpp]
 disabled = true
 symbol = " "
-style = ''
 
 [custom.atuin_history_lines]
 command = "$HOME/dotfiles/cli/starship/functions/starship_atuin_history_lines"
@@ -165,14 +160,12 @@ when = true
 [custom.wsl]
 disabled = true
 when = '[[ "$DOTFILES_OS" == "wsl" ]]'
-style = ''
 
 [dart]
 disabled = true
 
 [deno]
 disabled = true
-style = ''
 
 [directory]
 disabled = false
@@ -192,25 +185,21 @@ style = 'italic bg:color_section_8 fg:color_foreground_text_light'
 [docker_context]
 disabled = false
 symbol = ""
-style = ''
 
 [dotnet]
 disabled = true
 heuristic = false
 symbol = '🥅 '
-style = ''
 
 [elixir]
 disabled = true
 symbol = '🔮 '
-style = ''
 
 [fossil_branch]
 disabled = false
 symbol = '🦎 '
 truncation_length = 4
 truncation_symbol = ''
-style = ''
 
 [fossil_metrics]
 disabled = false
@@ -258,7 +247,6 @@ style = 'bg:color_section_5 fg:color_foreground_text_dark'
 [haskell]
 disabled = true
 symbol = ""
-style = ''
 
 [hostname]
 # format = '[@](bold $style)[$ssh_symbol$hostname]($style)'
@@ -270,22 +258,18 @@ style = 'bg:color_section_2 fg:color_foreground_text_light'
 [java]
 disabled = true
 symbol = ""
-style = ''
 
 [jobs]
 disabled = false
 format = '[$number]($style)'
-style = ''
 
 [kotlin]
 disabled = true
 symbol = ""
-style = ''
 
 [kubernetes]
 detect_files = ['k8s']
 disabled = true
-style = ''
 
 [line_break]
 disabled = false
@@ -298,22 +282,18 @@ format = '[\($localipv4\) ](italic $style)'
 
 [lua]
 disabled = false
-style = ''
 
 [memory_usage]
 disabled = true
 threshold = -1
-style = ''
 
 [netns]
 disabled = true
 symbol = '🌐 '
-style = ''
 
 [nodejs]
 disabled = false
 symbol = ""
-style = ''
 
 [os]
 format = "[${custom.wsl}$symbol ]($style)"
@@ -332,7 +312,6 @@ Windows = "󰍲"
 
 [package]
 disabled = false
-style = ''
 
 [palettes.my_pallete]
 color_foreground_text_dark = '#001219'
@@ -350,29 +329,28 @@ color_section_9 = '#9B2226'
 [php]
 disabled = false
 symbol = ""
-style = ''
+style = 'bg:color_section_5 fg:color_foreground_text_dark'
 
 [pixi]
 disabled = true
-style = ''
 
 [python]
 detect_env_vars = ["VIRTUAL_ENV"]
 disabled = false
-pyenv_version_name = true
-symbol = ""
-style = 'bg:color_section_5 fg:color_foreground_text_dark'
 format = '[$symbol$version$virtualenv ]($style)'
+pyenv_version_name = true
+style = 'bg:color_section_5 fg:color_foreground_text_dark'
+symbol = ""
 
 [ruby]
 disabled = true
 symbol = '🔺 '
-style = ''
+style = 'bg:color_section_5 fg:color_foreground_text_dark'
 
 [rust]
 disabled = true
 symbol = ""
-style = ''
+style = 'bg:color_section_5 fg:color_foreground_text_dark'
 
 [shell]
 disabled = false
@@ -382,7 +360,7 @@ zsh_indicator = 'z'
 
 [singularity]
 disabled = false
-style = ''
+style = 'bg:color_section_5 fg:color_foreground_text_dark'
 
 [status]
 disabled = false
@@ -394,13 +372,14 @@ symbol = '$status'
 [sudo]
 format = '[$symbol ]($style)'
 disabled = false
-# symbol = "ϟ 𜺱 ☢ ☣ ☠ ⚿ ➲ 󰢬 󰯄 󰒃"
 symbol = "󰯄 "
 style = 'bold red'
 
 [terraform]
 disabled = false
-style = ''
+format = '[$symbol]($style)'
+style = 'bg:color_section_5 fg:color_foreground_text_dark'
+symbol = "🌳 "
 
 [time]
 format = '[$time ]($style)'

@@ -105,9 +105,9 @@ return {
 	-- window_background_gradient = window_background_gradient,
 	color_scheme = 'Tokyo Night',
 	font = font,
-	font_size = 17,
+	font_size = 16,
 	harfbuzz_features = { 'zero' }, -- to use with nerd fonts
 	inactive_pane_hsb = inactive_pane_hsb,
-	line_height = 1.2,
+	line_height = 1.6,
 	window_padding = window_padding,
 }
