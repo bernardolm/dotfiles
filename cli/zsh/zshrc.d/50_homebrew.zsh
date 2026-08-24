@@ -17,6 +17,7 @@ export PATH="/opt/homebrew/opt/curl/bin:$PATH"
 export PATH="/opt/homebrew/opt/libpq/bin:$PATH"
 export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
 export PATH="/opt/homebrew/opt/node@22/bin:$PATH"
+export PATH="/opt/homebrew/opt/python@3.14/libexec/bin:$PATH"
 export PATH="/opt/homebrew/sbin:$PATH"
 export PATH="/opt/homebrew/share/google-cloud-sdk/bin:$PATH"
 export PKG_CONFIG_PATH=/opt/homebrew/opt/libpq/lib/pkgconfig

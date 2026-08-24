@@ -8,17 +8,17 @@
 	editor = nano
 	autocrlf = false
 
-[diff]
-	colorMoved = default
+# [diff]
+# 	colorMoved = default
 
 [fetch]
 	prune = true
 
-[filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
+# [filter "lfs"]
+# 	required = true
+# 	clean = git-lfs clean -- %f
+# 	smudge = git-lfs smudge -- %f
+# 	process = git-lfs filter-process
 
 [gpg]
 	format = ssh
@@ -30,20 +30,20 @@
 	log = true
 	conflictStyle = zdiff3
 
-[pull]
-	rebase = true
+# [pull]
+# 	rebase = true
 
-[push]
-	autoSetupRemote = true
+# [push]
+# 	autoSetupRemote = true
 
-[rebase]
-	autoStash = true
+# [rebase]
+# 	autoStash = true
 
-[status]
-	short = false
+# [status]
+# 	short = false
 
-[submodule]
-	recurse = true
+# [submodule]
+# 	recurse = true
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/

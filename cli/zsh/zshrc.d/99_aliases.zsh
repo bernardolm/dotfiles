@@ -52,6 +52,7 @@ alias ggsync='gfp ; git stash --all ; ggpull ; ggpush ; git stash pop'
 alias go-fix='goimports -w ./.. ; go mod tidy'
 alias go-test='go-fix ; go clean -testcache ; go test ./...'
 alias gsl='git stash list'
+alias gssh='gcloud compute ssh --tunnel-through-iap'
 alias gst='git status --branch --show-stash --untracked-files=all --ignore-submodules=untracked --column=always --renames --find-renames=70%'
 alias la='eza -lah --icons --color=auto --group-directories-first' # v2
 alias ll='llog error "this alias changes to just \"la\"" && la'
