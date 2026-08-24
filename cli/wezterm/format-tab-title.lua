@@ -65,11 +65,11 @@ local function last_n_path_segments(path, n, max_char)
 end
 
 local function build_cwd_title(path)
-	local last3 = last_n_path_segments(path, 3, 4)
-	if not last3 or last3 == "" then
+	local last = last_n_path_segments(path, 1, 0)
+	if not last or last == "" then
 		return nil
 	end
-	return last3
+	return last
 end
 
 local function hostname_from_cwd_uri(cwd_uri)
@@ -122,30 +122,41 @@ local function domain_title(pane)
 	return nil
 end
 
-local function tab_title_handler(tab_info)
-	local hostname = short_hostname_from_pane(tab_info.active_pane)
-
-	-- » « ║ ı •
-	local separator = " • "
-
-	local title = domain_title(tab_info.active_pane)
-	if title then
-		return title
+local function app_name_from_pane(pane)
+	local process = pane and pane.foreground_process_name
+	if not process or #process == 0 then
+		return nil
 	end
+	local name = process:match("([^/\\]+)$") or process
+	return (#name > 0) and name or nil
+end
 
-	title = explicit_tab_title(tab_info)
-	if title then
-		return title
+local function tab_title_handler(tab_info)
+	local explicit = explicit_tab_title(tab_info)
+	if explicit then
+		return explicit
 	end
 
 	local pane = tab_info.active_pane
+
+	local host = domain_title(pane) or short_hostname_from_pane(pane)
 	local cwd = decode_uri_path(pane and pane.current_working_dir)
 	local cwd_title = build_cwd_title(cwd)
+	local app = app_name_from_pane(pane)
+
+	-- » « ║ ı •
+	local separator = "|"
+
+	local parts = {}
+	table.insert(parts, app and app or "WezTerm")
 	if cwd_title and #cwd_title > 0 then
-		return hostname .. separator .. cwd_title
+		table.insert(parts, cwd_title)
+	end
+	if host and #host > 0 then
+		table.insert(parts, host)
 	end
 
-	return #hostname > 0 and hostname or "WezTerm"
+	return table.concat(parts, separator)
 end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)

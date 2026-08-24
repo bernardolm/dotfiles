@@ -20,6 +20,10 @@ local function shorten_path(path, max_chars)
 end
 
 wezterm.on('update-right-status', function(window, pane)
+	window:set_right_status('')
+	return
+
+	-- luacheck: ignore
 	local cells = {}
 
 	local cwd_uri = pane:get_current_working_dir()
