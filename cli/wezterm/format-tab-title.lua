@@ -96,14 +96,25 @@ local function hostname_from_cwd_uri(cwd_uri)
 	return nil
 end
 
-local function short_hostname_from_pane(pane)
+local function remote_hostname_from_pane(pane)
 	local cwd_uri = pane and pane.current_working_dir
-	local host = hostname_from_cwd_uri(cwd_uri) or wezterm.hostname() or ""
-	if host:match("^%d+%.%d+%.%d+%.%d+$") then
-		return host
+	local host = hostname_from_cwd_uri(cwd_uri)
+	if not host or #host == 0 then
+		return nil
 	end
-	local short = host:match("^([^%.]+)")
-	return (short and #short > 0) and short or host
+
+	local short = host
+	if not host:match("^%d+%.%d+%.%d+%.%d+$") then
+		short = host:match("^([^%.]+)") or host
+	end
+
+	local local_hostname = wezterm.hostname() or ""
+	local local_short = local_hostname:match("^([^%.]+)") or local_hostname
+	if short == local_hostname or short == local_short then
+		return nil
+	end
+
+	return short
 end
 
 local function explicit_tab_title(tab_info)
@@ -122,13 +133,25 @@ local function domain_title(pane)
 	return nil
 end
 
+local SHELL_NAMES = {
+	zsh = true,
+	bash = true,
+	fish = true,
+	sh = true,
+	["-zsh"] = true,
+	["-bash"] = true,
+}
+
 local function app_name_from_pane(pane)
 	local process = pane and pane.foreground_process_name
 	if not process or #process == 0 then
 		return nil
 	end
 	local name = process:match("([^/\\]+)$") or process
-	return (#name > 0) and name or nil
+	if #name == 0 or SHELL_NAMES[name] then
+		return nil
+	end
+	return name
 end
 
 local function tab_title_handler(tab_info)
@@ -139,16 +162,24 @@ local function tab_title_handler(tab_info)
 
 	local pane = tab_info.active_pane
 
-	local host = domain_title(pane) or short_hostname_from_pane(pane)
+	local host = domain_title(pane) or remote_hostname_from_pane(pane)
 	local cwd = decode_uri_path(pane and pane.current_working_dir)
-	local cwd_title = build_cwd_title(cwd)
+	local home = os.getenv("HOME")
+	local cwd_title
+	if home and normalize_path(cwd) == normalize_path(home) then
+		cwd_title = "home"
+	else
+		cwd_title = build_cwd_title(cwd)
+	end
 	local app = app_name_from_pane(pane)
 
 	-- » « ║ ı •
 	local separator = "|"
 
 	local parts = {}
-	table.insert(parts, app and app or "WezTerm")
+	if app and #app > 0 then
+		table.insert(parts, app)
+	end
 	if cwd_title and #cwd_title > 0 then
 		table.insert(parts, cwd_title)
 	end
