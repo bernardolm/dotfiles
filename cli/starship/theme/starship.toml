@@ -4,12 +4,12 @@ format = """
 [](color_section_1)\
 $os\
 $shell\
-[ ](fg:color_section_1 bg:color_section_2)\
-$username\
 $hostname\
+[](fg:color_section_1 bg:color_section_2)\
+$username\
 $localip\
 $jobs\
-[ ](fg:color_section_2 bg:color_section_3)\
+[](fg:color_section_2 bg:color_section_3)\
 $aws\
 $azure\
 $container\
@@ -18,7 +18,7 @@ $docker_context\
 $docker\
 $gcloud\
 $nats\
-[ ](fg:color_section_3 bg:color_section_4)\
+[](fg:color_section_3 bg:color_section_4)\
 $git_branch\
 $git_commit\
 $git_metrics\
@@ -26,7 +26,7 @@ $git_state\
 $git_status\
 $fossil_branch\
 $fossil_metrics\
-[ ](fg:color_section_4 bg:color_section_5)\
+[](fg:color_section_4 bg:color_section_5)\
 $buf\
 $c\
 $cmake\
@@ -63,7 +63,6 @@ $nodejs\
 $ocaml\
 $opa\
 $openstack\
-$package\
 $perl\
 $php\
 $pijul_channel\
@@ -89,16 +88,18 @@ $vagrant\
 $vcsh\
 $vlang\
 $zig\
-[ ](fg:color_section_5 bg:color_section_6)\
+[](fg:color_section_5 bg:color_section_3)\
+$package\
+[](fg:color_section_3 bg:color_section_6)\
 ${custom.atuin_history_lines}\
-[ ](fg:color_section_6 bg:color_section_7)\
+[](fg:color_section_6 bg:color_section_7)\
 $time\
-$cmd_duration\
-[ ](fg:color_section_7 bg:color_section_8)\
+[](fg:color_section_7 bg:color_section_8)\
 $directory\
-[ ](fg:color_section_8 bg:color_section_9)\
+[](fg:color_section_8 bg:color_section_9)\
 $status\
-[ ](fg:color_section_9)\
+[](fg:color_section_9)\
+$cmd_duration\
 $line_break\
 $sudo\
 $character\
@@ -108,51 +109,49 @@ add_newline = true
 palette = 'my_pallete'
 scan_timeout = 10
 
-[aws]
-disabled = true
-symbol = '🅰 '
+# [aws]
+# disabled = true
+# symbol = '🅰 '
 
-[aws.region_aliases]
-ap-southeast-2 = 'au'
-us-east-1 = 'va'
+# [aws.region_aliases]
+# ap-southeast-2 = 'au'
+# us-east-1 = 'va'
 
-[aws.profile_aliases]
-CompanyGroupFrobozzOnCallAccess = 'Frobozz'
+# [aws.profile_aliases]
+# CompanyGroupFrobozzOnCallAccess = 'Frobozz'
 
-[azure]
-disabled = true
-symbol = '󰠅 '
+# [azure]
+# disabled = true
+# symbol = '󰠅 '
 
-[azure.subscription_aliases]
-very-long-subscription-name = 'vlsn'
+# [azure.subscription_aliases]
+# very-long-subscription-name = 'vlsn'
 
-[c]
-disabled = true
-symbol = " "
+# [c]
+# disabled = true
+# symbol = " "
 
 [character]
 disabled = false
-error_symbol = '[⚠](bold fg:color_section_5) '
+error_symbol = '[🚨](bold fg:color_section_5) '
 format = '$symbol'
 success_symbol = '[▶](bold fg:color_section_3) '
 
 [cmd_duration]
-format = '[~$duration ]($style)'
+format = '[ ~$duration]($style)'
 min_time = 1
 show_milliseconds = true
-style = 'bg:color_section_7 fg:color_foreground_text_light'
 
-[conda]
-disabled = true
+# [conda]
+# disabled = true
 
-[cpp]
-disabled = true
-symbol = " "
+# [cpp]
+# disabled = true
 
 [custom.atuin_history_lines]
 command = "$HOME/dotfiles/cli/starship/functions/starship_atuin_history_lines"
 disabled = false
-format = '[$symbol$output ]($style)'
+format = '[$symbol$output]($style)'
 style = 'bg:color_section_6 fg:color_foreground_text_light'
 symbol = '≣'
 when = true
@@ -161,16 +160,16 @@ when = true
 disabled = true
 when = '[[ "$DOTFILES_OS" == "wsl" ]]'
 
-[dart]
-disabled = true
+# [dart]
+# disabled = true
 
-[deno]
-disabled = true
+# [deno]
+# disabled = true
 
 [directory]
 disabled = false
 truncate_to_repo = false
-format = '[$path ]($style)'
+format = '[$path]($style)'
 truncation_length = 0
 style = 'italic bg:color_section_8 fg:color_foreground_text_light'
 
@@ -180,33 +179,32 @@ style = 'italic bg:color_section_8 fg:color_foreground_text_light'
 "Downloads" = " "
 "Music" = "󰝚 "
 "Pictures" = " "
-"~/workspaces/bernardolm/dotfiles" = "⁂"
 
 [docker_context]
 disabled = false
-symbol = ""
+symbol = "🐳"
 
-[dotnet]
-disabled = true
-heuristic = false
-symbol = '🥅 '
+# [dotnet]
+# disabled = true
+# heuristic = false
+# symbol = '🥅 '
 
-[elixir]
-disabled = true
-symbol = '🔮 '
+# [elixir]
+# disabled = true
+# symbol = '🔮 '
 
-[fossil_branch]
-disabled = false
-symbol = '🦎 '
-truncation_length = 4
-truncation_symbol = ''
+# [fossil_branch]
+# disabled = false
+# symbol = '🦎 '
+# truncation_length = 4
+# truncation_symbol = ''
 
-[fossil_metrics]
-disabled = false
+# [fossil_metrics]
+# disabled = false
 
 [gcloud]
 disabled = false
-format = '[$symbol:$region ]($style)'
+format = '[$symbol$region]($style)'
 style = 'bg:color_section_3 fg:color_foreground_text_dark'
 symbol = 'gcp'
 
@@ -214,62 +212,65 @@ symbol = 'gcp'
 very-long-project-name = 'vlpn'
 
 [gcloud.region_aliases]
-us-central1 = 'uc1'
+us-central1 = ':uc1'
 
 [git_branch]
 disabled = false
-format = '[$symbol$branch ]($style)'
+format = '[$symbol$branch]($style)'
 style = 'bg:color_section_4 fg:color_foreground_text_dark'
 symbol = ''
 
 [git_commit]
-commit_hash_length = 4
 disabled = false
+commit_hash_length = 4
 style = 'bg:color_section_4 fg:color_foreground_text_dark'
 
 [git_metrics]
 disabled = true
+format = '([+$added]($added_style))([-$deleted]($deleted_style))'
+ignore_submodules = true
+added_style = 'bg:color_section_4 fg:green'
+deleted_style = 'bg:color_section_4 fg:red'
 
 [git_state]
 disabled = false
 style = 'bg:color_section_4 fg:color_foreground_text_dark'
+format = '([\[$all_status$ahead_behind\]]($style))'
 
 [git_status]
-disabled = true
+disabled = false
 style = 'bg:color_section_4 fg:color_foreground_text_dark'
+format = '([$all_status$ahead_behind](bold $style))'
 
 [golang]
-format = '[$symbol$version$mod_version ]($style)'
+format = '[$symbol$version$mod_version]($style)'
 disabled = false
-symbol = ""
+symbol = "🦫"
 style = 'bg:color_section_5 fg:color_foreground_text_dark'
 
-[haskell]
-disabled = true
-symbol = ""
+# [haskell]
+# disabled = true
 
 [hostname]
 # format = '[@](bold $style)[$ssh_symbol$hostname]($style)'
 disabled = false
 format = '[$ssh_symbol$hostname](bold $style)'
 ssh_only = false
-style = 'bg:color_section_2 fg:color_foreground_text_light'
+style = 'bg:color_section_1 fg:color_foreground_text_light'
 
-[java]
-disabled = true
-symbol = ""
+# [java]
+# disabled = true
 
 [jobs]
 disabled = false
 format = '[$number]($style)'
 
-[kotlin]
-disabled = true
-symbol = ""
+# [kotlin]
+# disabled = true
 
-[kubernetes]
-detect_files = ['k8s']
-disabled = true
+# [kubernetes]
+# detect_files = ['k8s']
+# disabled = true
 
 [line_break]
 disabled = false
@@ -278,40 +279,43 @@ disabled = false
 disabled = false
 ssh_only = false
 style = 'bg:color_section_2 fg:color_foreground_text_light'
-format = '[\($localipv4\) ](italic $style)'
+format = '[$localipv4](italic $style)'
 
 [lua]
 disabled = false
 
-[memory_usage]
-disabled = true
-threshold = -1
+# [memory_usage]
+# disabled = true
+# threshold = -1
 
-[netns]
-disabled = true
-symbol = '🌐 '
+# [netns]
+# disabled = true
+# symbol = '🌐 '
 
 [nodejs]
 disabled = false
-symbol = ""
+symbol = "🤮"
 
 [os]
-format = "[${custom.wsl}$symbol ]($style)"
-disabled = false
+format = "[${custom.wsl}$symbol]($style)"
+disabled = true
 style = 'bg:color_section_1 fg:color_foreground_text_light'
 
-[os.symbols]
-Alpine = ""
-Debian = ""
-Linux = ""
-Macos = ""
-Raspbian = ""
-Ubuntu = "󰕈"
-Unknown = ""
-Windows = "󰍲"
+# [os.symbols]
+# Alpine = ""
+# Debian = ""
+# Linux = ""
+# Macos = ""
+# Raspbian = ""
+# Ubuntu = "󰕈"
+# Unknown = ""
+# Windows = "󰍲"
 
 [package]
 disabled = false
+style = 'bg:color_section_3 fg:color_foreground_text_dark'
+format = '[$symbol$version]($style)'
+symbol = '📦'
 
 [palettes.my_pallete]
 color_foreground_text_dark = '#001219'
@@ -328,19 +332,19 @@ color_section_9 = '#9B2226'
 
 [php]
 disabled = false
-symbol = ""
+symbol = "🐘"
 style = 'bg:color_section_5 fg:color_foreground_text_dark'
 
-[pixi]
-disabled = true
+# [pixi]
+# disabled = true
 
 [python]
 detect_env_vars = ["VIRTUAL_ENV"]
 disabled = false
-format = '[$symbol$version$virtualenv ]($style)'
+format = '[$symbol$version$virtualenv]($style)'
 pyenv_version_name = true
 style = 'bg:color_section_5 fg:color_foreground_text_dark'
-symbol = ""
+symbol = "🐍"
 
 [ruby]
 disabled = true
@@ -349,18 +353,18 @@ style = 'bg:color_section_5 fg:color_foreground_text_dark'
 
 [rust]
 disabled = true
-symbol = ""
+symbol = "🦀"
 style = 'bg:color_section_5 fg:color_foreground_text_dark'
 
 [shell]
-disabled = false
-format = '[󱆃$indicator ]($style)'
+disabled = true
+format = '[󱆃$indicator]($style)'
 style = 'bg:color_section_1 fg:color_foreground_text_light'
 zsh_indicator = 'z'
 
-[singularity]
-disabled = false
-style = 'bg:color_section_5 fg:color_foreground_text_dark'
+# [singularity]
+# disabled = false
+# style = 'bg:color_section_5 fg:color_foreground_text_dark'
 
 [status]
 disabled = false
@@ -370,19 +374,19 @@ success_symbol = '…'
 symbol = '$status'
 
 [sudo]
-format = '[$symbol ]($style)'
+format = '[$symbol]($style)'
 disabled = false
-symbol = "󰯄 "
+symbol = '🔓'
 style = 'bold red'
 
 [terraform]
 disabled = false
 format = '[$symbol]($style)'
 style = 'bg:color_section_5 fg:color_foreground_text_dark'
-symbol = "🌳 "
+symbol = "🌳"
 
 [time]
-format = '[$time ]($style)'
+format = '[$time]($style)'
 disabled = false
 style = 'bg:color_section_7 fg:color_foreground_text_light'
 
