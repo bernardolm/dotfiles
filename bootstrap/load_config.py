@@ -58,9 +58,7 @@ def _parse_simple_yaml(content: str) -> dict[str, Any]:
 				item = stripped[1:].strip()
 				if item.endswith(":"):
 					name = item[:-1].strip()
-					current_pkg = {
-						"name": name
-					}
+					current_pkg = {"name": name}
 					data.setdefault("packages", []).append(current_pkg)
 				else:
 					data.setdefault("packages", []).append(item)

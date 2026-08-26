@@ -8,7 +8,6 @@ import shutil
 import sys
 from typing import Any
 
-
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
@@ -18,7 +17,6 @@ from bin.common import dotfiles_dry_run, is_falsey, is_truthy
 from bootstrap.load_config import load_config
 from bootstrap.repo_root import repo_root
 from bootstrap.run import run
-
 
 _PACKAGE_OPTION_KEYS = {
 	"name",
@@ -99,9 +97,7 @@ def _apply_envs(envs: Any) -> None:
 
 def _normalize_package(item: Any) -> dict[str, Any] | None:
 	if isinstance(item, str):
-		return {
-			"name": item
-		}
+		return {"name": item}
 	if not isinstance(item, dict):
 		return None
 
@@ -216,8 +212,7 @@ def _apply_package(pkg: dict[str, Any], default_manager: str, dry_run: bool = Fa
 
 	cmd = _build_manager_cmd(manager, action, name, pkg)
 	if not cmd:
-		print(
-			f"warning: unsupported manager/action for package '{name}' ({manager}/{action}); skipping")
+		print(f"warning: unsupported manager/action for package '{name}' ({manager}/{action}); skipping")
 		return True
 
 	try:

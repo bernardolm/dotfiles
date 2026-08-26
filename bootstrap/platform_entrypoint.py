@@ -5,7 +5,6 @@ import os
 from pathlib import Path
 import sys
 
-
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
@@ -50,9 +49,7 @@ def run_platform_entrypoint(
 		platform_name=platform_name,
 	)
 	if result == 0:
-		print(
-			f"Bootstrap finished (platform={platform_name}, profile={resolved_profile}, config={config_path})."
-		)
+		print(f"Bootstrap finished (platform={platform_name}, profile={resolved_profile}, config={config_path}).")
 	return result
 
 

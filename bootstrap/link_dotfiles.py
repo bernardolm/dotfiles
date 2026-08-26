@@ -6,7 +6,6 @@ from pathlib import Path
 import shutil
 import sys
 
-
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
@@ -93,10 +92,8 @@ def _link_windows_terminal_and_powershell(root: Path, system: str, dry_run: bool
 
 	terminal_settings_src = root / "cli/windows-cli/settings.json"
 	terminal_settings_candidates = [
-		Path(localappdata) /
-		"Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json",
-		Path(localappdata) /
-		"Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json",
+		Path(localappdata) / "Packages/Microsoft.WindowsTerminal_8wekyb3d8bbwe/LocalState/settings.json",
+		Path(localappdata) / "Packages/Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe/LocalState/settings.json",
 		Path(localappdata) / "Microsoft/Windows Terminal/settings.json",
 	]
 
