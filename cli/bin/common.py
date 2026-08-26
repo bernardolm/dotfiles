@@ -169,8 +169,7 @@ def dotfiles_dry_run(default: bool = False) -> bool:
 
 def git_staged_files(repo: Path, diff_filter: str = "ACMR") -> list[str]:
 	result = run(
-		["git", "-C",
-			str(repo), "diff", "--cached", "--name-only", f"--diff-filter={diff_filter}"],
+		["git", "-C", str(repo), "diff", "--cached", "--name-only", f"--diff-filter={diff_filter}"],
 		check=False,
 		capture=True,
 	)

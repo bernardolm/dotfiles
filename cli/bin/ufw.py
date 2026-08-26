@@ -18,9 +18,11 @@ def ufw_start(argv: list[str]) -> int:
 	ufw_conf = Path("/etc/default/ufw")
 	content = ufw_conf.read_text(errors="ignore") if ufw_conf.exists() else ""
 	if "IPV6=yes" not in content:
-		block = ("\n\n# Set to yes to apply rules to support IPv6 (no means only IPv6 on loopback\n"
-							"# accepted). You will need to 'disable' and then 'enable' the firewall for\n"
-							"# the changes to take affect.\nIPV6=yes")
+		block = (
+			"\n\n# Set to yes to apply rules to support IPv6 (no means only IPv6 on loopback\n"
+			"# accepted). You will need to 'disable' and then 'enable' the firewall for\n"
+			"# the changes to take affect.\nIPV6=yes"
+		)
 		run(["sudo", "tee", "-a", str(ufw_conf)], input_data=block)
 		print("add ipv6!")
 		for idx, line in enumerate((content + block).splitlines(), start=1):

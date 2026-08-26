@@ -82,8 +82,7 @@ def _save_partial_and_exit(signum: int, _frame: Any = None) -> None:
 	final_bucket = _partial_ctx.get("final_bucket") or []
 	partial_buckets_dir = run_dir / PARTIAL_BUCKETS_DIR if run_dir else None
 	if all_chunks and final_bucket is not None and partial_buckets_dir is not None:
-		_process_transitory_into_final(all_chunks, final_bucket, partial_buckets_dir, bucket_paths,
-																		dry_run)
+		_process_transitory_into_final(all_chunks, final_bucket, partial_buckets_dir, bucket_paths, dry_run)
 	if (bucket_paths or final_bucket) and work_merged is not None:
 		_merge_to_output(bucket_paths, [final_bucket] if final_bucket else [], work_merged, dry_run)
 		if not dry_run and work_merged.exists():
@@ -127,8 +126,7 @@ def _merge_to_output(
 		if flat:
 			iters.append(iter(_normalize(flat)))
 		if not iters:
-			LOG.warning("No data to merge; final file not written (path would be %s)",
-									final_output.resolve())
+			LOG.warning("No data to merge; final file not written (path would be %s)", final_output.resolve())
 			return
 		final_output = final_output.resolve()
 		final_output.parent.mkdir(parents=True, exist_ok=True)
@@ -225,23 +223,25 @@ def process_one(
 
 
 def _parse_args() -> argparse.Namespace:
-	p = argparse.ArgumentParser(
-		description="Merge .zsh_history files (filter, sort ascending, unique).")
+	p = argparse.ArgumentParser(description="Merge .zsh_history files (filter, sort ascending, unique).")
 	p.add_argument("--dry-run", action="store_true", help="No writes or moves.")
 	p.add_argument("-q", "--quiet", action="store_true", help="Warnings and errors only.")
 	p.add_argument("-v", "--verbose", action="store_true", help="Debug logging.")
-	p.add_argument("-l",
-									"--log-level",
-									choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
-									metavar="LEVEL",
-									help="Override -q/-v.")
+	p.add_argument(
+		"-l",
+		"--log-level",
+		choices=["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"],
+		metavar="LEVEL",
+		help="Override -q/-v."
+	)
 	return p.parse_args()
 
 
 def main() -> int:
 	args = _parse_args()
 	level = getattr(logging, args.log_level) if args.log_level else (
-		logging.DEBUG if args.verbose else (logging.WARNING if args.quiet else logging.INFO))
+		logging.DEBUG if args.verbose else (logging.WARNING if args.quiet else logging.INFO)
+	)
 	logging.basicConfig(level=level, format="%(levelname)s: %(message)s")
 	LOG.setLevel(level)
 
@@ -260,8 +260,7 @@ def main() -> int:
 	LOG.info("Target path: %s", target_path.resolve())
 
 	zdotdir = Path(os.environ.get("ZDOTDIR", str(home)))
-	sources = [(home / "tmp/workspace", None), (zdotdir, None),
-							(home / "Library/CloudStorage/Dropbox", None)]
+	sources = [(home / "tmp/workspace", None), (zdotdir, None), (home / "Library/CloudStorage/Dropbox", None)]
 	found = list(find_files(sources))
 	if target_path not in found:
 		found.append(target_path)
@@ -295,16 +294,14 @@ def main() -> int:
 	try:
 		with ThreadPoolExecutor(max_workers=workers) as executor:
 			futures = [
-				executor.submit(process_one, p, current=j + 1, total=total_files, dry_run=dry_run)
-				for j, p in enumerate(found)
+				executor.submit(process_one, p, current=j + 1, total=total_files, dry_run=dry_run) for j, p in enumerate(found)
 			]
 			for fut in as_completed(futures):
 				if (chunk := fut.result()) is not None:
 					all_chunks.append(chunk)
 					bucket_line_count += len(chunk)
 					if not dry_run and bucket_line_count >= BUCKET_LINE_LIMIT and all_chunks:
-						_process_transitory_into_final(all_chunks, final_bucket, partial_buckets_dir,
-																						bucket_paths, dry_run)
+						_process_transitory_into_final(all_chunks, final_bucket, partial_buckets_dir, bucket_paths, dry_run)
 						bucket_line_count = 0
 				completed += 1
 				now = time.monotonic()
@@ -321,8 +318,7 @@ def main() -> int:
 	work_merged = run_dir / (GENERATED_FILE_PREFIX + "merged")
 	# Process any remaining transitory into final bucket.
 	if all_chunks:
-		_process_transitory_into_final(all_chunks, final_bucket, partial_buckets_dir, bucket_paths,
-																		dry_run)
+		_process_transitory_into_final(all_chunks, final_bucket, partial_buckets_dir, bucket_paths, dry_run)
 	# Merge partial bucket files + in-memory final_bucket to work dir, then copy to target.
 	_merge_to_output(bucket_paths, [final_bucket] if final_bucket else [], work_merged, dry_run)
 	if not dry_run and work_merged.exists():

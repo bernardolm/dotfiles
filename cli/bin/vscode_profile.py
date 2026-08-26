@@ -9,13 +9,11 @@ import shlex
 import subprocess
 import sys
 
-
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
 from bin.platform import platform
-
 
 __all__ = ["get_active_vscode_profile", "is_running_inside_vscode"]
 
@@ -91,8 +89,7 @@ def _known_profile_names() -> set[str]:
 
 		names = {
 			item["name"].strip()
-			for item in profiles
-			if isinstance(item, dict) and isinstance(item.get("name"), str) and item["name"].strip()
+			for item in profiles if isinstance(item, dict) and isinstance(item.get("name"), str) and item["name"].strip()
 		}
 		if names:
 			return names

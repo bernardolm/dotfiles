@@ -13,7 +13,6 @@ from typing import Callable
 from common import is_truthy
 from elapsed_time import elapsed_delete, elapsed_path, elapsed_read, elapsed_set, elapsed_value
 
-
 _COLORS: dict[str, str] = {
 	"no": "\033[0m",
 	"black": "\033[0;30m",

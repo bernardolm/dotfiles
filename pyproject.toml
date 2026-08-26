@@ -1,41 +1,67 @@
-[tool.isort]
-force_single_line = false
-# include_trailing_comma = true
-# line_length = 9999  # NOTE: just to disable code formatting by isort (format only imports)
-lines_after_imports = 2
-# multi_line_output = 11
-profile = 'google'
-remove_redundant_aliases = true
-skip_glob = ['.v1/**', 'venv/**', '**/__pycache__/**']
-
-# ------------------------------------------------------------------------------
+[project]
+name = "dotfiles"
+version = "0.0.0"
+requires-python = ">=3.14"
 
 [tool.unimport]
-check = false
-color = 'always'
-exclude = '__pycache__|venv|\\.v1'
+exclude = '\.venv|build|dist|lost-and-found'
 gitignore = true
-ignore_init = false
-include_star_import = true
 remove = true
 
-# ------------------------------------------------------------------------------
+[tool.yapf]
+based_on_style = 'facebook'
+column_limit = 120
+continuation_align_style = 'valign-right'
+continuation_indent_width = 2
+indent_width = 2
+use_tabs = true
+
+[tool.yapfignore]
+ignore_patterns = [
+	'.venv',
+	'lost-and-found',
+	'lost-and-found/**',
+	'**/.venv',
+	'**/build',
+	'**/dist',
+	'build',
+	'dist',
+]
+
+[tool.isort]
+line_length = 120
+skip = [
+	'.venv',
+	'lost-and-found',
+	'lost-and-found/**',
+	'**/.venv',
+	'**/build',
+	'**/dist',
+	'build',
+	'dist',
+]
 
 [tool.pylint]
-ignore-paths = [
-	'venv/',
-	'.venv/',
-	'**/__pychache__',
-	'.v1/',
-]
 exit-zero = true
+# pylint espera expressão regular aqui, não glob
+ignore-paths = [
+	'^\.?/?\.venv/.*',
+	'^\.?/?\.web/.*',
+	'^\.?/?build/.*',
+	'^\.?/?dist/.*',
+	'.*/\.venv/.*',
+	'.*/\.web/.*',
+	'.*lost-and-found.*',
+]
 output-format = 'colorized'
 recursive = true
+max-line-length = 120
 
 [tool.pylint.messages_control]
 disable = [
 	'bad-indentation',
 	'broad-exception-caught',
+	'import-error',
 	'inherit-non-class',
 	'invalid-name',
 	'missing-class-docstring',
@@ -43,47 +69,7 @@ disable = [
 	'missing-module-docstring',
 ]
 
-# ------------------------------------------------------------------------------
-
-[tool.yapf]
-allow_multiline_dictionary_keys = true
-allow_multiline_lambdas = true
-based_on_style = 'google'
-blank_lines_around_top_level_definition = 2
-blank_lines_between_top_level_imports_and_variables = 2
-column_limit = 100
-continuation_align_style = 'VALIGN-RIGHT'
-continuation_indent_width = 1
-force_multiline_dict = true
-indent_width = 2
-spaces_before_comment = 2
-split_before_logical_operator = true
-split_penalty_import_names = 0
-use_tabs = true
-
-[tool.yapfignore]
-ignore_patterns = ['.web', '**/__pycache__', 'venv', '.v1/**']
-
-# ------------------------------------------------------------------------------
-
-[tool.pytest.ini_options]
-testpaths = ['tests']
-python_files = ['test_*.py']
-python_classes = ['Test*']
-python_functions = ['test_*']
-addopts = '''
-	-v
-	--tb=short
-	--strict-markers
-	-ra
-	--color=yes
-'''
-markers = [
-	'slow: Tests that take more than 1 minute (e.g. rate limiting)',
-	'integration: Integration tests (require a running server)',
-	'unit: Unit tests (isolated, no I/O)',
-]
-filterwarnings = [
-	'ignore::DeprecationWarning',
-	'ignore::PendingDeprecationWarning',
-]
+[tool.pytest]
+addopts = ['-s', '-v', '-x', '--import-mode=importlib']
+strict = true
+testpaths = ['**/tests']

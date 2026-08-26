@@ -4,7 +4,6 @@ import os
 from pathlib import Path
 import sys
 
-
 __all__ = ["platform"]
 
 

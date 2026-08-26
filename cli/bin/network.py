@@ -12,11 +12,7 @@ from pyfunctions.zsh import now_value, progress_bar
 def dns_local_setup(argv: list[str]) -> int:
 	script = dotfiles_root() / "bash" / "scripts" / "dns_local_setup" / "dns_local_setup.sh"
 	env = os.environ.copy()
-	env.update({
-		"DOMAIN": "local",
-		"CONTAINER_NAME": "devdns",
-		"custom_fallback_dns": "1.1.1.1"
-	})
+	env.update({"DOMAIN": "local", "CONTAINER_NAME": "devdns", "custom_fallback_dns": "1.1.1.1"})
 	return run(["bash", str(script)], env=env).returncode
 
 

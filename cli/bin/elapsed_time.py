@@ -8,7 +8,6 @@ import sys
 import time
 from typing import Sequence
 
-
 _COLORS: dict[str, str] = {
 	"no": "\033[0m",
 	"purple": "\033[0;35m",

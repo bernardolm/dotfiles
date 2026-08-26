@@ -24,8 +24,7 @@ def apt_server_pristine(argv: list[str]) -> int:
 	]
 	run(["sudo", "apt", "purge", "--yes", *patterns])
 	run(["sudo", "apt", "autoremove", "--purge", "--yes"])
-	return run(["sudo", "apt", "install", "--yes", "ubuntu-server",
-							"ubuntu-server-minimal"]).returncode
+	return run(["sudo", "apt", "install", "--yes", "ubuntu-server", "ubuntu-server-minimal"]).returncode
 
 
 def audio_reset(argv: list[str]) -> int:
@@ -33,10 +32,9 @@ def audio_reset(argv: list[str]) -> int:
 	home = Path.home()
 	remove_paths(home.glob(".config/pulse/*"))
 	remove_paths(home.glob(".pulse*"))
-	return run([
-		"pulseaudio", "--dump-conf", "--dump-modules", "--dump-resample-methods", "--cleanup-shm",
-		"--start", "-D"
-	]).returncode
+	return run(
+		["pulseaudio", "--dump-conf", "--dump-modules", "--dump-resample-methods", "--cleanup-shm", "--start", "-D"]
+	).returncode
 
 
 def snap_clean(argv: list[str]) -> int:

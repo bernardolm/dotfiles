@@ -6,7 +6,6 @@ import re
 
 from common import git_staged_files, repo_root
 
-
 _LEADING_WHITESPACE_RE = re.compile(r"^([ \t]+)")
 _INDENTED_CONTENT_RE = re.compile(r"^[ \t]+[^ \t\r\n]")
 

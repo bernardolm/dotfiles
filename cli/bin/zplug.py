@@ -11,10 +11,7 @@ def zplug_reset(argv: list[str]) -> int:
 	log_start(["zplug: reset"])
 	run(["zplug", "clean"], check=False)
 	run(["zplug", "clear"], check=False)
-	run(["/bin/rm", "-rf",
-				str(Path.home() / ".zplug"),
-				str(Path.home() / ".cache/zplug")],
-			check=False)
+	run(["/bin/rm", "-rf", str(Path.home() / ".zplug"), str(Path.home() / ".cache/zplug")], check=False)
 	os.environ["ZPLUG_LOG_LOAD_SUCCESS"] = "true"
 	os.environ["ZPLUG_LOG_LOAD_FAILURE"] = "true"
 	os.environ["ZPLUG_VERBOSE"] = "--verbose"

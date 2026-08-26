@@ -136,7 +136,8 @@ def ssh_fs_dpipe(argv: list[str]) -> int:
 	remote_cmd = (
 		f"sshfs -f :{path_server} {path_client} "
 		"-o allow_other,auto_unmount,follow_symlinks,NoHostAuthenticationForLocalhost=yes,reconnect,slave ; "
-		f"bash ; umount {path_client} ")
+		f"bash ; umount {path_client} "
+	)
 	cmd = [
 		"dpipe",
 		"/usr/lib/openssh/sftp-server",
@@ -156,9 +157,7 @@ def ssh_route_port(argv: list[str]) -> int:
 		return 1
 	port_to_route, remote_user, remote_host, remote_port = argv[:4]
 	extra = argv[4:]
-	cmd = [
-		"ssh", "-D", port_to_route, "-N", f"{remote_user}@{remote_host}", "-p", remote_port, *extra
-	]
+	cmd = ["ssh", "-D", port_to_route, "-N", f"{remote_user}@{remote_host}", "-p", remote_port, *extra]
 	print("sintax:\nssh_route_port port_to_route remote_ssh_user remote_ssh_host remote_ssh_port")
 	print("\nrunning:\n" + " ".join(cmd))
 	return run(cmd).returncode

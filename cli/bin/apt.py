@@ -117,15 +117,16 @@ def apt_recovery_pub_keys(argv: list[str]) -> int:
 			capture=True,
 		)
 		run(
-			["sudo", "gpg", "--yes", "--dearmor", "--output",
-				str(file_path)],
+			["sudo", "gpg", "--yes", "--dearmor", "--output", str(file_path)],
 			input_data=curl_result.stdout,
 		)
 		run(["sudo", "/bin/rm", "-f", "/etc/apt/sources.list.d/1password.list"])
 		run(
 			["sudo", "tee", "/etc/apt/sources.list.d/1password.list"],
-			input_data=("deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/1password.gpg] "
-									"https://downloads.1password.com/linux/debian/amd64 stable main"),
+			input_data=(
+				"deb [arch=amd64 signed-by=/etc/apt/trusted.gpg.d/1password.gpg] "
+				"https://downloads.1password.com/linux/debian/amd64 stable main"
+			),
 		)
 		run(["sudo", "mkdir", "-p", "/etc/debsig/policies/AC2D62742012EA22"])
 		pol = run(
@@ -143,11 +144,9 @@ def apt_recovery_pub_keys(argv: list[str]) -> int:
 	file_path = Path("/etc/apt/trusted.gpg.d/docker.gpg")
 	if not file_path.exists():
 		log_info(["docker pub key will be recovered"])
-		curl_result = run(["curl", "-fsSL", "https://download.docker.com/linux/ubuntu/gpg"],
-											capture=True)
+		curl_result = run(["curl", "-fsSL", "https://download.docker.com/linux/ubuntu/gpg"], capture=True)
 		run(
-			["sudo", "gpg", "--yes", "--dearmor", "--output",
-				str(file_path)],
+			["sudo", "gpg", "--yes", "--dearmor", "--output", str(file_path)],
 			input_data=curl_result.stdout,
 		)
 		log_info(["docker recovered"])
@@ -162,8 +161,7 @@ def apt_recovery_pub_keys(argv: list[str]) -> int:
 			capture=True,
 		)
 		run(
-			["sudo", "gpg", "--yes", "--dearmor", "--output",
-				str(file_path)],
+			["sudo", "gpg", "--yes", "--dearmor", "--output", str(file_path)],
 			input_data=curl_result.stdout,
 		)
 		log_info(["google cloud recovered"])

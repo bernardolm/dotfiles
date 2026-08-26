@@ -21,8 +21,7 @@ def duckdns_update(argv: list[str]) -> int:
 
 	msg = f"updating duckdns domain {domain}.duckdns.org with {ip4}"
 
-	result = run(["curl", "-L", "--silent", "--insecure", "--output", "/dev/null", duckdns_url],
-								check=False)
+	result = run(["curl", "-L", "--silent", "--insecure", "--output", "/dev/null", duckdns_url], check=False)
 	if result.returncode == 0:
 		log_info([msg])
 	else:
@@ -38,9 +37,7 @@ def duckdns_update_host(argv: list[str]) -> int:
 
 def duckdns_update_public(argv: list[str]) -> int:
 	if os.environ.get("MY_PLACE") == "work":
-		log_warn([
-			f"at {os.environ.get('MY_PLACE')} does not need to update '{os.environ.get('DUCKDNS_DOMAIN')}'"
-		])
+		log_warn([f"at {os.environ.get('MY_PLACE')} does not need to update '{os.environ.get('DUCKDNS_DOMAIN')}'"])
 		return 0
 	domain = os.environ.get("DUCKDNS_DOMAIN", "")
 	ip_public = os.environ.get("IP_PUBLIC", "")

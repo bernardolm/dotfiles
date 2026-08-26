@@ -6,7 +6,6 @@ import re
 
 from common import git_staged_files, repo_root
 
-
 _WORKFLOW_RE = re.compile(r"^\.github/workflows/.*\.(yml|yaml)$")
 _V1_IGNORE_RE = re.compile(r"\.v1/\*\*|\.v1/")
 _SHELL_REQUIRED_RE = re.compile(r"shell-required:")

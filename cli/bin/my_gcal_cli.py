@@ -53,9 +53,7 @@ if __name__ == '__main__':
 		calendar=cal_names_str,
 		command='agenda',
 		config_folder=config_path,
-		details={
-			'end': True
-		},
+		details={'end': True},
 		ignore_declined=True,
 		ignore_started=False,
 		includeRc=True,
@@ -68,7 +66,8 @@ if __name__ == '__main__':
 	)
 
 	cal_list = c._retry_with_backoff(  # pylint: disable=protected-access
-		c.get_cal_service().calendarList().list()) or {}
+		c.get_cal_service().calendarList().list()
+	) or {}
 
 	# pprint(
 	#     [{
@@ -111,7 +110,8 @@ if __name__ == '__main__':
 
 		# c.AgendaQuery(start=start_dt, end=end_dt)
 		events = c._search_for_events(  # pylint: disable=protected-access
-			start=start_dt, end=end_dt, search_text=None)
+			start=start_dt, end=end_dt, search_text=None
+		)
 
 		# print(len(events))
 
@@ -122,7 +122,7 @@ if __name__ == '__main__':
 			summary = e['summary']
 
 			if e.get('organizer').get('displayName') not in \
-                          ['Engineering Hurb', 'Aniversários Tecnologia',
+                                                        ['Engineering Hurb', 'Aniversários Tecnologia',
 				'Aniversários Product Design', 'Aniversários Produto']:
 
 				start_date = format_date(e['s'])

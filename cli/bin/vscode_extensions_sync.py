@@ -11,7 +11,6 @@ from common import strip_trailing_commas, unique_strings
 from json_util import strip_jsonc_comments
 from vscode_profile import get_active_vscode_profile, is_running_inside_vscode
 
-
 _EXTENSION_ID_RE = re.compile(r"\b[a-z0-9][a-z0-9-]*\.[a-z0-9][a-z0-9-]*\b", re.IGNORECASE)
 _ANSI_RESET = "\033[0m"
 _ANSI_WHITE = "\033[37m"
@@ -69,8 +68,7 @@ def _default_extensions_from_data(data: dict[str, object], file_path: Path) -> l
 	return default_extensions
 
 
-def _profile_extensions_from_data(data: dict[str, object], file_path: Path,
-																	profile_name: str) -> list[str]:
+def _profile_extensions_from_data(data: dict[str, object], file_path: Path, profile_name: str) -> list[str]:
 	if profile_name in data:
 		return _load_group_extensions(data, profile_name, file_path)
 	return []
@@ -403,8 +401,7 @@ def main() -> int:
 		stage2_profiles = profile_sections
 	stage2_profiles = unique_strings(stage2_profiles)
 
-	install_targets: list[tuple[str, str,
-															list[str]]] = [(_DEFAULT_PROFILE_NAME, "default", default_extensions)]
+	install_targets: list[tuple[str, str, list[str]]] = [(_DEFAULT_PROFILE_NAME, "default", default_extensions)]
 	for profile_name in stage2_profiles:
 		profile_actions = _profile_extensions_from_data(config_data, extensions_file, profile_name)
 		install_targets.append((profile_name, "profile-specific", profile_actions))
@@ -437,8 +434,7 @@ def main() -> int:
 	cleanup_profiles = unique_strings([_DEFAULT_PROFILE_NAME, *stage2_profiles])
 	if cleanup_profiles:
 		print("")
-		header = _style("Final cleanup: removing extensions not declared in extensions.jsonc",
-										_ANSI_WHITE, _ANSI_BOLD)
+		header = _style("Final cleanup: removing extensions not declared in extensions.jsonc", _ANSI_WHITE, _ANSI_BOLD)
 		print(header)
 	for cleanup_profile in cleanup_profiles:
 		installed_extensions = list_installed_extensions(code_bin, profile_name=cleanup_profile)
