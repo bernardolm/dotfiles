@@ -12,27 +12,27 @@ from pathlib import Path
 
 
 def main() -> int:
-    histfile = os.environ.get("HISTFILE")
-    if not histfile:
-        histfile = str(Path.home() / "sync" / ".zsh_history")
-    path = Path(histfile).expanduser()
+	histfile = os.environ.get("HISTFILE")
+	if not histfile:
+		histfile = str(Path.home() / "sync" / ".zsh_history")
+	path = Path(histfile).expanduser()
 
-    if not path.is_file():
-        print("empty", end="")
-        return 0
+	if not path.is_file():
+		print("empty", end="")
+		return 0
 
-    try:
-        text = path.read_text(encoding="utf-8", errors="replace")
-        lines = len(text.splitlines())
-        size_bytes = path.stat().st_size
-    except OSError:
-        print("empty", end="")
-        return 0
+	try:
+		text = path.read_text(encoding="utf-8", errors="replace")
+		lines = len(text.splitlines())
+		size_bytes = path.stat().st_size
+	except OSError:
+		print("empty", end="")
+		return 0
 
-    size_kb = size_bytes // 1024
-    print(f"{lines}/{size_kb}KB", end="")
-    return 0
+	size_kb = size_bytes // 1024
+	print(f"{lines}/{size_kb}KB", end="")
+	return 0
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+	sys.exit(main())
