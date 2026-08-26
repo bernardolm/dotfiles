@@ -106,8 +106,9 @@ $character\
 """
 
 add_newline = true
+command_timeout = 10000
 palette = 'my_pallete'
-scan_timeout = 10
+scan_timeout = 10000
 
 # [aws]
 # disabled = true
