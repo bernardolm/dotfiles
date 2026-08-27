@@ -11,6 +11,7 @@ local font = wezterm.font_with_fallback({
 	-- "IoskeleyMono Nerd Font Light",
 	-- "JetBrains Mono",
 	-- "Noto Color Emoji",
+	{ family = "Victor Mono", weight = "SemiBold" },
 	"VictorMono NF",
 	"RecMonoCasual Nerd Font",
 	"NovaMono",
@@ -132,7 +133,10 @@ return {
 	-- color_scheme = 'Tokyo Night',
 	font = font,
 	font_size = 17,
-	harfbuzz_features = { 'zero' }, -- to use with nerd fonts
+	harfbuzz_features = {
+		'zero', 'calt=1', 'clig=1', 'liga=1',                                         -- to use with nerd fonts
+		'ss01=1', 'ss02=1', 'ss03=1', 'ss04=1', 'ss05=1', 'ss06=1', 'ss07=1', 'ss08=1', -- Victor Mono stylistic sets
+	},
 	inactive_pane_hsb = inactive_pane_hsb,
 	line_height = 1.5,
 	window_padding = window_padding,

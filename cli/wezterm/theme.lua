@@ -13,6 +13,8 @@ local blocklist = {
 	-- ["Everforest Light (Gogh)"] = true,
 	["Warmneon"] = true,
 	["Borland"] = true,
+	["Neopolitan"] = true,
+	["mono-amber"] = true,
 }
 
 -- No dark/light metadata field on this wezterm build, so this reads the
