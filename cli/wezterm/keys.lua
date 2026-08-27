@@ -2,6 +2,7 @@
 local wezterm = require 'wezterm'
 
 local projects = require 'projects'
+local random_theme = require 'random-theme'
 
 -- print('loading keys')
 
@@ -33,6 +34,14 @@ return {
 			mods = 'LEADER',
 			-- Present a list of existing workspaces
 			action = wezterm.action.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' },
+		},
+		{
+			key = 't',
+			mods = 'LEADER',
+			-- Copy the current tab's random theme name to the clipboard
+			action = wezterm.action_callback(function(window, pane)
+				random_theme.copy_current_scheme_name(window)
+			end),
 		}
 	}
 }

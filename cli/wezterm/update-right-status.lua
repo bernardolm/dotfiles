@@ -6,7 +6,7 @@ wezterm.on('update-right-status', function(window, pane)
 	local scheme = random_theme.current_scheme_name(window)
 	if scheme then
 		window:set_right_status(wezterm.format {
-			{ Foreground = { Color = '#c0c0c0' } },
+			-- { Foreground = { Color = 'FF91F2ED' } }, # NOTE: temporarily disabled by the user
 			{ Text = '  ' .. scheme .. '  ' },
 		})
 	else

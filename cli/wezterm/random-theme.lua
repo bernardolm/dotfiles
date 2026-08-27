@@ -47,6 +47,17 @@ function M.current_scheme_name(window)
 	return tab_schemes[tab:tab_id()]
 end
 
+-- The right-status text isn't selectable, so this copies the current tab's
+-- scheme name to the clipboard instead — bind it to a key (see keys.lua) to
+-- grab a name for the blocklist above.
+function M.copy_current_scheme_name(window)
+	local scheme = M.current_scheme_name(window)
+	if scheme then
+		window:copy_to_clipboard(scheme)
+		window:toast_notification('theme', scheme .. ' copied to clipboard', nil, 2000)
+	end
+end
+
 -- 'update-status' fires continuously (roughly every redraw), which is what
 -- makes it reliable for noticing a tab switch — there's no dedicated
 -- "tab activated" event in the Lua API.

@@ -8,6 +8,6 @@ wezterm.on('window-config-reloaded', function(window, pane)
 	-- that's reattaching to a mux window that outlived a previous GUI
 	-- process). Give it a moment.
 	wezterm.time.call_after(0.5, function()
-		window:maximize()
+		-- window:maximize() # NOTE: temporarily disabled by the user
 	end)
 end)
