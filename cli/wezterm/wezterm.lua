@@ -14,7 +14,7 @@ local style = require "style"
 local wezterm = require "wezterm"
 
 require "window-config-reloaded"
-require "random-theme"
+require "theme"
 require "format-tab-title"
 -- require "update-left-status"
 require "update-right-status"

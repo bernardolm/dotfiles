@@ -12,7 +12,8 @@ end
 -- you don't like.
 local blocklist = {
 	-- ["Some Ugly Scheme"] = true,
-	["Grayscale Light (base16)"] = true
+	["Grayscale Light (base16)"] = true,
+	["Everforest Light (Gogh)"] = true,
 }
 
 local function pick_random_scheme()

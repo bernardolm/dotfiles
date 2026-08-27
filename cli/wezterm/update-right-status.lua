@@ -1,4 +1,4 @@
-local random_theme = require("random-theme")
+local random_theme = require("theme")
 local style = require("style")
 local wezterm = require("wezterm")
 
