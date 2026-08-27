@@ -47,3 +47,8 @@
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+
+# # wezterm's plugin loader (libgit2) can't follow the ssh rewrite above,
+# # so keep plain https for its plugin repos.
+# [url "https://github.com/yriveiro/wezterm-status"]
+# 	insteadOf = https://github.com/yriveiro/wezterm-status
