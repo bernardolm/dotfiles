@@ -1,4 +1,21 @@
+local random_theme = require("random-theme")
+local style = require("style")
 local wezterm = require("wezterm")
+
+wezterm.on('update-right-status', function(window, pane)
+	local scheme = random_theme.current_scheme_name(window)
+	if scheme then
+		window:set_right_status(wezterm.format {
+			{ Foreground = { Color = '#c0c0c0' } },
+			{ Text = '  ' .. scheme .. '  ' },
+		})
+	else
+		window:set_right_status('')
+	end
+end)
+
+--[[ Previous right-status implementation (cwd/hostname/date, arrow-segment
+style), kept for reference/reuse — not deleted, just not wired up.
 
 local function format_date()
 	local weekday = wezterm.strftime "%A"
@@ -22,7 +39,6 @@ end
 wezterm.on('update-right-status', function(window, pane)
 	window:set_right_status('')
 
-	-- luacheck: ignore
 	if false then
 		local cells = {}
 
@@ -66,16 +82,8 @@ wezterm.on('update-right-status', function(window, pane)
 
 		local SOLID_LEFT_ARROW = utf8.char(0xe0b2)
 
-		local colors = {
-			'rgba(0,0,0,0)',
-			'#3c1361',
-			'#52307c',
-			'#663a82',
-			'#7c5295',
-			'#b491c8',
-		}
-
-		local text_fg = '#c0c0c0'
+		local colors = style.right_status_palette.steps
+		local text_fg = style.right_status_palette.text_fg
 		local elements = {}
 
 		local function push(text, idx)
@@ -95,3 +103,4 @@ wezterm.on('update-right-status', function(window, pane)
 		window:set_right_status(wezterm.format(elements))
 	end
 end)
+]]

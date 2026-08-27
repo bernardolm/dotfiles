@@ -1,1 +1,1 @@
-$HOME/dotfiles
+cd $HOME ; wezterm cli set-tab-title "hello world" ; zsh

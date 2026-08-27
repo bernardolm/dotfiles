@@ -87,13 +87,32 @@ local inactive_pane_hsb = {
 	saturation = 0.24,
 }
 
-local base_padding = 20
+local base_padding = 25
 local window_padding = {
 	bottom = base_padding,
 	left = base_padding*1.5,
 	right = base_padding*1.5,
 	top = base_padding,
 }
+
+local right_status_palette = {
+	steps = {
+		'rgba(0,0,0,0)',
+		'#3c1361',
+		'#52307c',
+		'#663a82',
+		'#7c5295',
+		'#b491c8',
+	},
+	text_fg = '#c0c0c0',
+}
+
+-- local appearance = require 'appearance'
+-- if appearance.is_dark() then
+--   config.color_scheme = 'Tokyo Night'
+-- else
+--   config.color_scheme = 'Tokyo Night Day'
+-- end
 
 return {
 	-- colors = colors,
@@ -108,6 +127,6 @@ return {
 	font_size = 16,
 	harfbuzz_features = { 'zero' }, -- to use with nerd fonts
 	inactive_pane_hsb = inactive_pane_hsb,
-	line_height = 1.6,
+	line_height = 1.5,
 	window_padding = window_padding,
 }

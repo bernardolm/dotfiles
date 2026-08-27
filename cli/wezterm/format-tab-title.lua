@@ -164,7 +164,7 @@ local function tab_title_handler(tab_info)
 
 	local host = domain_title(pane) or remote_hostname_from_pane(pane)
 	local cwd = decode_uri_path(pane and pane.current_working_dir)
-	local home = os.getenv("HOME")
+	local home = HomePath
 	local cwd_title
 	if home and normalize_path(cwd) == normalize_path(home) then
 		cwd_title = "home"

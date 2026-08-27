@@ -7,8 +7,8 @@ print('loading behavior')
 
 local visual_bell = {
 	-- fade_in_duration_ms = 150,
-	fade_in_function = 'EaseIn',
 	-- fade_out_duration_ms = 150,
+	fade_in_function = 'EaseIn',
 	fade_out_function = 'EaseOut',
 }
 
@@ -27,22 +27,25 @@ return {
 	-- exit_behavior = "Close",
 	-- hide_tab_bar_if_only_one_tab = false,
 	-- pane_focus_follows_mouse = true,
+	-- send_composed_key_when_left_alt_is_pressed = true,
 	-- show_update_window = false,
 	-- ssh_domains = wezterm.default_ssh_domains(),
 	-- tab_and_split_indices_are_zero_based = true,
+	-- tab_max_width = 42,
 	-- unzoom_on_switch_pane = false,
 	-- use_resize_increments = true,
 	-- visual_bell = visual_bell,
 	automatically_reload_config = true,
+	default_domain = 'unix',
+	default_prog = { 'ssh', 'localhost', 'zsh', '--login' },
 	experimental_pixel_positioning = false, -- NOTE: this config break everthing!
 	prefer_to_spawn_tabs = true,
-	scrollback_lines = 100000,
-	-- send_composed_key_when_left_alt_is_pressed = true,
+	scrollback_lines = 999999999,
 	show_new_tab_button_in_tab_bar = true,
 	show_tabs_in_tab_bar = true,
 	skip_close_confirmation_for_processes_named = { 'bash', 'sh', 'zsh', 'fish', 'tmux' },
 	tab_bar_at_bottom = false,
-	tab_max_width = 42,
+	unix_domains = { { name = 'unix' } },
 	use_fancy_tab_bar = true,
 	window_close_confirmation = 'NeverPrompt',
 }
