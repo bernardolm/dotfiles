@@ -14,6 +14,8 @@ local blocklist = {
 	-- ["Some Ugly Scheme"] = true,
 	["Grayscale Light (base16)"] = true,
 	["Everforest Light (Gogh)"] = true,
+	["Material Lighter (base16)"] = true,
+	["zenwritten_light"] = true,
 }
 
 local function pick_random_scheme()

@@ -37,7 +37,7 @@ return {
 	-- visual_bell = visual_bell,
 	automatically_reload_config = true,
 	default_domain = 'unix',
-	default_prog = { 'ssh', '-t', 'localhost', 'zsh', '--login' },
+	-- default_prog = { 'ssh', '-t', 'localhost', 'zsh', '--login' },
 	experimental_pixel_positioning = false, -- NOTE: this config break everthing!
 	prefer_to_spawn_tabs = true,
 	scrollback_lines = 999999999,
