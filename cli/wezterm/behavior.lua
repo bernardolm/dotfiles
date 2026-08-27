@@ -5,12 +5,12 @@ print('loading behavior')
 
 -- local default_prog = { '/bin/zsh', '--login', '--sourcetrace' }
 
-local visual_bell = {
-	-- fade_in_duration_ms = 150,
-	-- fade_out_duration_ms = 150,
-	fade_in_function = 'EaseIn',
-	fade_out_function = 'EaseOut',
-}
+-- local visual_bell = {
+-- 	-- fade_in_duration_ms = 150,
+-- 	-- fade_out_duration_ms = 150,
+-- 	fade_in_function = 'EaseIn',
+-- 	fade_out_function = 'EaseOut',
+-- }
 
 return {
 	-- adjust_window_size_when_changing_font_size = true,
@@ -18,6 +18,7 @@ return {
 	-- check_for_updates = true,
 	-- check_for_updates_interval_seconds = 86400,
 	-- default_cwd = HomePath,
+	-- default_prog = { 'ssh', '-t', 'localhost', 'zsh', '--login' },
 	-- enable_kitty_graphics = false,
 	-- enable_kitty_keyboard = false,
 	-- enable_scroll_bar = true,
@@ -37,7 +38,6 @@ return {
 	-- visual_bell = visual_bell,
 	automatically_reload_config = true,
 	default_domain = 'unix',
-	-- default_prog = { 'ssh', '-t', 'localhost', 'zsh', '--login' },
 	experimental_pixel_positioning = false, -- NOTE: this config break everthing!
 	prefer_to_spawn_tabs = true,
 	scrollback_lines = 999999999,

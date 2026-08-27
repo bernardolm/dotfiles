@@ -3,16 +3,23 @@ local wezterm = require 'wezterm'
 print('loading style')
 
 local font = wezterm.font_with_fallback({
-	"Agave Nerd Font Mono",
-	-- "IoskeleyMono Nerd Font Light",
 	-- 'Apple Color Emoji',
-	-- 'monospace',
 	-- 'Noto Color Emoji',
 	-- 'Segoe UI Emoji',
 	-- "Apple Color Emoji",
 	-- "Fira Code",
+	-- "IoskeleyMono Nerd Font Light",
 	-- "JetBrains Mono",
 	-- "Noto Color Emoji",
+	"VictorMono NF",
+	"RecMonoCasual Nerd Font",
+	"NovaMono",
+	"Hurmit Nerd Font Propo",
+	"Monaspace Neon NF",
+	"Monaspace Argon NF",
+	"Monaspace Krypton NF",
+	"Agave Nerd Font Mono",
+	'monospace',
 })
 
 -- local window_background_gradient = {
@@ -90,8 +97,8 @@ local inactive_pane_hsb = {
 local base_padding = 25
 local window_padding = {
 	bottom = base_padding,
-	left = base_padding*1.5,
-	right = base_padding*1.5,
+	left = base_padding * 1.5,
+	right = base_padding * 1.5,
 	top = base_padding,
 }
 
@@ -122,9 +129,9 @@ return {
 	-- harfbuzz_features = {"calt=1", "clig=1", "liga=1"},
 	-- text_background_opacity = 0.3, -- NOTE: this config break prompt
 	-- window_background_gradient = window_background_gradient,
-	color_scheme = 'Tokyo Night',
+	-- color_scheme = 'Tokyo Night',
 	font = font,
-	font_size = 16,
+	font_size = 17,
 	harfbuzz_features = { 'zero' }, -- to use with nerd fonts
 	inactive_pane_hsb = inactive_pane_hsb,
 	line_height = 1.5,

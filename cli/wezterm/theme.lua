@@ -2,35 +2,37 @@ local wezterm = require 'wezterm'
 
 local M = {}
 
--- Every color scheme WezTerm ships with.
+local schemes = wezterm.color.get_builtin_schemes()
+
 local scheme_names = {}
-for name, scheme in pairs(wezterm.color.get_builtin_schemes()) do
+for name, scheme in pairs(schemes) do
 	table.insert(scheme_names, name)
 end
 
--- Schemes that never come up on random pick. Add names as you find ones
--- you don't like.
 local blocklist = {
-	-- ["Some Ugly Scheme"] = true,
-	["Grayscale Light (base16)"] = true,
-	["Everforest Light (Gogh)"] = true,
-	["Material Lighter (base16)"] = true,
-	["zenwritten_light"] = true,
+	-- ["Everforest Light (Gogh)"] = true,
+	["Warmneon"] = true,
+	["Borland"] = true,
 }
+
+-- No dark/light metadata field on this wezterm build, so this reads the
+-- actual background color instead of guessing from the name — catches
+-- light themes whose name doesn't say "light"/"bright".
+local function is_light_scheme(name)
+	local scheme = schemes[name]
+	local color = wezterm.color.parse(scheme.background)
+	local _, _, lightness, _ = color:hsla()
+	return lightness > 0.5
+end
 
 local function pick_random_scheme()
 	local scheme
 	repeat
 		scheme = scheme_names[math.random(#scheme_names)]
-	until not blocklist[scheme]
+	until not blocklist[scheme] and not scheme:lower():find("light") and not scheme:lower():find("bright") and not is_light_scheme(scheme)
 	return scheme
 end
 
--- color_scheme overrides are window-wide, not per-tab, so switching tabs
--- inside the same window doesn't naturally give each tab its own theme.
--- Simulated instead: remember which scheme each tab_id got (assigned once,
--- the first time we see it), and reapply that tab's scheme every time it
--- becomes the active one.
 local tab_schemes = {}
 local last_active_tab_id = nil
 
@@ -51,9 +53,6 @@ function M.current_scheme_name(window)
 	return tab_schemes[tab:tab_id()]
 end
 
--- The right-status text isn't selectable, so this copies the current tab's
--- scheme name to the clipboard instead — bind it to a key (see keys.lua) to
--- grab a name for the blocklist above.
 function M.copy_current_scheme_name(window)
 	local scheme = M.current_scheme_name(window)
 	if scheme then
@@ -62,9 +61,6 @@ function M.copy_current_scheme_name(window)
 	end
 end
 
--- 'update-status' fires continuously (roughly every redraw), which is what
--- makes it reliable for noticing a tab switch — there's no dedicated
--- "tab activated" event in the Lua API.
 wezterm.on('update-status', function(window, pane)
 	local tab = window:active_tab()
 	if not tab then

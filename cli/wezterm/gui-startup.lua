@@ -70,21 +70,6 @@ local function startup_tab_options(entry, cmd)
 	return opts, nil
 end
 
--- wezterm-gui independently guarantees the configured default_domain (see
--- behavior.lua) has a window — a plain $HOME shell — regardless of what
--- gui-startup does, so commands[1] (the "cd $HOME" entry) is never spawned
--- explicitly; that built-in window already covers it (and gets maximized
--- by window-config-reloaded.lua). The rest (commands[2..N]) are spawned
--- here, deferred until a window exists, only if the window doesn't already
--- have them.
---
--- KNOWN ISSUE, kept implemented anyway (user's call): the "no windows yet"
--- guard below does NOT reliably prevent this from re-adding tabs on every
--- relaunch — verified across 5 consecutive kill+reopen cycles, pane count
--- grew 3→4→5→6 with entries active. Leave startup-commads.txt with only
--- commented-out entries (its current state) to keep this dormant/safe;
--- uncomment entries there deliberately, accepting that tab count may grow
--- on every wezterm-gui restart.
 wezterm.on("gui-startup", function(cmd)
 	if #mux.all_windows() > 0 then
 		return
