@@ -138,6 +138,6 @@ return {
 		'ss01=1', 'ss02=1', 'ss03=1', 'ss04=1', 'ss05=1', 'ss06=1', 'ss07=1', 'ss08=1', -- Victor Mono stylistic sets
 	},
 	inactive_pane_hsb = inactive_pane_hsb,
-	line_height = 1.5,
+	line_height = 1.3,
 	window_padding = window_padding,
 }
