@@ -11,7 +11,7 @@ local font = wezterm.font_with_fallback({
 	-- "IoskeleyMono Nerd Font Light",
 	-- "JetBrains Mono",
 	-- "Noto Color Emoji",
-	{ family = "Victor Mono", weight = "SemiBold" },
+	{ family = "Victor Mono", weight = "DemiBold" },
 	"VictorMono NF",
 	"RecMonoCasual Nerd Font",
 	"NovaMono",
