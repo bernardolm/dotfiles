@@ -15,35 +15,35 @@
 	prune = true
 
 # [filter "lfs"]
-# 	required = true
-# 	clean = git-lfs clean -- %f
-# 	smudge = git-lfs smudge -- %f
-# 	process = git-lfs filter-process
+#	required = true
+#	clean = git-lfs clean -- %f
+#	smudge = git-lfs smudge -- %f
+#	process = git-lfs filter-process
 
 [gpg]
-	format = ssh
+  format = ssh
 
 [init]
-	defaultBranch = main
+  defaultBranch = main
 
 [merge]
-	log = true
-	conflictStyle = zdiff3
+  log = true
+  conflictStyle = zdiff3
 
 # [pull]
-# 	rebase = true
+#	rebase = true
 
-# [push]
-# 	autoSetupRemote = true
+[push]
+  autoSetupRemote = true
 
-# [rebase]
-# 	autoStash = true
+[rebase]
+  autoStash = true
 
-# [status]
-# 	short = false
+[status]
+  short = false
 
 # [submodule]
-# 	recurse = true
+#	recurse = true
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
@@ -51,4 +51,4 @@
 # # wezterm's plugin loader (libgit2) can't follow the ssh rewrite above,
 # # so keep plain https for its plugin repos.
 # [url "https://github.com/yriveiro/wezterm-status"]
-# 	insteadOf = https://github.com/yriveiro/wezterm-status
+#	insteadOf = https://github.com/yriveiro/wezterm-status
