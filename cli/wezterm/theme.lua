@@ -9,13 +9,23 @@ for name, scheme in pairs(schemes) do
 	table.insert(scheme_names, name)
 end
 
-local blocklist = {
-	-- ["Everforest Light (Gogh)"] = true,
-	["Warmneon"] = true,
-	["Borland"] = true,
-	["Neopolitan"] = true,
-	["mono-amber"] = true,
+local blocklist_names = {
+	"Warmneon",
+	"Borland",
+	"Zenburn (Gogh)",
+	"SOS (terminal.sexy)",
+	"Neopolitan",
+	"mono-amber",
+	"Black Metal (Khold) (base16)",
+	"Wzoreck (Gogh)",
+	"Fairyfloss",
+	"Modus-Vivendi-Tritanopia",
 }
+
+local blocklist = {}
+for _, name in ipairs(blocklist_names) do
+	blocklist[name] = true
+end
 
 -- No dark/light metadata field on this wezterm build, so this reads the
 -- actual background color instead of guessing from the name — catches
