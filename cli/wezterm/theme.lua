@@ -20,6 +20,7 @@ local blocklist_names = {
 	"Wzoreck (Gogh)",
 	"Fairyfloss",
 	"Modus-Vivendi-Tritanopia",
+	"Low Contrast (terminal.sexy)",
 }
 
 local blocklist = {}
