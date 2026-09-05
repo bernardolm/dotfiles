@@ -10,17 +10,21 @@ for name, scheme in pairs(schemes) do
 end
 
 local blocklist_names = {
-	"Warmneon",
-	"Borland",
-	"Zenburn (Gogh)",
-	"SOS (terminal.sexy)",
-	"Neopolitan",
-	"mono-amber",
 	"Black Metal (Khold) (base16)",
-	"Wzoreck (Gogh)",
+	"Borland",
+	"Fahrenheit",
 	"Fairyfloss",
-	"Modus-Vivendi-Tritanopia",
+	"Gruvbox Material (Gogh)",
 	"Low Contrast (terminal.sexy)",
+	"Modus-Vivendi-Tritanopia",
+	"mono-amber",
+	"Neopolitan",
+	"rebecca",
+	"RedAlert (Gogh)",
+	"SOS (terminal.sexy)",
+	"Warmneon",
+	"Wzoreck (Gogh)",
+	"Zenburn (Gogh)",
 }
 
 local blocklist = {}
