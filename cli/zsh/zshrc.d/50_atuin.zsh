@@ -1,3 +1,3 @@
-command -v atuin >/dev/null && \
-	export ATUIN_LOG=debug && \
-	eval "$(atuin init zsh --disable-up-arrow)"
+# export ATUIN_LOG=debug
+export ATUIN_LOG=info
+command -v atuin >/dev/null && eval "$(atuin init zsh --disable-up-arrow)"
