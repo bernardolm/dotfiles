@@ -1,4 +1,4 @@
-[[ "$DOTFILES_OS" != "darwin" ]] && echo "you are not a darwin os" && return || echo "welcome do darwin"
+[[ "$DOTFILES_OS" != "darwin" ]] && echo "you are not a darwin os" && return # || echo "welcome do darwin"
 
 [ -f /etc/zshrc_Apple_Terminal ] && . /etc/zshrc_Apple_Terminal
 
