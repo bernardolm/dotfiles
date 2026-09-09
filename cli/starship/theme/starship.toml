@@ -38,8 +38,9 @@ $git_status\
 $jobs\
 $status\
 [█ ](fg:color_section_8 bg:color_section_9)\
+[⏱ ](bg:color_section_9 fg:color_foreground_text_light)\
 $cmd_duration\
-[█](fg:color_section_9)\
+[](fg:color_section_9)\
 $line_break\
 $directory\
 $line_break\
@@ -60,7 +61,7 @@ success_symbol = '[▶](bold fg:color_section_3) '
 
 [cmd_duration]
 disabled = false
-format = '[⏱ $duration]($style)'
+format = '[$duration]($style)'
 min_time = 1
 min_time_to_notify = 5_000
 notification_timeout = 2_000
@@ -217,7 +218,7 @@ style = 'bg:color_section_6 fg:color_foreground_text_dark'
 disabled = false
 format = '[$symbol]($style)'
 style = 'bg:color_section_8 fg:color_foreground_text_light'
-success_symbol = '…'
+success_symbol = '✓'
 symbol = '$status'
 
 [sudo]
