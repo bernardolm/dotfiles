@@ -12,14 +12,14 @@ local font = wezterm.font_with_fallback({
 	-- "JetBrains Mono",
 	-- "Noto Color Emoji",
 	{ family = "Victor Mono", weight = "DemiBold" },
-	"VictorMono NF",
-	"RecMonoCasual Nerd Font",
-	"NovaMono",
-	"Hurmit Nerd Font Propo",
-	"Monaspace Neon NF",
-	"Monaspace Argon NF",
-	"Monaspace Krypton NF",
-	"Agave Nerd Font Mono",
+	-- "VictorMono NF",
+	-- "RecMonoCasual Nerd Font",
+	-- "NovaMono",
+	-- "Hurmit Nerd Font Propo",
+	-- "Monaspace Neon NF",
+	-- "Monaspace Argon NF",
+	-- "Monaspace Krypton NF",
+	-- "Agave Nerd Font Mono",
 	'monospace',
 })
 
@@ -90,30 +90,31 @@ local font = wezterm.font_with_fallback({
 -- 	visual_bell = '#202020',
 -- }
 
-local inactive_pane_hsb = {
-	brightness = 0.5,
-	saturation = 0.24,
-}
+-- local inactive_pane_hsb = {
+-- 	brightness = 0.5,
+-- 	saturation = 0.24,
+-- }
 
-local base_padding = 25
-local window_padding = {
-	bottom = base_padding,
-	left = base_padding * 1.5,
-	right = base_padding * 1.5,
-	top = base_padding,
-}
+-- local base_padding = 25
 
-local right_status_palette = {
-	steps = {
-		'rgba(0,0,0,0)',
-		'#3c1361',
-		'#52307c',
-		'#663a82',
-		'#7c5295',
-		'#b491c8',
-	},
-	text_fg = '#c0c0c0',
-}
+-- local window_padding = {
+-- 	bottom = base_padding,
+-- 	left = base_padding * 1.5,
+-- 	right = base_padding * 1.5,
+-- 	top = base_padding,
+-- }
+
+-- local right_status_palette = {
+-- 	steps = {
+-- 		'rgba(0,0,0,0)',
+-- 		'#3c1361',
+-- 		'#52307c',
+-- 		'#663a82',
+-- 		'#7c5295',
+-- 		'#b491c8',
+-- 	},
+-- 	text_fg = '#c0c0c0',
+-- }
 
 -- local appearance = require 'appearance'
 -- if appearance.is_dark() then
@@ -132,12 +133,12 @@ return {
 	-- window_background_gradient = window_background_gradient,
 	-- color_scheme = 'Tokyo Night',
 	font = font,
-	font_size = 17,
+	font_size = 16,
 	harfbuzz_features = {
 		'zero', 'calt=1', 'clig=1', 'liga=1',                                         -- to use with nerd fonts
 		'ss01=1', 'ss02=1', 'ss03=1', 'ss04=1', 'ss05=1', 'ss06=1', 'ss07=1', 'ss08=1', -- Victor Mono stylistic sets
 	},
-	inactive_pane_hsb = inactive_pane_hsb,
-	line_height = 1.3,
-	window_padding = window_padding,
+	-- inactive_pane_hsb = inactive_pane_hsb,
+	line_height = 1.4,
+	-- window_padding = window_padding,
 }
