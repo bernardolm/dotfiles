@@ -10,7 +10,7 @@ return {
 	leader = {
 		key = 'a',
 		mods = 'CTRL',
-		timeout_milliseconds = 1000,
+		timeout_milliseconds = 2000,
 	},
 	keys = {
 		-- Turn off the default CMD-m Hide action, allowing CMD-m to
