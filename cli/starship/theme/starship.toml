@@ -1,105 +1,47 @@
 "$schema" = 'https://starship.rs/config-schema.json'
 
+# bar_section_char_start = ''
+# bar_section_char_separator = ''
+# bar_section_char_end = ''
+
 format = """
-[](color_section_1)\
+[█](fg:color_section_1)\
+$time\
+[█ ](fg:color_section_1 bg:color_section_2)\
 $os\
-$shell\
 $hostname\
-[](fg:color_section_1 bg:color_section_2)\
 $username\
+[█ ](fg:color_section_2 bg:color_section_3)\
 $localip\
-$jobs\
-[](fg:color_section_2 bg:color_section_3)\
-$aws\
-$azure\
-$container\
-$direnv\
+[█ ](fg:color_section_3 bg:color_section_4)\
+${custom.atuin_history_lines}\
+[█ ](fg:color_section_4 bg:color_section_5)\
 $docker_context\
 $docker\
 $gcloud\
-$nats\
-[](fg:color_section_3 bg:color_section_4)\
+[█](fg:color_section_5 bg:color_section_6)\
+$golang\
+$lua\
+$nodejs\
+$php\
+$python\
+$ruby\
+$rust\
+$terraform\
+[█ ](fg:color_section_6 bg:color_section_7)\
 $git_branch\
 $git_commit\
 $git_metrics\
 $git_state\
 $git_status\
-$fossil_branch\
-$fossil_metrics\
-[](fg:color_section_4 bg:color_section_5)\
-$buf\
-$c\
-$cmake\
-$cobol\
-$conda\
-$crystal\
-$custom\
-$daml\
-$dart\
-$deno\
-$dotnet\
-$elixir\
-$elm\
-$erlang\
-$fennel\
-$fortran\
-$gleam\
-$golang\
-$gradle\
-$guix_shell\
-$haskell\
-$haxe\
-$helm\
-$java\
-$julia\
-$kotlin\
-$kubernetes\
-$lua\
-$meson\
-$mise\
-$nim\
-$nix_shell\
-$nodejs\
-$ocaml\
-$opa\
-$openstack\
-$perl\
-$php\
-$pijul_channel\
-$pixi\
-$pulumi\
-$purescript\
-$python\
-$quarto\
-$raku\
-$red\
-$rlang\
-$ruby\
-$rust\
-$scala\
-$shlvl\
-$singularity\
-$solidity\
-$spack\
-$swift\
-$terraform\
-$typst\
-$vagrant\
-$vcsh\
-$vlang\
-$zig\
-[](fg:color_section_5 bg:color_section_3)\
-$package\
-[](fg:color_section_3 bg:color_section_6)\
-${custom.atuin_history_lines}\
-[](fg:color_section_6 bg:color_section_7)\
-$time\
-[](fg:color_section_7 bg:color_section_8)\
-$directory\
-[](fg:color_section_8 bg:color_section_9)\
+[█ ](fg:color_section_7 bg:color_section_8)\
+$jobs\
 $status\
-[](fg:color_section_9)\
+[█ ](fg:color_section_8 bg:color_section_9)\
 $cmd_duration\
+[█](fg:color_section_9)\
+$line_break\
+$directory\
 $line_break\
 $sudo\
 $character\
@@ -110,28 +52,6 @@ command_timeout = 10000
 palette = 'my_pallete'
 scan_timeout = 10000
 
-# [aws]
-# disabled = true
-# symbol = '🅰 '
-
-# [aws.region_aliases]
-# ap-southeast-2 = 'au'
-# us-east-1 = 'va'
-
-# [aws.profile_aliases]
-# CompanyGroupFrobozzOnCallAccess = 'Frobozz'
-
-# [azure]
-# disabled = true
-# symbol = '󰠅 '
-
-# [azure.subscription_aliases]
-# very-long-subscription-name = 'vlsn'
-
-# [c]
-# disabled = true
-# symbol = " "
-
 [character]
 disabled = false
 error_symbol = '[🚨](bold fg:color_section_5) '
@@ -139,139 +59,90 @@ format = '$symbol'
 success_symbol = '[▶](bold fg:color_section_3) '
 
 [cmd_duration]
-format = '[ ~$duration]($style)'
+disabled = false
+format = '[⏱ $duration]($style)'
 min_time = 1
+min_time_to_notify = 5_000
+notification_timeout = 2_000
 show_milliseconds = true
-
-# [conda]
-# disabled = true
-
-# [cpp]
-# disabled = true
+show_notifications = true
+style = 'bg:color_section_9 fg:color_foreground_text_light'
 
 [custom.atuin_history_lines]
 command = "$HOME/dotfiles/cli/starship/functions/starship_atuin_history_lines"
 disabled = false
 format = '[$symbol$output]($style)'
-style = 'bg:color_section_6 fg:color_foreground_text_light'
-symbol = '≣'
+style = 'bg:color_section_4 fg:color_foreground_text_dark'
+symbol = '󱆃 '
+# symbol = '≣'
 when = true
-
-[custom.wsl]
-disabled = true
-when = '[[ "$DOTFILES_OS" == "wsl" ]]'
-
-# [dart]
-# disabled = true
-
-# [deno]
-# disabled = true
 
 [directory]
 disabled = false
 truncate_to_repo = false
-format = '[$path]($style)'
+format = '[at $path](italic $style)'
 truncation_length = 0
-style = 'italic bg:color_section_8 fg:color_foreground_text_light'
-
-[directory.substitutions]
-"Developer" = "󰲋 "
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = "󰝚 "
-"Pictures" = " "
 
 [docker_context]
 disabled = false
 symbol = "🐳"
 
-# [dotnet]
-# disabled = true
-# heuristic = false
-# symbol = '🥅 '
-
-# [elixir]
-# disabled = true
-# symbol = '🔮 '
-
-# [fossil_branch]
-# disabled = false
-# symbol = '🦎 '
-# truncation_length = 4
-# truncation_symbol = ''
-
-# [fossil_metrics]
-# disabled = false
+[fill]
+symbol = '-'
+style = 'bold green'
 
 [gcloud]
 disabled = false
-format = '[$symbol$region]($style)'
-style = 'bg:color_section_3 fg:color_foreground_text_dark'
-symbol = 'gcp'
+format = '[$symbol $project:$region]($style)'
+style = 'bg:color_section_5 fg:color_foreground_text_dark'
+symbol = '🇬️ ☁️ '
 
 [gcloud.project_aliases]
 very-long-project-name = 'vlpn'
+stellar-operand-420618 = 'tec'
 
 [gcloud.region_aliases]
-us-central1 = ':uc1'
+us-central1 = 'uc1'
 
 [git_branch]
 disabled = false
-format = '[$symbol$branch]($style)'
-style = 'bg:color_section_4 fg:color_foreground_text_dark'
+format = '[$symbol $branch]($style)'
+style = 'bg:color_section_7 fg:color_foreground_text_dark'
 symbol = ''
 
 [git_commit]
 disabled = false
 commit_hash_length = 4
-style = 'bg:color_section_4 fg:color_foreground_text_dark'
+style = 'bg:color_section_7 fg:color_foreground_text_dark'
 
 [git_metrics]
-disabled = true
+disabled = false
 format = '([+$added]($added_style))([-$deleted]($deleted_style))'
 ignore_submodules = true
-added_style = 'bg:color_section_4 fg:green'
-deleted_style = 'bg:color_section_4 fg:red'
+added_style = 'bg:color_section_7 fg:green'
+deleted_style = 'bg:color_section_7 fg:color_section_5'
 
 [git_state]
 disabled = false
-style = 'bg:color_section_4 fg:color_foreground_text_dark'
-format = '([\[$all_status$ahead_behind\]]($style))'
+style = 'bg:color_section_7 fg:color_foreground_text_dark'
+format = '\([$state($progress_current/$progress_total)]($style)\)'
 
 [git_status]
 disabled = false
-style = 'bg:color_section_4 fg:color_foreground_text_dark'
-format = '([$all_status$ahead_behind](bold $style))'
+style = 'bg:color_section_7 fg:color_foreground_text_dark'
+format = '([\[$all_status$ahead_behind\]]($style))'
 
 [golang]
-format = '[$symbol$version$mod_version]($style)'
+format = '[$symbol $version $mod_version]($style)'
 disabled = false
 symbol = "🦫"
-style = 'bg:color_section_5 fg:color_foreground_text_dark'
-
-# [haskell]
-# disabled = true
+style = 'bg:color_section_6 fg:color_foreground_text_dark'
 
 [hostname]
-# format = '[@](bold $style)[$ssh_symbol$hostname]($style)'
 disabled = false
-format = '[$ssh_symbol$hostname](bold $style)'
+format = '[ $hostname]($style)'
 ssh_only = false
-style = 'bg:color_section_1 fg:color_foreground_text_light'
-
-# [java]
-# disabled = true
-
-[jobs]
-disabled = false
-format = '[$number]($style)'
-
-# [kotlin]
-# disabled = true
-
-# [kubernetes]
-# detect_files = ['k8s']
-# disabled = true
+style = 'bg:color_section_2 fg:color_foreground_text_light'
 
 [line_break]
 disabled = false
@@ -279,44 +150,32 @@ disabled = false
 [localip]
 disabled = false
 ssh_only = false
-style = 'bg:color_section_2 fg:color_foreground_text_light'
-format = '[$localipv4](italic $style)'
+style = 'bg:color_section_3 fg:color_foreground_text_dark'
+format = '[$localipv4]($style)'
 
 [lua]
 disabled = false
-
-# [memory_usage]
-# disabled = true
-# threshold = -1
-
-# [netns]
-# disabled = true
-# symbol = '🌐 '
+format = '[ $symbol$version]($style)'
+style = 'bg:color_section_6 fg:color_foreground_text_dark'
 
 [nodejs]
 disabled = false
 symbol = "🤮"
 
 [os]
-format = "[${custom.wsl}$symbol]($style)"
-disabled = true
-style = 'bg:color_section_1 fg:color_foreground_text_light'
-
-# [os.symbols]
-# Alpine = ""
-# Debian = ""
-# Linux = ""
-# Macos = ""
-# Raspbian = ""
-# Ubuntu = "󰕈"
-# Unknown = ""
-# Windows = "󰍲"
-
-[package]
+format = "[$symbol]($style)"
 disabled = false
-style = 'bg:color_section_3 fg:color_foreground_text_dark'
-format = '[$symbol$version]($style)'
-symbol = '📦'
+style = 'bg:color_section_2 fg:color_foreground_text_light'
+
+[os.symbols]
+Alpine = " "
+Debian = " "
+Linux = " "
+Macos = " "
+Raspbian = " "
+Ubuntu = "󰕈 "
+Unknown = " "
+Windows = "󰍲 "
 
 [palettes.my_pallete]
 color_foreground_text_dark = '#001219'
@@ -330,22 +189,19 @@ color_section_6 = '#ca6702'
 color_section_7 = '#bb3e03'
 color_section_8 = '#ae2012'
 color_section_9 = '#9B2226'
+color_section_10 = '#6b0f12'
 
 [php]
 disabled = false
+format = '[$symbol $version]($style)'
 symbol = "🐘"
-style = 'bg:color_section_5 fg:color_foreground_text_dark'
-
-# [pixi]
-# disabled = true
+style = 'bg:color_section_6 fg:color_foreground_text_dark'
 
 [python]
 detect_env_vars = ["VIRTUAL_ENV"]
 disabled = false
-format = '[$symbol$version$virtualenv]($style)'
-pyenv_version_name = true
-style = 'bg:color_section_5 fg:color_foreground_text_dark'
-symbol = "🐍"
+format = '[ $symbol$version$virtualenv]($style)'
+style = 'bg:color_section_6 fg:color_foreground_text_dark'
 
 [ruby]
 disabled = true
@@ -355,22 +211,12 @@ style = 'bg:color_section_5 fg:color_foreground_text_dark'
 [rust]
 disabled = true
 symbol = "🦀"
-style = 'bg:color_section_5 fg:color_foreground_text_dark'
-
-[shell]
-disabled = true
-format = '[󱆃$indicator]($style)'
-style = 'bg:color_section_1 fg:color_foreground_text_light'
-zsh_indicator = 'z'
-
-# [singularity]
-# disabled = false
-# style = 'bg:color_section_5 fg:color_foreground_text_dark'
+style = 'bg:color_section_6 fg:color_foreground_text_dark'
 
 [status]
 disabled = false
 format = '[$symbol]($style)'
-style = 'bg:color_section_9 fg:color_foreground_text_light'
+style = 'bg:color_section_8 fg:color_foreground_text_light'
 success_symbol = '…'
 symbol = '$status'
 
@@ -383,16 +229,16 @@ style = 'bold red'
 [terraform]
 disabled = false
 format = '[$symbol]($style)'
-style = 'bg:color_section_5 fg:color_foreground_text_dark'
+style = 'bg:color_section_6 fg:color_foreground_text_dark'
 symbol = "🌳"
 
 [time]
-format = '[$time]($style)'
+format = '[  $time]($style)'
 disabled = false
-style = 'bg:color_section_7 fg:color_foreground_text_light'
+style = 'bg:color_section_1 fg:color_foreground_text_light'
 
 [username]
 disabled = true
 format = '[$user]($style)'
 show_always = true
-style_user = 'bg:color_section_2 fg:color_foreground_text_light'
+style_user = 'bg:color_section_3 fg:color_foreground_text_light'
