@@ -19,7 +19,7 @@ ${custom.atuin_history_lines}\
 $docker_context\
 $docker\
 $gcloud\
-[█](fg:color_section_5 bg:color_section_6)\
+[█ ](fg:color_section_5 bg:color_section_6)\
 $golang\
 $lua\
 $nodejs\
@@ -229,9 +229,8 @@ style = 'bold red'
 
 [terraform]
 disabled = false
-format = '[$symbol]($style)'
+format = '[$symbol$version]($style)'
 style = 'bg:color_section_6 fg:color_foreground_text_dark'
-symbol = "🌳"
 
 [time]
 format = '[  $time]($style)'
