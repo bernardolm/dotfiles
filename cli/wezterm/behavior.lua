@@ -27,7 +27,9 @@ return {
 	-- pane_focus_follows_mouse = true,
 	-- send_composed_key_when_left_alt_is_pressed = true,
 	-- show_update_window = false,
-	-- skip_close_confirmation_for_processes_named = { 'bash', 'sh', 'zsh', 'fish' },
+	skip_close_confirmation_for_processes_named = {
+		'bash', 'sh', 'zsh', 'fish', 'tmux', 'nu', 'cmd.exe', 'pwsh.exe', 'powershell.exe',
+	},
 	-- tab_and_split_indices_are_zero_based = true,
 	-- visual_bell = visual_bell,
 	automatically_reload_config = false,
