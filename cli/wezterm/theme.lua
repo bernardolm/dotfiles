@@ -9,97 +9,42 @@ for name, scheme in pairs(schemes) do
 	table.insert(scheme_names, name)
 end
 
-local blocklist_names = {
-	"3024 (base16)",
-	"3024 (dark) (terminal.sexy)",
-	"astromouse (terminal.sexy)",
-	"Bitmute (terminal.sexy)",
-	"Black Metal (Khold) (base16)",
-	"Bleh-1 (terminal.sexy)",
-	"Borland",
-	"C64 (Gogh)",
-	"CGA",
-	"Cloud (terminal.sexy)",
-	"Dark Pastel (Gogh)",
-	"Dark Pastel",
-	"Dark Violet (base16)",
-	"Derp (terminal.sexy)",
-	"Digerati (terminal.sexy)",
-	"Dissonance (Gogh)",
-	"Django",
-	"ENCOM",
-	"Fahrenheit",
-	"Fairyfloss",
-	"Fishbone (terminal.sexy)",
-	"Gnometerm (terminal.sexy)",
-	"Gotham (terminal.sexy)",
-	"Grass (Gogh)",
-	"Grass",
-	"Green Screen (base16)",
-	"Greenscreen (dark) (terminal.sexy)",
-	"Gruvbox Material (Gogh)",
-	"Harper",
-	"HaX0R_R3D",
-	"HemisuDark (Gogh)",
-	"Hipster Green",
-	"Hurtado",
-	"Hybrid (terminal.sexy)",
-	"ICGreenPPL (Gogh)",
-	"Iiamblack (terminal.sexy)",
-	"Insignificato (terminal.sexy)",
-	"IrBlack (Gogh)",
-	"iTerm2 Dark Background",
-	"Jackie Brown (Gogh)",
-	"Jason Wryan (terminal.sexy)",
-	"Jellybeans (Gogh)",
-	"Jup (Gogh)",
-	"JWR dark (terminal.sexy)",
-	"Kokuban (Gogh)",
-	"Laser",
-	"LiquidCarbonTransparentInverse",
-	"Low Contrast (terminal.sexy)",
-	"Lunaria Dark (Gogh)",
-	"Mathias",
-	"Modus-Vivendi-Tritanopia",
-	"MonaLisa",
-	"mono-amber (Gogh)",
-	"mono-amber",
-	"mono-red (Gogh)",
-	"mono-yellow (Gogh)",
-	"Neopolitan",
-	"PaulMillr",
-	"rebecca",
-	"Red Alert",
-	"Red Sands (Gogh)",
-	"Red Sands",
-	"RedAlert (Gogh)",
-	"RedSands (Gogh)",
-	"Sat (Gogh)",
-	"Selenized Dark (Gogh)",
-	"Shapeshifter (dark) (terminal.sexy)",
-	"Simple Rainbow (terminal.sexy)",
-	"SolarizedDarcula (Gogh)",
-	"SOS (terminal.sexy)",
-	"Symfonic",
-	"Synth Midnight Terminal Dark (base16)",
-	"Tangoesque (terminal.sexy)",
-	"Tender (Gogh)",
-	"UltraDark",
-	"Vibrant Ink (Gogh)",
-	"Warmneon",
-	"Website (Gogh)",
-	"Wez",
-	"Windows NT (base16)",
-	"Wombat",
-	"CrayonPonyFish",
-	"Wryan",
-	"Wzoreck (Gogh)",
-	"Zenburn (Gogh)",
-}
+-- Path relative to $HOME, kept consistent with startup-commads.txt in gui-startup.lua.
+local IGNORE_FILE = "dotfiles/cli/wezterm/theme-ignore.txt"
 
-local blocklist = {}
-for _, name in ipairs(blocklist_names) do
+local function ignore_file_path()
+	local home = HomePath or wezterm.home_dir or ""
+	return home .. "/" .. IGNORE_FILE
+end
+
+local function load_blocklist()
+	local blocklist = {}
+	local file = io.open(ignore_file_path(), "r")
+	if not file then
+		return blocklist
+	end
+	for line in file:lines() do
+		if #line > 0 and not line:match("^#") then
+			blocklist[line] = true
+		end
+	end
+	file:close()
+	return blocklist
+end
+
+local blocklist = load_blocklist()
+
+function M.add_to_blocklist(name)
+	if not name or blocklist[name] then
+		return
+	end
 	blocklist[name] = true
+	local file = io.open(ignore_file_path(), "a")
+	if not file then
+		return
+	end
+	file:write(name .. "\n")
+	file:close()
 end
 
 -- No dark/light metadata field on this wezterm build, so this reads the
@@ -146,6 +91,22 @@ function M.copy_current_scheme_name(window)
 		window:copy_to_clipboard(scheme)
 		window:toast_notification('theme', scheme .. ' copied to clipboard', nil, 2000)
 	end
+end
+
+function M.remove_current_scheme(window)
+	local scheme = M.current_scheme_name(window)
+	if not scheme then
+		return
+	end
+	M.add_to_blocklist(scheme)
+
+	local tab = window:active_tab()
+	local tab_id = tab:tab_id()
+	local new_scheme = pick_random_scheme()
+	tab_schemes[tab_id] = new_scheme
+	window:set_config_overrides { color_scheme = new_scheme }
+
+	window:toast_notification('theme', scheme .. ' added to ignore list', nil, 2000)
 end
 
 wezterm.on('update-status', function(window, pane)

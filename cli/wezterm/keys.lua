@@ -38,10 +38,29 @@ return {
 		{
 			key = 't',
 			mods = 'LEADER',
-			-- Copy the current tab's random theme name to the clipboard
-			action = wezterm.action_callback(function(window, pane)
-				random_theme.copy_current_scheme_name(window)
-			end),
+			-- Enter theme mode: 't' again copies the current theme name,
+			-- 'r' removes it from the random rotation (theme "remove").
+			action = wezterm.action.ActivateKeyTable {
+				name = 'theme_mode',
+				one_shot = true,
+				timeout_milliseconds = 2000,
+			},
 		}
-	}
+	},
+	key_tables = {
+		theme_mode = {
+			{
+				key = 't',
+				action = wezterm.action_callback(function(window, pane)
+					random_theme.copy_current_scheme_name(window)
+				end),
+			},
+			{
+				key = 'r',
+				action = wezterm.action_callback(function(window, pane)
+					random_theme.remove_current_scheme(window)
+				end),
+			},
+		},
+	},
 }

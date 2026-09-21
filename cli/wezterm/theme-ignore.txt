@@ -1,0 +1,152 @@
+# Add a theme with LEADER, t, r while it's the active theme in a tab.
+# One color scheme name per line. Lines starting with # are ignored.
+3024 (base16)
+3024 (dark) (terminal.sexy)
+3024 Night
+Aco (Gogh)
+Apprentice (base16)
+astromouse (terminal.sexy)
+Belge (terminal.sexy)
+Bespin (base16)
+Bitmute (terminal.sexy)
+Black Metal (Gorgoroth) (base16)
+Black Metal (Khold) (base16)
+Black Metal (Mayhem) (base16)
+Black Metal (Venom) (base16)
+Bleh-1 (terminal.sexy)
+BlueDolphin
+BlulocoDark
+Borland
+Brush Trees Dark (base16)
+Builtin Tango Dark
+C64
+C64 (Gogh)
+Catppuccin Frappe
+CGA
+Cloud (terminal.sexy)
+Color Star (terminal.sexy)
+Colorful Colors (terminal.sexy)
+CrayonPonyFish
+DanQing (base16)
+Dark Pastel
+Dark Pastel (Gogh)
+Dark Violet (base16)
+DarkPastel (Gogh)
+deep
+Derp (terminal.sexy)
+Desert (Gogh)
+Digerati (terminal.sexy)
+Dissonance (Gogh)
+Django
+DjangoRebornAgain
+Dotshare (terminal.sexy)
+Ef-Rosa
+Ef-Trio-Dark
+ENCOM
+Eva Dim (base16)
+Fahrenheit
+Fairy Floss (Gogh)
+Fairyfloss
+FarSide (terminal.sexy)
+Fishbone (terminal.sexy)
+FunForrest
+Gnometerm (terminal.sexy)
+gotham (Gogh)
+Gotham (terminal.sexy)
+Grandshell (terminal.sexy)
+Grass
+Grass (Gogh)
+Green Screen (base16)
+Greenscreen (dark) (terminal.sexy)
+Gruvbox Material (Gogh)
+Harper
+HaX0R_R3D
+Hemisu Dark (Gogh)
+HemisuDark (Gogh)
+Hipster Green
+Homebrew (Gogh)
+Hurtado
+Hybrid (terminal.sexy)
+Ibm 3270 (High Contrast) (Gogh)
+Ic Orange Ppl (Gogh)
+ICGreenPPL (Gogh)
+Iiamblack (terminal.sexy)
+Insignificato (terminal.sexy)
+IrBlack (Gogh)
+iTerm2 Dark Background
+Jackie Brown (Gogh)
+Jason Wryan (terminal.sexy)
+Jellybeans (Gogh)
+Jup (Gogh)
+JWR dark (terminal.sexy)
+Kokuban (Gogh)
+Laser
+LiquidCarbonTransparentInverse
+Low Contrast (terminal.sexy)
+Lunaria Dark (Gogh)
+LunariaEclipse (Gogh)
+Marrakesh (dark) (terminal.sexy)
+Mathias
+Mathias (Gogh)
+matrix
+Matrix (terminal.sexy)
+Modus-Vivendi-Tritanopia
+MonaLisa
+Mono Cyan (Gogh)
+Mono Yellow (Gogh)
+mono-amber
+mono-amber (Gogh)
+mono-cyan (Gogh)
+mono-red (Gogh)
+mono-yellow (Gogh)
+Muse (terminal.sexy)
+Neopolitan
+Nightlion V1 (Gogh)
+Nova (base16)
+One Half Black (Gogh)
+OneHalfBlack (Gogh)
+Parker Brothers (terminal.sexy)
+PaulMillr
+Pico (base16)
+Porple (base16)
+Qualia (base16)
+rebecca
+Red Alert
+Red Sands
+Red Sands (Gogh)
+RedAlert (Gogh)
+RedSands (Gogh)
+Ryuuko
+s3r0 modified (terminal.sexy)
+Sat (Gogh)
+Selenized Dark (Gogh)
+Sequoia Monochrome
+Shapeshifter (dark) (terminal.sexy)
+Simple Rainbow (terminal.sexy)
+SolarizedDarcula (Gogh)
+SolarizedDark (Gogh)
+SOS (terminal.sexy)
+Splurge (terminal.sexy)
+Swayr (terminal.sexy)
+Symfonic
+Synth Midnight Terminal Dark (base16)
+Tango (base16)
+Tangoesque (terminal.sexy)
+Tender (Gogh)
+Teva (terminal.sexy)
+theme2 (terminal.sexy)
+UltraDark
+Vaughn (Gogh)
+Vibrant Ink (Gogh)
+VisiBone (terminal.sexy)
+Warmneon
+WarmNeon
+Website (Gogh)
+Wez
+Windows 10 (base16)
+Windows NT (base16)
+Wombat
+Wryan
+Wzoreck (Gogh)
+Zenburn (Gogh)
+zenburned
