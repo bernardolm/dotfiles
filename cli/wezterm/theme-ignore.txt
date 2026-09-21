@@ -6,27 +6,33 @@
 Aco (Gogh)
 Apprentice (base16)
 astromouse (terminal.sexy)
+Ayu Dark (Gogh)
 Belge (terminal.sexy)
 Bespin (base16)
 Bitmute (terminal.sexy)
+Black Metal (Burzum) (base16)
 Black Metal (Gorgoroth) (base16)
 Black Metal (Khold) (base16)
 Black Metal (Mayhem) (base16)
+Black Metal (Nile) (base16)
 Black Metal (Venom) (base16)
 Bleh-1 (terminal.sexy)
 BlueDolphin
 BlulocoDark
 Borland
+Breeze
 Brush Trees Dark (base16)
 Builtin Tango Dark
 C64
 C64 (Gogh)
 Catppuccin Frappe
+Catppuccin Frappé (Gogh)
 CGA
 Cloud (terminal.sexy)
 Color Star (terminal.sexy)
 Colorful Colors (terminal.sexy)
 CrayonPonyFish
+cyberpunk
 DanQing (base16)
 Dark Pastel
 Dark Pastel (Gogh)
@@ -43,7 +49,9 @@ Dotshare (terminal.sexy)
 Ef-Rosa
 Ef-Trio-Dark
 ENCOM
+Erebus (terminal.sexy)
 Eva Dim (base16)
+EverforestDark (Gogh)
 Fahrenheit
 Fairy Floss (Gogh)
 Fairyfloss
@@ -59,20 +67,26 @@ Grass (Gogh)
 Green Screen (base16)
 Greenscreen (dark) (terminal.sexy)
 Gruvbox Material (Gogh)
+Hardcore (Gogh)
 Harper
+Harper (Gogh)
 HaX0R_R3D
 Hemisu Dark (Gogh)
 HemisuDark (Gogh)
 Hipster Green
+Homebrew
 Homebrew (Gogh)
+Homebrew Ocean (Gogh)
 Hurtado
 Hybrid (terminal.sexy)
 Ibm 3270 (High Contrast) (Gogh)
 Ic Orange Ppl (Gogh)
+IC_Orange_PPL
 ICGreenPPL (Gogh)
 Iiamblack (terminal.sexy)
 Insignificato (terminal.sexy)
 IrBlack (Gogh)
+Isotope (dark) (terminal.sexy)
 iTerm2 Dark Background
 Jackie Brown (Gogh)
 Jason Wryan (terminal.sexy)
@@ -90,9 +104,13 @@ Mathias
 Mathias (Gogh)
 matrix
 Matrix (terminal.sexy)
+Mocha (dark) (terminal.sexy)
+Modus-Vivendi
 Modus-Vivendi-Tritanopia
+Mona Lisa (Gogh)
 MonaLisa
 Mono Cyan (Gogh)
+Mono Red (Gogh)
 Mono Yellow (Gogh)
 mono-amber
 mono-amber (Gogh)
@@ -102,11 +120,20 @@ mono-yellow (Gogh)
 Muse (terminal.sexy)
 Neopolitan
 Nightlion V1 (Gogh)
+Nighty (Gogh)
+nordfox
 Nova (base16)
+Nudge (terminal.sexy)
+Obsidian (Gogh)
 One Half Black (Gogh)
 OneHalfBlack (Gogh)
+Orangish (terminal.sexy)
+Panels (terminal.sexy)
 Parker Brothers (terminal.sexy)
+Pastel White (terminal.sexy)
+Paul Millr (Gogh)
 PaulMillr
+Peppermint (Gogh)
 Pico (base16)
 Porple (base16)
 Qualia (base16)
@@ -116,13 +143,17 @@ Red Sands
 Red Sands (Gogh)
 RedAlert (Gogh)
 RedSands (Gogh)
+Retro
 Ryuuko
 s3r0 modified (terminal.sexy)
 Sat (Gogh)
 Selenized Dark (Gogh)
+seoulbones_dark
 Sequoia Monochrome
 Shapeshifter (dark) (terminal.sexy)
 Simple Rainbow (terminal.sexy)
+Snazzy (Gogh)
+Solarized Darcula
 SolarizedDarcula (Gogh)
 SolarizedDark (Gogh)
 SOS (terminal.sexy)
@@ -136,6 +167,7 @@ Tender (Gogh)
 Teva (terminal.sexy)
 theme2 (terminal.sexy)
 UltraDark
+UltraViolent
 Vaughn (Gogh)
 Vibrant Ink (Gogh)
 VisiBone (terminal.sexy)
@@ -143,10 +175,14 @@ Warmneon
 WarmNeon
 Website (Gogh)
 Wez
+wilmersdorf
 Windows 10 (base16)
+Windows High Contrast (base16)
 Windows NT (base16)
 Wombat
 Wryan
 Wzoreck (Gogh)
+XCode Dusk (base16)
 Zenburn (Gogh)
+zenburn (terminal.sexy)
 zenburned
