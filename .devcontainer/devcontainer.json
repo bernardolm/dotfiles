@@ -20,7 +20,7 @@
 		"ghcr.io/cirolosapio/devcontainers-features/alpine-user:0": {},
 		"ghcr.io/devcontainers-extra/features/fzf:1": {},
 		"ghcr.io/devcontainer-community/devcontainer-features/atuin.sh:1": {},
-		"ghcr.io/devcontainer-config/features/dot-config:4": {}
+		"ghcr.io/devcontainer-config/features/dot-config:5": {}
 	},
 	"customizations": {
 		"vscode": {
