@@ -8,12 +8,7 @@ return {
 	},
 	automatically_reload_config = false,
 	default_cwd = HomePath,
-	-- NOTE: do not pin default_domain to the 'unix' mux here. Panes spawned
-	-- under a long-lived wezterm-mux-server inherit that process's network
-	-- context; after a network/interface change the mux keeps the stale
-	-- context, which makes ssh fail with "No route to host" while nc and
-	-- /usr/bin/ssh still work. Running panes on the local domain keeps them
-	-- on the current network state.
+	default_domain = 'unix',
 	enable_scroll_bar = true,
 	experimental_pixel_positioning = false, -- NOTE: this config break everthing!
 	hide_tab_bar_if_only_one_tab = false,
@@ -24,6 +19,7 @@ return {
 	ssh_domains = wezterm.default_ssh_domains(),
 	tab_bar_at_bottom = false,
 	tab_max_width = 999,
+	unix_domains = { { name = 'unix' } },
 	unzoom_on_switch_pane = false,
 	use_fancy_tab_bar = true,
 	use_resize_increments = true,
