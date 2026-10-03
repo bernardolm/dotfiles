@@ -3,6 +3,7 @@
 3024 (base16)
 3024 (dark) (terminal.sexy)
 3024 Night
+3024Night (Gogh)
 Aco (Gogh)
 Apprentice (base16)
 astromouse (terminal.sexy)
@@ -12,6 +13,7 @@ Bespin (base16)
 Bitmute (terminal.sexy)
 Black Metal (Burzum) (base16)
 Black Metal (Gorgoroth) (base16)
+Black Metal (Immortal) (base16)
 Black Metal (Khold) (base16)
 Black Metal (Mayhem) (base16)
 Black Metal (Nile) (base16)
@@ -20,24 +22,31 @@ Bleh-1 (terminal.sexy)
 BlueDolphin
 BlulocoDark
 Borland
+Borland (Gogh)
 Breeze
+Brewer (base16)
 Brush Trees Dark (base16)
 Builtin Tango Dark
 C64
 C64 (Gogh)
+Canvased Pastel (terminal.sexy)
 Catppuccin Frappe
 Catppuccin Frappé (Gogh)
 CGA
 Cloud (terminal.sexy)
 Color Star (terminal.sexy)
 Colorful Colors (terminal.sexy)
+Count Von Count (terminal.sexy)
 CrayonPonyFish
+Cyberdyne
 cyberpunk
 DanQing (base16)
+Dark Ocean (terminal.sexy)
 Dark Pastel
 Dark Pastel (Gogh)
 Dark Violet (base16)
 DarkPastel (Gogh)
+Darkside
 deep
 Derp (terminal.sexy)
 Desert (Gogh)
@@ -46,18 +55,26 @@ Dissonance (Gogh)
 Django
 DjangoRebornAgain
 Dotshare (terminal.sexy)
+DWM rob (terminal.sexy)
+Earthsong (Gogh)
 Ef-Rosa
 Ef-Trio-Dark
+Embers (dark) (terminal.sexy)
 ENCOM
+Epiphany (terminal.sexy)
 Erebus (terminal.sexy)
+Espresso (base16)
+EspressoLibre (Gogh)
 Eva Dim (base16)
 EverforestDark (Gogh)
 Fahrenheit
 Fairy Floss (Gogh)
 Fairyfloss
 FarSide (terminal.sexy)
+Firefly Traditional
 Fishbone (terminal.sexy)
 FunForrest
+Geohot (Gogh)
 Gnometerm (terminal.sexy)
 gotham (Gogh)
 Gotham (terminal.sexy)
@@ -66,49 +83,72 @@ Grass
 Grass (Gogh)
 Green Screen (base16)
 Greenscreen (dark) (terminal.sexy)
+Gruber (base16)
 Gruvbox Material (Gogh)
 Hardcore (Gogh)
 Harper
 Harper (Gogh)
+HaX0R_GR33N
 HaX0R_R3D
 Hemisu Dark (Gogh)
 HemisuDark (Gogh)
 Hipster Green
+Hipster Green (Gogh)
 Homebrew
 Homebrew (Gogh)
 Homebrew Ocean (Gogh)
 Hurtado
 Hybrid (terminal.sexy)
 Ibm 3270 (High Contrast) (Gogh)
+IBM3270(HighContrast) (Gogh)
+Ic Green Ppl (Gogh)
 Ic Orange Ppl (Gogh)
 IC_Orange_PPL
 ICGreenPPL (Gogh)
+Icy Dark (base16)
 Iiamblack (terminal.sexy)
 Insignificato (terminal.sexy)
+IR Black (base16)
 IrBlack (Gogh)
 Isotope (dark) (terminal.sexy)
 iTerm2 Dark Background
+iTerm2 Default
+iTerm2 Tango Dark
+Ivory Dark (terminal.sexy)
 Jackie Brown (Gogh)
 Jason Wryan (terminal.sexy)
 Jellybeans (Gogh)
 Jup (Gogh)
 JWR dark (terminal.sexy)
+Kibble (Gogh)
+kokuban (Gogh)
 Kokuban (Gogh)
+Konsolas
+Lab Fox
 Laser
+Later This Evening
+LiquidCarbonTransparent
 LiquidCarbonTransparentInverse
 Low Contrast (terminal.sexy)
 Lunaria Dark (Gogh)
+LunariaDark (Gogh)
 LunariaEclipse (Gogh)
+Marrakesh (base16)
 Marrakesh (dark) (terminal.sexy)
 Mathias
 Mathias (Gogh)
 matrix
 Matrix (terminal.sexy)
+Medallion
+Misterioso (Gogh)
+Mocha (base16)
 Mocha (dark) (terminal.sexy)
 Modus-Vivendi
 Modus-Vivendi-Tritanopia
 Mona Lisa (Gogh)
 MonaLisa
+Mono (terminal.sexy)
+Mono Amber (Gogh)
 Mono Cyan (Gogh)
 Mono Red (Gogh)
 Mono Yellow (Gogh)
@@ -136,6 +176,7 @@ PaulMillr
 Peppermint (Gogh)
 Pico (base16)
 Porple (base16)
+Purple Rain
 Qualia (base16)
 rebecca
 Red Alert
@@ -150,26 +191,35 @@ Sat (Gogh)
 Selenized Dark (Gogh)
 seoulbones_dark
 Sequoia Monochrome
+Seti (Gogh)
+Sex Colors (terminal.sexy)
 Shapeshifter (dark) (terminal.sexy)
 Simple Rainbow (terminal.sexy)
+SleepyHollow
 Snazzy (Gogh)
 Solarized Darcula
 SolarizedDarcula (Gogh)
 SolarizedDark (Gogh)
 SOS (terminal.sexy)
+Spiderman
 Splurge (terminal.sexy)
+summer-pop (Gogh)
 Swayr (terminal.sexy)
 Symfonic
 Synth Midnight Terminal Dark (base16)
 Tango (base16)
+Tango (terminal.sexy)
 Tangoesque (terminal.sexy)
 Tender (Gogh)
 Teva (terminal.sexy)
 theme2 (terminal.sexy)
+tokyonight_storm
+Treehouse
 UltraDark
 UltraViolent
 Vaughn (Gogh)
 Vibrant Ink (Gogh)
+VisiBlue (terminal.sexy)
 VisiBone (terminal.sexy)
 Warmneon
 WarmNeon
@@ -177,11 +227,13 @@ Website (Gogh)
 Wez
 wilmersdorf
 Windows 10 (base16)
+Windows 95 (base16)
 Windows High Contrast (base16)
 Windows NT (base16)
 Wombat
 Wryan
 Wzoreck (Gogh)
+X::Erosion (terminal.sexy)
 XCode Dusk (base16)
 Zenburn (Gogh)
 zenburn (terminal.sexy)
