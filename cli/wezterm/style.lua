@@ -19,7 +19,8 @@ local font = wezterm.font_with_fallback({
 	-- "NovaMono",
 	-- "RecMonoCasual Nerd Font",
 	-- "VictorMono NF",
-	{ family = "Victor Mono", weight = "DemiBold" },
+	{ family = "Agave Nerd Font Propo" },
+	{ family = "Victor Mono",          weight = "DemiBold" },
 	'Monaco',
 })
 
