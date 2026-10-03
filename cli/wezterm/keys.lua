@@ -4,8 +4,6 @@ local wezterm = require 'wezterm'
 local projects = require 'projects'
 local random_theme = require 'theme'
 
--- print('loading keys')
-
 return {
 	leader = {
 		key = 'a',

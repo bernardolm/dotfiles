@@ -5,7 +5,6 @@ if not wezterm.target_triple:find("darwin") then return {} end
 print('loading darwin')
 
 return {
-	-- default_prog = { '/usr/bin/env', '/bin/zsh', '--login' },
 	macos_window_background_blur = 10,
 	native_macos_fullscreen_mode = true,
 	set_environment_variables = {
