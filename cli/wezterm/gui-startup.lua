@@ -63,9 +63,10 @@ local function startup_tab_options(entry, cmd)
 		opts.domain = { DomainName = ssh_domain_name(target) }
 		return opts, ssh_domain_name(target)
 	end
-	-- Must match behavior.lua's default_domain, or this spawns on a
-	-- different domain than the window wezterm-gui auto-attaches to.
-	opts.domain = { DomainName = 'unix' }
+	-- Spawn on the default (local) domain. We intentionally no longer pin
+	-- this to the 'unix' mux domain (see behavior.lua): the long-lived
+	-- mux-server froze the network context and broke ssh after network
+	-- changes. Omitting opts.domain uses the window's current domain.
 	opts.args = { "/bin/zsh", "-lc", entry }
 	return opts, nil
 end
