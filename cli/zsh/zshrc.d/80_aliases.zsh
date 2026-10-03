@@ -23,6 +23,11 @@ alias ports='sudo lsof -i -P -n | grep LISTEN'
 alias s='screen'
 alias sl='screen -list'
 alias sr='screen -r'
+# Use the system OpenSSH, not Homebrew's. Panes run under a long-lived
+# wezterm-mux-server that can freeze its network context; Homebrew's ssh then
+# fails with "No route to host" after a network change, while /usr/bin/ssh is
+# unaffected. Keeps the mux (and its session persistence) intact.
+alias ssh='/usr/bin/ssh'
 alias tfa='reset ; terraform apply'
 alias tff='reset ; terraform fmt'
 alias tfp='reset ; terraform plan'
