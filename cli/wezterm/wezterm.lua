@@ -17,7 +17,7 @@ require "window-config-reloaded"
 require "theme"
 require "format-tab-title"
 -- require "update-left-status"
-require "update-right-status"
+-- require "update-right-status"
 -- require "status-bar"
 
 local config = wezterm.config_builder()
