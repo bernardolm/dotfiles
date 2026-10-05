@@ -1,7 +1,10 @@
 alias ack='ag && ag || ack'
+alias atuin='~/Library/CloudStorage/GoogleDrive-bernardo.lou@gmail.com/Meu\ Drive/dropbox/personal/atuin.py'
 alias brew-upgrade='brew update --quiet && brew upgrade --quiet --greedy'
 alias dc='docker ps -a --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'
 alias di='docker images -a'
+alias drm='docker rm -f $(docker ps -a -q)'
+alias drmi='docker rmi -f $(docker images -q)'
 alias frm='/bin/rm -rf'
 alias gb='git branch'
 alias gbd='git branch -D'
@@ -23,14 +26,8 @@ alias ports='sudo lsof -i -P -n | grep LISTEN'
 alias s='screen'
 alias sl='screen -list'
 alias sr='screen -r'
-# Use the system OpenSSH, not Homebrew's. Panes run under a long-lived
-# wezterm-mux-server that can freeze its network context; Homebrew's ssh then
-# fails with "No route to host" after a network change, while /usr/bin/ssh is
-# unaffected. Keeps the mux (and its session persistence) intact.
 alias ssh='/usr/bin/ssh'
 alias tfa='reset ; terraform apply'
 alias tff='reset ; terraform fmt'
 alias tfp='reset ; terraform plan'
 alias tfv='reset ; terraform validate'
-alias drm='docker rm -f $(docker ps -a -q)'
-alias drmi='docker rmi -f $(docker images -q)'
