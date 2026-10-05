@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-DOCKER_CLI_HINTS=false docker run --rm -v "$(pwd):/apps" -w /apps python:3-alpine sh -c "pip --quiet --disable-pip-version-check install --root-user-action=ignore yapf && yapf --style=pyproject.toml --quiet --recursive ."
+# DOCKER_CLI_HINTS=false docker run --rm -v "$(pwd):/apps" -w /apps python:3-alpine sh -c "pip --quiet --disable-pip-version-check install --root-user-action=ignore yapf && yapf --style=pyproject.toml --quiet --recursive ."
