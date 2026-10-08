@@ -22,6 +22,6 @@ return {
 	unix_domains = { { name = 'unix' } },
 	unzoom_on_switch_pane = false,
 	use_fancy_tab_bar = true,
-	use_resize_increments = true,
+	use_resize_increments = false, -- NOTE: true snaps the window to the cell grid, so it never fills the screen
 	window_close_confirmation = 'NeverPrompt',
 }
