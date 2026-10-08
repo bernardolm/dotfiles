@@ -13,7 +13,7 @@ local merge = require "merge"
 local style = require "style"
 local wezterm = require "wezterm"
 
-require "gui-attached"
+require "window-config-reloaded"
 require "theme"
 require "format-tab-title"
 -- require "update-left-status"
