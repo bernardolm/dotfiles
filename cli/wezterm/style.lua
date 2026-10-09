@@ -3,10 +3,10 @@ local wezterm = require 'wezterm'
 print('loading style')
 
 local font = wezterm.font_with_fallback({
-	{ family = "Victor Mono",            weight = "DemiBold" },
-	{ family = "Agave",                  weight = "Regular" },
-	{ family = "Symbols Nerd Font Mono", weight = "Regular" }, -- nerd font glyphs
+	{ family = "Victor Mono", weight = "Bold" },
+	{ family = "Agave",       weight = "Regular" },
 	'Monaco',
+	{ family = "Symbols Nerd Font Mono", weight = "Regular" }, -- nerd font glyphs
 })
 
 return {
