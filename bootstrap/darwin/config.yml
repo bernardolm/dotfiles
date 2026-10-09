@@ -7,12 +7,9 @@ terminal: wezterm
 aliases:
   # ls: ls_2_exa'
   # lsa: ls -lah'
-  # maestral: docker exec -it maestral maestral'
   ack: ag && ag || ack
   c: code .
   cat: bat
-  cloud-sql-proxy: $HOME/Applications/cloud-sql-proxy --config-file=$HOME/sync/shared/gcp-cloud-proxy-sql.toml
-  cw: $HOME/dotfiles/cli/vscode/scripts/workspace.sh
   dclsa: docker container ls -a --format "table {{.Names}}\t{{.State}}\t{{.RunningFor}}\t{{.Ports}}" | tail -n+2 | sort
   dcr: docker stop $(basename $(pwd)) || true ; docker rm $(basename $(pwd)) ; docker compose up --remove-orphans
   dcra: docker ps -aq | xargs docker rm
@@ -24,16 +21,13 @@ aliases:
   dira: docker images | grep none | col 3 | xargs docker rmi -f
   docker-ls-quiet: docker ps -a | sed -r 's/.*([0-9]]{1,3}\.[0-9]]{1,3}\.[0-9]]{1,3}\.[0-9]]{1,3}).*/\n\t\t\1/g' | sed -r "s/^([0-9a-z]{12})/\n\1/g"
   drm: docker_container_remove
-  errors: journalctl -b -p err | less
   frm: /bin/rm -rf
   gc: git commit --verbose -S
   gd: git diff --indent-heuristic --minimal --numstat
-  gdu: gdu /mnt/root -L -i /mnt/c -C --si -t 15 -a
   gfp: git fetch --all --prune
   ggsync: gfp ; git stash ; ggpull ; ggpush ; git stash pop
   go-fix: goimports -w ./.. ; go mod tidy
   go-test: go-fix ; go clean -testcache ; go test ./...
-  gotop: gotop-cjbassi
   gsl: git stash list
   gst: git status --branch --show-stash --untracked-files=all --ignore-submodules=untracked --column=always --renames --find-renames=70%
   gt: go test ./...
@@ -48,18 +42,11 @@ aliases:
   python: python3
   reload: exec ${SHELL} -l
   s: screen
-  saa: sudo apt-get autoremove --purge --yes
-  sai: sudo apt-get install
-  sau: sudo apt-get update
-  sauu: sau ; sudo apt-get upgrade --no-install-recommends --yes ; saa
   sl: screen -list
   sr: screen -r
   td: todo_zsh
   tda: td add
   tdls: td top
-  ubuntu-version: lsb_release -a
-  update-pip: /usr/bin/python3 -m pip install -U pip --upgrade --user
-  upgrade: sudo apt update --fix-missing --yes ; sudo apt upgrade --yes --no-install-recommends --no-install-suggests ; sudo apt autoremove --purge --yes
   watch-docker-all: watch -d -c -n 1 -x docker ps --all --format "table {{.Names}}\t{{.Ports}}\t{{.Image}}\t{{.Status}}"
 
 envs:
@@ -90,7 +77,7 @@ envs:
     LANGUAGE: en_US.UTF-8
     LC_ALL: en_US.UTF-8
     LC_CTYPE: en_US.UTF-8
-    LDFLAGS: -I /opt/homebrew/opt/openssl@3.6/include -L /opt/homebrew/opt/openssl@3.6/lib
+    LDFLAGS: -I /opt/homebrew/opt/openssl@3/include -L /opt/homebrew/opt/openssl@3/lib
     LESS: -erX
     MICRO_TRUECOLOR: 1
     MY_PLACE: home
@@ -100,23 +87,20 @@ envs:
     SHELL_DEBUG: 0
     SHELL_PROFILE: 0
     SHELL_TRACE: 0
-    SPACESHIP_EXEC_TIME_SHOW: false
     SSH_AUTH_SOCK: $HOME/Library/Group\ Containers/2BUA8C4S2C.com.1password/t/agent.sock
     TERM: xterm-256color
     VISUAL: nano
   1:
-    GOPATH: $HOME/gopath
+    GOPATH: $HOME/go
     HISTSIZE: $SAVEHIST
     NANORC_FILE: $HOME/.nanorc
-    POWERLINE_ROOT: $HOME/.local/lib/python3.11/site-packages/powerline
-    PYENV_ROOT: $HOME/.pyenv
     STARSHIP_CACHE: $HOME/.cache/starship
     TMP_USER: $HOME/sync/tmp/$HOSTNAME
     VSCODE_CLI_DATA_DIR: $HOME/.vscode-server/cli
     ZDOTDIR: $HOME/dotfiles/cli/zsh/zdotdir
   2:
     ELAPSED_TIME_ROOT: $TMP_USER/elapsed_time/$SESSION_ID
-    STARSHIP_CONFIG: $HOME/dotfiles/cli/starship/theme/catppuccin.toml
+    STARSHIP_CONFIG: $HOME/dotfiles/cli/starship/theme/starship.toml
 
 # packages field below - how to use
 #   exemple:
@@ -128,253 +112,376 @@ envs:
 #       manager: curl|brew|pip|apt|winget|go|npm|git|brew-cask (default in top field 'package-manager').
 #       url: used when installation needs a custom URL location.
 #       version: used when needs diferent version from latest.
-
 packages:
-  - 1password-cli
+  # brew formulae (default manager)
+  - graykode/tap/abtop
+  - asheshgoplani/tap/agent-deck
   - aha
-  - android-platform-tools
-  - ansi2txt
-  - aom
+  - aider
+  - andyrewlee/amux/amux
+  - gabe565/tap/ansi2txt
+  - microsoft/apm/apm
   - atuin
-  - autoconf
+  - bandwhich
   - bat
-  - batcat
-  - brotli
+  - valkyrie00/bbrew/bbrew
+  - blink
   - btop
-  - ca-certificates
-  - cairo
-  - cat
-  - certifi
+  - cloudflare/cloudflare/cf-terraforming
+  - jacobbednarz/tap/cf-vault
   - chroma
-  - codex:
-    optional: true
-  - code-cli
-  - colorized-logs
+  - claude-cmd
+  - cloudflared
   - coreutils
-  - cron
-  - crontab
+  - ctop
   - curl
-  - dav1d
-  - dbeaver
-  - delta
-  - docker
-  - docker-buildx
-  - docker-ce
-  - docker-clean
-  - docker-compose
-  - docker-compose-langserver
-  - docker-desktop
-  - docker-ls
-  - dockerfile-language-server
-  - dockerfmt
-  - dockerize
-  - dropbox
+  - dive
+  - moncho/dry/dry
   - duf
   - expect
   - eza
   - fastfetch
-  - fontconfig
+  - ffmpeg
   - fortune
-  - freetype
-  - fribidi
+  - fx
   - fzf
   - gemini-cli
-  - gcalcli
-  - gcloud
-  - gd
-  - gdk-pixbuf
-  - gettext
   - gh
-  - giflib
   - git
   - git-delta
   - git-filter-repo
-  - glib
-  - gmp
+  - glow
   - go
-  - graphite2
+  - tako8ki/tap/gobang
   - graphviz
-  - gts
-  - harfbuzz
-  - highway
+  - helix
+  - herdr
+  - hf
   - htop
-  - icu4c@78
-  - imath
-  - jasper
-  - jpeg-turbo
-  - jpeg-xl
-  - krb5
-  - libavif
-  - libdeflate
-  - libgit2
-  - libiconv
-  - libidn2
-  - libnghttp2
-  - libnghttp3
-  - libngtcp2
-  - libpng
+  - modem-dev/tap/hunk
+  - inframap
+  - iproute2mac
+  - jid
+  - jq
+  - lazydocker
+  - lazygit
+  - lazysql
+  - adembc/tap/lazyssh
   - libpq
-  - librsvg
-  - libssh2
-  - libtiff
-  - libtool
-  - libunistring
-  - libuv
-  - libvmaf
-  - libx11
-  - libxau
-  - libxcb
-  - libxdmcp
-  - libxext
-  - libxrender
-  - little-cms2
-  - llvm
-  - lpeg
-  - luajit
+  - llmfit
   - luarocks
-  - luv
-  - lz4
-  - lzo
-  - m4
-  - mackup
   - make
+  - mas
   - micro
   - mole
-  - mpdecimal
+  - mongosh
+  - mysql-client
   - nano
+  - navi
   - ncdu
-  - ncurses
-  - neovim
-  - netpbm
-  - oniguruma
-  - openexr
-  - openjph
-  - openssl@3
-  - pango
-  - pcre
-  - pcre2
-  - pixman
-  - pkgconf
-  - postgrest
-  - procs
-  - pydantic
-  - pyenv
-  - python-is-python3
+  - node@22
+  - ollama
+  - openvpn
+  - pgxnclient
+  - postgresql@17
+  - posting
+  - pv
+  - python-gdbm@3.14
   - python-setuptools
+  - python-tk@3.14
   - python@3.13
   - python@3.14
-  - python3
-  - python3-setuptools
-  - python3-venv
-  - readline
-  - rtmpdump
+  - rainfrog
+  - redis
+  - omlahore/tap/removemacai
+  - rsync
   - rust
-  - rustc
-  - screen
-  - spotify
-  - sqlite
-  - ssh
-  - ssh-audit
-  - ssh-keys
+  - sampler
+  - asmvik/formulae/skhd
+  - socat
+  - spotify_player
   - starship
-  - sublime
-  - sublime-text
-  - tabby
-  - task
-  - taskwarrior
-  - taskwarrior-tui
-  - tcl-tk@8
-  - terraform
+  - stylua
+  - tabiew
+  - tailspin
+  - telnet
+  - hashicorp/tap/terraform
+  - tf-summarize
   - the_silver_searcher
-  - tldr
   - tlrc
   - tmux
+  - toktop
   - tree
-  - tree-sitter@0.25
+  - trippy
   - tuios
-  - unibilium
-  - uniclip
+  - quackduck/tap/uniclip
   - upx
-  - utf8proc
-  - webp
+  - uv
+  - watch
   - wget
-  - xorgproto
-  - xz
-  - yyjson
-  - z3
-  - iproute2mac
-  - stylua
+  - wtfutil
+  - yazi
+  - yq
+  - zellij
   - zimfw
   - zsh
-  - zstd
-  - docker-ce:
+  # brew casks
+  - 1password-cli:
+    manager: brew-cask
+  - android-platform-tools:
+    manager: brew-cask
+  - balenaetcher:
+    manager: brew-cask
+  - claude-code:
+    manager: brew-cask
+  - cmux:
+    manager: brew-cask
+  - codex:
+    manager: brew-cask
+  - dbeaver-community:
+    manager: brew-cask
+  - dockdoor:
     manager: brew-cask
   - docker-desktop:
     manager: brew-cask
-  - gcloud-cli:
-    manager: brew-cask
-  - multitouch:
-    manager: brew-cask
-  - rectangle:
-    manager: brew-cask
-  - superkey:
-    manager: brew-cask
-  - visual-studio-code:
+    optional: true # app may already exist outside brew
+  - font-agave:
     manager: brew-cask
   - font-powerline-symbols:
     manager: brew-cask
+  - font-symbols-only-nerd-font:
+    manager: brew-cask
+  - font-victor-mono:
+    manager: brew-cask
+  - font-victor-mono-nerd-font:
+    manager: brew-cask
+  - gcloud-cli:
+    manager: brew-cask
+  - ghostty:
+    manager: brew-cask
+  - hammerspoon:
+    manager: brew-cask
+  - iterm2:
+    manager: brew-cask
+  - kitty:
+    manager: brew-cask
+  - krita:
+    manager: brew-cask
+  - mqttx:
+    manager: brew-cask
+  - openvpn-connect:
+    manager: brew-cask
+  - rectangle:
+    manager: brew-cask
+  - redis-insight:
+    manager: brew-cask
+  - spotify:
+    manager: brew-cask
+  - stats:
+    manager: brew-cask
+  - sublime-text:
+    manager: brew-cask
+  - tabularis:
+    manager: brew-cask
+  - visual-studio-code:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - vlc:
+    manager: brew-cask
+  - wezterm:
+    manager: brew-cask
+  - yaw:
+    manager: brew-cask
+  # apps currently installed outside brew
+  - 1password:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - beekeeper-studio:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - chatbox:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - chatgpt:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - claude:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - cloudflare-warp:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - datagrip:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - dbschema:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - deepseek-harness:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - firefox:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - github:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - google-chrome:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - google-drive:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - jan:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - libreoffice:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - linear:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - logi-options+:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - notion:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - obsidian:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - opencode-desktop:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - perplexity:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - pgadmin4:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - postico:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - siyuan:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - tableplus:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - tablepro:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - ua-connect:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  - zed:
+    manager: brew-cask
+    optional: true # app may already exist outside brew
+  # mac app store (requires App Store sign-in)
+  - 682658836: # GarageBand
+    manager: mas
     optional: true
+  - 1455214828: # MQTT Explorer
+    manager: mas
+    optional: true
+  - 6469021132: # PDFgear
+    manager: mas
+    optional: true
+  - 1369524274: # QR Capture
+    manager: mas
+    optional: true
+  - 6742413894: # Studio
+    manager: mas
+    optional: true
+  - 310633997: # WhatsApp
+    manager: mas
+    optional: true
+  # npm global
+  - '@continuedev/cli':
+    manager: npm
+  - '@github/copilot':
+    manager: npm
+  - '@juliusbrussee/caveman-code':
+    manager: npm
+  - '@openai/codex':
+    manager: npm
+  - '@qwen-code/qwen-code':
+    manager: npm
+  - '@terraform-visual/cli':
+    manager: npm
+  - 'better-sqlite3':
+    manager: npm
+  - 'cline':
+    manager: npm
+  - 'oh-my-codex':
+    manager: npm
+  - 'openclaw':
+    manager: npm
+  - 'opencode-ai':
+    manager: npm
+  # cargo
+  - adguardian:
+    command: cargo install --locked adguardian
+  - basalt:
+    command: cargo install --locked basalt
   - nanorc:
     manager: git
     url: git@github.com:scopatz/nanorc.git
     dest: $HOME/.nano
-  - 1password-cli:
-    manager: brew-cask
-  - alacritty:
-    manager: brew-cask
-  - android-platform-tools:
-    manager: brew-cask
-  - docker-desktop:
-    manager: brew-cask
-  - dropbox:
-    manager: brew-cask
-  - gcloud-cli:
-    manager: brew-cask
-  - krita:
-    manager: brew-cask
-  - sublime-text:
-    manager: brew-cask
-  - tabby:
-    manager: brew-cask
-  - wezterm:
-    manager: brew-cask
-  - go-packages:
-    manager: go-list
-    file: cli/go/packages.txt
-  - python-requirements:
-    manager: pip-requirements
-    file: cli/python/requirements.txt
+
+go-packages: # go install <module>@latest
+  - github.com/air-verse/air
+  - github.com/cweill/gotests/gotests
+  - github.com/fdaines/spm-go
+  - github.com/fe3dback/go-arch-lint
+  - github.com/go-delve/delve/cmd/dlv
+  - github.com/golangci/golangci-lint/v2/cmd/golangci-lint
+  - github.com/haya14busa/goplay/cmd/goplay
+  - github.com/hloiseau/mcp-gopls/v2/cmd/mcp-gopls
+  - github.com/inja-online/golang-mcp/cmd/mcp-go
+  - github.com/jackc/tern/v2
+  - github.com/josharian/impl
+  - github.com/maxbrunsfeld/counterfeiter/v6
+  - github.com/mrjoshuak/godoc-mcp
+  - github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen
+  - github.com/sqlc-dev/sqlc/cmd/sqlc
+  - goa.design/model/cmd/mdl
+  - goa.design/model/cmd/stz
+  - golang.org/x/tools/cmd/goimports
+  - golang.org/x/tools/gopls
+  - golang.org/x/vuln/cmd/govulncheck
+  - mvdan.cc/sh/v3/cmd/gosh
+  - mvdan.cc/sh/v3/cmd/shfmt
+
+python-packages: # pip install (libraries)
+  - colorama
+  - python-dotenv
+
+uv-tools: # uv tool install (python CLIs, isolated envs)
+  - gcalcli
+  - isort
+  - mlx-lm
+  - ruff
+  - sqlit-tui
+  - unimport
+  - vmlx
 
 path:
   - /Applications/Visual Studio Code.app/Contents/Resources/app/bin
-  - /home/linuxbrew/.linuxbrew/bin
   - /Library/Frameworks/Python.framework/Versions/Current/bin
   - /opt/homebrew/bin
   - /opt/homebrew/opt/curl/bin
   - /opt/homebrew/opt/libpq/bin
-  - /opt/homebrew/opt/openssl@3.6/bin
+  - /opt/homebrew/opt/openssl@3/bin
 
 symbolic_links:
-  # $HOME/.config/maestral/maestral.ini: $HOME/sync/linux/home/.config/maestral/maestral.ini
   # $HOME/.config/rclone/rclone.conf: $HOME/sync/linux/home/.config/rclone/rclone.conf
   # $HOME/.wget-hsts: $HOME/sync/linux/home/.wget-hsts
   # $HOME/.zsh_history: $HOME/sync/linux/home/.zsh_history
-  $HOME/.fonts: $HOME/sync/shared/home/.fonts
   $HOME/.gitconfig: $HOME/sync/$PLATFORM/home/.gitconfig
   $HOME/.nanorc: $HOME/dotfiles/cli/nano/.nanorc
   $HOME/.ssh/authorized_keys: $HOME/sync/shared/home/.ssh/authorized_keys
   $HOME/.ssh/config: $HOME/sync/shared/home/.ssh/config
   $HOME/.wakatime.cfg: $HOME/sync/$PLATFORM/home/.wakatime.cfg
-  $HOME/Library/CloudStorage/Dropbox: $HOME/sync
-  $HOME/sync: $HOME/Dropbox
-  $HOME/workspaces/bernardolm/dotfiles: $HOME/dotfiles
+  $HOME/sync: $HOME/Library/CloudStorage/GoogleDrive-bernardo.lou@gmail.com/Meu Drive/dropbox # current storage provider; everything else points at $HOME/sync
+  $HOME/dotfiles: $HOME/workspaces/bernardolm/dotfiles

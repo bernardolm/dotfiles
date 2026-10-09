@@ -37,9 +37,37 @@ packages:
     optional: true
   - starship:
     command: command -v starship >/dev/null 2>&1 || curl -fsSL https://starship.rs/install.sh | sh -s -- -y
-  - go-packages:
-    manager: go-list
-    file: cli/go/packages.txt
-  - python-requirements:
-    manager: pip-requirements
-    file: cli/python/requirements.txt
+
+go-packages: # go install <module>@latest
+  - github.com/air-verse/air
+  - github.com/alecthomas/chroma/v2
+  - github.com/cweill/gotests/gotests
+  - github.com/dineshba/tf-summarize
+  - github.com/fdaines/spm-go
+  - github.com/fe3dback/go-arch-lint
+  - github.com/go-delve/delve/cmd/dlv
+  - github.com/golangci/golangci-lint/v2/cmd/golangci-lint
+  - github.com/haya14busa/goplay/cmd/goplay
+  - github.com/hloiseau/mcp-gopls/v2/cmd/mcp-gopls
+  - github.com/inja-online/golang-mcp/cmd/mcp-go
+  - github.com/jackc/tern/v2
+  - github.com/josharian/impl
+  - github.com/maxbrunsfeld/counterfeiter/v6
+  - github.com/mrjoshuak/godoc-mcp
+  - github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen
+  - github.com/sqlc-dev/sqlc/cmd/sqlc
+  - goa.design/model/cmd/mdl
+  - goa.design/model/cmd/stz
+  - golang.org/x/tools/cmd/goimports
+  - golang.org/x/tools/gopls
+  - golang.org/x/vuln/cmd/govulncheck
+  - mvdan.cc/sh/v3/cmd/gosh
+  - mvdan.cc/sh/v3/cmd/shfmt
+
+python-packages: # pip install
+  - colorama
+  - gcalcli
+  - isort
+  - python-dotenv
+  - ruff
+  - unimport
