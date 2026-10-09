@@ -198,6 +198,7 @@ wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_wid
 		title = title:sub(1, title_width)
 	end
 	return {
+		{ Attribute = { Intensity = "Bold" } },
 		{ Text = " " .. title .. " " },
 	}
 end)
