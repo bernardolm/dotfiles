@@ -18,6 +18,10 @@ def load_config(path: Path) -> dict[str, Any]:
 		return _parse_simple_yaml(content)
 
 
+_LIST_SECTIONS = {"packages", "go-packages", "python-packages", "uv-tools"}
+_MAP_SECTIONS = {"envs", "aliases", "path", "symbolic_links"}
+
+
 def _parse_simple_yaml(content: str) -> dict[str, Any]:
 	data: dict[str, Any] = {}
 	current_section = ""
@@ -34,8 +38,8 @@ def _parse_simple_yaml(content: str) -> dict[str, Any]:
 			current_pkg = None
 			if stripped.endswith(":"):
 				key = stripped[:-1].strip()
-				if key in {"envs", "packages", "aliases", "path", "symbolic_links"}:
-					data[key] = {} if key in {"envs", "aliases", "path", "symbolic_links"} else []
+				if key in _LIST_SECTIONS | _MAP_SECTIONS:
+					data[key] = {} if key in _MAP_SECTIONS else []
 					current_section = key
 				else:
 					data[key] = ""
@@ -47,21 +51,21 @@ def _parse_simple_yaml(content: str) -> dict[str, Any]:
 				current_section = ""
 			continue
 
-		if current_section in {"envs", "aliases", "path", "symbolic_links"}:
+		if current_section in _MAP_SECTIONS:
 			if ":" in stripped:
 				key, value = stripped.split(":", 1)
 				data.setdefault(current_section, {})[key.strip()] = value.strip()
 			continue
 
-		if current_section == "packages":
+		if current_section in _LIST_SECTIONS:
 			if stripped.startswith("-"):
 				item = stripped[1:].strip()
 				if item.endswith(":"):
 					name = item[:-1].strip()
 					current_pkg = {"name": name}
-					data.setdefault("packages", []).append(current_pkg)
+					data.setdefault(current_section, []).append(current_pkg)
 				else:
-					data.setdefault("packages", []).append(item)
+					data.setdefault(current_section, []).append(item)
 					current_pkg = None
 			else:
 				if current_pkg is not None and ":" in stripped:

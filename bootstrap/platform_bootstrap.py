@@ -6,17 +6,24 @@ from pathlib import Path
 import shlex
 import shutil
 import sys
+import sysconfig
 from typing import Any
 
 ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
-from bin.common import dotfiles_dry_run, is_falsey, is_truthy
+from cli.bin.common import dotfiles_dry_run, is_falsey, is_truthy
 
 from bootstrap.load_config import load_config
-from bootstrap.repo_root import repo_root
 from bootstrap.run import run
+
+# top-level config sections listing packages for a single manager: section -> (manager, executable)
+_MANAGER_SECTIONS = {
+	"go-packages": ("go", "go"),
+	"python-packages": ("pip", sys.executable),
+	"uv-tools": ("uv", "uv"),
+}
 
 _PACKAGE_OPTION_KEYS = {
 	"name",
@@ -31,7 +38,6 @@ _PACKAGE_OPTION_KEYS = {
 	"exclude_profiles",
 	"platforms",
 	"exclude_platforms",
-	"file",
 	"optional",
 	"classic",
 }
@@ -63,16 +69,28 @@ def platform_bootstrap(
 		print("invalid 'packages' section: expected list")
 		return 1
 
+	sections: list[tuple[list[Any], str]] = [(packages, default_manager)]
+	for section, (manager, executable) in _MANAGER_SECTIONS.items():
+		items = config.get(section) or []
+		if not isinstance(items, list):
+			print(f"invalid '{section}' section: expected list")
+			return 1
+		if items and shutil.which(executable) is None:
+			print(f"warning: {executable} executable not found; skipping '{section}'.")
+			continue
+		sections.append((items, manager))
+
 	failures = 0
-	for item in packages:
-		pkg = _normalize_package(item)
-		if not pkg:
-			continue
-		if not _is_package_enabled(pkg, profile=resolved_profile, platform_name=resolved_platform):
-			continue
-		ok = _apply_package(pkg, default_manager, dry_run=dry_run)
-		if not ok:
-			failures += 1
+	for items, manager in sections:
+		for item in items:
+			pkg = _normalize_package(item)
+			if not pkg:
+				continue
+			if not _is_package_enabled(pkg, profile=resolved_profile, platform_name=resolved_platform):
+				continue
+			ok = _apply_package(pkg, manager, dry_run=dry_run)
+			if not ok:
+				failures += 1
 
 	if failures:
 		print(f"platform bootstrap finished with {failures} failure(s).")
@@ -198,14 +216,6 @@ def _apply_package(pkg: dict[str, Any], default_manager: str, dry_run: bool = Fa
 		ok = _run_shell_command(f"curl -fsSL {shlex.quote(url)} | sh", dry_run=dry_run)
 		return _finalize_result(ok, label=name, optional=optional)
 
-	if manager in {"go-list", "go-packages"}:
-		ok = _apply_go_packages_file(pkg, dry_run=dry_run)
-		return _finalize_result(ok, label=name, optional=optional)
-
-	if manager in {"pip-requirements", "python-requirements"}:
-		ok = _apply_pip_requirements_file(pkg, dry_run=dry_run)
-		return _finalize_result(ok, label=name, optional=optional)
-
 	if manager == "git":
 		ok = _apply_git_package(name, pkg, action=action, dry_run=dry_run)
 		return _finalize_result(ok, label=name, optional=optional)
@@ -243,58 +253,6 @@ def _run_shell_command(command: str, dry_run: bool = False) -> bool:
 	except Exception as exc:
 		print(f"error: shell command failed: {exc}")
 		return False
-
-
-def _apply_go_packages_file(pkg: dict[str, Any], dry_run: bool = False) -> bool:
-	file_value = str(pkg.get("file", "cli/go/packages.txt")).strip()
-	file_path = _resolve_package_file(file_value)
-	if not file_path.exists():
-		print(f"warning: go package file not found: {file_path}")
-		return False
-
-	if shutil.which("go") is None:
-		print("warning: go executable not found; cannot install go package list.")
-		return False
-
-	for module in _read_package_list(file_path):
-		try:
-			run(["go", "install", module], check=True, dry_run=dry_run)
-		except Exception as exc:
-			print(f"error: go install failed for '{module}': {exc}")
-			return False
-	return True
-
-
-def _apply_pip_requirements_file(pkg: dict[str, Any], dry_run: bool = False) -> bool:
-	file_value = str(pkg.get("file", "cli/python/requirements.txt")).strip()
-	file_path = _resolve_package_file(file_value)
-	if not file_path.exists():
-		print(f"warning: python requirements file not found: {file_path}")
-		return False
-
-	try:
-		run([sys.executable, "-m", "pip", "install", "-r", str(file_path)], check=True, dry_run=dry_run)
-		return True
-	except Exception as exc:
-		print(f"error: pip requirements install failed for '{file_path}': {exc}")
-		return False
-
-
-def _resolve_package_file(value: str) -> Path:
-	path = Path(os.path.expandvars(os.path.expanduser(value)))
-	if path.is_absolute():
-		return path
-	return repo_root() / path
-
-
-def _read_package_list(path: Path) -> list[str]:
-	items: list[str] = []
-	for raw_line in path.read_text(encoding="utf-8", errors="ignore").splitlines():
-		line = raw_line.strip()
-		if not line or line.startswith("#"):
-			continue
-		items.append(line)
-	return items
 
 
 def _apply_git_package(name: str, pkg: dict[str, Any], action: str, dry_run: bool = False) -> bool:
@@ -368,7 +326,9 @@ def _build_manager_cmd(manager: str, action: str, name: str, pkg: dict[str, Any]
 
 	if manager == "pip":
 		if action == "install":
-			return [sys.executable, "-m", "pip", "install", name]
+			# PEP 668 (brew/apt python) blocks global installs; fall back to the user site
+			extra = ["--user", "--break-system-packages"] if _python_externally_managed() else []
+			return [sys.executable, "-m", "pip", "install", *extra, name]
 		if action in {"remove", "uninstall"}:
 			return [sys.executable, "-m", "pip", "uninstall", "-y", name]
 		return []
@@ -390,6 +350,13 @@ def _build_manager_cmd(manager: str, action: str, name: str, pkg: dict[str, Any]
 		suffix = f"@{version}" if "@" not in name else ""
 		if action == "install":
 			return ["go", "install", f"{name}{suffix}"]
+		return []
+
+	if manager == "uv":
+		if action == "install":
+			return ["uv", "tool", "install", name]
+		if action in {"remove", "uninstall"}:
+			return ["uv", "tool", "uninstall", name]
 		return []
 
 	if manager == "npm":
@@ -422,6 +389,10 @@ def _build_manager_cmd(manager: str, action: str, name: str, pkg: dict[str, Any]
 		return []
 
 	return []
+
+
+def _python_externally_managed() -> bool:
+	return (Path(sysconfig.get_path("stdlib")) / "EXTERNALLY-MANAGED").exists()
 
 
 def _to_bool(value: Any, default: bool = False) -> bool:
