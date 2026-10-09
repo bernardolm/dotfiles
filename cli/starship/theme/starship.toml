@@ -81,7 +81,7 @@ when = true
 [directory]
 disabled = false
 truncate_to_repo = false
-format = '[at $path](italic $style)'
+format = '[at $path]($style)'
 truncation_length = 0
 
 [docker_context]
