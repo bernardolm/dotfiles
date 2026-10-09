@@ -18,7 +18,6 @@ export PATH=$HOME/.kilo/bin:$PATH
 export PATH=$HOME/.lmstudio/bin:$PATH
 export PATH=$HOME/.local/bin:$PATH
 export PATH=$HOME/.opencode/bin:$PATH
-export PATH=$HOME/dotfiles/bin:$PATH
 
 export SAVEHIST=100000
 export SHELL_SESSION_DIR="$HOME/tmp/dotfiles/shell_sessions" && mkdir -p $SHELL_SESSION_DIR
