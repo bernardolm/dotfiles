@@ -7,4 +7,5 @@ print('loading windows')
 return {
 	window_background_opacity = 0.85,
 	window_decorations = "TITLE | RESIZE",
+	window_frame = { font = wezterm.font('Segoe UI') }, -- tab bar uses the system UI font
 }

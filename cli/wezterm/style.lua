@@ -3,8 +3,9 @@ local wezterm = require 'wezterm'
 print('loading style')
 
 local font = wezterm.font_with_fallback({
-	{ family = "Agave Nerd Font Propo", weight = "Regular" },
-	{ family = "Victor Mono",           weight = "DemiBold" },
+	{ family = "Victor Mono",            weight = "DemiBold" },
+	{ family = "Agave",                  weight = "Regular" },
+	{ family = "Symbols Nerd Font Mono", weight = "Regular" }, -- nerd font glyphs
 	'Monaco',
 })
 
