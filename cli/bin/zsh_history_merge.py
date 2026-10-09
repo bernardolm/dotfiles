@@ -260,7 +260,7 @@ def main() -> int:
 	LOG.info("Target path: %s", target_path.resolve())
 
 	zdotdir = Path(os.environ.get("ZDOTDIR", str(home)))
-	sources = [(home / "tmp/workspace", None), (zdotdir, None), (home / "Library/CloudStorage/Dropbox", None)]
+	sources = [(home / "tmp/workspace", None), (zdotdir, None), (home / "sync", None)]
 	found = list(find_files(sources))
 	if target_path not in found:
 		found.append(target_path)

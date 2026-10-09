@@ -23,7 +23,7 @@ ou fixa via `Host <nome>` em `~/.ssh/config`, antes do `Include`.
 
 ## `~/.ssh/authorized_keys`
 
-Tem que ser arquivo local real, não symlink pro Dropbox/CloudStorage —
+Tem que ser arquivo local real, não symlink pro `$HOME/sync` (storage em nuvem) —
 `sshd-session` (sandbox do macOS) não lê. Atualiza manual.
 
 ## Manter `wezterm-mux-server` sempre ligado (opcional)
