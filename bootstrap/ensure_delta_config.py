@@ -9,7 +9,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
-from bin.common import dotfiles_dry_run
+from cli.bin.common import dotfiles_dry_run
 from bootstrap.ensure_symlink import ensure_symlink
 from bootstrap.repo_root import repo_root
 

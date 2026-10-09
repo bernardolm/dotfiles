@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
-from bin.common import dotfiles_dry_run, env_bool
+from cli.bin.common import dotfiles_dry_run, env_bool
 
 
 def run(

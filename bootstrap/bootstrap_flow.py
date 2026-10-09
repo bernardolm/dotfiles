@@ -9,8 +9,8 @@ ROOT = Path(__file__).resolve().parents[1]
 if str(ROOT) not in sys.path:
 	sys.path.insert(0, str(ROOT))
 
-from bin.common import dotfiles_dry_run, is_falsey, is_truthy
-from bin.platform import platform
+from cli.bin.common import dotfiles_dry_run, is_falsey, is_truthy
+from cli.bin.platform import platform
 
 from bootstrap.context import resolve_profile, select_config_path
 from bootstrap.ensure_delta_config import ensure_delta_config
