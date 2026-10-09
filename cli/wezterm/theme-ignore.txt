@@ -216,6 +216,7 @@ Tender (Gogh)
 Teva (terminal.sexy)
 theme2 (terminal.sexy)
 tokyonight_storm
+Tomorrow Night Burns
 Treehouse
 UltraDark
 UltraViolent
@@ -223,6 +224,7 @@ Vaughn (Gogh)
 Vibrant Ink (Gogh)
 VisiBlue (terminal.sexy)
 VisiBone (terminal.sexy)
+VWbug (terminal.sexy)
 Warmneon
 WarmNeon
 Website (Gogh)
