@@ -28,6 +28,8 @@ alias sl='screen -list'
 alias sr='screen -r'
 alias ssh='/usr/bin/ssh'
 alias tfa='reset ; terraform apply -refresh=false'
+alias tfay='reset ; echo yes | terraform apply -refresh=false'
 alias tff='reset ; terraform fmt'
 alias tfp='reset ; terraform plan -refresh=false'
 alias tfv='reset ; terraform validate'
+alias wk="pkill -9 -i '^wezterm'"
