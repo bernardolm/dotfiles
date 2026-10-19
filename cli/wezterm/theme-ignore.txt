@@ -242,3 +242,5 @@ XCode Dusk (base16)
 Zenburn (Gogh)
 zenburn (terminal.sexy)
 zenburned
+Unsifted Wheat (terminal.sexy)
+darkermatrix
