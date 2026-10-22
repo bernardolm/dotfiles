@@ -245,3 +245,6 @@ zenburned
 Unsifted Wheat (terminal.sexy)
 darkermatrix
 GeoHot (Gogh)
+IR_Black
+Sea Shells (Gogh)
+Nature Suede (terminal.sexy)
