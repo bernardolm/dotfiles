@@ -15,5 +15,6 @@ return {
 	},
 	window_background_opacity = 0.95,
 	window_decorations = "RESIZE | INTEGRATED_BUTTONS | MACOS_FORCE_ENABLE_SHADOW",
-	window_frame = { font = wezterm.font('.SF NS') }, -- tab bar uses the system UI font
+	-- Tab bar uses the macOS system UI font (SF Pro, the one AppKit apps use). WezTerm rasterizes it with FreeType instead of CoreText, which draws thinner stems; SF's Medium instance (510) compensates.
+	window_frame = { font = wezterm.font('.SF NS', { weight = 510 }) },
 }
