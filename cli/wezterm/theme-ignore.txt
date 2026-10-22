@@ -244,3 +244,4 @@ zenburn (terminal.sexy)
 zenburned
 Unsifted Wheat (terminal.sexy)
 darkermatrix
+GeoHot (Gogh)
