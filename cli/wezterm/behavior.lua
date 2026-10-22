@@ -6,7 +6,7 @@ return {
 	skip_close_confirmation_for_processes_named = {
 		'bash', 'sh', 'zsh', 'fish', 'tmux', 'nu', 'cmd.exe', 'pwsh.exe', 'powershell.exe',
 	},
-	automatically_reload_config = false,
+	automatically_reload_config = true,
 	default_cwd = HomePath,
 	default_domain = 'unix',
 	enable_scroll_bar = true,
