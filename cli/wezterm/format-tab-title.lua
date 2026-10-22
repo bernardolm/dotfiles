@@ -1,7 +1,5 @@
 local wezterm = require("wezterm")
 
-local MAX_TAB_WIDTH = 42
-
 local function decode_uri_path(cwd_uri)
 	if not cwd_uri then
 		return nil
@@ -65,7 +63,7 @@ local function last_n_path_segments(path, n, max_char)
 end
 
 local function build_cwd_title(path)
-	local last = last_n_path_segments(path, 1, 0)
+	local last = last_n_path_segments(path, 2, 0)
 	if not last or last == "" then
 		return nil
 	end
@@ -127,7 +125,7 @@ end
 
 local function domain_title(pane)
 	local domain = pane and pane.domain_name
-	if domain and #domain > 0 and domain ~= "local" then
+	if domain and #domain > 0 and domain ~= "local" and domain ~= "unix" then
 		return domain
 	end
 	return nil
@@ -142,16 +140,47 @@ local SHELL_NAMES = {
 	["-bash"] = true,
 }
 
+-- Wrappers skipped when picking the program name out of a command line.
+local COMMAND_PREFIXES = {
+	builtin = true,
+	command = true,
+	env = true,
+	exec = true,
+	nocorrect = true,
+	noglob = true,
+	nohup = true,
+	sudo = true,
+	time = true,
+}
+
+local function basename(path)
+	return path:match("([^/\\]+)$") or path
+end
+
+local function program_from_command_line(cmdline)
+	for word in cmdline:gmatch("%S+") do
+		if not word:match("^[%w_]+=") and not COMMAND_PREFIXES[word] then
+			return basename(word)
+		end
+	end
+	return nil
+end
+
+-- Panes on the unix mux domain don't expose foreground_process_name, so the running command comes from the WEZTERM_PROG user var set by cli/zsh/zshrc.d/50_wezterm.zsh (empty while the shell is idle).
 local function app_name_from_pane(pane)
 	local process = pane and pane.foreground_process_name
-	if not process or #process == 0 then
-		return nil
+	if process and #process > 0 then
+		local name = basename(process)
+		if #name > 0 and not SHELL_NAMES[name] then
+			return name
+		end
 	end
-	local name = process:match("([^/\\]+)$") or process
-	if #name == 0 or SHELL_NAMES[name] then
-		return nil
+
+	local prog = pane and pane.user_vars and pane.user_vars.WEZTERM_PROG
+	if prog and #prog > 0 then
+		return program_from_command_line(prog)
 	end
-	return name
+	return nil
 end
 
 local function tab_title_handler(tab_info)
@@ -191,14 +220,8 @@ local function tab_title_handler(tab_info)
 end
 
 wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover, max_width)
-	local title = tab_title_handler(tab)
-	local tab_width = math.min(max_width, MAX_TAB_WIDTH)
-	local title_width = math.max(tab_width - 2, 1)
-	if #title > title_width then
-		title = title:sub(1, title_width)
-	end
+	local title = wezterm.truncate_right(tab_title_handler(tab), math.max(max_width - 2, 1))
 	return {
-		{ Attribute = { Intensity = "Bold" } },
 		{ Text = " " .. title .. " " },
 	}
 end)
