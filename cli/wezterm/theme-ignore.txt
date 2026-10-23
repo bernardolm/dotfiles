@@ -253,3 +253,6 @@ XCode Dusk (base16)
 Zenburn (Gogh)
 zenburn (terminal.sexy)
 zenburned
+Codeschool (base16)
+Dawn (terminal.sexy)
+Seti

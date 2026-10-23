@@ -50,9 +50,10 @@ local function last_n_path_segments(path, n, max_char)
 	if #parts == 0 then
 		return nil
 	end
+	-- Current folder first, so a long parent name doesn't push it out of the tab.
 	local from = math.max(1, #parts - n + 1)
 	local slice = {}
-	for i = from, #parts do
+	for i = #parts, from, -1 do
 		local s = parts[i]
 		if max_char > 0 and #s > max_char then
 			s = s:sub(1, max_char)
