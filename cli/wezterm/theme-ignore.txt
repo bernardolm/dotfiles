@@ -5,6 +5,7 @@
 3024 Night
 3024Night (Gogh)
 Aco (Gogh)
+Adventure
 Apprentice (base16)
 astromouse (terminal.sexy)
 Ayu Dark (Gogh)
@@ -46,6 +47,7 @@ Dark Ocean (terminal.sexy)
 Dark Pastel
 Dark Pastel (Gogh)
 Dark Violet (base16)
+darkermatrix
 DarkPastel (Gogh)
 Darkside
 deep
@@ -76,6 +78,7 @@ Firefly Traditional
 Fishbone (terminal.sexy)
 FunForrest
 Geohot (Gogh)
+GeoHot (Gogh)
 Gnometerm (terminal.sexy)
 gotham (Gogh)
 Gotham (terminal.sexy)
@@ -85,6 +88,7 @@ Grass (Gogh)
 Green Screen (base16)
 Greenscreen (dark) (terminal.sexy)
 Gruber (base16)
+Gruvbox dark, pale (base16)
 Gruvbox Material (Gogh)
 Hardcore (Gogh)
 Harper
@@ -110,6 +114,7 @@ Icy Dark (base16)
 Iiamblack (terminal.sexy)
 Insignificato (terminal.sexy)
 IR Black (base16)
+IR_Black
 IrBlack (Gogh)
 Isotope (dark) (terminal.sexy)
 iTerm2 Dark Background
@@ -152,14 +157,17 @@ Mono (terminal.sexy)
 Mono Amber (Gogh)
 Mono Cyan (Gogh)
 Mono Red (Gogh)
+Mono Theme (terminal.sexy)
 Mono Yellow (Gogh)
 mono-amber
 mono-amber (Gogh)
 mono-cyan (Gogh)
+mono-green (Gogh)
 mono-red (Gogh)
 mono-yellow (Gogh)
 Monokai (dark) (terminal.sexy)
 Muse (terminal.sexy)
+Nature Suede (terminal.sexy)
 Neopolitan
 Nightlion V1 (Gogh)
 Nighty (Gogh)
@@ -190,6 +198,7 @@ Retro
 Ryuuko
 s3r0 modified (terminal.sexy)
 Sat (Gogh)
+Sea Shells (Gogh)
 Selenized Dark (Gogh)
 seoulbones_dark
 Sequoia Monochrome
@@ -209,6 +218,7 @@ summer-pop (Gogh)
 Swayr (terminal.sexy)
 Symfonic
 Synth Midnight Terminal Dark (base16)
+synthwave
 Tango (base16)
 Tango (terminal.sexy)
 Tangoesque (terminal.sexy)
@@ -220,6 +230,7 @@ Tomorrow Night Burns
 Treehouse
 UltraDark
 UltraViolent
+Unsifted Wheat (terminal.sexy)
 Vaughn (Gogh)
 Vibrant Ink (Gogh)
 VisiBlue (terminal.sexy)
@@ -242,9 +253,3 @@ XCode Dusk (base16)
 Zenburn (Gogh)
 zenburn (terminal.sexy)
 zenburned
-Unsifted Wheat (terminal.sexy)
-darkermatrix
-GeoHot (Gogh)
-IR_Black
-Sea Shells (Gogh)
-Nature Suede (terminal.sexy)
