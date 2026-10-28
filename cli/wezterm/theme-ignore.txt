@@ -36,6 +36,8 @@ Catppuccin Frappe
 Catppuccin Frappé (Gogh)
 CGA
 Cloud (terminal.sexy)
+CobaltNeon (Gogh)
+Codeschool (base16)
 Color Star (terminal.sexy)
 Colorful Colors (terminal.sexy)
 Count Von Count (terminal.sexy)
@@ -50,6 +52,7 @@ Dark Violet (base16)
 darkermatrix
 DarkPastel (Gogh)
 Darkside
+Dawn (terminal.sexy)
 deep
 Derp (terminal.sexy)
 Desert (Gogh)
@@ -57,6 +60,8 @@ Digerati (terminal.sexy)
 Dissonance (Gogh)
 Django
 DjangoRebornAgain
+DjangoSmooth
+Doom Peacock
 Dotshare (terminal.sexy)
 DWM rob (terminal.sexy)
 Earthsong (Gogh)
@@ -99,6 +104,7 @@ Hemisu Dark (Gogh)
 HemisuDark (Gogh)
 Hipster Green
 Hipster Green (Gogh)
+HipsterGreen (Gogh)
 Homebrew
 Homebrew (Gogh)
 Homebrew Ocean (Gogh)
@@ -116,6 +122,7 @@ Insignificato (terminal.sexy)
 IR Black (base16)
 IR_Black
 IrBlack (Gogh)
+Isotope (base16)
 Isotope (dark) (terminal.sexy)
 iTerm2 Dark Background
 iTerm2 Default
@@ -176,6 +183,7 @@ Nova (base16)
 Nudge (terminal.sexy)
 Obsidian (Gogh)
 One Half Black (Gogh)
+OneDark (Gogh)
 OneHalfBlack (Gogh)
 Orangish (terminal.sexy)
 Panels (terminal.sexy)
@@ -190,6 +198,7 @@ Purple Rain
 Qualia (base16)
 rebecca
 Red Alert
+Red Phoenix (terminal.sexy)
 Red Sands
 Red Sands (Gogh)
 RedAlert (Gogh)
@@ -202,13 +211,16 @@ Sea Shells (Gogh)
 Selenized Dark (Gogh)
 seoulbones_dark
 Sequoia Monochrome
+Seti
 Seti (Gogh)
 Sex Colors (terminal.sexy)
 Shapeshifter (dark) (terminal.sexy)
 Simple Rainbow (terminal.sexy)
+Slate (Gogh)
 SleepyHollow
 Snazzy (Gogh)
 Solarized Darcula
+Solarized Dark - Patched
 SolarizedDarcula (Gogh)
 SolarizedDark (Gogh)
 SOS (terminal.sexy)
@@ -253,6 +265,3 @@ XCode Dusk (base16)
 Zenburn (Gogh)
 zenburn (terminal.sexy)
 zenburned
-Codeschool (base16)
-Dawn (terminal.sexy)
-Seti
