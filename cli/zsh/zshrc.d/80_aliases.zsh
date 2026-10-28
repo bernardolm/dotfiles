@@ -1,6 +1,6 @@
 alias ack='ag && ag || ack'
 alias atuin='$HOME/sync/personal/atuin.py'
-alias brew-upgrade='brew update --quiet && brew upgrade --quiet --greedy'
+alias brew-upgrade='brew update --quiet && brew upgrade --force --yes --overwrite --no-quit --greedy'
 alias dc='docker ps -a --format "table {{.Names}}\t{{.Status}}\t{{.Ports}}"'
 alias di='docker images -a'
 alias drm='docker rm -f $(docker ps -a -q)'
