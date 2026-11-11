@@ -265,3 +265,8 @@ XCode Dusk (base16)
 Zenburn (Gogh)
 zenburn (terminal.sexy)
 zenburned
+Scarlet Protocol
+Monokai Dark (Gogh)
+LiquidCarbon
+Cobalt Neon
+Monokai Pro (Gogh)
